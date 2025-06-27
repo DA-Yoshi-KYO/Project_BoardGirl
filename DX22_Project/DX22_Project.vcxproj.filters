@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Code">
+      <UniqueIdentifier>{bf3c3832-c2f0-4630-8311-dc82eaadce34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Work">
+      <UniqueIdentifier>{d40b6216-14f8-474d-bd1d-053eaf07e0c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Scene">
+      <UniqueIdentifier>{cbe68f64-b1b2-45b8-a14d-3d8612875b4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Camera">
+      <UniqueIdentifier>{326a9c9c-d0a1-43e4-81e3-303433444051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Application">
+      <UniqueIdentifier>{d673194b-5c9e-4080-b67b-7f46a1565ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External">
+      <UniqueIdentifier>{9d1bb709-f6a7-4da2-aa90-b7cf5e453ef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\imgui">
+      <UniqueIdentifier>{aceb42b5-a09e-4cf9-9a34-73e967d191b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject">
+      <UniqueIdentifier>{0018c80b-c101-49ef-8e43-299e06192208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\Effect">
+      <UniqueIdentifier>{c81d3371-75fd-437d-9f3c-ccbd331ad379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\UI">
+      <UniqueIdentifier>{d974f407-5bd6-47b7-adb4-edf5d0e38e4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\Sprite">
+      <UniqueIdentifier>{8dd4b73f-ce92-4dd2-a3e9-62d9a3f1a33b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\Billboard">
+      <UniqueIdentifier>{73c221a6-4647-41ba-8bf1-d6d474c4921a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\Model">
+      <UniqueIdentifier>{e2ab3989-3c7e-4cfb-b2ee-f9084281d7a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\3DSprite">
+      <UniqueIdentifier>{c5af4b76-869c-4061-a608-cbf4f9e25753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Component">
+      <UniqueIdentifier>{8a497b77-a96d-48ab-aa4c-fbfcae093eca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Component\Renderer">
+      <UniqueIdentifier>{9c2d56b2-b040-4b20-9783-846c5984c61e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\UI\BackGround">
+      <UniqueIdentifier>{7427bc54-e45f-45d2-ab9c-10544df5a77f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Work\Model">
+      <UniqueIdentifier>{d63b44a6-acf4-4217-9982-bf08790f7d18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Work\Sprite">
+      <UniqueIdentifier>{22de07bc-7fe0-4bd9-9e38-831cc10ec39a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Work\Shader">
+      <UniqueIdentifier>{6abac812-942a-4c5c-a5d0-d23af5ee54ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Work\Input">
+      <UniqueIdentifier>{0b4b2c51-5f06-40bf-8019-3f7b959d642e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Code\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Startup.cpp">
+      <Filter>Code\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Code\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraDebug.cpp">
+      <Filter>Code\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectX.cpp">
+      <Filter>Code\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Code\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Code\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Code\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Code\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererComponent.cpp">
+      <Filter>Code\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBackGround.cpp">
+      <Filter>Code\GameObject\UI\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
+      <Filter>Code\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="_geometory.cpp">
+      <Filter>Code\Work\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="_model.cpp">
+      <Filter>Code\Work\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometory.cpp">
+      <Filter>Code\Work\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_check.cpp">
+      <Filter>Code\Work\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Code\Work\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_anime.cpp">
+      <Filter>Code\Work\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_get.cpp">
+      <Filter>Code\Work\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model_morph.cpp">
+      <Filter>Code\Work\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Code\Work\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Code\Work\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshBuffer.cpp">
+      <Filter>Code\Work\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Code\Work\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderList.cpp">
+      <Filter>Code\Work\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Code\Work\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGame.cpp">
+      <Filter>Code\Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="imconfig.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx11.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Code\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Code\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Code\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Code\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererComponent.h">
+      <Filter>Code\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleBackGround.h">
+      <Filter>Code\GameObject\UI\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTitle.h">
+      <Filter>Code\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Code\Work\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Code\Work\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Code\Work\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Code\Work</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Code\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
+      <Filter>Code\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Code\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDebug.h">
+      <Filter>Code\Camera</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
