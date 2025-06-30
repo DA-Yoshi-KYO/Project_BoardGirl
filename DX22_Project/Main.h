@@ -3,6 +3,7 @@
 
 #include <Windows.h>
 #include <string>
+#include "Scene.h"
 
 HRESULT Init(HWND hWnd, UINT width, UINT height);
 void Uninit();
@@ -10,5 +11,7 @@ void Update();
 void Draw();
 
 void AppEnd();
+
+CScene* GetScene();
 
 #endif // __MAIN_H__

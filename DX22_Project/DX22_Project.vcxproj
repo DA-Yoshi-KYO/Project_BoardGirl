@@ -145,8 +145,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BillboardRenderer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraDebug.cpp" />
+    <ClCompile Include="CameraPlayer.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -166,6 +168,7 @@
     <ClCompile Include="Model_check.cpp" />
     <ClCompile Include="Model_get.cpp" />
     <ClCompile Include="Model_morph.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RendererComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />
@@ -173,6 +176,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderList.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Sprite3DRenderer.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Startup.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -181,8 +185,10 @@
     <ClCompile Include="_model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BillboardRenderer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraDebug.h" />
+    <ClInclude Include="CameraPlayer.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="GameObject.h" />
@@ -196,11 +202,13 @@
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RendererComponent.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Sprite3DRenderer.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TitleBackGround.h" />

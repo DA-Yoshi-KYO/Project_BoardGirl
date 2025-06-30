@@ -78,3 +78,8 @@ void CScene::Draw()
 		}
 	}
 }
+
+CScene* CScene::GetNowScene()
+{
+	return this;
+}

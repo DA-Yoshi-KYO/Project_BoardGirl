@@ -38,6 +38,8 @@ public:
 		return nullptr;
 	}
 
+	DirectX::XMFLOAT3 GetPos() { return m_tParam.m_f3Pos; }
+
 protected:
 	RendererParam m_tParam;
 	bool m_bDestroy;

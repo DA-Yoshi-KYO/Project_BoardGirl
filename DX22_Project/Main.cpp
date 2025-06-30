@@ -10,7 +10,6 @@
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 
-#include "Scene.h"
 #include "SceneTitle.h"
 
 #include "Defines.h"
@@ -143,4 +142,9 @@ void Draw()
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	EndDrawDirectX();
+}
+
+CScene* GetScene()
+{
+	return g_pScene;
 }

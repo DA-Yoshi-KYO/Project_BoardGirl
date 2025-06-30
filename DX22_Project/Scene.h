@@ -22,8 +22,7 @@ public:
 	virtual void Uninit();
 	virtual void Update();
 	virtual void Draw();
-	
-protected:
+
 	template<typename T = CGameObject>
 	T* AddGameObject(Layer inLayer = Layer::None)
 	{

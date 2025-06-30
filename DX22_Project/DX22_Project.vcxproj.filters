@@ -168,6 +168,16 @@
     <ClCompile Include="SceneGame.cpp">
       <Filter>Code\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Code\GameObject\Billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="BillboardRenderer.cpp">
+      <Filter>Code\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite3DRenderer.cpp">
+      <Filter>Code\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -239,5 +249,15 @@
     <ClInclude Include="CameraDebug.h">
       <Filter>Code\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Code\GameObject\Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="BillboardRenderer.h">
+      <Filter>Code\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite3DRenderer.h">
+      <Filter>Code\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraPlayer.h" />
   </ItemGroup>
 </Project>
