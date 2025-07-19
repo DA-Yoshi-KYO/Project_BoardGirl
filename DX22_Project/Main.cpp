@@ -15,6 +15,8 @@
 #include "Defines.h"
 
 CScene* g_pScene;
+CScene* g_pNextScene;
+bool g_bSceneChanging;
 
 HRESULT Init(HWND hWnd, UINT width, UINT height)
 {
@@ -68,6 +70,16 @@ void Update()
 {
 	UpdateInput();
 	srand(timeGetTime());
+
+	if (g_bSceneChanging)
+	{
+		g_pScene->Uninit();
+		delete g_pScene;
+		g_pScene = g_pNextScene;
+		g_pScene->Init();
+		g_bSceneChanging = false;
+	}
+
 	g_pScene->Update();
 }
 
@@ -147,4 +159,10 @@ void Draw()
 CScene* GetScene()
 {
 	return g_pScene;
+}
+
+void ChangeScene(CScene* inScene)
+{
+	g_pNextScene = inScene;
+	g_bSceneChanging = true;
 }

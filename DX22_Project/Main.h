@@ -13,5 +13,6 @@ void Draw();
 void AppEnd();
 
 CScene* GetScene();
+void ChangeScene(CScene* inScene);
 
 #endif // __MAIN_H__

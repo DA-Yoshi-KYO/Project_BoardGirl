@@ -3,7 +3,7 @@
 
 void CGameObject::Init()
 {
-
+	m_bDestroy = false;
 }
 
 void CGameObject::Uninit()
@@ -43,6 +43,14 @@ void CGameObject::OnDestroy()
 
 }
 
+void CGameObject::SetCollisionType(Collision inCollisionType)
+{
+}
+
+void CGameObject::SetTag(Tag inTag)
+{
+}
+
 void CGameObject::Destroy()
 {
 	m_bDestroy = true;
@@ -51,4 +59,9 @@ void CGameObject::Destroy()
 bool CGameObject::IsDestroy()
 {
 	return m_bDestroy;
+}
+
+DirectX::XMFLOAT3 CGameObject::PosAccessor()
+{
+	return m_tParam.m_f3Pos;
 }

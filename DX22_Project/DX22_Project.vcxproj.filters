@@ -64,6 +64,9 @@
     <Filter Include="Code\Work\Input">
       <UniqueIdentifier>{0b4b2c51-5f06-40bf-8019-3f7b959d642e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\Component\Collider">
+      <UniqueIdentifier>{5eb14b34-bb2f-4449-b820-cd1cca25115b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -177,7 +180,10 @@
     <ClCompile Include="Sprite3DRenderer.cpp">
       <Filter>Code\Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="CameraPlayer.cpp" />
+    <ClCompile Include="CameraPlayer.cpp">
+      <Filter>Code\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -249,15 +255,18 @@
     <ClInclude Include="CameraDebug.h">
       <Filter>Code\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Code\GameObject\Billboard</Filter>
-    </ClInclude>
     <ClInclude Include="BillboardRenderer.h">
       <Filter>Code\Component\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Sprite3DRenderer.h">
       <Filter>Code\Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="CameraPlayer.h" />
+    <ClInclude Include="CameraPlayer.h">
+      <Filter>Code\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Code\GameObject\Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionBase.h" />
   </ItemGroup>
 </Project>

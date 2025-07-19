@@ -3,17 +3,6 @@
 #include "Defines.h"
 #include "GameObject.h"
 
-enum class Layer 
-{
-	None,
-	Back,
-	Mid,
-	Front,
-	Canvas,
-
-	Max
-};
-
 class CScene
 {
 public:
@@ -24,18 +13,12 @@ public:
 	virtual void Draw();
 
 	template<typename T = CGameObject>
-	T* AddGameObject(Layer inLayer = Layer::None)
+	T* AddGameObject(Layer inLayer = Layer::None, Collision inCollisionType = Collision::None, Tag inTag = Tag::None)
 	{
 		T* gameObject;
 		gameObject = new T();
 		gameObject->Init();
 		m_pGameObject_List[(int)inLayer].push_back(gameObject);
-
-		//CColliderBase* pCollider = gameObject->GetComponent<CColliderBase>();
-		//if (pCollider != nullptr)
-		//{
-		//	m_pCollider_Vec.push_back(pCollider);
-		//}
 
 		return gameObject;
 	}
@@ -56,7 +39,6 @@ public:
 
 protected:
 	std::array<std::list<CGameObject*>, (int)Layer::Max> m_pGameObject_List;
-	//std::vector<CColliderBase*> m_pCollider_Vec;
-	
+
 };
 

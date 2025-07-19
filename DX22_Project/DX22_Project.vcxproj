@@ -119,6 +119,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -135,6 +136,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,6 +151,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraDebug.cpp" />
     <ClCompile Include="CameraPlayer.cpp" />
+    <ClCompile Include="CollisionBase.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -189,6 +192,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraDebug.h" />
     <ClInclude Include="CameraPlayer.h" />
+    <ClInclude Include="CollisionBase.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="GameObject.h" />

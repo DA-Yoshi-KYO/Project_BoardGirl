@@ -12,6 +12,7 @@
 #include <unordered_map>
 #include <list>
 #include <array>
+#include <algorithm>
 
 static const int FPS = 60;
 static const float fFPS = static_cast<float>(FPS);

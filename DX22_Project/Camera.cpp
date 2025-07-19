@@ -1,13 +1,14 @@
 #include "Camera.h"
 #include "Defines.h"
 #include "CameraDebug.h"
+#include "CameraPlayer.h"
 
 CameraKind CCamera::m_eCameraKind = CameraKind::CAM_DEBUG;
 
 CCamera::CCamera()
-	: m_pos{ 0.0f, 10.0f, 0.0f }, m_look{ 0.0f ,0.0f,0.0f }, m_up{ 0.0f,1.0f,0.0f }
-	, m_fovy(DirectX::XMConvertToRadians(60.0f)), m_aspect(16.0f / 9.0f)
-	, m_near(CMETER(30.0f)), m_far(METER(1000.0f))
+	: m_f3Pos{ 0.0f, 10.0f, 0.0f }, m_f3Look{ 0.0f ,0.0f,0.0f }, m_f3Up{ 0.0f,1.0f,0.0f }
+	, m_fFovy(DirectX::XMConvertToRadians(60.0f)), m_fAspect(16.0f / 9.0f)
+	, m_fNear(CMETER(30.0f)), m_fFar(METER(1000.0f))
 {
 }
 
@@ -21,9 +22,9 @@ DirectX::XMFLOAT4X4 CCamera::GetViewMatrix(bool transpose)
 	DirectX::XMMATRIX view;
 
 	view = DirectX::XMMatrixLookAtLH(
-		DirectX::XMVectorSet(m_pos.x, m_pos.y, m_pos.z, 0.0f),
-		DirectX::XMVectorSet(m_look.x, m_look.y, m_look.z, 0.0f),
-		DirectX::XMVectorSet(m_up.x, m_up.y, m_up.z, 0.0f));
+		DirectX::XMVectorSet(m_f3Pos.x, m_f3Pos.y, m_f3Pos.z, 0.0f),
+		DirectX::XMVectorSet(m_f3Look.x, m_f3Look.y, m_f3Look.z, 0.0f),
+		DirectX::XMVectorSet(m_f3Up.x, m_f3Up.y, m_f3Up.z, 0.0f));
 
 	if (transpose) view = DirectX::XMMatrixTranspose(view);
 
@@ -36,7 +37,7 @@ DirectX::XMFLOAT4X4 CCamera::GetProjectionMatrix(bool transpose)
 {
 	DirectX::XMFLOAT4X4 mat;
 	DirectX::XMMATRIX proj;
-	proj = DirectX::XMMatrixPerspectiveFovLH(m_fovy, m_aspect, m_near, m_far);
+	proj = DirectX::XMMatrixPerspectiveFovLH(m_fFovy, m_fAspect, m_fNear, m_fFar);
 
 	if (transpose)proj = DirectX::XMMatrixTranspose(proj);
 
@@ -86,11 +87,13 @@ std::unique_ptr<CCamera>& CCamera::GetInstance(int CamKind)
 {
 	static std::unique_ptr<CCamera> CamInstance[] = {
 		std::make_unique<CCameraDebug>(),
+		std::make_unique<CCameraPlayer>(),
 	};
 
 	switch (CamKind)
 	{
 	case CAM_DEBUG:		return CamInstance[CAM_DEBUG];		break;
+	case CAM_PLAYER:	return CamInstance[CAM_PLAYER];		break;
 	default: return CamInstance[CAM_DEBUG]; break;
 	}
 }

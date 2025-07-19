@@ -2,6 +2,8 @@
 #include "SpriteRenderer.h"
 #include "Input.h"
 #include "Sprite.h"
+#include "Main.h"
+#include "SceneGame.h"
 
 void CTitleBackGround::Init()
 {
@@ -14,8 +16,8 @@ void CTitleBackGround::Init()
 
 void CTitleBackGround::Update()
 {
-	if (IsKeyPress('7'))
+	if (IsKeyTrigger(VK_SPACE))
 	{
-		m_tParam.m_f3Rotate.x -= 0.01f;
+		ChangeScene(new CSceneGame());
 	}
 }
