@@ -1,0 +1,34 @@
+# ルートの .editorconfig ファイルであることを宣言
+root = true
+
+# すべてのファイルに共通の設定
+[*]
+charset = utf-8          # 文字コードを UTF-8 に統一
+end_of_line = lf         # 改行コードを LF に統一（Unixスタイル）
+insert_final_newline = true   # ファイル末尾に改行を入れる
+trim_trailing_whitespace = true   # 行末の余分なスペースを削除
+indent_style = space     # インデントはスペースを使用
+indent_size = 4          # インデント幅は4
+
+# MarkdownやYAMLなど、行末スペースを残したいファイルは例外設定
+[*.md]
+trim_trailing_whitespace = false
+
+[*.yml]
+trim_trailing_whitespace = false
+
+# C/C++ ヘッダやソースファイル
+[*.{cpp,h,c,hpp}]
+indent_size = 4
+
+# Python
+[*.py]
+indent_size = 4
+
+# JSON
+[*.json]
+indent_size = 2
+
+# XML
+[*.xml]
+indent_size = 2
