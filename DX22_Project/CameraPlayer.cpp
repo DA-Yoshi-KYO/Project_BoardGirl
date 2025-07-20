@@ -13,7 +13,7 @@ void CCameraPlayer::Update()
 	if (!dynamic_cast<CSceneGame*>(pScene)) return;
 
 	CPlayer* pPlayer = pScene->GetGameObject<CPlayer>();
-	DirectX::XMFLOAT3 f3PlayerPos = pPlayer->PosAccessor();
+	DirectX::XMFLOAT3 f3PlayerPos = pPlayer->AccessorPos();
 	DirectX::XMFLOAT3 f3PlayerForWard = pPlayer->GetForward();
 
 	constexpr DirectX::XMFLOAT3 ce_f3CameraLookOffset = {0.0f,0.0f,0.0f};

@@ -17,10 +17,10 @@
 static const int FPS = 60;
 static const float fFPS = static_cast<float>(FPS);
 
-// ���\�[�X�p�X
+// リソースパス
 #define TEXTURE_PATH(path) ("Assets/Texture/" path)
 
-// 3D��Ԓ�`
+// 3D空間定義
 #define CMETER(value) (value * 0.01f)
 #define METER(value) (value * 1.0f)
 #define KMETER(value) (value * 1000.0f)
@@ -28,16 +28,19 @@ static const float fFPS = static_cast<float>(FPS);
 #define CMSEC(value) MSEC(CMETER(value))
 static const float GRAVITY = 0.98f;
 
-// �^�C�g��
+// タイトル
 static const char* APP_TITLE = "BoardGirl";
 
-// ��ʃT�C�Y
+// 画面サイズ
 static const int SCREEN_WIDTH = 1280;
 static const int SCREEN_HEIGHT = 720;
 
-// �O���b�h�T�C�Y(�f�o�b�O�p
-static const int	DEBUG_GRID_NUM = 10;			// �O���b�h���S����[�܂ł̐��̖{��
-static const float	DEBUG_GRID_MARGIN = METER(1.0f);	// �O���b�h�z�u��
+// グリッドサイズ(デバッグ用
+static const int	DEBUG_GRID_NUM = 10;			// グリッド中心から端までの線の本数
+static const float	DEBUG_GRID_MARGIN = METER(1.0f);	// グリッド配置幅
+
+// フィールド定義
+static const DirectX::XMFLOAT3 ChunkSize = { 100.0f, 100.0f, 100.0f };  // 描画するチャンクのサイズ
 
 struct RendererParam
 {

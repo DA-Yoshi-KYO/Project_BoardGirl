@@ -7,5 +7,5 @@ CSceneTitle::~CSceneTitle()
 
 void CSceneTitle::Init()
 {
-	AddGameObject<CTitleBackGround>();
+	AddGameObject<CTitleBackGround>(Collision::None,Tag::UI);
 }

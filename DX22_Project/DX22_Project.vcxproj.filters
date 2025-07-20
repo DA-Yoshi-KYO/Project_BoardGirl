@@ -183,7 +183,9 @@
     <ClCompile Include="CameraPlayer.cpp">
       <Filter>Code\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionBase.cpp" />
+    <ClCompile Include="CollisionBase.cpp">
+      <Filter>Code\Component\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -267,6 +269,8 @@
     <ClInclude Include="Player.h">
       <Filter>Code\GameObject\Billboard</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionBase.h" />
+    <ClInclude Include="CollisionBase.h">
+      <Filter>Code\Component\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

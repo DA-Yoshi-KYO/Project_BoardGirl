@@ -1,9 +1,26 @@
 #include "GameObject.h"
 #include "RendererComponent.h"
 
+CGameObject::CGameObject()
+    : m_bDestroy(false)
+    , m_eCollisionType(Collision::None)
+    , m_eTag(Tag::None)
+{
+    m_tParam.m_f3Pos = { 0.0f, 0.0f, 0.0f };
+    m_tParam.m_f3Size = { 1.0f, 1.0f, 1.0f };
+    m_tParam.m_f3Rotate = { 0.0f, 0.0f, 0.0f };
+    m_tParam.m_f4Color = { 1.0f, 1.0f, 1.0f, 1.0f };
+    m_tParam.m_f2UVPos = { 0.0f, 0.0f };
+    m_tParam.m_f2UVSize = { 1.0f, 1.0f };
+}
+
+CGameObject::~CGameObject()
+{
+}
+
 void CGameObject::Init()
 {
-	m_bDestroy = false;
+
 }
 
 void CGameObject::Uninit()
@@ -43,14 +60,6 @@ void CGameObject::OnDestroy()
 
 }
 
-void CGameObject::SetCollisionType(Collision inCollisionType)
-{
-}
-
-void CGameObject::SetTag(Tag inTag)
-{
-}
-
 void CGameObject::Destroy()
 {
 	m_bDestroy = true;
@@ -59,9 +68,4 @@ void CGameObject::Destroy()
 bool CGameObject::IsDestroy()
 {
 	return m_bDestroy;
-}
-
-DirectX::XMFLOAT3 CGameObject::PosAccessor()
-{
-	return m_tParam.m_f3Pos;
 }

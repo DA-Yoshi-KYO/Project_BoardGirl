@@ -3,17 +3,6 @@
 #include "Defines.h"
 #include "Component.h"
 
-enum class Layer
-{
-	None,
-	Back,
-	Mid,
-	Front,
-	Canvas,
-
-	Max
-};
-
 enum class Collision
 {
 	None,
@@ -36,14 +25,14 @@ enum class Tag
 class CGameObject
 {
 public:
+    CGameObject();
+    virtual ~CGameObject();
 	virtual void Init();
 	virtual void Uninit();
 	virtual void Update();
 	virtual void Draw();
 	virtual void OnColliderHit();
 	virtual void OnDestroy();
-	virtual void SetCollisionType(Collision inCollisionType);
-	virtual void SetTag(Tag inTag);
 
 	void Destroy();
 	bool IsDestroy();
@@ -70,8 +59,12 @@ public:
 	}
 
 public:
-	DirectX::XMFLOAT3 PosAccessor();
-	void PosAccessor(DirectX::XMFLOAT3 inPos) { m_tParam.m_f3Pos = inPos; }
+	void AccessorPos(DirectX::XMFLOAT3 inPos) { m_tParam.m_f3Pos = inPos; }
+    DirectX::XMFLOAT3 AccessorPos() { return m_tParam.m_f3Pos; }
+    void AccessorTag(Tag inTag) { m_eTag = inTag; }
+    Tag AccessorTag() { return m_eTag; }
+    void AccessorCollisionType(Collision inCollisionType) { m_eCollisionType = inCollisionType; }
+    Collision AccessorCollisionType() { return m_eCollisionType; }
 
 	std::list<CComponent*> m_pComponent_List;
 
@@ -80,5 +73,6 @@ protected:
 	bool m_bDestroy;
 	Collision m_eCollisionType;
 	Tag m_eTag;
+
 };
 
