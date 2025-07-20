@@ -2,6 +2,7 @@
 #include "RendererComponent.h"
 
 CGameObject::CGameObject()
+// 各種パラメータの初期化
     : m_bDestroy(false)
     , m_eCollisionType(Collision::None)
     , m_eTag(Tag::None)
@@ -25,6 +26,7 @@ void CGameObject::Init()
 
 void CGameObject::Uninit()
 {
+    // コンポーネントの解放
 	for (auto comp : m_pComponent_List)
 	{
 		comp->Uninit();
@@ -35,6 +37,7 @@ void CGameObject::Uninit()
 
 void CGameObject::Update()
 {
+    // コンポーネントの更新
 	for (auto comp : m_pComponent_List)
 	{
 		comp->Update();
@@ -43,8 +46,10 @@ void CGameObject::Update()
 
 void CGameObject::Draw()
 {
-	for (auto comp : m_pComponent_List)
+    // コンポーネントの描画
+    for (auto comp : m_pComponent_List)
 	{
+        // 描画用コンポーネントを使用する場合、汎用パラメータをコンポーネントに渡す
 		if (dynamic_cast<CRendererComponent*>(comp))dynamic_cast<CRendererComponent*>(comp)->SetRendererParam(m_tParam);
 		comp->Draw();
 	}	

@@ -12,6 +12,7 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
+    // ゲームオブジェクトを追加する
 	template<typename T = CGameObject>
 	T* AddGameObject(Collision inCollisionType = Collision::None, Tag inTag = Tag::None)
 	{
@@ -25,6 +26,7 @@ public:
 		return gameObject;
 	}
 
+    // ゲームオブジェクトを取得する
 	template<typename T = CGameObject>
 	T* GetGameObject()
 	{
@@ -37,6 +39,6 @@ public:
 	}
 
 protected:
-    std::list<CGameObject*> m_pGameObject_List;
+    std::list<CGameObject*> m_pGameObject_List; // シーン内のゲームオブジェクトリスト
 
 };

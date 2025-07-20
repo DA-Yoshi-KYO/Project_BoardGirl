@@ -1,9 +1,13 @@
+// インクルード部
 #include "SceneGame.h"
 #include "Camera.h"
 #include "Player.h"
 
 void CSceneGame::Init()
 {
+    // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);
-	AddGameObject<CPlayer>();
+
+    // オブジェクトの追加
+    AddGameObject<CPlayer>();   // プレイヤー
 }

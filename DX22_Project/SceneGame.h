@@ -1,5 +1,6 @@
 #pragma once
 
+// インクルード部
 #include "Scene.h"
 
 class CSceneGame : public CScene

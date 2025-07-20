@@ -1,3 +1,4 @@
+// インクルード部
 #include "SceneTitle.h"
 #include "TitleBackGround.h"
 
@@ -7,5 +8,6 @@ CSceneTitle::~CSceneTitle()
 
 void CSceneTitle::Init()
 {
-	AddGameObject<CTitleBackGround>(Collision::None,Tag::UI);
+    // オブジェクトの追加
+	AddGameObject<CTitleBackGround>(Collision::None,Tag::UI);   // タイトル画像
 }

@@ -1,6 +1,7 @@
 #ifndef __DEFINES_H__
 #define __DEFINES_H__
 
+// インクルード部
 #include <assert.h>
 #include <Windows.h>
 #include <stdarg.h>
@@ -14,6 +15,7 @@
 #include <array>
 #include <algorithm>
 
+// フレーム定義
 static const int FPS = 60;
 static const float fFPS = static_cast<float>(FPS);
 
@@ -26,7 +28,9 @@ static const float fFPS = static_cast<float>(FPS);
 #define KMETER(value) (value * 1000.0f)
 #define MSEC(value) (value / fFPS)
 #define CMSEC(value) MSEC(CMETER(value))
-static const float GRAVITY = 0.98f;
+
+// フィールド定義
+static const DirectX::XMFLOAT3 ChunkSize = { 100.0f, 100.0f, 100.0f };  // 描画するチャンクのサイズ
 
 // タイトル
 static const char* APP_TITLE = "BoardGirl";
@@ -39,9 +43,7 @@ static const int SCREEN_HEIGHT = 720;
 static const int	DEBUG_GRID_NUM = 10;			// グリッド中心から端までの線の本数
 static const float	DEBUG_GRID_MARGIN = METER(1.0f);	// グリッド配置幅
 
-// フィールド定義
-static const DirectX::XMFLOAT3 ChunkSize = { 100.0f, 100.0f, 100.0f };  // 描画するチャンクのサイズ
-
+// オブジェクト汎用パラメータ
 struct RendererParam
 {
 	DirectX::XMFLOAT3 m_f3Pos = { 0.0f,0.0f,0.0f };
