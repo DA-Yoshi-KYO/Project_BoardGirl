@@ -9,7 +9,7 @@ public:
     using CRendererComponent::CRendererComponent;
     ~CModelRenderer();
     void Init() override;
-    void Load(const char* inPath);
+    void Load(const char* inPath,Model::Flip flip = Model::Flip::None);
     void Draw() override;
 
 private:
