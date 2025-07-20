@@ -1,6 +1,7 @@
 // インクルード部
 #include "SceneGame.h"
 #include "Camera.h"
+#include "Field.h"
 #include "Player.h"
 
 void CSceneGame::Init()
@@ -9,5 +10,6 @@ void CSceneGame::Init()
 	CCamera::SetCameraKind(CAM_PLAYER);
 
     // オブジェクトの追加
-    AddGameObject<CPlayer>();   // プレイヤー
+    AddGameObject<CPlayer>();
+    AddGameObject<CField>();
 }

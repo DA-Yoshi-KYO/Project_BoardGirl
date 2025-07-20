@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "BillboardRenderer.h"
 #include "Defines.h"
+#include <DirectXMath.h>
 
 // 定数定義
 constexpr float ce_fRotatePow = 1.0f;   // 回転速度
@@ -42,14 +43,14 @@ DirectX::XMFLOAT3 CPlayer::GetForward()
 
 DirectX::XMFLOAT3 CPlayer::GetRight()
 {
-    // プレイヤーの右方向を取得するために、回転行列を生成
+    // プレイヤーの前方向を取得するために、回転行列を生成
     DirectX::XMMATRIX mRotate = DirectX::XMMatrixRotationRollPitchYaw(m_tParam.m_f3Rotate.x, m_tParam.m_f3Rotate.y, m_tParam.m_f3Rotate.z);
 
     // 回転行列のX軸([0])を右方向として取得
-	DirectX::XMFLOAT3 f3Right;
-	DirectX::XMStoreFloat3(&f3Right, mRotate.r[0]);
+    DirectX::XMFLOAT3 f3ForWard;
+    DirectX::XMStoreFloat3(&f3ForWard, mRotate.r[0]);
 
-	return f3Right;
+    return f3ForWard;
 }
 
 void CPlayer::PlayerMove()

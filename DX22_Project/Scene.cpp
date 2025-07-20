@@ -60,7 +60,8 @@ void CScene::Draw()
     for (auto& list : m_pGameObject_List)
     {
         // UIはカメラと関係なく描画する
-        if (list->AccessorTag() == Tag::UI)
+        Tag objTag = list->AccessorTag();
+        if (objTag == Tag::UI)
         {
             list->Draw();
             continue;

@@ -186,6 +186,12 @@
     <ClCompile Include="CollisionBase.cpp">
       <Filter>Code\Component\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="ModelRenderer.cpp">
+      <Filter>Code\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Code\GameObject\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -271,6 +277,12 @@
     </ClInclude>
     <ClInclude Include="CollisionBase.h">
       <Filter>Code\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelRenderer.h">
+      <Filter>Code\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Code\GameObject\Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

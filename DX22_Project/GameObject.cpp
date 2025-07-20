@@ -2,7 +2,6 @@
 #include "RendererComponent.h"
 
 CGameObject::CGameObject()
-// 各種パラメータの初期化
     : m_bDestroy(false)
     , m_eCollisionType(Collision::None)
     , m_eTag(Tag::None)

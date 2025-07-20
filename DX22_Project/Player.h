@@ -15,7 +15,7 @@ public:
 private:
 	DirectX::XMFLOAT3 m_f3Velocity; // 移動量
     bool m_bJump;   // ジャンプ中かどうか
-    DirectX::XMFLOAT3 GetRight();   // プレイヤーの右方向を取得
+    DirectX::XMFLOAT3 GetRight();
     void PlayerMove();  // プレイヤーの移動処理
 
 };

@@ -1,3 +1,4 @@
+#pragma warning(disable: 4819)
 #ifndef __DEFINES_H__
 #define __DEFINES_H__
 
@@ -21,6 +22,7 @@ static const float fFPS = static_cast<float>(FPS);
 
 // リソースパス
 #define TEXTURE_PATH(path) ("Assets/Texture/" path)
+#define MODEL_PATH(path) ("Assets/Model/" path)
 
 // 3D空間定義
 #define CMETER(value) (value * 0.01f)

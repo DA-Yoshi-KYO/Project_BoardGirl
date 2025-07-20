@@ -72,17 +72,11 @@ public:
 public:
     // アクセサ
 
-    // 座標の設定
-	void AccessorPos(DirectX::XMFLOAT3 inPos) { m_tParam.m_f3Pos = inPos; }
-    // 座標の取得
+    void AccessorPos(DirectX::XMFLOAT3 inPos) { m_tParam.m_f3Pos = inPos; }
     DirectX::XMFLOAT3 AccessorPos() { return m_tParam.m_f3Pos; }
-    // タグの設定
     void AccessorTag(Tag inTag) { m_eTag = inTag; }
-    // タグの取得
     Tag AccessorTag() { return m_eTag; }
-    // 使用する当たり判定の設定
     void AccessorCollisionType(Collision inCollisionType) { m_eCollisionType = inCollisionType; }
-    // 使用する当たり判定の取得
     Collision AccessorCollisionType() { return m_eCollisionType; }
 
 public:
