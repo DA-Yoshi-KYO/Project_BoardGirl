@@ -61,7 +61,7 @@ void CScene::Draw()
     {
         // UIはカメラと関係なく描画する
         Tag objTag = list->AccessorTag();
-        if (objTag == Tag::UI)
+        if (objTag == Tag::UI || objTag == Tag::Field)
         {
             list->Draw();
             continue;

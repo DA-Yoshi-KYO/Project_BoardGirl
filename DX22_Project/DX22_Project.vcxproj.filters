@@ -67,6 +67,9 @@
     <Filter Include="Code\Component\Collider">
       <UniqueIdentifier>{5eb14b34-bb2f-4449-b820-cd1cca25115b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External\memo">
+      <UniqueIdentifier>{8208b577-ce05-4141-9bd0-371f6adc0b6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -284,5 +287,10 @@
     <ClInclude Include="Field.h">
       <Filter>Code\GameObject\Model</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Terrain.txt">
+      <Filter>External\memo</Filter>
+    </Text>
   </ItemGroup>
 </Project>

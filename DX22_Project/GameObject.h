@@ -21,6 +21,7 @@ enum class Tag
 	Player,
 	Enemy,
 
+    Field,
 	UI,
 	Max
 };

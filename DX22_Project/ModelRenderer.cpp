@@ -11,10 +11,10 @@ void CModelRenderer::Init()
     m_pModel = nullptr;
 }
 
-void CModelRenderer::Load(const char* inPath, Model::Flip flip)
+void CModelRenderer::Load(const char* inPath,float scale, Model::Flip flip)
 {
     m_pModel = std::make_shared<Model>();
-   if (!m_pModel->Load(inPath),1.0f, flip) MessageBox(NULL, inPath,"Error",MB_OK);
+   if (!m_pModel->Load(inPath, scale, flip)) MessageBox(NULL, inPath,"Error",MB_OK);
 }
 
 void CModelRenderer::Draw()

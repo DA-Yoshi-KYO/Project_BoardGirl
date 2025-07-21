@@ -221,6 +221,9 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TitleBackGround.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Terrain.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
