@@ -16,12 +16,6 @@
     <Filter Include="Code\Application">
       <UniqueIdentifier>{d673194b-5c9e-4080-b67b-7f46a1565ba8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="External">
-      <UniqueIdentifier>{9d1bb709-f6a7-4da2-aa90-b7cf5e453ef4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="External\imgui">
-      <UniqueIdentifier>{aceb42b5-a09e-4cf9-9a34-73e967d191b7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Code\GameObject">
       <UniqueIdentifier>{0018c80b-c101-49ef-8e43-299e06192208}</UniqueIdentifier>
     </Filter>
@@ -67,7 +61,13 @@
     <Filter Include="Code\Component\Collider">
       <UniqueIdentifier>{5eb14b34-bb2f-4449-b820-cd1cca25115b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="External\memo">
+    <Filter Include="Code\Work\External">
+      <UniqueIdentifier>{9d1bb709-f6a7-4da2-aa90-b7cf5e453ef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Work\External\imgui">
+      <UniqueIdentifier>{aceb42b5-a09e-4cf9-9a34-73e967d191b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Work\External\memo">
       <UniqueIdentifier>{8208b577-ce05-4141-9bd0-371f6adc0b6c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -88,25 +88,25 @@
       <Filter>Code\Application</Filter>
     </ClCompile>
     <ClCompile Include="imgui.cpp">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_draw.cpp">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_tables.cpp">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_widgets.cpp">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_win32.cpp">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Code\Scene</Filter>
@@ -195,31 +195,34 @@
     <ClCompile Include="Field.cpp">
       <Filter>Code\GameObject\Model</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionObb.cpp">
+      <Filter>Code\Component\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui.h">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui_internal.h">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imstb_rectpack.h">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imstb_textedit.h">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_win32.h">
-      <Filter>External\imgui</Filter>
+      <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Code\Scene</Filter>
@@ -287,10 +290,13 @@
     <ClInclude Include="Field.h">
       <Filter>Code\GameObject\Model</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionObb.h">
+      <Filter>Code\Component\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Terrain.txt">
-      <Filter>External\memo</Filter>
+      <Filter>Code\Work\External\memo</Filter>
     </Text>
   </ItemGroup>
 </Project>

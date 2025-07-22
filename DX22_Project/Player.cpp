@@ -4,6 +4,7 @@
 #include "BillboardRenderer.h"
 #include "Defines.h"
 #include <DirectXMath.h>
+#include "CollisionObb.h"
 
 // 定数定義
 constexpr float ce_fRotatePow = 1.0f;   // 回転速度
@@ -12,7 +13,8 @@ constexpr float ce_fMovePow = 0.15f;    // 移動速度
 void CPlayer::Init()
 {
     // コンポーネントの追加
-	AddComponent<CBillboardRenderer>();
+	AddComponent<CBillboardRenderer>()->Load(TEXTURE_PATH("Player.png"));
+    AddComponent<CCollisionObb>();
 
     // 汎用パラメータの初期化
 	m_tParam.m_f3Pos = { 0.0f,0.0f,0.0f };
@@ -27,6 +29,8 @@ void CPlayer::Update()
 {
     // 移動処理
 	PlayerMove();
+
+    CGameObject::Update();
 }
 
 DirectX::XMFLOAT3 CPlayer::GetForward()
@@ -112,9 +116,9 @@ void CPlayer::PlayerMove()
 
     // 着地処理
 	float ground_height = 0.0f;
-	if (m_tParam.m_f3Pos.y < ground_height)
+	if (m_tParam.m_f3Pos.y < ground_height + m_tParam.m_f3Size.y * 0.5f)
 	{
-		m_tParam.m_f3Pos.y = ground_height;
+		m_tParam.m_f3Pos.y = ground_height + m_tParam.m_f3Size.y * 0.5f;
 		m_f3Velocity.y = 0.0f;
 		m_bJump = false;
 	}

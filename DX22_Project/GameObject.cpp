@@ -3,7 +3,6 @@
 
 CGameObject::CGameObject()
     : m_bDestroy(false)
-    , m_eCollisionType(Collision::None)
     , m_eTag(Tag::None)
 {
     m_tParam.m_f3Pos = { 0.0f, 0.0f, 0.0f };
@@ -54,7 +53,7 @@ void CGameObject::Draw()
 	}	
 }
 
-void CGameObject::OnColliderHit()
+void CGameObject::OnColliderHit(CCollisionBase* other)
 {
 
 }

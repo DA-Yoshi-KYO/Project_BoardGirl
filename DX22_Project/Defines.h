@@ -1,4 +1,3 @@
-#pragma warning(disable: 4819)
 #ifndef __DEFINES_H__
 #define __DEFINES_H__
 
@@ -30,6 +29,10 @@ static const float fFPS = static_cast<float>(FPS);
 #define KMETER(value) (value * 1000.0f)
 #define MSEC(value) (value / fFPS)
 #define CMSEC(value) MSEC(CMETER(value))
+#define TERRAIN_HEIGHT_MAX KMETER(6.0f)
+#define TERRAIN_SCALE (0.1f)
+#define TERRAIN_CALC(value) (value * TERRAIN_SCALE)
+#define TERRAIN_SIZE KMETER(1.0f * TERRAIN_SCALE)
 
 // フィールド定義
 static const DirectX::XMFLOAT3 ChunkSize = { 100.0f, 100.0f, 100.0f };  // 描画するチャンクのサイズ
@@ -55,5 +58,299 @@ struct RendererParam
 	DirectX::XMFLOAT2 m_f2UVPos = { 0.0f,0.0f };
 	DirectX::XMFLOAT2 m_f2UVSize = {1.0f,1.0f};
 };
+
+inline DirectX::XMFLOAT2 operator+(const DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
+{
+    return { lhs.x + rhs.x, lhs.y + rhs.y };
+}
+
+inline DirectX::XMFLOAT2 operator-(const DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
+{
+    return { lhs.x - rhs.x, lhs.y - rhs.y };
+}
+
+inline DirectX::XMFLOAT2 operator*(const DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
+{
+    return { lhs.x * rhs.x, lhs.y * rhs.y };
+}
+
+inline DirectX::XMFLOAT2 operator/(const DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
+{
+    return { lhs.x / rhs.x, lhs.y / rhs.y };
+}
+
+inline DirectX::XMFLOAT2 operator*(const DirectX::XMFLOAT2& lhs, float rhs)
+{
+    return { lhs.x * rhs, lhs.y * rhs };
+}
+
+inline DirectX::XMFLOAT2 operator/(const DirectX::XMFLOAT2& lhs, float rhs)
+{
+    return { lhs.x / rhs, lhs.y / rhs };
+}
+
+inline DirectX::XMFLOAT2 operator*(float lhs, const DirectX::XMFLOAT2& rhs)
+{
+    return { lhs * rhs.x, lhs * rhs.y };
+}
+
+inline DirectX::XMFLOAT2 operator/(float lhs, const DirectX::XMFLOAT2& rhs)
+{
+    return { lhs / rhs.x, lhs / rhs.y };
+}
+
+//inline DirectX::XMFLOAT2 operator+=(DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
+//{
+//    lhs.x += rhs.x;
+//    lhs.y += rhs.y;
+//    return lhs;
+//}
+
+inline DirectX::XMFLOAT2 operator-=(DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
+{
+    lhs.x -= rhs.x;
+    lhs.y -= rhs.y;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT2 operator*=(DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
+{
+    lhs.x *= rhs.x;
+    lhs.y *= rhs.y;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT2 operator/=(DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
+{
+    lhs.x /= rhs.x;
+    lhs.y /= rhs.y;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT2 operator*=(DirectX::XMFLOAT2& lhs, float rhs)
+{
+    lhs.x *= rhs;
+    lhs.y *= rhs;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT2 operator/=(DirectX::XMFLOAT2& lhs, float rhs)
+{
+    lhs.x /= rhs;
+    lhs.y /= rhs;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT3 operator+(const DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
+{
+    return { lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z };
+}
+
+inline DirectX::XMFLOAT3 operator-(const DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
+{
+    return { lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z };
+}
+
+inline DirectX::XMFLOAT3 operator*(const DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
+{
+    return { lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z };
+}
+
+inline DirectX::XMFLOAT3 operator/(const DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
+{
+    return { lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z };
+}
+
+inline DirectX::XMFLOAT3 operator*(const DirectX::XMFLOAT3& lhs, float rhs)
+{
+    return { lhs.x * rhs, lhs.y * rhs, lhs.z * rhs };
+}
+
+inline DirectX::XMFLOAT3 operator/(const DirectX::XMFLOAT3& lhs, float rhs)
+{
+    return { lhs.x / rhs, lhs.y / rhs, lhs.z / rhs };
+}
+
+inline DirectX::XMFLOAT3 operator*(float lhs, const DirectX::XMFLOAT3& rhs)
+{
+    return { lhs * rhs.x, lhs * rhs.y, lhs * rhs.z };
+}
+
+inline DirectX::XMFLOAT3 operator/(float lhs, const DirectX::XMFLOAT3& rhs)
+{
+    return { lhs / rhs.x, lhs / rhs.y, lhs / rhs.z };
+}
+
+//DirectX::XMFLOAT3 operator+=(DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
+//{
+//    lhs.x += rhs.x;
+//    lhs.y += rhs.y;
+//    lhs.z += rhs.z;
+//    return lhs;
+//}
+
+inline DirectX::XMFLOAT3 operator-=(DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
+{
+    lhs.x -= rhs.x;
+    lhs.y -= rhs.y;
+    lhs.z -= rhs.z;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT3 operator*=(DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
+{
+    lhs.x *= rhs.x;
+    lhs.y *= rhs.y;
+    lhs.z *= rhs.z;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT3 operator/=(DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
+{
+    lhs.x /= rhs.x;
+    lhs.y /= rhs.y;
+    lhs.z /= rhs.z;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT3 operator*=(DirectX::XMFLOAT3& lhs, float rhs)
+{
+    lhs.x *= rhs;
+    lhs.y *= rhs;
+    lhs.z *= rhs;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT3 operator/=(DirectX::XMFLOAT3& lhs, float rhs)
+{
+    lhs.x /= rhs;
+    lhs.y /= rhs;
+    lhs.z /= rhs;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT4 operator+(const DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
+{
+    return { lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z, lhs.w + rhs.w };
+}
+
+inline DirectX::XMFLOAT4 operator-(const DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
+{
+    return { lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w };
+}
+
+inline DirectX::XMFLOAT4 operator*(const DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
+{
+    return { lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z, lhs.w * rhs.w };
+}
+
+inline DirectX::XMFLOAT4 operator/(const DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
+{
+    return { lhs.x / rhs.x, lhs.y / rhs.y, lhs.z / rhs.z, lhs.w / rhs.w };
+}
+
+inline DirectX::XMFLOAT4 operator*(const DirectX::XMFLOAT4& lhs, float rhs)
+{
+    return { lhs.x * rhs, lhs.y * rhs, lhs.z * rhs, lhs.w * rhs };
+}
+
+inline DirectX::XMFLOAT4 operator/(const DirectX::XMFLOAT4& lhs, float rhs)
+{
+    return { lhs.x / rhs, lhs.y / rhs, lhs.z / rhs, lhs.w / rhs };
+}
+
+inline DirectX::XMFLOAT4 operator*(float lhs, const DirectX::XMFLOAT4& rhs)
+{
+    return { lhs * rhs.x, lhs * rhs.y, lhs * rhs.z, lhs * rhs.w };
+}
+
+inline DirectX::XMFLOAT4 operator/(float lhs, const DirectX::XMFLOAT4& rhs)
+{
+    return { lhs / rhs.x, lhs / rhs.y, lhs / rhs.z, lhs / rhs.w };
+}
+
+//inline DirectX::XMFLOAT4 operator+=(DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
+//{
+//    lhs.x += rhs.x;
+//    lhs.y += rhs.y;
+//    lhs.z += rhs.z;
+//    lhs.w += rhs.w;
+//    return lhs;
+//}
+
+inline DirectX::XMFLOAT4 operator-=(DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
+{
+    lhs.x -= rhs.x;
+    lhs.y -= rhs.y;
+    lhs.z -= rhs.z;
+    lhs.w -= rhs.w;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT4 operator*=(DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
+{
+    lhs.x *= rhs.x;
+    lhs.y *= rhs.y;
+    lhs.z *= rhs.z;
+    lhs.w *= rhs.w;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT4 operator/=(DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
+{
+    lhs.x /= rhs.x;
+    lhs.y /= rhs.y;
+    lhs.z /= rhs.z;
+    lhs.w /= rhs.w;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT4 operator*=(DirectX::XMFLOAT4& lhs, float rhs)
+{
+    lhs.x *= rhs;
+    lhs.y *= rhs;
+    lhs.z *= rhs;
+    lhs.w *= rhs;
+    return lhs;
+}
+
+inline DirectX::XMFLOAT4 operator/=(DirectX::XMFLOAT4& lhs, float rhs)
+{
+    lhs.x /= rhs;
+    lhs.y /= rhs;
+    lhs.z /= rhs;
+    lhs.w /= rhs;
+    return lhs;
+}
+
+inline DirectX::XMVECTOR operator+(const DirectX::XMVECTOR& lhs, const DirectX::XMVECTOR& rhs)
+{
+    return DirectX::XMVectorAdd(lhs, rhs);
+}
+
+inline DirectX::XMVECTOR operator-(const DirectX::XMVECTOR& lhs, const DirectX::XMVECTOR& rhs)
+{
+    return DirectX::XMVectorSubtract(lhs, rhs);
+}
+
+inline DirectX::XMVECTOR operator*(const DirectX::XMVECTOR& lhs, const DirectX::XMVECTOR& rhs)
+{
+    return DirectX::XMVectorMultiply(lhs, rhs);
+}
+
+inline DirectX::XMVECTOR operator/(const DirectX::XMVECTOR& lhs, const DirectX::XMVECTOR& rhs)
+{
+    return DirectX::XMVectorDivide(lhs, rhs);
+}
+
+inline DirectX::XMVECTOR operator*(const DirectX::XMVECTOR& lhs, float rhs)
+{
+    return DirectX::XMVectorScale(lhs, rhs);
+}
+
+inline DirectX::XMVECTOR operator/(const DirectX::XMVECTOR& lhs, float rhs)
+{
+    return DirectX::XMVectorScale(lhs, 1.0f / rhs);
+}
 
 #endif // __DEFINES_H__

@@ -11,5 +11,5 @@ void CSceneGame::Init()
 
     // オブジェクトの追加
     AddGameObject<CPlayer>();
-    AddGameObject<CField>(Collision::None,Tag::Field);
+    //AddGameObject<CField>(Collision::None,Tag::Field);
 }

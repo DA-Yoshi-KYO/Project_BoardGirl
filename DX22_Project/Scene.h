@@ -2,6 +2,7 @@
 
 #include "Defines.h"
 #include "GameObject.h"
+#include "CollisionBase.h"
 
 class CScene
 {
@@ -14,14 +15,20 @@ public:
 
     // ゲームオブジェクトを追加する
 	template<typename T = CGameObject>
-	T* AddGameObject(Collision inCollisionType = Collision::None, Tag inTag = Tag::None)
+	T* AddGameObject(Tag inTag = Tag::None)
 	{
 		T* gameObject;
 		gameObject = new T();
 		gameObject->Init();
-        gameObject->AccessorCollisionType(inCollisionType);
         gameObject->AccessorTag(inTag);
+
 		m_pGameObject_List.push_back(gameObject);
+
+        CCollisionBase* pCollision = gameObject->GetComponent<CCollisionBase>();
+        if (pCollision)
+        {
+            m_pCollisionVec.push_back(pCollision);
+        }
 
 		return gameObject;
 	}
@@ -40,5 +47,5 @@ public:
 
 protected:
     std::list<CGameObject*> m_pGameObject_List; // シーン内のゲームオブジェクトリスト
-
+    std::vector<CCollisionBase*> m_pCollisionVec; // 衝突判定用のコンポーネントリスト
 };

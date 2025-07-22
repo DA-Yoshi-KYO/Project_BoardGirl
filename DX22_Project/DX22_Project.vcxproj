@@ -173,6 +173,7 @@
     <ClCompile Include="Model_check.cpp" />
     <ClCompile Include="Model_get.cpp" />
     <ClCompile Include="Model_morph.cpp" />
+    <ClCompile Include="CollisionObb.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RendererComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelRenderer.h" />
+    <ClInclude Include="CollisionObb.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RendererComponent.h" />
     <ClInclude Include="Scene.h" />

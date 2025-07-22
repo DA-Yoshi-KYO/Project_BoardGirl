@@ -3,16 +3,7 @@
 // インクルード部
 #include "Defines.h"
 #include "Component.h"
-
-// 使用する当たり判定
-enum class Collision
-{
-	None,
-	Box,
-	Sphere,
-
-	Max
-};
+#include "CollisionBase.h"
 
 // オブジェクトタグ
 enum class Tag
@@ -39,7 +30,7 @@ public:
 	virtual void Draw();
 
     // 衝突時の処理
-	virtual void OnColliderHit();
+	virtual void OnColliderHit(CCollisionBase* other);
     // オブジェクトの破棄時の処理
 	virtual void OnDestroy();
     // オブジェクトの破棄
@@ -75,11 +66,22 @@ public:
 
     void AccessorPos(DirectX::XMFLOAT3 inPos) { m_tParam.m_f3Pos = inPos; }
     DirectX::XMFLOAT3 AccessorPos() { return m_tParam.m_f3Pos; }
+    void AccessorRotate(DirectX::XMFLOAT3 inRotate) { m_tParam.m_f3Rotate = inRotate; }
+    DirectX::XMFLOAT3 AccessorRotate() { return m_tParam.m_f3Rotate; }
+    void AccessorSize(DirectX::XMFLOAT3 inSize) { m_tParam.m_f3Size = inSize; }
+    DirectX::XMFLOAT3 AccessorSize() { return m_tParam.m_f3Size; }
     void AccessorTag(Tag inTag) { m_eTag = inTag; }
     Tag AccessorTag() { return m_eTag; }
-    void AccessorCollisionType(Collision inCollisionType) { m_eCollisionType = inCollisionType; }
-    Collision AccessorCollisionType() { return m_eCollisionType; }
 
+    DirectX::XMFLOAT4X4* GetWorld()
+    {
+        DirectX::XMFLOAT4X4 world;
+        DirectX::XMStoreFloat4x4(&world, DirectX::XMMatrixTranslation(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y, m_tParam.m_f3Pos.z) *
+            DirectX::XMMatrixRotationRollPitchYaw(m_tParam.m_f3Rotate.x, m_tParam.m_f3Rotate.y, m_tParam.m_f3Rotate.z) *
+            DirectX::XMMatrixScaling(m_tParam.m_f3Size.x, m_tParam.m_f3Size.y, m_tParam.m_f3Size.z));
+        return &world;
+    }
+    
 public:
     // コンポーネントのリスト
     std::list<CComponent*> m_pComponent_List;
@@ -87,7 +89,6 @@ public:
 protected:
     RendererParam m_tParam;     // 描画パラメータ
     bool m_bDestroy;            // オブジェクトが破棄されているかのフラグ
-    Collision m_eCollisionType; // 使用する当たり判定
     Tag m_eTag;                 // オブジェクトのタグ
 
 };

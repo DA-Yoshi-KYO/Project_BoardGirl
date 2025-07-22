@@ -17,8 +17,9 @@ public:
 	virtual void Uninit();	
 	virtual void Update();
 	virtual void Draw();
+    CGameObject* GetGameObject() { return m_pGameObject; }
 	
-private:
+protected:
 	CGameObject* m_pGameObject;
 
 };

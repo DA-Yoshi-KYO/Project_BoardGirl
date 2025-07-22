@@ -25,11 +25,29 @@ void CScene::Update()
 {
     CCamera::GetInstance(CCamera::GetCameraKind())->Update();
 
-
     for (auto& list : m_pGameObject_List)
     {
         list->Update();
     }
+
+    for (int i = 0; i < m_pCollisionVec.size(); i++)
+    {
+        for (int j = i + 1; j < m_pCollisionVec.size(); j++)
+        {
+            CCollisionBase* pCollisionA = m_pCollisionVec[i];
+            CCollisionBase* pCollisionB = m_pCollisionVec[j];
+            if (pCollisionA->GetCollisionKind() != pCollisionB->GetCollisionKind()) continue;
+
+            if (pCollisionA->IsHit(pCollisionB))
+            {
+                CGameObject* pObjA = pCollisionA->GetGameObject();
+                CGameObject* pObjB = pCollisionB->GetGameObject();
+                pObjA->OnColliderHit(pCollisionB);
+                pObjB->OnColliderHit(pCollisionA);
+            }
+        }
+    }
+
 
     m_pGameObject_List.remove_if([](CGameObject* pObj) { return pObj->IsDestroy(); });
 }

@@ -9,5 +9,5 @@ CSceneTitle::~CSceneTitle()
 void CSceneTitle::Init()
 {
     // オブジェクトの追加
-	AddGameObject<CTitleBackGround>(Collision::None,Tag::UI);   // タイトル画像
+	AddGameObject<CTitleBackGround>(Tag::UI);   // タイトル画像
 }

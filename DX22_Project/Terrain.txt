@@ -7,3 +7,9 @@ Unity上の1 * 1 * 1 = DirectX上の1000M * 1000M * 1000M
 ・Terrainモデルのscaleを縮小すればより細かい高さ設定が可能？
     →計算多くなりそう
 一旦1024 * 1024のサイズで作成してみる
+
+Terrainの最大サイズyはUnity上の600 = DirectX上の600000M
+これで一度実装してみる
+
+Blenderにinportし、Zを180度回転させてobj出力
+Model読み込み時にZFlipする
