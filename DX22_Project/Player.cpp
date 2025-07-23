@@ -5,10 +5,15 @@
 #include "Defines.h"
 #include <DirectXMath.h>
 #include "CollisionObb.h"
+#include "SceneJobSelect.h"
+#include "Soldier.h"
+#include "Wizard.h"
+#include "Fighter.h"
 
 // 定数定義
 constexpr float ce_fRotatePow = 1.0f;   // 回転速度
 constexpr float ce_fMovePow = 0.15f;    // 移動速度
+constexpr DirectX::XMINT2 ce_n2Split = { 6, 6 };
 
 void CPlayer::Init()
 {
@@ -23,6 +28,29 @@ void CPlayer::Init()
     // 特有パラメータの初期化
 	m_f3Velocity = {};
 	m_bJump = false;
+
+    JobKind eJob = CSceneJobSelect::GetSelectedJob();
+
+    switch (eJob)
+    {
+    case JobKind::Soldier:
+        m_pJob = std::make_unique<CSoldier>();
+        m_tParam.m_f2UVPos = { 0.0f / (float)ce_n2Split.x , 1.0f / (float)ce_n2Split.y };
+        break;
+    case JobKind::Wizard:
+        m_pJob = std::make_unique<CWizard>();
+        m_tParam.m_f2UVPos = { 3.0f / (float)ce_n2Split.x , 1.0f / (float)ce_n2Split.y };
+        break;
+    case JobKind::Fighter:
+        m_pJob = std::make_unique<CFighter>();
+        m_tParam.m_f2UVPos = { 1.0f / (float)ce_n2Split.x , 1.0f / (float)ce_n2Split.y };
+        break;
+    case JobKind::Max:
+        break;
+    default:
+        break;
+    }
+    m_tParam.m_f2UVSize = { 1.0f / (float)ce_n2Split.x, 1.0f / (float)ce_n2Split.y };
 }
 
 void CPlayer::Update()
@@ -122,4 +150,20 @@ void CPlayer::PlayerMove()
 		m_f3Velocity.y = 0.0f;
 		m_bJump = false;
 	}
+}
+
+void CPlayer::PlayerSkill()
+{
+    if (IsKeyTrigger('Q'))
+    {
+        m_pJob->Skill(eSkill::QSkill);
+    }
+    if (IsKeyTrigger('E'))
+    {
+        m_pJob->Skill(eSkill::ESkill);
+    }
+    if (IsKeyTrigger('R'))
+    {
+        m_pJob->Skill(eSkill::RSkill);
+    }
 }

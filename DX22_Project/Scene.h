@@ -45,6 +45,14 @@ public:
 		return nullptr;
 	}
 
+    void AddCollision(CCollisionBase* inCollision)
+    {
+        if (inCollision)
+        {
+            m_pCollisionVec.push_back(inCollision);
+        }
+    }
+
 protected:
     std::list<CGameObject*> m_pGameObject_List; // シーン内のゲームオブジェクトリスト
     std::vector<CCollisionBase*> m_pCollisionVec; // 衝突判定用のコンポーネントリスト

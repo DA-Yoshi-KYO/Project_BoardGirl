@@ -3,7 +3,7 @@
 #include "Input.h"
 #include "Sprite.h"
 #include "Main.h"
-#include "SceneGame.h"
+#include "SceneJobSelect.h"
 
 void CTitleBackGround::Init()
 {
@@ -18,6 +18,6 @@ void CTitleBackGround::Update()
 {
 	if (IsKeyTrigger(VK_SPACE))
 	{
-		ChangeScene(new CSceneGame());
+		ChangeScene(new CSceneJobSelect());
 	}
 }

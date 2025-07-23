@@ -11,7 +11,16 @@ enum class eSkill
     Max
 };
 
-class CJob : public CGameObject
+enum class JobKind
+{
+    Soldier = 0,
+    Wizard,
+    Fighter,
+
+    Max
+};
+
+class CJob
 {
 public:
     CJob();

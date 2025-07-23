@@ -66,7 +66,7 @@ float4 main(PS_IN pin) : SV_TARGET {
 		{{ 0.5f,-0.5f, 0.0f}, {1.0f, 1.0f}},
 	};
 
-	// ÉÅÉbÉVÉÖ
+	// „É°„ÉÉ„Ç∑„É•
 	MeshBuffer::Description desc = {};
 	desc.pVtx = vtx;
 	desc.vtxSize = sizeof(Vertex);
@@ -75,7 +75,7 @@ float4 main(PS_IN pin) : SV_TARGET {
 	m_data.mesh = std::make_shared<MeshBuffer>();
 	m_data.mesh->Create(desc);
 
-	// ÉpÉâÉÅÅ[É^Å[
+	// „Éë„É©„É°„Éº„Çø„Éº
 	m_data.param[0] = DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
 	m_data.param[1] = DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
 	m_data.param[2] = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -83,7 +83,7 @@ float4 main(PS_IN pin) : SV_TARGET {
 	DirectX::XMStoreFloat4x4(&m_data.matrix[1], DirectX::XMMatrixIdentity());
 	DirectX::XMStoreFloat4x4(&m_data.matrix[2], DirectX::XMMatrixIdentity());
 
-	// ÉVÉFÅ[É_Å[
+	// „Ç∑„Çß„Éº„ÉÄ„Éº
 	m_defVS = std::make_shared<VertexShader>();
 	m_defVS->Compile(VS);
 	m_data.vs = m_defVS.get();
@@ -162,27 +162,27 @@ void Sprite::SetPixelShader(Shader* ps)
 
 void Sprite::SetParam(RendererParam param,SpriteKind inKind)
 {
-	// ÉpÉâÉÅÅ[É^Å[ê›íË
-	// ç¿ïW
+	// „Éë„É©„É°„Éº„Çø„ÉºË®≠ÂÆö
+	// Â∫ßÊ®ô
 	m_data.param[0].x = 0.0f;
 	m_data.param[0].y = 0.0f;
-	// ÉTÉCÉY
+	// „Çµ„Ç§„Ç∫
 	m_data.param[0].z = param.m_f3Size.x;
 	m_data.param[0].w = param.m_f3Size.y;
-	// uvç¿ïW
+	// uvÂ∫ßÊ®ô
 	m_data.param[1].x = param.m_f2UVPos.x;
 	m_data.param[1].y = param.m_f2UVPos.y;
-	// uvÉTÉCÉY
+	// uv„Çµ„Ç§„Ç∫
 	m_data.param[1].z = param.m_f2UVSize.x;
 	m_data.param[1].w = param.m_f2UVSize.y;
-	// êF
+	// Ëâ≤
 	m_data.param[2] = param.m_f4Color;
 
 	CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
 
 	DirectX::XMMATRIX mWorld = DirectX::XMMatrixIdentity();
 	DirectX::XMMATRIX mInvView = DirectX::XMMatrixIdentity();
-	// ÉèÅ[ÉãÉhçsóÒ
+	// „ÉØ„Éº„É´„ÉâË°åÂàó
 	switch (inKind)
 	{
 	case SpriteKind::Screen:
@@ -200,6 +200,7 @@ void Sprite::SetParam(RendererParam param,SpriteKind inKind)
 		mWorld =
 			DirectX::XMMatrixRotationRollPitchYaw(param.m_f3Rotate.x, param.m_f3Rotate.y, param.m_f3Rotate.z) *
 			DirectX::XMMatrixTranslation(param.m_f3Pos.x, param.m_f3Pos.y, param.m_f3Pos.z);
+        mWorld = DirectX::XMMatrixTranspose(mWorld);
 		DirectX::XMStoreFloat4x4(&m_data.matrix[0], mWorld);
 		m_data.matrix[1] = pCamera->GetViewMatrix();
 		m_data.matrix[2] = pCamera->GetProjectionMatrix();

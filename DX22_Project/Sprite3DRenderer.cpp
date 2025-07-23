@@ -10,6 +10,7 @@ CSprite3DRenderer::~CSprite3DRenderer()
 void CSprite3DRenderer::Init()
 {
 	m_pTexture = nullptr;
+    m_bIsDepth = true;
 }
 
 void CSprite3DRenderer::Load(const char* inPath)
@@ -22,7 +23,10 @@ void CSprite3DRenderer::Draw()
 {
 	RenderTarget* pRTV = GetDefaultRTV();
 	DepthStencil* pDSV = GetDefaultDSV();
-	SetRenderTargets(1, &pRTV, pDSV);
+
+    if (m_bIsDepth) SetRenderTargets(1, &pRTV, pDSV);
+    else SetRenderTargets(1, &pRTV, nullptr);
+
 	Sprite::SetParam(m_tParam, SpriteKind::World);
 	Sprite::SetTexture(m_pTexture.get());
 	Sprite::Draw();

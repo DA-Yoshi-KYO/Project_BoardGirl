@@ -2,6 +2,7 @@
 
 // インクルード部
 #include "GameObject.h"
+#include "Job.h"
 
 class CPlayer: public CGameObject
 {
@@ -18,8 +19,9 @@ private:
 
 private:
     DirectX::XMFLOAT3 GetRight();
-    void PlayerMove();  // プレイヤーの移動処理
+    void PlayerMove();
+    void PlayerSkill();
 
 private:
-
+    std::unique_ptr<CJob> m_pJob;
 };

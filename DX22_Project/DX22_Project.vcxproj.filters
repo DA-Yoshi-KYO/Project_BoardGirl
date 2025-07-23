@@ -73,6 +73,9 @@
     <Filter Include="Code\GameSystem">
       <UniqueIdentifier>{4544807a-c420-4917-a376-c58dbf43b0d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\GameObject\UI\Select">
+      <UniqueIdentifier>{ccf784a7-2817-45be-951b-36c97c62a1c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -129,9 +132,6 @@
     <ClCompile Include="TitleBackGround.cpp">
       <Filter>Code\GameObject\UI\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="SceneTitle.cpp">
-      <Filter>Code\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="_geometory.cpp">
       <Filter>Code\Work\Model</Filter>
     </ClCompile>
@@ -186,9 +186,6 @@
     <ClCompile Include="Sprite3DRenderer.cpp">
       <Filter>Code\Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="CameraPlayer.cpp">
-      <Filter>Code\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionBase.cpp">
       <Filter>Code\Component\Collider</Filter>
     </ClCompile>
@@ -203,6 +200,33 @@
     </ClCompile>
     <ClCompile Include="Job.cpp">
       <Filter>Code\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Fighter.cpp">
+      <Filter>Code\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Soldier.cpp">
+      <Filter>Code\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Wizard.cpp">
+      <Filter>Code\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
+      <Filter>Code\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneJobSelect.cpp">
+      <Filter>Code\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectBackGround.cpp">
+      <Filter>Code\GameObject\UI\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectJobs.cpp">
+      <Filter>Code\GameObject\UI\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraPlayer.cpp">
+      <Filter>Code\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraSelect.cpp">
+      <Filter>Code\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +325,30 @@
     </ClInclude>
     <ClInclude Include="Job.h">
       <Filter>Code\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Fighter.h">
+      <Filter>Code\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Soldier.h">
+      <Filter>Code\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Wizard.h">
+      <Filter>Code\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Easing.h">
+      <Filter>Code\Work</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneJobSelect.h">
+      <Filter>Code\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectBackGround.h">
+      <Filter>Code\GameObject\UI\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectJobs.h">
+      <Filter>Code\GameObject\UI\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSelect.h">
+      <Filter>Code\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
