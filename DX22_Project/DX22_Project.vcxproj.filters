@@ -70,6 +70,9 @@
     <Filter Include="Code\Work\External\memo">
       <UniqueIdentifier>{8208b577-ce05-4141-9bd0-371f6adc0b6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\GameSystem">
+      <UniqueIdentifier>{4544807a-c420-4917-a376-c58dbf43b0d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -198,6 +201,9 @@
     <ClCompile Include="CollisionObb.cpp">
       <Filter>Code\Component\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="Job.cpp">
+      <Filter>Code\GameSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -292,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="CollisionObb.h">
       <Filter>Code\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Job.h">
+      <Filter>Code\GameSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
