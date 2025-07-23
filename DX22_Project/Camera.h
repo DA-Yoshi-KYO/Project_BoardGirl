@@ -9,7 +9,9 @@ enum CameraKind
 {
 	CAM_DEBUG,
 	CAM_PLAYER,
-	MAX_CAMERA // ƒJƒƒ‰Å‘å” 
+    CAM_SELECT,
+
+	MAX_CAMERA // ã‚«ãƒ¡ãƒ©æœ€å¤§æ•° 
 };
 
 class CCamera

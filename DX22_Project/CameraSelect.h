@@ -2,7 +2,9 @@
 
 #include "Camera.h"
 
-class CameraSelect : public CCamera
+class CCameraSelect : public CCamera
 {
+public:
+    virtual ~CCameraSelect();
+    void Update() final;
 };
-

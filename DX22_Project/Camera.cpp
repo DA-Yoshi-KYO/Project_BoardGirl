@@ -2,6 +2,7 @@
 #include "Defines.h"
 #include "CameraDebug.h"
 #include "CameraPlayer.h"
+#include "CameraSelect.h"
 
 CameraKind CCamera::m_eCameraKind = CameraKind::CAM_DEBUG;
 
@@ -88,12 +89,14 @@ std::unique_ptr<CCamera>& CCamera::GetInstance(int CamKind)
 	static std::unique_ptr<CCamera> CamInstance[] = {
 		std::make_unique<CCameraDebug>(),
 		std::make_unique<CCameraPlayer>(),
-	};
+        std::make_unique<CCameraSelect>(),
+    };
 
 	switch (CamKind)
 	{
 	case CAM_DEBUG:		return CamInstance[CAM_DEBUG];		break;
 	case CAM_PLAYER:	return CamInstance[CAM_PLAYER];		break;
+    case CAM_SELECT:	return CamInstance[CAM_SELECT];		break;
 	default: return CamInstance[CAM_DEBUG]; break;
 	}
 }

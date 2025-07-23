@@ -18,7 +18,7 @@ constexpr DirectX::XMINT2 ce_n2Split = { 6, 6 };
 void CPlayer::Init()
 {
     // コンポーネントの追加
-	AddComponent<CBillboardRenderer>()->Load(TEXTURE_PATH("Player.png"));
+	AddComponent<CBillboardRenderer>()->Load(TEXTURE_PATH("Jobs.png"));
     AddComponent<CCollisionObb>();
 
     // 汎用パラメータの初期化

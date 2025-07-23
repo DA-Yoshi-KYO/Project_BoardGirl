@@ -18,6 +18,7 @@
 // フレーム定義
 static const int FPS = 60;
 static const float fFPS = static_cast<float>(FPS);
+static const float fDeltaTime = 1.0f / fFPS; // フレーム時間(秒)
 
 // リソースパス
 #define TEXTURE_PATH(path) ("Assets/Texture/" path)

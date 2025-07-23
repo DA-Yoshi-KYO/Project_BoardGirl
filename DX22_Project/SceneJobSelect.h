@@ -2,6 +2,7 @@
 
 #include "Scene.h"
 #include "Job.h"
+#include "SelectJobs.h"
 
 class CSceneJobSelect : public CScene
 {
@@ -12,6 +13,6 @@ public:
     static JobKind GetSelectedJob() { return m_eSelectedJob; }
 
 private:
-    static JobKind m_eSelectedJob; // 選択されたジョブの種類
-
+    static JobKind m_eSelectedJob;
+    CSelectJobs* m_pSelectJobs;
 };
