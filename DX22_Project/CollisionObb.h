@@ -15,7 +15,6 @@ class CCollisionObb : public CCollisionBase
 public:
 	using CCollisionBase::CCollisionBase;
 
-	void Update() override;
 	void Draw() override;
 	bool IsHit(CCollisionBase* other) override;
 

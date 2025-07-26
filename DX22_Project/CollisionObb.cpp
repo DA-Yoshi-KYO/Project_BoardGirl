@@ -1,53 +1,61 @@
 // CCollisionObbコンポーネント実装 [obbColider.cpp]
 #include "CollisionObb.h"
-#include "gameObject.h"
+#include "GameObject.h"
 #include "modelRenderer.h"
 #include "Geometory.h"
 
 bool CCollisionObb::IsHit(CCollisionBase* other)
 {
-	DirectX::XMFLOAT4X4* pWA = other->GetGameObject()->GetWorld();
-	DirectX::XMFLOAT4X4* pWB = this->GetGameObject()->GetWorld();
+	DirectX::XMFLOAT4X4* pWA = this->GetGameObject()->GetWorld();
+	DirectX::XMFLOAT4X4* pWB = other->GetGameObject()->GetWorld();
 	DirectX::XMMATRIX wa = DirectX::XMLoadFloat4x4(pWA);
 	DirectX::XMMATRIX wb = DirectX::XMLoadFloat4x4(pWB);
 
 	// ワールド空間上の境界ボックス中心座標を求める
-	DirectX::XMFLOAT3 vPA, vPB;
 	DirectX::XMFLOAT3 fCenterA, fCenterB;
     fCenterA = dynamic_cast<CCollisionObb*>(this)->AccessorCenter();
     fCenterB = dynamic_cast<CCollisionObb*>(other)->AccessorCenter();
-	DirectX::XMStoreFloat3(&vPA, DirectX::XMVector3TransformCoord(
-		DirectX::XMLoadFloat3(&fCenterA), wa));
-	DirectX::XMStoreFloat3(&vPB, DirectX::XMVector3TransformCoord(
-		DirectX::XMLoadFloat3(&fCenterB), wb));
+
+    // 中心座標を計算用にXMVECTORに変換
+    DirectX::XMVECTOR vCenterA, vCenterB;
+    vCenterA = DirectX::XMLoadFloat3(&fCenterA);
+    vCenterB = DirectX::XMLoadFloat3(&fCenterB);
+
+	DirectX::XMFLOAT3 fPosA, fPosB;
+	DirectX::XMStoreFloat3(&fPosA, DirectX::XMVector3TransformCoord(vCenterA, wa));
+	DirectX::XMStoreFloat3(&fPosB, DirectX::XMVector3TransformCoord(vCenterB, wb));
 
 	// 中心座標間のベクトルを求める
 	DirectX::XMVECTOR vD =
-		DirectX::XMVectorSet(vPA.x - vPB.x, vPA.y - vPB.y, vPA.z - vPB.z, 0.0f);
+		DirectX::XMVectorSet(fPosA.x - fPosB.x, fPosA.y - fPosB.y, fPosA.z - fPosB.z, 0.0f);
 
 	// モデル座標軸を求める
 	DirectX::XMVECTOR vN[6];
-	vN[0] = DirectX::XMVectorSet(pWA->_11, pWA->_12, pWA->_13, 0.0f);
-	vN[1] = DirectX::XMVectorSet(pWA->_21, pWA->_22, pWA->_23, 0.0f);
-	vN[2] = DirectX::XMVectorSet(pWA->_31, pWA->_32, pWA->_33, 0.0f);
-	vN[3] = DirectX::XMVectorSet(pWB->_11, pWB->_12, pWB->_13, 0.0f);
-	vN[4] = DirectX::XMVectorSet(pWB->_21, pWB->_22, pWB->_23, 0.0f);
-	vN[5] = DirectX::XMVectorSet(pWB->_31, pWB->_32, pWB->_33, 0.0f);
+    vN[0] = DirectX::XMVectorSet(pWA->_11, pWA->_12, pWA->_13, 0.0f);   // X軸
+    vN[1] = DirectX::XMVectorSet(pWA->_21, pWA->_22, pWA->_23, 0.0f);   // Y軸
+    vN[2] = DirectX::XMVectorSet(pWA->_31, pWA->_32, pWA->_33, 0.0f);   // Z軸
+
+	vN[3] = DirectX::XMVectorSet(pWB->_11, pWB->_12, pWB->_13, 0.0f);   // X軸
+    vN[4] = DirectX::XMVectorSet(pWB->_21, pWB->_22, pWB->_23, 0.0f);   // Y軸
+    vN[5] = DirectX::XMVectorSet(pWB->_31, pWB->_32, pWB->_33, 0.0f);   // Z軸
 
 	// OBBの大きさ(半分)の長さを掛けたベクトルを求める
 	DirectX::XMVECTOR vL[6];
 	DirectX::XMFLOAT3 hsA = dynamic_cast<CCollisionObb*>(this)->AccessorHalfSize();
-	DirectX::XMFLOAT3 hsB = dynamic_cast<CCollisionObb*>(this)->AccessorHalfSize();
-	vL[0] = DirectX::XMVectorSet(pWA->_11 * hsA.x, pWA->_12 * hsA.x, pWA->_13 * hsA.x, 0.0f);
+	DirectX::XMFLOAT3 hsB = dynamic_cast<CCollisionObb*>(other)->AccessorHalfSize();
+	vL[0] = DirectX::XMVectorSet(pWA->_11 * hsA.x, pWA->_12 * hsA.x, pWA->_13 * hsA.x, 0.0f);   // X軸
 	vL[1] = DirectX::XMVectorSet(pWA->_21 * hsA.y, pWA->_22 * hsA.y, pWA->_23 * hsA.y, 0.0f);
 	vL[2] = DirectX::XMVectorSet(pWA->_31 * hsA.z, pWA->_32 * hsA.z, pWA->_33 * hsA.z, 0.0f);
+
 	vL[3] = DirectX::XMVectorSet(pWB->_11 * hsB.x, pWB->_12 * hsB.x, pWB->_13 * hsB.x, 0.0f);
 	vL[4] = DirectX::XMVectorSet(pWB->_21 * hsB.y, pWB->_22 * hsB.y, pWB->_23 * hsB.y, 0.0f);
 	vL[5] = DirectX::XMVectorSet(pWB->_31 * hsB.z, pWB->_32 * hsB.z, pWB->_33 * hsB.z, 0.0f);
 
 	// 分離軸候補はモデル座標軸
-	float fL, fD, f;
-	DirectX::XMVECTOR vS;	// 分離軸候補
+    float fL;
+    float fD;
+    float f; 
+	DirectX::XMVECTOR vS;	// 分離軸候補(計算用の一時変数)
 	for (int i = 0; i < 6; ++i) {
 		vS = vN[i];
 		// OBBの影(半分)の合計
@@ -83,10 +91,6 @@ bool CCollisionObb::IsHit(CCollisionBase* other)
 		}
 	}
 	return true;				// 当たっている
-}
-
-void CCollisionObb::Update()
-{
 }
 
 void CCollisionObb::Draw()
