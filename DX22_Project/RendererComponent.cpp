@@ -1,7 +1,11 @@
 /// @file RendererComponent.cpp
-/// @brief レンダラー用の仲介コンポーネントクラス
+/// @brief 繝ｬ繝ｳ繝繝ｩ繝ｼ逕ｨ縺ｮ莉ｲ莉九さ繝ｳ繝昴�ｼ繝阪Φ繝医け繝ｩ繧ｹ
 
 #include "RendererComponent.h"
+
+CRendererComponent::~CRendererComponent()
+{
+}
 
 void CRendererComponent::SetRendererParam(const RendererParam inParam)
 {

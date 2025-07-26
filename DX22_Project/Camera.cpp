@@ -101,6 +101,11 @@ std::unique_ptr<CCamera>& CCamera::GetInstance(int CamKind)
 	}
 }
 
+void CCamera::Release()
+{
+
+}
+
 void CCamera::SetCameraKind(CameraKind kind)
 {
 	m_eCameraKind = kind;

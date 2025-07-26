@@ -30,6 +30,7 @@ public:
 	static const DirectX::XMFLOAT4X4 Get2DViewMatrix(bool transpose = true);
 	static const DirectX::XMFLOAT4X4 Get2DProjectionMatrix(bool transpose = true);
 	static std::unique_ptr<CCamera>& GetInstance(int CamKind);
+    static void Release();
 	static void SetCameraKind(CameraKind kind);
 	static CameraKind GetCameraKind();
 protected:

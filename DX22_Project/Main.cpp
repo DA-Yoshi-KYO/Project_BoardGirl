@@ -21,9 +21,9 @@ bool g_bSceneChanging;
 HRESULT Init(HWND hWnd, UINT width, UINT height)
 {
 	HRESULT hr;
-	// DirectX‰Šú‰»
+	// DirectXåˆæœŸåŒ–
 	hr = InitDirectX(hWnd, width, height, false);
-	// ‰Šú‰»‚Ì—á
+	// åˆæœŸåŒ–ã®ä¾‹
 	if (FAILED(hr)) { return hr; }
 
 	IMGUI_CHECKVERSION();
@@ -89,9 +89,9 @@ void Draw()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	// ²ü‚Ì•\¦
+	// è»¸ç·šã®è¡¨ç¤º
 #if 1
-	// ƒOƒŠƒbƒh
+	// ã‚°ãƒªãƒƒãƒ‰
 	DirectX::XMFLOAT4 lineColor(0.5f, 0.5f, 0.5f, 1.0f);
 	float size = DEBUG_GRID_NUM * DEBUG_GRID_MARGIN;
 	for (int i = 1; i <= DEBUG_GRID_NUM; ++i)
@@ -111,7 +111,7 @@ void Draw()
 		pos[0].z = pos[1].z = -grid;
 		Geometory::AddLine(pos[0], pos[1], lineColor);
 	}
-	// ²
+	// è»¸
 	Geometory::AddLine(DirectX::XMFLOAT3(0,0,0), DirectX::XMFLOAT3(size,0,0), DirectX::XMFLOAT4(1,0,0,1));
 	Geometory::AddLine(DirectX::XMFLOAT3(0,0,0), DirectX::XMFLOAT3(0,size,0), DirectX::XMFLOAT4(0,1,0,1));
 	Geometory::AddLine(DirectX::XMFLOAT3(0,0,0), DirectX::XMFLOAT3(0,0,size), DirectX::XMFLOAT4(0,0,1,1));
@@ -120,7 +120,7 @@ void Draw()
 
 	Geometory::DrawLines();
 
-	// ƒJƒƒ‰‚Ì’l
+	// ã‚«ãƒ¡ãƒ©ã®å€¤
 	static bool camPosSwitch = false;
 	if (IsKeyTrigger(VK_RETURN)) {
 		camPosSwitch ^= true;
@@ -134,7 +134,7 @@ void Draw()
 		camPos = DirectX::XMVectorSet(2.5f, 3.5f, -4.0f, 0.0f);
 	}
 
-	// ƒWƒIƒƒgƒŠ—pƒJƒƒ‰‰Šú‰»
+	// ã‚¸ã‚ªãƒ¡ãƒˆãƒªç”¨ã‚«ãƒ¡ãƒ©åˆæœŸåŒ–
 	DirectX::XMFLOAT4X4 mat[2];
 	DirectX::XMStoreFloat4x4(&mat[0], DirectX::XMMatrixTranspose(
 		DirectX::XMMatrixLookAtLH(

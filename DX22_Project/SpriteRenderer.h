@@ -7,13 +7,14 @@ class CSpriteRenderer : public CRendererComponent
 {
 public:
 	using CRendererComponent::CRendererComponent;
-	~CSpriteRenderer();
+	virtual ~CSpriteRenderer();
 	void Init() override;
-	void Load(const char* inPath);
+    void Uninit() override;
+	void Load(const char* inPath, const char* inKey);
 	void Draw() override;
 
 private:
-	std::shared_ptr<Texture> m_pTexture;
-
+	static std::map<const char*,Texture*> m_pTextureMap;
+    const char* m_chKey;
 };
 

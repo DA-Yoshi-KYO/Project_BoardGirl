@@ -5,6 +5,7 @@
 
 CScene::~CScene()
 {
+
 }
 
 void CScene::Init()
@@ -17,6 +18,7 @@ void CScene::Uninit()
 	for (auto list : m_pGameObject_List)
 	{
         list->Uninit();
+        delete list;
 	}
     m_pGameObject_List.clear();
 }

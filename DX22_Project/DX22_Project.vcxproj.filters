@@ -76,6 +76,9 @@
     <Filter Include="Code\GameObject\UI\Select">
       <UniqueIdentifier>{ccf784a7-2817-45be-951b-36c97c62a1c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\GameObject\Billboard\Enemy">
+      <UniqueIdentifier>{123967e1-2d64-4528-94f3-0754f27740e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -228,6 +231,12 @@
     <ClCompile Include="CameraSelect.cpp">
       <Filter>Code\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyBase.cpp">
+      <Filter>Code\GameObject\Billboard\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyGenerater.cpp">
+      <Filter>Code\GameSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -262,9 +271,6 @@
     </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Code\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Code\Component\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="RendererComponent.h">
       <Filter>Code\Component\Renderer</Filter>
@@ -349,6 +355,15 @@
     </ClInclude>
     <ClInclude Include="CameraSelect.h">
       <Filter>Code\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBase.h">
+      <Filter>Code\GameObject\Billboard\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyGenerater.h">
+      <Filter>Code\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Code\Component\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
