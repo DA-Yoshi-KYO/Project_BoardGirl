@@ -5,6 +5,10 @@
 class CWizard : public CJob
 {
 public:
-    void Skill(eSkill inKind) override;
+    CWizard();
+    virtual ~CWizard();
+    void NormalAttack() override;
+    void QSkill() override;
+    void ESkill() override;
+    void RSkill() override;
 };
-

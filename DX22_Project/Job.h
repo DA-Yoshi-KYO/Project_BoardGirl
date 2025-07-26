@@ -1,10 +1,15 @@
 #pragma once
 
 #include "GameObject.h"
+#include "CollisionObb.h"
+#include "Defines.h"
+
+class CPlayer;
 
 enum class eSkill
 {
-    QSkill = 0,
+    NormalAttack = 0,
+    QSkill,
     ESkill,
     RSkill,
 
@@ -25,22 +30,31 @@ class CJob
 public:
     CJob();
     ~CJob();
-    virtual void Skill(eSkill inKind) = 0;
+    virtual void Update();
+    virtual void Skill(eSkill inKind);
+    virtual void NormalAttack() = 0;
+    virtual void QSkill() = 0;
+    virtual void ESkill() = 0;
+    virtual void RSkill() = 0;
+
 
 private:
-
+    
 protected:
     static int m_nLevel;
     static int m_nExp;
+    
     struct PlayerStatus
     {
         int m_nHP;
         int m_nAttack;
         int m_nDefense;
-        float m_fAttackSpeed;
+        float m_fSkillTime[(int)eSkill::Max];
         float m_fSkillCooltime[(int)eSkill::Max];
+        float m_fDurationTime[(int)eSkill::Max];
+        float m_fAttackDuration[(int)eSkill::Max];
         float m_fCriticalPercentage;
     };
     PlayerStatus m_tStatus;
-
+    std::unique_ptr<CCollisionObb> m_pCollisionObb[(int)eSkill::Max];
 };

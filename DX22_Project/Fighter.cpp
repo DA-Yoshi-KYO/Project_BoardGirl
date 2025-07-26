@@ -1,19 +1,25 @@
 #include "Fighter.h"
 
-void CFighter::Skill(eSkill inKind)
+CFighter::CFighter()
 {
-    switch (inKind)
-    {
-    case eSkill::QSkill:
-        // Qスキルの処理
-        break;
-    case eSkill::ESkill:
-        // Eスキルの処理
-        break;
-    case eSkill::RSkill:
-        // Rスキルの処理
-        break;
-    default:
-        break;
-    }
+}
+
+CFighter::~CFighter()
+{
+}
+
+void CFighter::NormalAttack()
+{
+}
+
+void CFighter::QSkill()
+{
+}
+
+void CFighter::ESkill()
+{
+}
+
+void CFighter::RSkill()
+{
 }

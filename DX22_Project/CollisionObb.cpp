@@ -87,22 +87,21 @@ bool CCollisionObb::IsHit(CCollisionBase* other)
 
 void CCollisionObb::Update()
 {
-    m_Center = this->GetGameObject()->AccessorPos();
-    m_HalfSize = this->GetGameObject()->AccessorSize();
-    m_HalfSize /= 2.0f;
 }
 
 void CCollisionObb::Draw()
 {
+    if (!m_bActive) return;
+
     DirectX::XMFLOAT3 vertex[8] = {
-       {-m_HalfSize.x, +m_HalfSize.y, -m_HalfSize.z}, // 0
-       {-m_HalfSize.x, -m_HalfSize.y, -m_HalfSize.z}, // 1
-       {+m_HalfSize.x, +m_HalfSize.y, -m_HalfSize.z}, // 2
-       {+m_HalfSize.x, -m_HalfSize.y, -m_HalfSize.z}, // 3
-       {-m_HalfSize.x, +m_HalfSize.y, +m_HalfSize.z}, // 4
-       {-m_HalfSize.x, -m_HalfSize.y, +m_HalfSize.z}, // 5
-       {+m_HalfSize.x, +m_HalfSize.y, +m_HalfSize.z}, // 6
-       {+m_HalfSize.x, -m_HalfSize.y, +m_HalfSize.z}, // 7
+       {-m_tCollisionInfo.m_HalfSize.x, +m_tCollisionInfo.m_HalfSize.y, -m_tCollisionInfo.m_HalfSize.z}, // 0
+       {-m_tCollisionInfo.m_HalfSize.x, -m_tCollisionInfo.m_HalfSize.y, -m_tCollisionInfo.m_HalfSize.z}, // 1
+       {+m_tCollisionInfo.m_HalfSize.x, +m_tCollisionInfo.m_HalfSize.y, -m_tCollisionInfo.m_HalfSize.z}, // 2
+       {+m_tCollisionInfo.m_HalfSize.x, -m_tCollisionInfo.m_HalfSize.y, -m_tCollisionInfo.m_HalfSize.z}, // 3
+       {-m_tCollisionInfo.m_HalfSize.x, +m_tCollisionInfo.m_HalfSize.y, +m_tCollisionInfo.m_HalfSize.z}, // 4
+       {-m_tCollisionInfo.m_HalfSize.x, -m_tCollisionInfo.m_HalfSize.y, +m_tCollisionInfo.m_HalfSize.z}, // 5
+       {+m_tCollisionInfo.m_HalfSize.x, +m_tCollisionInfo.m_HalfSize.y, +m_tCollisionInfo.m_HalfSize.z}, // 6
+       {+m_tCollisionInfo.m_HalfSize.x, -m_tCollisionInfo.m_HalfSize.y, +m_tCollisionInfo.m_HalfSize.z}, // 7
     };
 
     DirectX::XMFLOAT3 rotate = this->GetGameObject()->AccessorRotate();
@@ -112,7 +111,7 @@ void CCollisionObb::Draw()
     {
         DirectX::XMVECTOR v = DirectX::XMLoadFloat3(&vertex[i]);    // ローカル空間
         v = DirectX::XMVector3Transform(v, rot);           // 回転適用
-        v = DirectX::XMVectorAdd(v, DirectX::XMLoadFloat3(&m_Center)); // ワールド中心を加算
+        v = DirectX::XMVectorAdd(v, DirectX::XMLoadFloat3(&m_tCollisionInfo.m_Center)); // ワールド中心を加算
         DirectX::XMStoreFloat3(&vertex[i], v);             // 結果を保存
     }
 

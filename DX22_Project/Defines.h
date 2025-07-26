@@ -15,6 +15,10 @@
 #include <array>
 #include <algorithm>
 
+// std::min, std::maxを使用するための定義
+#undef min
+#undef max
+
 // フレーム定義
 static const int FPS = 60;
 static const float fFPS = static_cast<float>(FPS);

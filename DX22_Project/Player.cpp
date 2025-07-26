@@ -4,7 +4,6 @@
 #include "BillboardRenderer.h"
 #include "Defines.h"
 #include <DirectXMath.h>
-#include "CollisionObb.h"
 #include "SceneJobSelect.h"
 #include "Soldier.h"
 #include "Wizard.h"
@@ -19,11 +18,13 @@ void CPlayer::Init()
 {
     // コンポーネントの追加
 	AddComponent<CBillboardRenderer>()->Load(TEXTURE_PATH("Jobs.png"));
-    AddComponent<CCollisionObb>();
+    m_pCollision = AddComponent<CCollisionObb>();
 
     // 汎用パラメータの初期化
 	m_tParam.m_f3Pos = { 0.0f,0.0f,0.0f };
 	m_tParam.m_f3Size = { 1.0f,1.0f,1.0f };
+    m_pCollision->AccessorCenter(m_tParam.m_f3Pos);
+    m_pCollision->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
 
     // 特有パラメータの初期化
 	m_f3Velocity = {};
@@ -57,6 +58,10 @@ void CPlayer::Update()
 {
     // 移動処理
 	PlayerMove();
+    PlayerSkill();
+
+    m_pCollision->AccessorCenter(m_tParam.m_f3Pos);
+    m_pCollision->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
 
     CGameObject::Update();
 }
@@ -154,6 +159,10 @@ void CPlayer::PlayerMove()
 
 void CPlayer::PlayerSkill()
 {
+    if (IsKeyTrigger('1'))
+    {
+        m_pJob->Skill(eSkill::NormalAttack);
+    }
     if (IsKeyTrigger('Q'))
     {
         m_pJob->Skill(eSkill::QSkill);
@@ -166,4 +175,6 @@ void CPlayer::PlayerSkill()
     {
         m_pJob->Skill(eSkill::RSkill);
     }
+
+    m_pJob->Update();
 }

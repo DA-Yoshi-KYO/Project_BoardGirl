@@ -5,6 +5,10 @@
 class CFighter : public CJob
 {
 public:
-    void Skill(eSkill inKind) override;
+    CFighter();
+    virtual ~CFighter();
+    void NormalAttack() override;
+    void QSkill() override;
+    void ESkill() override;
+    void RSkill() override;
 };
-

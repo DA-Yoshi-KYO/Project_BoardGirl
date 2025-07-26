@@ -19,10 +19,10 @@ public:
 	{
 		T* gameObject;
 		gameObject = new T();
+		m_pGameObject_List.push_back(gameObject);
 		gameObject->Init();
         gameObject->AccessorTag(inTag);
 
-		m_pGameObject_List.push_back(gameObject);
 
         CCollisionBase* pCollision = gameObject->GetComponent<CCollisionBase>();
         if (pCollision)

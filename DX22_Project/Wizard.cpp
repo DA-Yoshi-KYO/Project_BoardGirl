@@ -1,5 +1,25 @@
 #include "Wizard.h"
 
-void CWizard::Skill(eSkill inKind)
+CWizard::CWizard()
+{
+}
+
+CWizard::~CWizard()
+{
+}
+
+void CWizard::NormalAttack()
+{
+}
+
+void CWizard::QSkill()
+{
+}
+
+void CWizard::ESkill()
+{
+}
+
+void CWizard::RSkill()
 {
 }

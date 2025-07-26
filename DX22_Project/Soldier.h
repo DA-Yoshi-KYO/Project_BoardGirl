@@ -5,6 +5,13 @@
 class CSoldier : public CJob
 {
 public:
-    void Skill(eSkill inKind) override;
+    CSoldier();
+    virtual ~CSoldier();
+    void NormalAttack() override;
+    void QSkill() override;
+    void ESkill() override;
+    void RSkill() override;
+private:
+    void AllSkill(eSkill inKind);
 };
 

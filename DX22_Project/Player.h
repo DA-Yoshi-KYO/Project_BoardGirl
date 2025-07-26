@@ -3,6 +3,7 @@
 // インクルード部
 #include "GameObject.h"
 #include "Job.h"
+#include "CollisionObb.h"
 
 class CPlayer: public CGameObject
 {
@@ -24,4 +25,5 @@ private:
 
 private:
     std::unique_ptr<CJob> m_pJob;
+    CCollisionObb* m_pCollision;
 };
