@@ -9,7 +9,7 @@ JobKind CSceneJobSelect::m_eSelectedJob = JobKind::Soldier;
 
 void CSceneJobSelect::Init()
 {
-    CCamera::GetInstance(CCamera::GetCameraKind())->SetCameraKind(CAM_SELECT);
+    CCamera::SetCameraKind(CAM_SELECT);
 
     m_eSelectedJob = JobKind::Soldier;
     m_pSelectJobs = AddGameObject<CSelectJobs>();
@@ -37,7 +37,7 @@ void CSceneJobSelect::Update()
             }
             m_pSelectJobs->SetMove(false);
         }
-        else if (IsKeyTrigger(VK_RETURN))
+        else if (IsKeyTrigger(VK_SPACE))
         {
             ChangeScene(new CSceneGame());
         }

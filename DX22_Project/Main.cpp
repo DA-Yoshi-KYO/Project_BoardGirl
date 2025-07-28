@@ -14,6 +14,8 @@
 
 #include "Defines.h"
 
+#include "BillboardRenderer.h"
+
 CScene* g_pScene;
 CScene* g_pNextScene;
 bool g_bSceneChanging;
@@ -53,6 +55,7 @@ void Uninit()
 	g_pScene->Uninit();
 	delete g_pScene;
 	g_pScene = nullptr;
+    CBillboardRenderer::Unload();
 
 	UninitInput();
 	ShaderList::Uninit();
@@ -73,6 +76,7 @@ void Update()
 
 	if (g_bSceneChanging)
 	{
+        CBillboardRenderer::Unload();
 		g_pScene->Uninit();
 		delete g_pScene;
 		g_pScene = g_pNextScene;

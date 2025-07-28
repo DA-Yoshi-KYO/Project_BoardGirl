@@ -20,7 +20,9 @@ void CScene::Uninit()
         list->Uninit();
         delete list;
 	}
+
     m_pGameObject_List.clear();
+    m_pCollisionVec.clear();
 }
 
 void CScene::Update()

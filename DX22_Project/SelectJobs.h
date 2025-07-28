@@ -19,5 +19,6 @@ private:
     RendererParam m_tTempParam[(int)JobKind::Max];
     bool isMove;
     bool isNext;
+
 };
 

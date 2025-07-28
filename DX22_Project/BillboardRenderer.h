@@ -13,8 +13,9 @@ public:
 	void Draw() override;
 
     void Load(const char* inPath, const char* inKey);
+    static void Unload();
 private:
-    static std::map<const char*, Texture*> m_pTextureMap;
-    const char* m_chKey;
+    static std::map<std::string, Texture*> m_pTextureMap;
+    std::string m_chKey;
 };
 
