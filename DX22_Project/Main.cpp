@@ -10,11 +10,10 @@
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 
+#include "Scene.h"
 #include "SceneTitle.h"
 
 #include "Defines.h"
-
-#include "BillboardRenderer.h"
 
 CScene* g_pScene;
 CScene* g_pNextScene;
@@ -56,6 +55,8 @@ void Uninit()
 	delete g_pScene;
 	g_pScene = nullptr;
     CBillboardRenderer::Unload();
+    CSpriteRenderer::Unload();
+    CSprite3DRenderer::Unload();
 
 	UninitInput();
 	ShaderList::Uninit();
@@ -77,6 +78,8 @@ void Update()
 	if (g_bSceneChanging)
 	{
         CBillboardRenderer::Unload();
+        CSpriteRenderer::Unload();
+        CSprite3DRenderer::Unload();
 		g_pScene->Uninit();
 		delete g_pScene;
 		g_pScene = g_pNextScene;

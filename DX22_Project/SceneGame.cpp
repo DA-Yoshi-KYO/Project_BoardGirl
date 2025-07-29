@@ -4,15 +4,20 @@
 #include "Field.h"
 #include "Player.h"
 #include "Geometory.h"
+#include "BillboardRenderer.h"
 
 void CSceneGame::Init()
 {
+    // シーンで使用するテクスチャの読み込み
+    CBillboardRenderer::Load(TEXTURE_PATH("Jobs.png"), "Player");
+
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);
 
     // オブジェクトの追加
     AddGameObject<CPlayer>();
     //AddGameObject<CField>(Collision::None,Tag::Field);
+
 }
 
 void CSceneGame::Draw()

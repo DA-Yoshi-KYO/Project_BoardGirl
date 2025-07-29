@@ -5,6 +5,7 @@
 
 #include "Component.h"
 #include "Defines.h"
+#include "Texture.h"
 
 class CRendererComponent : public CComponent
 {
@@ -63,8 +64,14 @@ public:
 	/// </summary>
 	/// <param name="inUVSize">設定するUV座標のサイズ(DirectX::XMFLOAT2)</param>
 	void SetUVSize(DirectX::XMFLOAT2 inUVSize);
-    
+
+    void SetKey(std::string inKey);
+    static void Load(const char* inPath, std::string inKey);
+    static void Unload();
+
 protected:
+    static std::map<std::string, Texture*> m_pTextureMap;
+    std::string m_sKey;
 	RendererParam m_tParam;	// レンダラーの統合パラメータ
 
 };

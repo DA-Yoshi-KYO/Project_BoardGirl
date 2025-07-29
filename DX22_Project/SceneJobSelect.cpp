@@ -9,6 +9,8 @@ JobKind CSceneJobSelect::m_eSelectedJob = JobKind::Soldier;
 
 void CSceneJobSelect::Init()
 {
+    CBillboardRenderer::Load(TEXTURE_PATH("Jobs.png"), "Player");
+
     CCamera::SetCameraKind(CAM_SELECT);
 
     m_eSelectedJob = JobKind::Soldier;

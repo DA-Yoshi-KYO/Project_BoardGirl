@@ -8,8 +8,7 @@
 void CTitleBackGround::Init()
 {
 	CSpriteRenderer* pRenderer = AddComponent<CSpriteRenderer>();
-	pRenderer->Init();
-	pRenderer->Load(TEXTURE_PATH("Title.jpg"),"TitleBG");
+	pRenderer->SetKey("TitleBG");
 
 	m_tParam.m_f3Size = { SCREEN_WIDTH, SCREEN_HEIGHT,0.0f };
 }

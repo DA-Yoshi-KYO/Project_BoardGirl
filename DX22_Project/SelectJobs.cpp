@@ -8,13 +8,13 @@ constexpr float ce_fRadius = 5.0f;
 void CSelectJobs::Init()
 {
     m_pSpriteRenderer[(int)JobKind::Soldier] = AddComponent<CBillboardRenderer>();
-    m_pSpriteRenderer[(int)JobKind::Soldier]->Load(TEXTURE_PATH("Jobs.png"), "Player");
+    m_pSpriteRenderer[(int)JobKind::Soldier]->SetKey("Player");
     m_tJobsParam[(int)JobKind::Soldier].m_f2UVPos = { 0.0f / (float)ce_n2Split.x , 1.0f / (float)ce_n2Split.y };
     m_pSpriteRenderer[(int)JobKind::Wizard] = AddComponent<CBillboardRenderer>();
-    m_pSpriteRenderer[(int)JobKind::Wizard]->Load(TEXTURE_PATH("Jobs.png"), "Player");
+    m_pSpriteRenderer[(int)JobKind::Wizard]->SetKey("Player");
     m_tJobsParam[(int)JobKind::Wizard].m_f2UVPos = { 3.0f / (float)ce_n2Split.x , 1.0f / (float)ce_n2Split.y };
     m_pSpriteRenderer[(int)JobKind::Fighter] = AddComponent<CBillboardRenderer>();
-    m_pSpriteRenderer[(int)JobKind::Fighter]->Load(TEXTURE_PATH("Jobs.png"), "Player");
+    m_pSpriteRenderer[(int)JobKind::Fighter]->SetKey("Player");
     m_tJobsParam[(int)JobKind::Fighter].m_f2UVPos = { 1.0f / (float)ce_n2Split.x , 1.0f / (float)ce_n2Split.y };
     // 戦士の位置を初期値(手前)として、円状にキャラを配置する
     // 円の中心をXZ(0,0)とした時、各キャラの位置は

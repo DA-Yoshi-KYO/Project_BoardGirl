@@ -3,6 +3,10 @@
 #include "Defines.h"
 #include "GameObject.h"
 #include "CollisionBase.h"
+#include "BillboardRenderer.h"
+#include "SpriteRenderer.h"
+#include "Sprite3DRenderer.h"
+#include "ModelRenderer.h"
 
 class CScene
 {
