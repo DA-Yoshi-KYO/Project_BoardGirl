@@ -61,6 +61,20 @@ public:
 		return nullptr;
 	}
 
+    // 同じコンポーネントがあれば全て取得
+    template<typename T = CComponent>
+    std::list<T*> GetSameComponents()
+    {
+        std::list<T*> componentList;
+
+        for (CComponent* pComponent : m_pComponent_List)
+        {
+            T* pRet = dynamic_cast<T*>(pComponent);
+            if (pRet != nullptr) componentList.push_back(pRet);
+        }
+        return componentList;
+    }
+
 public:
     // アクセサ
 

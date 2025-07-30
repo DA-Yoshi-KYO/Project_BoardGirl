@@ -189,6 +189,7 @@
     <ClCompile Include="SelectJobs.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderList.cpp" />
+    <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Soldier.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprite3DRenderer.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="SelectBackGround.h" />
     <ClInclude Include="SelectJobs.h" />
+    <ClInclude Include="Slime.h" />
     <ClInclude Include="Soldier.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Sprite3DRenderer.h" />

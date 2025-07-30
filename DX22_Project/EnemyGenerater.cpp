@@ -25,12 +25,7 @@ void CEnemyGenerater::ReleaseInstance()
     }
 }
 
-void CEnemyGenerater::GenerateEnemy(const char* enemyID, const DirectX::XMFLOAT3& position)
-{
-
-}
-
-void CEnemyGenerater::MasterInit()
+void CEnemyGenerater::GenerateEnemy(std::string inEnemyID, const DirectX::XMFLOAT3& position)
 {
 
 }

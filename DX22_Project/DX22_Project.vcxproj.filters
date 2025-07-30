@@ -237,6 +237,9 @@
     <ClCompile Include="EnemyGenerater.cpp">
       <Filter>Code\GameSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Code\GameObject\Billboard\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -364,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
       <Filter>Code\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>Code\GameObject\Billboard\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
