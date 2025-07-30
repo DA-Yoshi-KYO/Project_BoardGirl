@@ -1,4 +1,7 @@
 #include "EnemyGenerater.h"
+#include "Main.h"
+#include "EnemyBase.h"
+#include "Slime.h"
 
 CEnemyGenerater* CEnemyGenerater::m_pInstance = nullptr;
 
@@ -27,5 +30,11 @@ void CEnemyGenerater::ReleaseInstance()
 
 void CEnemyGenerater::GenerateEnemy(std::string inEnemyID, const DirectX::XMFLOAT3& position)
 {
+    CScene* pScene = GetScene();
+    CEnemyBase* pEnemy = nullptr;
 
+    if (inEnemyID == "Slime") pEnemy = pScene->AddGameObject<CSlime>();
+    else MessageBox(NULL, "NotFindEnemy", "Error", MB_OK);
+
+    pEnemy->AccessorPos(position);
 }

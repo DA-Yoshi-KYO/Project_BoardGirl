@@ -15,6 +15,8 @@
 
 #include "Defines.h"
 
+#include "EnemyGenerater.h"
+
 CScene* g_pScene;
 CScene* g_pNextScene;
 bool g_bSceneChanging;
@@ -54,6 +56,7 @@ void Uninit()
 	g_pScene->Uninit();
 	delete g_pScene;
 	g_pScene = nullptr;
+    CEnemyGenerater::GetInstance()->ReleaseInstance();
     CBillboardRenderer::Unload();
     CSpriteRenderer::Unload();
     CSprite3DRenderer::Unload();

@@ -2,11 +2,12 @@
 
 #include "EnemyBase.h"
 
-class CSlime
+class CSlime : public CEnemyBase
 {
 public:
     CSlime();
     virtual ~CSlime();
+    void Init() override;
 
 private:
 

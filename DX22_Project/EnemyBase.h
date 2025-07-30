@@ -9,7 +9,10 @@ public:
     CEnemyBase();
     virtual ~CEnemyBase();
     void Init() override;
+    void Update() override;
+    void OnColliderHit(CCollisionBase* other) override;
 
+    void Damage(int inDamage);
 private:
 
 protected:

@@ -5,11 +5,13 @@
 #include "Player.h"
 #include "Geometory.h"
 #include "BillboardRenderer.h"
+#include "EnemyGenerater.h"
 
 void CSceneGame::Init()
 {
     // シーンで使用するテクスチャの読み込み
     CBillboardRenderer::Load(TEXTURE_PATH("Jobs.png"), "Player");
+    CBillboardRenderer::Load(TEXTURE_PATH("Slime.png"), "Slime");
 
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);
@@ -18,6 +20,7 @@ void CSceneGame::Init()
     AddGameObject<CPlayer>();
     //AddGameObject<CField>(Collision::None,Tag::Field);
 
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 10.0f });
 }
 
 void CSceneGame::Draw()
