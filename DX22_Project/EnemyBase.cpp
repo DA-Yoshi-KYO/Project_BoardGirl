@@ -1,4 +1,4 @@
-#include "EnemyBase.h"
+﻿#include "EnemyBase.h"
 #include "Main.h"
 #include "Player.h"
 #include "Defines.h"
@@ -40,6 +40,8 @@ void CEnemyBase::Init()
 
 void CEnemyBase::Update()
 {
+    static float fTime = 0.0f;
+
     if (m_tEnemyStatus.m_bMove)
     {
         m_f3OldPos = m_tParam.m_f3Pos;
@@ -58,6 +60,27 @@ void CEnemyBase::Update()
     for (int i = 0; i < (int)EnemyCollision::Max; i++)
     {
         m_pCollision[i]->AccessorCenter(m_tParam.m_f3Pos);
+    }
+
+    static float fSwitchTime = 0.0f;
+    if (m_tEnemyStatus.m_bDamage)
+    {
+        if (fSwitchTime >= 0.1f)
+        {
+            int alpha = m_tParam.m_f4Color.w;
+            alpha ^= 1;
+            m_tParam.m_f4Color.w = static_cast<float>(alpha);
+            fSwitchTime = 0.0f;
+        }
+        if (fTime >= 1.0f) 
+        {
+            m_tEnemyStatus.m_bDamage = false;
+            m_tParam.m_f4Color.w = 1.0f;
+            fTime = 0.0f;
+            fSwitchTime = 0.0f;
+        }
+        fTime += fDeltaTime;
+        fSwitchTime += fDeltaTime;
     }
 
     CGameObject::Update();
@@ -90,7 +113,9 @@ void CEnemyBase::OnColliderHit(CCollisionBase* other, std::string thisTag)
 
 void CEnemyBase::Damage(int inDamage)
 {
+    if (m_tEnemyStatus.m_bDamage) return;
     m_tEnemyStatus.m_nHP -= inDamage;
+    m_tEnemyStatus.m_bDamage = true;
     if (m_tEnemyStatus.m_nHP <= 0)
     {
         Destroy();

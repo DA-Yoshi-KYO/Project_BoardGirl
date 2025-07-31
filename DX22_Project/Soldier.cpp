@@ -1,4 +1,4 @@
-#include "Soldier.h"
+﻿#include "Soldier.h"
 #include "Player.h"
 #include "Main.h"
 
@@ -7,8 +7,8 @@ CSoldier::CSoldier()
 {
     m_tStatus.m_nHP = 100;
     m_tStatus.m_fCriticalPercentage = 12.5f;
-    m_tStatus.m_nAttack = 20;
-    m_tStatus.m_nDefense = 10;
+    m_tStatus.m_nAttack = 2;
+    m_tStatus.m_nDefense = 1;
 
 
     m_tStatus.m_fSkillCooltime[(int)eSkill::NormalAttack] = 0.5f;
@@ -16,7 +16,7 @@ CSoldier::CSoldier()
     m_tStatus.m_fSkillCooltime[(int)eSkill::ESkill] = 5.0f;
     m_tStatus.m_fSkillCooltime[(int)eSkill::RSkill] = 15.0f;
 
-    m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack] = 1.0f;
+    m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack] = 0.5f;
     m_tStatus.m_fAttackDuration[(int)eSkill::QSkill] = 1.0f;
     m_tStatus.m_fAttackDuration[(int)eSkill::ESkill] = 1.0f;
     m_tStatus.m_fAttackDuration[(int)eSkill::RSkill] = 3.0f;
@@ -61,6 +61,7 @@ void CSoldier::RSkill()
 
 void CSoldier::NormalAttackHit()
 {
+    m_pTargetEnemy->Damage(m_tStatus.m_nAttack);
 }
 
 void CSoldier::QSkillHit()

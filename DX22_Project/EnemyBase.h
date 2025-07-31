@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "GameObject.h"
 #include "CollisionObb.h"
@@ -32,6 +32,7 @@ protected:
         int m_nDefense;
         float m_fSpeed;
         bool m_bMove;
+        bool m_bDamage;
     }m_tEnemyStatus;
 
     CCollisionObb* m_pCollision[static_cast<int>(EnemyCollision::Max)];

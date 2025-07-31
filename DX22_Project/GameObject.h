@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // インクルード部
 #include "Defines.h"

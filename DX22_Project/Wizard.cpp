@@ -1,4 +1,4 @@
-#include "Wizard.h"
+﻿#include "Wizard.h"
 
 CWizard::CWizard()
 {
