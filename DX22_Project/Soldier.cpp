@@ -59,6 +59,22 @@ void CSoldier::RSkill()
     AllSkill(eSkill::RSkill);
 }
 
+void CSoldier::NormalAttackHit()
+{
+}
+
+void CSoldier::QSkillHit()
+{
+}
+
+void CSoldier::ESkillHit()
+{
+}
+
+void CSoldier::RSkillHit()
+{
+}
+
 void CSoldier::AllSkill(eSkill inKind)
 {
     if (inKind >= eSkill::Max || inKind < eSkill::NormalAttack) return;

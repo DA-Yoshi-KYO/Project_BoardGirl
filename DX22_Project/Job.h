@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "CollisionObb.h"
 #include "Defines.h"
+#include "EnemyBase.h"
 
 class CPlayer;
 
@@ -36,6 +37,11 @@ public:
     virtual void QSkill() = 0;
     virtual void ESkill() = 0;
     virtual void RSkill() = 0;
+    virtual void SkillHit(eSkill inKind, CEnemyBase* inTarget);
+    virtual void NormalAttackHit() = 0;
+    virtual void QSkillHit() = 0;
+    virtual void ESkillHit() = 0;
+    virtual void RSkillHit() = 0;
 
 
 private:
@@ -43,7 +49,8 @@ private:
 protected:
     static int m_nLevel;
     static int m_nExp;
-    
+    CEnemyBase* m_pTargetEnemy;
+
     struct PlayerStatus
     {
         int m_nHP;

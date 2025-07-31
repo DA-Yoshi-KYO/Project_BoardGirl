@@ -7,16 +7,18 @@ CJob::CJob()
 {
     CScene* pScene = GetScene();
     CPlayer* pPlayer = pScene->GetGameObject<CPlayer>();
-    m_pCollisionObb[(int)eSkill::NormalAttack] = std::make_unique<CCollisionObb>(pPlayer);
-    m_pCollisionObb[(int)eSkill::QSkill] = std::make_unique<CCollisionObb>(pPlayer);
-    m_pCollisionObb[(int)eSkill::ESkill] = std::make_unique<CCollisionObb>(pPlayer);
-    m_pCollisionObb[(int)eSkill::RSkill] = std::make_unique<CCollisionObb>(pPlayer);
 
     for (int i = 0; i < (int)eSkill::Max; i++)
     {
+        m_pCollisionObb[i] = std::make_unique<CCollisionObb>(pPlayer);
         m_pCollisionObb[i]->AccessorActive(false);
         pScene->AddCollision(m_pCollisionObb[i].get());
     }
+
+    m_pCollisionObb[(int)eSkill::NormalAttack]->AccessorTag("NormalAttack");
+    m_pCollisionObb[(int)eSkill::QSkill]->AccessorTag("QSkill");
+    m_pCollisionObb[(int)eSkill::ESkill]->AccessorTag("ESkill");
+    m_pCollisionObb[(int)eSkill::RSkill]->AccessorTag("RSkill");
 }
 
 CJob::~CJob()
@@ -61,4 +63,19 @@ void CJob::Skill(eSkill inKind)
     }
 
     m_tStatus.m_fSkillTime[(int)inKind] = 0.0f;
+}
+
+void CJob::SkillHit(eSkill inKind, CEnemyBase* inTarget)
+{
+    if (inKind >= eSkill::Max || inKind < eSkill::NormalAttack) return;
+    m_pTargetEnemy = inTarget;
+
+    switch (inKind)
+    {
+    case eSkill::NormalAttack: NormalAttackHit(); break;
+    case eSkill::QSkill: QSkillHit(); break;
+    case eSkill::ESkill: ESkillHit(); break;
+    case eSkill::RSkill: RSkillHit(); break;
+    default: break;
+    }
 }

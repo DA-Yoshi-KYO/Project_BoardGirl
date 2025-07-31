@@ -23,3 +23,20 @@ void CFighter::ESkill()
 void CFighter::RSkill()
 {
 }
+
+void CFighter::NormalAttackHit()
+{
+}
+
+void CFighter::QSkillHit()
+{
+
+}
+
+void CFighter::ESkillHit()
+{
+}
+
+void CFighter::RSkillHit()
+{
+}

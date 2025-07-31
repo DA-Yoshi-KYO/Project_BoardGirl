@@ -78,6 +78,22 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
             m_tParam.m_f3Pos = m_f3OldPos;
         }
     }
+    else if (thisTag == "NormalAttack")
+    {
+        m_pJob->NormalAttackHit();
+    }
+    else if (thisTag == "QSkill")
+    {
+        m_pJob->QSkillHit();
+    }
+    else if (thisTag == "ESkill")
+    {
+        m_pJob->ESkillHit();
+    }
+    else if (thisTag == "RSkill")
+    {
+        m_pJob->RSkillHit();
+    }
 }
 
 DirectX::XMFLOAT3 CPlayer::GetForward()

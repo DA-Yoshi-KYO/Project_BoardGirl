@@ -23,3 +23,19 @@ void CWizard::ESkill()
 void CWizard::RSkill()
 {
 }
+
+void CWizard::NormalAttackHit()
+{
+}
+
+void CWizard::QSkillHit()
+{
+}
+
+void CWizard::ESkillHit()
+{
+}
+
+void CWizard::RSkillHit()
+{
+}
