@@ -104,12 +104,12 @@ inline DirectX::XMFLOAT2 operator/(float lhs, const DirectX::XMFLOAT2& rhs)
     return { lhs / rhs.x, lhs / rhs.y };
 }
 
-//inline DirectX::XMFLOAT2 operator+=(DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
-//{
-//    lhs.x += rhs.x;
-//    lhs.y += rhs.y;
-//    return lhs;
-//}
+inline DirectX::XMFLOAT2 operator+=(DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
+{
+    lhs.x += rhs.x;
+    lhs.y += rhs.y;
+    return lhs;
+}
 
 inline DirectX::XMFLOAT2 operator-=(DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
 {
@@ -186,13 +186,13 @@ inline DirectX::XMFLOAT3 operator/(float lhs, const DirectX::XMFLOAT3& rhs)
     return { lhs / rhs.x, lhs / rhs.y, lhs / rhs.z };
 }
 
-//DirectX::XMFLOAT3 operator+=(DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
-//{
-//    lhs.x += rhs.x;
-//    lhs.y += rhs.y;
-//    lhs.z += rhs.z;
-//    return lhs;
-//}
+inline DirectX::XMFLOAT3 operator+=(DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
+{
+    lhs.x += rhs.x;
+    lhs.y += rhs.y;
+    lhs.z += rhs.z;
+    return lhs;
+}
 
 inline DirectX::XMFLOAT3 operator-=(DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
 {
@@ -274,14 +274,14 @@ inline DirectX::XMFLOAT4 operator/(float lhs, const DirectX::XMFLOAT4& rhs)
     return { lhs / rhs.x, lhs / rhs.y, lhs / rhs.z, lhs / rhs.w };
 }
 
-//inline DirectX::XMFLOAT4 operator+=(DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
-//{
-//    lhs.x += rhs.x;
-//    lhs.y += rhs.y;
-//    lhs.z += rhs.z;
-//    lhs.w += rhs.w;
-//    return lhs;
-//}
+inline DirectX::XMFLOAT4 operator+=(DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
+{
+    lhs.x += rhs.x;
+    lhs.y += rhs.y;
+    lhs.z += rhs.z;
+    lhs.w += rhs.w;
+    return lhs;
+}
 
 inline DirectX::XMFLOAT4 operator-=(DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)
 {
