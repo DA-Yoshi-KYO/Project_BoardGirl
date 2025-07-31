@@ -10,6 +10,7 @@ class CPlayer: public CGameObject
 public: 
 	void Init() override;
 	void Update() override;
+    void OnColliderHit(CCollisionBase* other, std::string thisTag = "None") override;
 
     // プレイヤーの前方向を取得
 	DirectX::XMFLOAT3 GetForward();

@@ -28,10 +28,10 @@ public:
         gameObject->AccessorTag(inTag);
 
 
-        CCollisionBase* pCollision = gameObject->GetComponent<CCollisionBase>();
-        if (pCollision)
+        std::list<CCollisionBase*> pCollisionList = gameObject->GetSameComponents<CCollisionBase>();
+        for (auto itr : pCollisionList)
         {
-            m_pCollisionVec.push_back(pCollision);
+            m_pCollisionVec.push_back(itr);
         }
 
 		return gameObject;

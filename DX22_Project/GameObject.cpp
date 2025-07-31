@@ -56,7 +56,7 @@ void CGameObject::Draw()
 	}	
 }
 
-void CGameObject::OnColliderHit(CCollisionBase* other)
+void CGameObject::OnColliderHit(CCollisionBase* other, std::string thisTag)
 {
 
 }

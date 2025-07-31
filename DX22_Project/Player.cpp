@@ -22,9 +22,11 @@ void CPlayer::Init()
 
     // 汎用パラメータの初期化
 	m_tParam.m_f3Pos = { 0.0f,0.0f,0.0f };
+    m_f3OldPos = m_tParam.m_f3Pos;
 	m_tParam.m_f3Size = { 1.0f,1.0f,1.0f };
     m_pCollision->AccessorCenter(m_tParam.m_f3Pos);
     m_pCollision->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
+    m_pCollision->AccessorTag("PlayerBody");
 
     // 特有パラメータの初期化
 	m_f3Velocity = {};
@@ -56,6 +58,7 @@ void CPlayer::Init()
 
 void CPlayer::Update()
 {
+    m_f3OldPos = m_tParam.m_f3Pos;
     // 移動処理
 	PlayerMove();
     PlayerSkill();
@@ -64,6 +67,17 @@ void CPlayer::Update()
     m_pCollision->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
 
     CGameObject::Update();
+}
+
+void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
+{
+    if (thisTag == "PlayerBody")
+    {
+        if (other->AccessorTag() == "EnemyBody")
+        {
+            m_tParam.m_f3Pos = m_f3OldPos;
+        }
+    }
 }
 
 DirectX::XMFLOAT3 CPlayer::GetForward()

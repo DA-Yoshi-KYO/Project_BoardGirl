@@ -48,8 +48,8 @@ void CScene::Update()
             {
                 CGameObject* pObjA = pCollisionA->GetGameObject();
                 CGameObject* pObjB = pCollisionB->GetGameObject();
-                pObjA->OnColliderHit(pCollisionB);
-                pObjB->OnColliderHit(pCollisionA);
+                pObjA->OnColliderHit(pCollisionB,pCollisionA->AccessorTag());
+                pObjB->OnColliderHit(pCollisionA,pCollisionB->AccessorTag());
             }
         }
     }

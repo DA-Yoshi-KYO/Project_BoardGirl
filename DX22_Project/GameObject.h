@@ -30,7 +30,7 @@ public:
 	virtual void Draw();
 
     // 衝突時の処理
-	virtual void OnColliderHit(CCollisionBase* other);
+	virtual void OnColliderHit(CCollisionBase* other, std::string thisTag = "None");
     // オブジェクトの破棄時の処理
 	virtual void OnDestroy();
     // オブジェクトの破棄
@@ -65,6 +65,7 @@ public:
     std::list<T*> GetSameComponents()
     {
         std::list<T*> componentList;
+        componentList.clear();
 
         for (CComponent* pComponent : m_pComponent_List)
         {

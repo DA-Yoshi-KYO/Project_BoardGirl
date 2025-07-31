@@ -16,4 +16,6 @@ CSlime::~CSlime()
 void CSlime::Init()
 {
     AddComponent<CBillboardRenderer>()->SetKey("Slime");
+
+    CEnemyBase::Init();
 }

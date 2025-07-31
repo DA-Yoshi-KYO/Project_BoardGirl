@@ -6,6 +6,15 @@
 CEnemyBase::CEnemyBase()
     : m_tEnemyStatus{}
 {
+    m_tEnemyStatus.m_nHP = 10;
+    m_tEnemyStatus.m_nAttack = 2;
+    m_tEnemyStatus.m_nDefense = 1;
+    m_tEnemyStatus.m_bMove = false;
+    m_tEnemyStatus.m_fSpeed = 0.05f;
+    for (int i = 0; i < (int)EnemyCollision::Max; i++)
+    {
+        m_pCollision[i] = nullptr;
+    }
 }
 
 CEnemyBase::~CEnemyBase()
@@ -15,30 +24,67 @@ CEnemyBase::~CEnemyBase()
 
 void CEnemyBase::Init()
 {
-
+    for (int i = 0; i < (int)EnemyCollision::Max; i++)
+    {
+        m_pCollision[i] = AddComponent<CCollisionObb>();
+        m_pCollision[i]->AccessorActive(true);
+        m_pCollision[i]->AccessorCenter(m_tParam.m_f3Pos);
+    }
+    m_pCollision[(int)EnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size);
+    m_pCollision[(int)EnemyCollision::Body]->AccessorTag("EnemyBody");
+    m_pCollision[(int)EnemyCollision::Search]->AccessorHalfSize({ 5.0f, 5.0f, 5.0f });
+    m_pCollision[(int)EnemyCollision::Search]->AccessorTag("EnemySearch");
+    m_pCollision[(int)EnemyCollision::Attack]->AccessorHalfSize({ 1.5f, 1.5f, 1.5f });
+    m_pCollision[(int)EnemyCollision::Attack]->AccessorTag("EnemyAttack");
 }
 
 void CEnemyBase::Update()
 {
-    m_f3OldPos = m_tParam.m_f3Pos;
-    DirectX::XMFLOAT3 f3PlayerPos = GetScene()->GetGameObject<CPlayer>()->AccessorPos();
-    DirectX::XMVECTOR vecPlayerPos = DirectX::XMLoadFloat3(&f3PlayerPos);
-    DirectX::XMVECTOR vecEnemyPos  = DirectX::XMLoadFloat3(&m_tParam.m_f3Pos);
-    DirectX::XMVECTOR vecDirection = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(vecPlayerPos, vecEnemyPos));
-    DirectX::XMVECTOR vecVelocity = vecDirection * 0.1f;
-    DirectX::XMFLOAT3 f3Velocity;
-    DirectX::XMStoreFloat3(&f3Velocity, vecVelocity);
-    m_tParam.m_f3Pos += f3Velocity;
+    if (m_tEnemyStatus.m_bMove)
+    {
+        m_f3OldPos = m_tParam.m_f3Pos;
+        DirectX::XMFLOAT3 f3PlayerPos = GetScene()->GetGameObject<CPlayer>()->AccessorPos();
+        DirectX::XMVECTOR vecPlayerPos = DirectX::XMLoadFloat3(&f3PlayerPos);
+        DirectX::XMVECTOR vecEnemyPos = DirectX::XMLoadFloat3(&m_tParam.m_f3Pos);
+        DirectX::XMVECTOR vecDirection = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(vecPlayerPos, vecEnemyPos));
+        DirectX::XMVECTOR vecVelocity = vecDirection * m_tEnemyStatus.m_fSpeed;
+        DirectX::XMFLOAT3 f3Velocity;
+        DirectX::XMStoreFloat3(&f3Velocity, vecVelocity);
+        m_tParam.m_f3Pos += f3Velocity;
+    }
+
+    m_tEnemyStatus.m_bMove = false;
+
+    for (int i = 0; i < (int)EnemyCollision::Max; i++)
+    {
+        m_pCollision[i]->AccessorCenter(m_tParam.m_f3Pos);
+    }
 
     CGameObject::Update();
 }
 
-void CEnemyBase::OnColliderHit(CCollisionBase* other)
+void CEnemyBase::OnColliderHit(CCollisionBase* other, std::string thisTag)
 {
-    if (other->AccessorTag() == "PlayerBody")
+    if (thisTag == "EnemyBody")
     {
-        m_tParam.m_f3Pos = m_f3OldPos;
+        if (other->AccessorTag() == "PlayerBody")
+        {
+            m_tParam.m_f3Pos = m_f3OldPos;
+        }
+
+        return;
     }
+    else if (thisTag == "EnemySearch")
+    {
+        if (other->AccessorTag() == "PlayerBody")
+        {
+            m_tEnemyStatus.m_bMove = true;
+        }
+
+        return;
+    }
+
+
     else return;
 }
 
