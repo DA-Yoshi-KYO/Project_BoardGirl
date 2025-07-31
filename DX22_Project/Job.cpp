@@ -3,7 +3,7 @@
 #include "Player.h"
 
 CJob::CJob()
-    : m_tStatus{}, m_pCollisionObb{}
+    : m_tStatus{}, m_pCollisionObb{}, m_pTargetEnemy(nullptr)
 {
     CScene* pScene = GetScene();
     CPlayer* pPlayer = pScene->GetGameObject<CPlayer>();

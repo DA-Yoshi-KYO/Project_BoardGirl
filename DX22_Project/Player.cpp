@@ -114,10 +114,10 @@ DirectX::XMFLOAT3 CPlayer::GetRight()
     DirectX::XMMATRIX mRotate = DirectX::XMMatrixRotationRollPitchYaw(m_tParam.m_f3Rotate.x, m_tParam.m_f3Rotate.y, m_tParam.m_f3Rotate.z);
 
     // 回転行列のX軸([0])を右方向として取得
-    DirectX::XMFLOAT3 f3ForWard;
-    DirectX::XMStoreFloat3(&f3ForWard, mRotate.r[0]);
+    DirectX::XMFLOAT3 f3Right;
+    DirectX::XMStoreFloat3(&f3Right, mRotate.r[0]);
 
-    return f3ForWard;
+    return f3Right;
 }
 
 void CPlayer::PlayerMove()

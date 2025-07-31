@@ -3,7 +3,7 @@ root = true
 
 # すべてのファイルに共通の設定
 [*]
-charset = utf-8          # 文字コードを UTF-8 に統一
+charset = utf-8-bom          # 文字コードを UTF-8 に統一
 end_of_line = lf         # 改行コードを LF に統一（Unixスタイル）
 insert_final_newline = true   # ファイル末尾に改行を入れる
 trim_trailing_whitespace = true   # 行末の余分なスペースを削除
