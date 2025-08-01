@@ -15,6 +15,8 @@ CEnemyBase::CEnemyBase()
     {
         m_pCollision[i] = nullptr;
     }
+
+    m_pHPBar = nullptr;
 }
 
 CEnemyBase::~CEnemyBase()
@@ -30,12 +32,24 @@ void CEnemyBase::Init()
         m_pCollision[i]->AccessorActive(true);
         m_pCollision[i]->AccessorCenter(m_tParam.m_f3Pos);
     }
-    m_pCollision[(int)EnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size);
+    m_pCollision[(int)EnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
     m_pCollision[(int)EnemyCollision::Body]->AccessorTag("EnemyBody");
     m_pCollision[(int)EnemyCollision::Search]->AccessorHalfSize({ 5.0f, 5.0f, 5.0f });
     m_pCollision[(int)EnemyCollision::Search]->AccessorTag("EnemySearch");
-    m_pCollision[(int)EnemyCollision::Attack]->AccessorHalfSize({ 1.5f, 1.5f, 1.5f });
+    m_pCollision[(int)EnemyCollision::Attack]->AccessorHalfSize({ 1.0f, 1.0f, 1.0f });
     m_pCollision[(int)EnemyCollision::Attack]->AccessorTag("EnemyAttack");
+
+    m_pHPBar = GetScene()->AddGameObject<CHPBar>();
+    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 2.0f, m_tParam.m_f3Pos.z));
+    m_pHPBar->SetRenderState(DirectX::XMFLOAT3(3.0f,0.5f,1.0f), DirectX::XMFLOAT4(1.0f,0.0f,0.0f,1.0f));
+    m_pHPBar->SetMaxHP(m_tEnemyStatus.m_nHP);
+    m_pHPBar->SetCurrentHP(m_tEnemyStatus.m_nHP);
+
+}
+
+void CEnemyBase::Uninit()
+{
+    CGameObject::Uninit();
 }
 
 void CEnemyBase::Update()
@@ -83,6 +97,9 @@ void CEnemyBase::Update()
         fSwitchTime += fDeltaTime;
     }
 
+    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 2.0f, m_tParam.m_f3Pos.z));
+    m_pHPBar->SetCurrentHP(m_tEnemyStatus.m_nHP);
+
     CGameObject::Update();
 }
 
@@ -109,6 +126,11 @@ void CEnemyBase::OnColliderHit(CCollisionBase* other, std::string thisTag)
 
 
     else return;
+}
+
+void CEnemyBase::OnDestroy()
+{
+    m_pHPBar->Destroy();
 }
 
 void CEnemyBase::Damage(int inDamage)

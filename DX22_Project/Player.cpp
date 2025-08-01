@@ -71,28 +71,28 @@ void CPlayer::Update()
 
 void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
 {
-    if (thisTag == "PlayerBody")
+    if (other->AccessorTag() == "EnemyBody")
     {
-        if (other->AccessorTag() == "EnemyBody")
+        if (thisTag == "PlayerBody")
         {
             m_tParam.m_f3Pos = m_f3OldPos;
         }
-    }
-    else if (thisTag == "NormalAttack")
-    {
-        m_pJob->SkillHit(eSkill::NormalAttack, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
-    }
-    else if (thisTag == "QSkill")
-    {
-        m_pJob->SkillHit(eSkill::QSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
-    }
-    else if (thisTag == "ESkill")
-    {
-        m_pJob->SkillHit(eSkill::ESkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
-    }
-    else if (thisTag == "RSkill")
-    {
-        m_pJob->SkillHit(eSkill::RSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
+        else if (thisTag == "NormalAttack")
+        {
+            m_pJob->SkillHit(eSkill::NormalAttack, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
+        }
+        else if (thisTag == "QSkill")
+        {
+            m_pJob->SkillHit(eSkill::QSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
+        }
+        else if (thisTag == "ESkill")
+        {
+            m_pJob->SkillHit(eSkill::ESkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
+        }
+        else if (thisTag == "RSkill")
+        {
+            m_pJob->SkillHit(eSkill::RSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
+        }
     }
 }
 

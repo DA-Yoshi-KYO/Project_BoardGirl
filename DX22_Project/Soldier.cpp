@@ -10,7 +10,6 @@ CSoldier::CSoldier()
     m_tStatus.m_nAttack = 2;
     m_tStatus.m_nDefense = 1;
 
-
     m_tStatus.m_fSkillCooltime[(int)eSkill::NormalAttack] = 0.5f;
     m_tStatus.m_fSkillCooltime[(int)eSkill::QSkill] = 5.0f;
     m_tStatus.m_fSkillCooltime[(int)eSkill::ESkill] = 5.0f;

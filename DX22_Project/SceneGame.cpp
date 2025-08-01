@@ -1,4 +1,4 @@
-// インクルード部
+﻿// インクルード部
 #include "SceneGame.h"
 #include "Camera.h"
 #include "Field.h"
@@ -12,6 +12,7 @@ void CSceneGame::Init()
     // シーンで使用するテクスチャの読み込み
     CBillboardRenderer::Load(TEXTURE_PATH("Jobs.png"), "Player");
     CBillboardRenderer::Load(TEXTURE_PATH("Slime.png"), "Slime");
+    CBillboardRenderer::Load(TEXTURE_PATH("HPBar.jpg"), "HPBar");
 
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);

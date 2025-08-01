@@ -79,6 +79,9 @@
     <Filter Include="Code\GameObject\Billboard\Enemy">
       <UniqueIdentifier>{123967e1-2d64-4528-94f3-0754f27740e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\Composite">
+      <UniqueIdentifier>{60449e22-20e5-486d-8a1f-f415104a41e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -240,6 +243,9 @@
     <ClCompile Include="Slime.cpp">
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="HPBar.cpp">
+      <Filter>Code\Composite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -370,6 +376,9 @@
     </ClInclude>
     <ClInclude Include="Slime.h">
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="HPBar.h">
+      <Filter>Code\Composite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

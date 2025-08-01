@@ -61,7 +61,12 @@ void CScene::Update()
             m_pCollisionVec.erase(m_pCollisionVec.begin() + i);
         }
     }
-    m_pGameObject_List.remove_if([](CGameObject* pObj) { return pObj->IsDestroy(); });
+    m_pGameObject_List.remove_if([](CGameObject* pObj)
+        {
+            bool bDestroy = pObj->IsDestroy();
+            if (bDestroy) pObj->OnDestroy();
+            return bDestroy;
+        });
 }
 
 void CScene::Draw()

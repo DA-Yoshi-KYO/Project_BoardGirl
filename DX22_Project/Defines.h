@@ -1,4 +1,4 @@
-#ifndef __DEFINES_H__
+﻿#ifndef __DEFINES_H__
 #define __DEFINES_H__
 
 // インクルード部
@@ -336,6 +336,12 @@ inline DirectX::XMVECTOR operator+(const DirectX::XMVECTOR& lhs, const DirectX::
 inline DirectX::XMVECTOR operator-(const DirectX::XMVECTOR& lhs, const DirectX::XMVECTOR& rhs)
 {
     return DirectX::XMVectorSubtract(lhs, rhs);
+}
+
+inline DirectX::XMVECTOR operator-=(DirectX::XMVECTOR& lhs, const DirectX::XMVECTOR& rhs)
+{
+    lhs = DirectX::XMVectorSubtract(lhs, rhs);
+    return lhs;
 }
 
 inline DirectX::XMVECTOR operator*(const DirectX::XMVECTOR& lhs, const DirectX::XMVECTOR& rhs)
