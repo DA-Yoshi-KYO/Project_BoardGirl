@@ -364,4 +364,21 @@ inline DirectX::XMVECTOR operator/(const DirectX::XMVECTOR& lhs, float rhs)
     return DirectX::XMVectorScale(lhs, 1.0f / rhs);
 }
 
+inline float HelmiteValue(float t,float x0, float x1, float v0, float v1, float maxT = 1.0f)
+{
+    // エルミート曲線
+    // P...関数
+    // t...Time
+    // x₀...初期位置ベクトル
+    // x₁...目標位置ベクトル
+    // v₀...初期位置接線ベクトル
+    // v₁...目標接線ベクトル
+    // P(t) = (t - 1)²(2t + 1)x₀ + t²(3 - 2t)x₁ + (1 - t)²tv₀ + (t - 1)t²v₁
+
+    t = t / maxT;
+    float out = powf(t - 1, 2) * (2 * t + 1) * x0 + powf(t, 2) * (3 - 2 * t) * x1 + powf(1 - t, 2) * t * v0 + (t - 1) * powf(t, 2) * v1;
+
+    return out;
+}
+
 #endif // __DEFINES_H__

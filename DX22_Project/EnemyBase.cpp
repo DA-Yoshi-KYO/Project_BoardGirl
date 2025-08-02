@@ -97,7 +97,7 @@ void CEnemyBase::Update()
         fSwitchTime += fDeltaTime;
     }
 
-    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 2.0f, m_tParam.m_f3Pos.z));
+    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y, m_tParam.m_f3Pos.z));
     m_pHPBar->SetCurrentHP(m_tEnemyStatus.m_nHP);
 
     CGameObject::Update();
