@@ -143,3 +143,8 @@ void CEnemyBase::Damage(int inDamage)
         Destroy();
     }
 }
+
+void CEnemyBase::SetInvincibly(bool isInvincibly)
+{
+    m_tEnemyStatus.m_bDamage = isInvincibly;
+}

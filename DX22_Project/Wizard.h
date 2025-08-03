@@ -20,5 +20,5 @@ private:
     DirectX::XMFLOAT3 m_f3Forward;
     DirectX::XMFLOAT3 m_f3InitPos;
     DirectX::XMFLOAT3 m_f3TargetPos;
-
+    int m_nOldAttack;
 };

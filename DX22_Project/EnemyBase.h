@@ -25,6 +25,8 @@ public:
     void OnDestroy() override;
 
     void Damage(int inDamage);
+    void SetInvincibly(bool isInvincibly);
+
 private:
 
 protected:
