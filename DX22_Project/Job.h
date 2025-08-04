@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "GameObject.h"
 #include "CollisionObb.h"
@@ -43,6 +43,8 @@ public:
     virtual void ESkillHit() = 0;
     virtual void RSkillHit() = 0;
 
+    void Damage(int inDamage);
+    int GetHP() { return m_tStatus.m_nHP; };
 
 private:
     
@@ -50,6 +52,7 @@ protected:
     static int m_nLevel;
     static int m_nExp;
     CEnemyBase* m_pTargetEnemy;
+    bool isEnd;
 
     struct PlayerStatus
     {

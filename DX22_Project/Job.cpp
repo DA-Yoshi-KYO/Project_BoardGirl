@@ -1,9 +1,10 @@
-#include "Job.h"
+﻿#include "Job.h"
 #include "Main.h"
 #include "Player.h"
+#include "SceneTitle.h"
 
 CJob::CJob()
-    : m_tStatus{}, m_pCollisionObb{}, m_pTargetEnemy(nullptr)
+    : m_tStatus{}, m_pCollisionObb{}, m_pTargetEnemy(nullptr), isEnd(false)
 {
     CScene* pScene = GetScene();
     CPlayer* pPlayer = pScene->GetGameObject<CPlayer>();
@@ -77,5 +78,16 @@ void CJob::SkillHit(eSkill inKind, CEnemyBase* inTarget)
     case eSkill::ESkill: ESkillHit(); break;
     case eSkill::RSkill: RSkillHit(); break;
     default: break;
+    }
+}
+
+void CJob::Damage(int inDamage)
+{
+    if (isEnd) return;
+    m_tStatus.m_nHP -= inDamage;
+    if (m_tStatus.m_nHP <= 0 && !isEnd)
+    {
+        isEnd = true;
+        ChangeScene(new CSceneTitle());
     }
 }

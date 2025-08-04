@@ -8,6 +8,7 @@
 #include "Soldier.h"
 #include "Wizard.h"
 #include "Fighter.h"
+#include "Main.h"
 
 // 定数定義
 constexpr float ce_fRotatePow = 1.0f;   // 回転速度
@@ -54,6 +55,12 @@ void CPlayer::Init()
         break;
     }
     m_tParam.m_f2UVSize = { 1.0f / (float)ce_n2Split.x, 1.0f / (float)ce_n2Split.y };
+
+    m_pHPBar = GetScene()->AddGameObject<CHPBar>();
+    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 2.0f, m_tParam.m_f3Pos.z));
+    m_pHPBar->SetRenderState(DirectX::XMFLOAT3(3.0f, 0.5f, 1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+    m_pHPBar->SetMaxHP(m_pJob->GetHP());
+    m_pHPBar->SetCurrentHP(m_pJob->GetHP());
 }
 
 void CPlayer::Update()
@@ -66,6 +73,9 @@ void CPlayer::Update()
     m_pCollision->AccessorCenter(m_tParam.m_f3Pos);
     m_pCollision->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
 
+    m_pHPBar->SetCurrentHP(m_pJob->GetHP());
+
+    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 2.0f, m_tParam.m_f3Pos.z));
     CGameObject::Update();
 }
 
@@ -94,6 +104,11 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
             m_pJob->SkillHit(eSkill::RSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
         }
     }
+}
+
+void CPlayer::Damage(int inDamage)
+{
+    m_pJob->Damage(inDamage);
 }
 
 DirectX::XMFLOAT3 CPlayer::GetForward()

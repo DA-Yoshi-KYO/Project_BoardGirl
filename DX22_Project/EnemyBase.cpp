@@ -11,6 +11,7 @@ CEnemyBase::CEnemyBase()
     m_tEnemyStatus.m_nDefense = 1;
     m_tEnemyStatus.m_bMove = false;
     m_tEnemyStatus.m_fSpeed = 0.05f;
+    m_fAttackTime = 0.0f;
     for (int i = 0; i < (int)EnemyCollision::Max; i++)
     {
         m_pCollision[i] = nullptr;
@@ -56,10 +57,12 @@ void CEnemyBase::Update()
 {
     static float fTime = 0.0f;
 
+    CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
+
     if (m_tEnemyStatus.m_bMove)
     {
         m_f3OldPos = m_tParam.m_f3Pos;
-        DirectX::XMFLOAT3 f3PlayerPos = GetScene()->GetGameObject<CPlayer>()->AccessorPos();
+        DirectX::XMFLOAT3 f3PlayerPos = pPlayer->AccessorPos();
         DirectX::XMVECTOR vecPlayerPos = DirectX::XMLoadFloat3(&f3PlayerPos);
         DirectX::XMVECTOR vecEnemyPos = DirectX::XMLoadFloat3(&m_tParam.m_f3Pos);
         DirectX::XMVECTOR vecDirection = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(vecPlayerPos, vecEnemyPos));
@@ -97,6 +100,12 @@ void CEnemyBase::Update()
         fSwitchTime += fDeltaTime;
     }
 
+    if (m_fAttackTime >= 2.0f)
+    {
+        pPlayer->Damage(m_tEnemyStatus.m_nAttack);
+        m_fAttackTime = 0.0f;
+    }
+
     m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y, m_tParam.m_f3Pos.z));
     m_pHPBar->SetCurrentHP(m_tEnemyStatus.m_nHP);
 
@@ -122,6 +131,13 @@ void CEnemyBase::OnColliderHit(CCollisionBase* other, std::string thisTag)
         }
 
         return;
+    }
+    else if (thisTag == "EnemyAttack")
+    {
+        if (other->AccessorTag() == "PlayerBody")
+        {
+            m_fAttackTime += fDeltaTime;
+        }
     }
 
 

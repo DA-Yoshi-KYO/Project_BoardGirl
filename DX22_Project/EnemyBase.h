@@ -40,6 +40,7 @@ protected:
         bool m_bDamage;
     }m_tEnemyStatus;
 
+    float m_fAttackTime;
     CCollisionObb* m_pCollision[static_cast<int>(EnemyCollision::Max)];
     CHPBar* m_pHPBar;
 

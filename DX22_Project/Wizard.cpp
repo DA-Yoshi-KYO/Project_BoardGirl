@@ -120,7 +120,6 @@ void CWizard::ESkill()
     m_nOldAttack = m_tStatus.m_nAttack;
 
     m_tStatus.m_nAttack *= 2.0f;
-
 }
 
 void CWizard::RSkill()
@@ -143,6 +142,5 @@ void CWizard::ESkillHit()
 
 void CWizard::RSkillHit()
 {
-    m_pTargetEnemy->Damage(m_tStatus.m_nAttack * 5);
-   // m_pTargetEnemy->SetInvincibly(false);
+    m_pTargetEnemy->Damage(m_tStatus.m_nAttack * 2);
 }
