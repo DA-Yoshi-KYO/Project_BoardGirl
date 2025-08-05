@@ -82,6 +82,9 @@
     <Filter Include="Code\Composite">
       <UniqueIdentifier>{60449e22-20e5-486d-8a1f-f415104a41e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\GameObject\UI\InGame">
+      <UniqueIdentifier>{22c467ce-0432-4c08-8085-432ad1251650}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -246,6 +249,9 @@
     <ClCompile Include="HPBar.cpp">
       <Filter>Code\Composite</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Code\GameObject\UI\InGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -379,6 +385,9 @@
     </ClInclude>
     <ClInclude Include="HPBar.h">
       <Filter>Code\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Code\GameObject\UI\InGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

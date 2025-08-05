@@ -197,6 +197,7 @@
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Startup.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleBackGround.cpp" />
     <ClCompile Include="Wizard.cpp" />
     <ClCompile Include="_geometory.cpp" />
@@ -245,6 +246,7 @@
     <ClInclude Include="Sprite3DRenderer.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="TitleBackGround.h" />
     <ClInclude Include="Wizard.h" />
   </ItemGroup>

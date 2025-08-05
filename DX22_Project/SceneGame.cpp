@@ -6,6 +6,7 @@
 #include "Geometory.h"
 #include "BillboardRenderer.h"
 #include "EnemyGenerater.h"
+#include "Timer.h"
 
 void CSceneGame::Init()
 {
@@ -13,12 +14,14 @@ void CSceneGame::Init()
     CBillboardRenderer::Load(TEXTURE_PATH("Jobs.png"), "Player");
     CBillboardRenderer::Load(TEXTURE_PATH("Slime.png"), "Slime");
     CBillboardRenderer::Load(TEXTURE_PATH("HPBar.jpg"), "HPBar");
+    CBillboardRenderer::Load(TEXTURE_PATH("Number.png"), "Number");
 
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);
 
     // オブジェクトの追加
     AddGameObject<CPlayer>();
+    AddGameObject<CTimer>(Tag::UI);
     //AddGameObject<CField>(Collision::None,Tag::Field);
 
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 10.0f });

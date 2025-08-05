@@ -328,6 +328,26 @@ inline DirectX::XMFLOAT4 operator/=(DirectX::XMFLOAT4& lhs, float rhs)
     return lhs;
 }
 
+inline DirectX::XMINT2 operator+(const DirectX::XMINT2& lhs, const DirectX::XMINT2& rhs)
+{
+    return { lhs.x + rhs.x, lhs.y + rhs.y };
+}
+
+inline DirectX::XMINT2 operator-(const DirectX::XMINT2& lhs, const DirectX::XMINT2& rhs)
+{
+    return { lhs.x - rhs.x, lhs.y - rhs.y };
+}
+
+inline DirectX::XMINT2 operator*(const DirectX::XMINT2& lhs, const DirectX::XMINT2& rhs)
+{
+    return { lhs.x * rhs.x, lhs.y * rhs.y };
+}
+
+inline DirectX::XMINT2 operator/(const DirectX::XMINT2& lhs, const DirectX::XMINT2& rhs)
+{
+    return { lhs.x / rhs.x, lhs.y / rhs.y };
+}
+
 inline DirectX::XMVECTOR operator+(const DirectX::XMVECTOR& lhs, const DirectX::XMVECTOR& rhs)
 {
     return DirectX::XMVectorAdd(lhs, rhs);
