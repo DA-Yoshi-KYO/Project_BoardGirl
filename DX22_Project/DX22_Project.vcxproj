@@ -180,6 +180,7 @@
     <ClCompile Include="Model_get.cpp" />
     <ClCompile Include="Model_morph.cpp" />
     <ClCompile Include="CollisionObb.cpp" />
+    <ClCompile Include="MotionBlur.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RendererComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelRenderer.h" />
     <ClInclude Include="CollisionObb.h" />
+    <ClInclude Include="MotionBlur.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RendererComponent.h" />
     <ClInclude Include="Scene.h" />
@@ -252,6 +254,16 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Terrain.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="PS_MotionBlur.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)Shader\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)Shader\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

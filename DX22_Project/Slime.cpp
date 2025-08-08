@@ -1,11 +1,11 @@
-#include "Slime.h"
+﻿#include "Slime.h"
 #include "BillboardRenderer.h"
 
 CSlime::CSlime()
     : CEnemyBase()
 {
     m_tEnemyStatus.m_nHP = 10;
-    m_tEnemyStatus.m_nAttack = 2;
+    m_tEnemyStatus.m_nAttack = 10;
     m_tEnemyStatus.m_nDefense = 1;
 }
 

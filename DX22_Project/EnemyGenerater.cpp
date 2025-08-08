@@ -2,6 +2,7 @@
 #include "Main.h"
 #include "EnemyBase.h"
 #include "Slime.h"
+#include "MotionBlur.h"
 
 CEnemyGenerater* CEnemyGenerater::m_pInstance = nullptr;
 
@@ -16,7 +17,7 @@ CEnemyGenerater* CEnemyGenerater::GetInstance()
     {
         m_pInstance = new CEnemyGenerater();
     }
-    return nullptr;
+    return m_pInstance;
 }
 
 void CEnemyGenerater::ReleaseInstance()
@@ -27,6 +28,7 @@ void CEnemyGenerater::ReleaseInstance()
         m_pInstance = nullptr;
     }
 }
+
 
 void CEnemyGenerater::GenerateEnemy(std::string inEnemyID, const DirectX::XMFLOAT3& position)
 {

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Defines.h"
 #include "GameObject.h"
@@ -23,7 +23,7 @@ public:
 	{
 		T* gameObject;
 		gameObject = new T();
-		m_pGameObject_List.push_back(gameObject);
+		m_pGameObject_List[(int)inTag].push_back(gameObject);
 		gameObject->Init();
         gameObject->AccessorTag(inTag);
 
@@ -43,8 +43,11 @@ public:
 	{
         for (auto list : m_pGameObject_List)
         {
-            T* ret = dynamic_cast<T*>(list);
-            if (ret != nullptr) return ret;
+            for (auto obj : list)
+            {
+                T* ret = dynamic_cast<T*>(obj);
+                if (ret != nullptr) return ret;
+            }
         }
 		return nullptr;
 	}
@@ -58,6 +61,6 @@ public:
     }
 
 protected:
-    std::list<CGameObject*> m_pGameObject_List; // シーン内のゲームオブジェクトリスト
+    std::array<std::list<CGameObject*>,(int)Tag::Max> m_pGameObject_List; // シーン内のゲームオブジェクトリスト
     std::vector<CCollisionBase*> m_pCollisionVec; // 衝突判定用のコンポーネントリスト
 };

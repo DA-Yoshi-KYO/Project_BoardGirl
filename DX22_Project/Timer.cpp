@@ -18,7 +18,7 @@ void CTimer::Init()
     for (int i = 0; i < 5; i++)
     {
         m_tRenderParam[i].m_f3Size = { 100.0f,100.0f,100.0f };
-        m_tRenderParam[i].m_f3Pos = { -580.0f + i * 60.0f,-300.0f,0.0f };
+        m_tRenderParam[i].m_f3Pos = { 320.0f + i * 60.0f,-300.0f,0.0f };
         m_tRenderParam[i].m_f3Rotate = { 0.0f,0.0f,0.0f };
         m_tRenderParam[i].m_f2UVPos = { 0.0f,0.0f };
         m_tRenderParam[i].m_f2UVSize = { 1.0f / (float)ce_nSplit.x,1.0f / (float)ce_nSplit.y };

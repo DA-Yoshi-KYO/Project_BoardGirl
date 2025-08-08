@@ -85,6 +85,9 @@
     <Filter Include="Code\GameObject\UI\InGame">
       <UniqueIdentifier>{22c467ce-0432-4c08-8085-432ad1251650}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\HLSL">
+      <UniqueIdentifier>{17b73385-eb83-4250-bf41-e0a4370fc45b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -252,6 +255,9 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Code\GameObject\UI\InGame</Filter>
     </ClCompile>
+    <ClCompile Include="MotionBlur.cpp">
+      <Filter>Code\GameSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -389,10 +395,18 @@
     <ClInclude Include="Timer.h">
       <Filter>Code\GameObject\UI\InGame</Filter>
     </ClInclude>
+    <ClInclude Include="MotionBlur.h">
+      <Filter>Code\GameSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Terrain.txt">
       <Filter>Code\Work\External\memo</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="PS_MotionBlur.hlsl">
+      <Filter>Code\HLSL</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

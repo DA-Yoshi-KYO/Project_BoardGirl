@@ -1,4 +1,4 @@
-﻿// インクルード部
+// インクルード部
 #include "Player.h"
 #include "Input.h"
 #include "BillboardRenderer.h"
@@ -9,6 +9,7 @@
 #include "Wizard.h"
 #include "Fighter.h"
 #include "Main.h"
+#include "MotionBlur.h"
 
 // 定数定義
 constexpr float ce_fRotatePow = 1.0f;   // 回転速度
@@ -61,6 +62,8 @@ void CPlayer::Init()
     m_pHPBar->SetRenderState(DirectX::XMFLOAT3(3.0f, 0.5f, 1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
     m_pHPBar->SetMaxHP(m_pJob->GetHP());
     m_pHPBar->SetCurrentHP(m_pJob->GetHP());
+
+    CMotionBlur::GetInstance()->Init();
 }
 
 void CPlayer::Update()
@@ -137,6 +140,8 @@ DirectX::XMFLOAT3 CPlayer::GetRight()
 
 void CPlayer::PlayerMove()
 {
+    CMotionBlur::GetInstance()->Update();
+
     // プレイヤーの前方向と右方向を取得
 	DirectX::XMFLOAT3 f3ForWard = GetForward();
 	DirectX::XMFLOAT3 f3Right = GetRight();
@@ -183,6 +188,16 @@ void CPlayer::PlayerMove()
 		m_f3Velocity.y += 0.35f;
 		m_bJump = true;
 	}
+
+    if (IsKeyTrigger('O'))
+    {
+        CMotionBlur::GetInstance()->ExecMotionBlur();
+    }
+
+    if (IsKeyTrigger('P'))
+    {
+        CMotionBlur::GetInstance()->StopMotionBlur();
+    }
 
     // 重力
 	m_f3Velocity.y -= 0.015f;

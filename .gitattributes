@@ -62,9 +62,9 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 [*.cpp]
-charset = utf-8-bom
+charset = utf-8
 
 [*.h]
-charset = utf-8-bom
+charset = utf-8
 
 

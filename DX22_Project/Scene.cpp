@@ -17,11 +17,14 @@ void CScene::Uninit()
 {
 	for (auto list : m_pGameObject_List)
 	{
-        list->Uninit();
-        delete list;
+        for (auto obj : list)
+        {
+            obj->Uninit();
+            delete obj;
+        }
+        list.clear();
 	}
 
-    m_pGameObject_List.clear();
     m_pCollisionVec.clear();
 }
 
@@ -31,7 +34,10 @@ void CScene::Update()
 
     for (auto& list : m_pGameObject_List)
     {
-        list->Update();
+        for (auto obj : list)
+        {
+            obj->Update();
+        }
     }
 
     for (int i = 0; i < m_pCollisionVec.size(); i++)
@@ -48,8 +54,8 @@ void CScene::Update()
             {
                 CGameObject* pObjA = pCollisionA->GetGameObject();
                 CGameObject* pObjB = pCollisionB->GetGameObject();
-                pObjA->OnColliderHit(pCollisionB,pCollisionA->AccessorTag());
-                pObjB->OnColliderHit(pCollisionA,pCollisionB->AccessorTag());
+                pObjA->OnColliderHit(pCollisionB, pCollisionA->AccessorTag());
+                pObjB->OnColliderHit(pCollisionA, pCollisionB->AccessorTag());
             }
         }
     }
@@ -61,12 +67,16 @@ void CScene::Update()
             m_pCollisionVec.erase(m_pCollisionVec.begin() + i);
         }
     }
-    m_pGameObject_List.remove_if([](CGameObject* pObj)
-        {
-            bool bDestroy = pObj->IsDestroy();
-            if (bDestroy) pObj->OnDestroy();
-            return bDestroy;
-        });
+    for (auto list : m_pGameObject_List)
+    {
+        list.remove_if([](CGameObject* pObj)
+            {
+                bool bDestroy = pObj->IsDestroy();
+                if (bDestroy) pObj->OnDestroy();
+                return bDestroy;
+            });
+
+    }
 }
 
 void CScene::Draw()
@@ -77,7 +87,10 @@ void CScene::Draw()
 
     for (auto& list : m_pGameObject_List)
     {
-        list->Draw();
+        for (auto obj : list)
+        {
+            obj->Draw();
+        }
     }
 
     for (int i = 0; i < m_pCollisionVec.size(); i++)
