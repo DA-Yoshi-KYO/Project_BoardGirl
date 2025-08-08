@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "GameObject.h"
 #include "CollisionObb.h"
@@ -26,6 +26,7 @@ public:
 
     void Damage(int inDamage);
     void SetInvincibly(bool isInvincibly);
+    bool GetInvincibly() { return m_tEnemyStatus.m_bDamage; }
 
 private:
 

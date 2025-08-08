@@ -1,4 +1,4 @@
-﻿#include "GameObject.h"
+#include "GameObject.h"
 #include "Scene.h"
 #include "Camera.h"
 #include "Geometory.h"
@@ -67,13 +67,13 @@ void CScene::Update()
             m_pCollisionVec.erase(m_pCollisionVec.begin() + i);
         }
     }
-    for (auto list : m_pGameObject_List)
+    for (auto& list : m_pGameObject_List)
     {
         list.remove_if([](CGameObject* pObj)
             {
                 bool bDestroy = pObj->IsDestroy();
                 if (bDestroy) pObj->OnDestroy();
-                return bDestroy;
+                return pObj->IsDestroy();
             });
 
     }

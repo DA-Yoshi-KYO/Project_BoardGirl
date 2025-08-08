@@ -258,6 +258,9 @@
     <ClCompile Include="MotionBlur.cpp">
       <Filter>Code\GameSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Code\GameObject\Billboard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -397,6 +400,9 @@
     </ClInclude>
     <ClInclude Include="MotionBlur.h">
       <Filter>Code\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Code\GameObject\Billboard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

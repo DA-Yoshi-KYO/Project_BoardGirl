@@ -1,4 +1,4 @@
-﻿// インクルード部
+// インクルード部
 #include "SceneGame.h"
 #include "Camera.h"
 #include "Field.h"
@@ -15,6 +15,7 @@ void CSceneGame::Init()
     CBillboardRenderer::Load(TEXTURE_PATH("Slime.png"), "Slime");
     CBillboardRenderer::Load(TEXTURE_PATH("HPBar.jpg"), "HPBar");
     CBillboardRenderer::Load(TEXTURE_PATH("Number.png"), "Number");
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordAttackHit.png"), "SwordAttackHit");
 
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);

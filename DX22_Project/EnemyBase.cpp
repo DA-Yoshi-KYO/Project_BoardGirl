@@ -1,4 +1,4 @@
-﻿#include "EnemyBase.h"
+#include "EnemyBase.h"
 #include "Main.h"
 #include "Player.h"
 #include "Defines.h"
@@ -154,6 +154,8 @@ void CEnemyBase::Damage(int inDamage)
     if (m_tEnemyStatus.m_bDamage) return;
     m_tEnemyStatus.m_nHP -= inDamage;
     m_tEnemyStatus.m_bDamage = true;
+
+
     if (m_tEnemyStatus.m_nHP <= 0)
     {
         Destroy();

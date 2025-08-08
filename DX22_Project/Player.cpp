@@ -10,6 +10,7 @@
 #include "Fighter.h"
 #include "Main.h"
 #include "MotionBlur.h"
+#include "Effect.h"
 
 // 定数定義
 constexpr float ce_fRotatePow = 1.0f;   // 回転速度
@@ -86,25 +87,34 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
 {
     if (other->AccessorTag() == "EnemyBody")
     {
+        CEnemyBase* pEnemy = dynamic_cast<CEnemyBase*>(other->GetGameObject());
+
         if (thisTag == "PlayerBody")
         {
             m_tParam.m_f3Pos = m_f3OldPos;
         }
-        else if (thisTag == "NormalAttack")
+        if (!pEnemy->GetInvincibly())
         {
-            m_pJob->SkillHit(eSkill::NormalAttack, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
-        }
-        else if (thisTag == "QSkill")
-        {
-            m_pJob->SkillHit(eSkill::QSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
-        }
-        else if (thisTag == "ESkill")
-        {
-            m_pJob->SkillHit(eSkill::ESkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
-        }
-        else if (thisTag == "RSkill")
-        {
-            m_pJob->SkillHit(eSkill::RSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
+            CEffect* pEffect = GetScene()->AddGameObject<CEffect>();
+            if (thisTag == "NormalAttack")
+            {
+                pEffect->SetParam(eEffectKind::PlayerSwordAttackHit, 0.1f);
+                pEffect->AccessorPos(pEnemy->AccessorPos());
+                pEffect->AccessorSize(DirectX::XMFLOAT3(2.0f, 2.0f, 2.0f));
+                m_pJob->SkillHit(eSkill::NormalAttack, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
+            }
+            else if (thisTag == "QSkill")
+            {
+                m_pJob->SkillHit(eSkill::QSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
+            }
+            else if (thisTag == "ESkill")
+            {
+                m_pJob->SkillHit(eSkill::ESkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
+            }
+            else if (thisTag == "RSkill")
+            {
+                m_pJob->SkillHit(eSkill::RSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
+            }
         }
     }
 }
