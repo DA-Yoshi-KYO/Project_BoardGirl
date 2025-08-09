@@ -1,4 +1,4 @@
-﻿#include "Soldier.h"
+#include "Soldier.h"
 #include "Player.h"
 #include "Main.h"
 
@@ -91,4 +91,28 @@ void CSoldier::AllSkill(eSkill inKind)
     DirectX::XMStoreFloat3(&f3AttackPos, vPos);
 
     m_pCollisionObb[(int)inKind]->AccessorCenter(f3AttackPos);
+
+    CEffect* pEffect = GetScene()->AddGameObject<CEffect>();
+    switch (inKind)
+    {
+    case eSkill::NormalAttack:
+        pEffect->SetParam(eEffectKind::PlayerSwordNormalSkill, m_tStatus.m_fAttackDuration[(int)inKind]);
+        break;
+    case eSkill::QSkill:
+        pEffect->SetParam(eEffectKind::PlayerSwordQSkill, m_tStatus.m_fAttackDuration[(int)inKind]);
+        break;
+    case eSkill::ESkill:
+        pEffect->SetParam(eEffectKind::PlayerSwordESkill, m_tStatus.m_fAttackDuration[(int)inKind]);
+        break;
+    case eSkill::RSkill:
+        pEffect->SetParam(eEffectKind::PlayerSwordRSkill, m_tStatus.m_fAttackDuration[(int)inKind], 3);
+        break;
+    case eSkill::Max:
+        break;
+    default:
+        break;
+    }
+    pEffect->AccessorPos(m_pCollisionObb[(int)inKind]->AccessorCenter());
+    pEffect->AccessorSize(m_pCollisionObb[(int)inKind]->AccessorHalfSize() * 2.0f);
+
 }

@@ -1,4 +1,4 @@
-﻿#include "Job.h"
+#include "Job.h"
 #include "Main.h"
 #include "Player.h"
 #include "SceneTitle.h"
@@ -53,6 +53,7 @@ void CJob::Skill(eSkill inKind)
     if (inKind >= eSkill::Max || inKind < eSkill::NormalAttack) return;
     if (m_tStatus.m_fSkillTime[(int)inKind] < m_tStatus.m_fSkillCooltime[(int)inKind]) return;
 
+
     m_pCollisionObb[(int)inKind]->AccessorActive(true);
     switch (inKind)
     {
@@ -79,6 +80,11 @@ void CJob::SkillHit(eSkill inKind, CEnemyBase* inTarget)
     case eSkill::RSkill: RSkillHit(); break;
     default: break;
     }
+}
+
+CCollisionObb* CJob::GetCollision(eSkill inSkill)
+{
+    return m_pCollisionObb[(int)inSkill].get();
 }
 
 void CJob::Damage(int inDamage)

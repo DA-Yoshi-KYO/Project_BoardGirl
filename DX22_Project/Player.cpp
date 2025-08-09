@@ -35,9 +35,9 @@ void CPlayer::Init()
 	m_f3Velocity = {};
 	m_bJump = false;
 
-    JobKind eJob = CSceneJobSelect::GetSelectedJob();
+    m_eJobKind = CSceneJobSelect::GetSelectedJob();
 
-    switch (eJob)
+    switch (m_eJobKind)
     {
     case JobKind::Soldier:
         m_pJob = std::make_unique<CSoldier>();
@@ -95,12 +95,12 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
         }
         if (!pEnemy->GetInvincibly())
         {
-            CEffect* pEffect = GetScene()->AddGameObject<CEffect>();
+            //CEffect* pEffect = GetScene()->AddGameObject<CEffect>();
             if (thisTag == "NormalAttack")
             {
-                pEffect->SetParam(eEffectKind::PlayerSwordAttackHit, 0.1f);
-                pEffect->AccessorPos(pEnemy->AccessorPos());
-                pEffect->AccessorSize(DirectX::XMFLOAT3(2.0f, 2.0f, 2.0f));
+                //pEffect->SetParam(eEffectKind::PlayerSwordNormalSkill, 0.06f);
+                //pEffect->AccessorPos(pEnemy->AccessorPos());
+                //pEffect->AccessorSize(m_pJob->GetCollision(eSkill::NormalAttack)->AccessorHalfSize() * 2.0f);
                 m_pJob->SkillHit(eSkill::NormalAttack, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
             }
             else if (thisTag == "QSkill")

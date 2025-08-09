@@ -1,9 +1,10 @@
-﻿#pragma once
+#pragma once
 
 #include "GameObject.h"
 #include "CollisionObb.h"
 #include "Defines.h"
 #include "EnemyBase.h"
+#include "Effect.h"
 
 class CPlayer;
 
@@ -42,6 +43,7 @@ public:
     virtual void QSkillHit() = 0;
     virtual void ESkillHit() = 0;
     virtual void RSkillHit() = 0;
+    CCollisionObb* GetCollision(eSkill inSkill);
 
     void Damage(int inDamage);
     int GetHP() { return m_tStatus.m_nHP; };
@@ -67,4 +69,5 @@ protected:
     };
     PlayerStatus m_tStatus;
     std::unique_ptr<CCollisionObb> m_pCollisionObb[(int)eSkill::Max];
+
 };

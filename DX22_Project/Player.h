@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 // インクルード部
 #include "GameObject.h"
@@ -29,5 +29,6 @@ private:
     std::unique_ptr<CJob> m_pJob;
     CCollisionObb* m_pCollision;
     CHPBar* m_pHPBar;
+    JobKind m_eJobKind;
 
 };

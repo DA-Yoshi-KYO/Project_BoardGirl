@@ -15,7 +15,10 @@ void CSceneGame::Init()
     CBillboardRenderer::Load(TEXTURE_PATH("Slime.png"), "Slime");
     CBillboardRenderer::Load(TEXTURE_PATH("HPBar.jpg"), "HPBar");
     CBillboardRenderer::Load(TEXTURE_PATH("Number.png"), "Number");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordAttackHit.png"), "SwordAttackHit");
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordNormalSkill.png"), "SwordNormalAttack");
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordQSkill.png"), "SwordQSkill");
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordESkill.png"), "SwordESkill");
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordRSkill.png"), "SwordRSkill");
 
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);
