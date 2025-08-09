@@ -61,6 +61,10 @@ void CEffect::SetParam(eEffectKind inKind, float inTotalTime, UINT inPlayNum)
         m_n2Split = DirectX::XMINT2(2, 12);
         pRenderer->SetKey("SwordRSkill");
         break;
+    case eEffectKind::PlayerAttackHit:
+        m_n2Split = DirectX::XMINT2(5, 2);
+        pRenderer->SetKey("PlayerAttackHit");
+        break;
     case eEffectKind::EnemyAttackHit:
         m_n2Split = DirectX::XMINT2(5, 5);
         break;

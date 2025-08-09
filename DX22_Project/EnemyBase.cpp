@@ -41,8 +41,8 @@ void CEnemyBase::Init()
     m_pCollision[(int)EnemyCollision::Attack]->AccessorTag("EnemyAttack");
 
     m_pHPBar = GetScene()->AddGameObject<CHPBar>();
-    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 2.0f, m_tParam.m_f3Pos.z));
-    m_pHPBar->SetRenderState(DirectX::XMFLOAT3(3.0f,0.5f,1.0f), DirectX::XMFLOAT4(1.0f,0.0f,0.0f,1.0f));
+    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 1.2f, m_tParam.m_f3Pos.z));
+    m_pHPBar->SetRenderState(DirectX::XMFLOAT3(2.0f, 0.25f, 1.0f), DirectX::XMFLOAT4(1.0f,0.0f,0.0f,1.0f));
     m_pHPBar->SetMaxHP(m_tEnemyStatus.m_nHP);
     m_pHPBar->SetCurrentHP(m_tEnemyStatus.m_nHP);
 
@@ -69,7 +69,8 @@ void CEnemyBase::Update()
         DirectX::XMVECTOR vecVelocity = vecDirection * m_tEnemyStatus.m_fSpeed;
         DirectX::XMFLOAT3 f3Velocity;
         DirectX::XMStoreFloat3(&f3Velocity, vecVelocity);
-        m_tParam.m_f3Pos += f3Velocity;
+        m_tParam.m_f3Pos.x += f3Velocity.x;
+        m_tParam.m_f3Pos.z += f3Velocity.z;
     }
 
     m_tEnemyStatus.m_bMove = false;

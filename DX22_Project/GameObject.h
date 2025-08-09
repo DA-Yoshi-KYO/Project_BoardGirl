@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 // インクルード部
 #include "Defines.h"
@@ -9,6 +9,7 @@
 enum class Tag
 {
 	None,
+    Sound,
 	Player,
 	Enemy,
 

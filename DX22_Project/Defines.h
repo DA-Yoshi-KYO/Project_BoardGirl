@@ -1,4 +1,4 @@
-﻿#ifndef __DEFINES_H__
+#ifndef __DEFINES_H__
 #define __DEFINES_H__
 
 // インクルード部
@@ -27,6 +27,7 @@ static const float fDeltaTime = 1.0f / fFPS; // フレーム時間(秒)
 // リソースパス
 #define TEXTURE_PATH(path) ("Assets/Texture/" path)
 #define MODEL_PATH(path) ("Assets/Model/" path)
+#define AUDIO_PATH(path) ("Assets/Audio/" path)
 
 // 3D空間定義
 #define CMETER(value) (value * 0.01f)

@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "Input.h"
 #include "ShaderList.h"
+#include "Audio.h"
 
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
@@ -40,6 +41,7 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 	ImGui_ImplWin32_Init(hWnd);
 	ImGui_ImplDX11_Init(GetDevice(), GetContext());
 
+    CAudio::InitMaster();
 	Geometory::Init();
 	Sprite::Init();
 	ShaderList::Init();
@@ -65,7 +67,8 @@ void Uninit()
 	ShaderList::Uninit();
 	Sprite::Uninit();
 	Geometory::Uninit();
-	
+    CAudio::UninitMaster();
+
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();

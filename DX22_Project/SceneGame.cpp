@@ -7,6 +7,7 @@
 #include "BillboardRenderer.h"
 #include "EnemyGenerater.h"
 #include "Timer.h"
+#include "BGMPlayer.h"
 
 void CSceneGame::Init()
 {
@@ -19,6 +20,7 @@ void CSceneGame::Init()
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordQSkill.png"), "SwordQSkill");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordESkill.png"), "SwordESkill");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordRSkill.png"), "SwordRSkill");
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/PlayerAttackHit.png"), "PlayerAttackHit");
 
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);
@@ -26,6 +28,10 @@ void CSceneGame::Init()
     // オブジェクトの追加
     AddGameObject<CPlayer>();
     AddGameObject<CTimer>(Tag::UI);
+    CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>(Tag::Sound);
+    pPlayer->Load(AUDIO_PATH("GameBGM.wav"));
+    pPlayer->SetVolume(0.1f);
+    pPlayer->Play();
     //AddGameObject<CField>(Collision::None,Tag::Field);
 
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 10.0f });

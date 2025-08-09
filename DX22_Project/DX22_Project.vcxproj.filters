@@ -88,6 +88,12 @@
     <Filter Include="Code\HLSL">
       <UniqueIdentifier>{17b73385-eb83-4250-bf41-e0a4370fc45b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Code\Component\Audio">
+      <UniqueIdentifier>{4d0c0eb8-9a43-46ee-acb2-6e1d7548cba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\Speaker">
+      <UniqueIdentifier>{3243774b-9597-44e6-b73c-1694bc855fb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -261,6 +267,12 @@
     <ClCompile Include="Effect.cpp">
       <Filter>Code\GameObject\Billboard</Filter>
     </ClCompile>
+    <ClCompile Include="Audio.cpp">
+      <Filter>Code\Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="BGMPlayer.cpp">
+      <Filter>Code\GameObject\Speaker</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -403,6 +415,12 @@
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Code\GameObject\Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Code\Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="BGMPlayer.h">
+      <Filter>Code\GameObject\Speaker</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

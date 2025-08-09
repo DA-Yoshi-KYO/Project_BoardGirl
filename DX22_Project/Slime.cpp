@@ -1,4 +1,4 @@
-﻿#include "Slime.h"
+#include "Slime.h"
 #include "BillboardRenderer.h"
 
 CSlime::CSlime()
@@ -11,6 +11,7 @@ CSlime::CSlime()
 
 CSlime::~CSlime()
 {
+
 }
 
 void CSlime::Init()

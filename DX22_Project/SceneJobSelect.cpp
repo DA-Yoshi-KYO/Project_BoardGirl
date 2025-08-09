@@ -4,6 +4,7 @@
 #include "SceneGame.h"
 #include "SelectBackGround.h"
 #include "Camera.h"
+#include "BGMPlayer.h"
 
 JobKind CSceneJobSelect::m_eSelectedJob = JobKind::Soldier;
 
@@ -15,27 +16,32 @@ void CSceneJobSelect::Init()
 
     m_eSelectedJob = JobKind::Soldier;
     m_pSelectJobs = AddGameObject<CSelectJobs>();
+    CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>(Tag::Sound);
+    pPlayer->Load(AUDIO_PATH("SelectBGM.wav"));
+    pPlayer->SetVolume(0.1f);
+    pPlayer->Play();
 }
 
 void CSceneJobSelect::Update()
 {
+    int nSelect = (int)m_eSelectedJob;
     if (!m_pSelectJobs->IsMove())
     {
         if (IsKeyTrigger(VK_RIGHT))
         {
-            m_eSelectedJob = JobKind((int)m_eSelectedJob + 1);
-            if (m_eSelectedJob == JobKind::Max)
+            nSelect++;
+            if (nSelect == (int)JobKind::Max)
             {
-                m_eSelectedJob = JobKind::Soldier;
+                nSelect = 0;
             }
             m_pSelectJobs->SetMove(true);
         }
         else if (IsKeyTrigger(VK_LEFT))
         {
-            m_eSelectedJob = JobKind((int)m_eSelectedJob - 1);
-            if (m_eSelectedJob < JobKind::Soldier)
+            nSelect--;
+            if (nSelect < 0)
             {
-                m_eSelectedJob = JobKind((int)JobKind::Max - 1);
+                nSelect = (int)JobKind::Max - 1;
             }
             m_pSelectJobs->SetMove(false);
         }
@@ -45,5 +51,6 @@ void CSceneJobSelect::Update()
         }
     }
 
+    m_eSelectedJob = (JobKind)nSelect;
     CScene::Update();
 }

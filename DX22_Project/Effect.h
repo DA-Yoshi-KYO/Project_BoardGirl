@@ -8,6 +8,7 @@ enum class eEffectKind
     PlayerSwordQSkill,
     PlayerSwordESkill,
     PlayerSwordRSkill,
+    PlayerAttackHit,
     EnemyAttackHit,
 };
 
