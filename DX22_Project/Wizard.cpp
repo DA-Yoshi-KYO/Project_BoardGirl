@@ -1,6 +1,7 @@
-﻿#include "Wizard.h"
+#include "Wizard.h"
 #include "Main.h"
 #include "Player.h"
+#include "Oparation.h"
 
 CWizard::CWizard()
     : m_f3Forward{}, m_f3TargetPos{}, m_f3InitPos{}

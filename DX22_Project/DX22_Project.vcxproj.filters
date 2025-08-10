@@ -422,6 +422,9 @@
     <ClInclude Include="BGMPlayer.h">
       <Filter>Code\GameObject\Speaker</Filter>
     </ClInclude>
+    <ClInclude Include="Oparation.h">
+      <Filter>Code\Work</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Terrain.txt">

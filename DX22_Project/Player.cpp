@@ -11,6 +11,7 @@
 #include "Main.h"
 #include "MotionBlur.h"
 #include "Effect.h"
+#include "Oparation.h"
 
 // 定数定義
 constexpr float ce_fRotatePow = 1.0f;   // 回転速度

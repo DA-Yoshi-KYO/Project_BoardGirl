@@ -1,6 +1,7 @@
 #include "Soldier.h"
 #include "Player.h"
 #include "Main.h"
+#include "Oparation.h"
 
 CSoldier::CSoldier()
     : CJob()

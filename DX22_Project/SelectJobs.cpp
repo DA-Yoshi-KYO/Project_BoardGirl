@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "Main.h"
 #include "SceneGame.h"
+#include "Oparation.h"
 
 constexpr DirectX::XMINT2 ce_n2Split = { 6, 6 };
 constexpr float ce_fRadius = 5.0f;

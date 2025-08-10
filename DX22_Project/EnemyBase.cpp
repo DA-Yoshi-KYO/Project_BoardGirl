@@ -1,7 +1,7 @@
 #include "EnemyBase.h"
 #include "Main.h"
 #include "Player.h"
-#include "Defines.h"
+#include "Oparation.h"
 
 CEnemyBase::CEnemyBase()
     : m_tEnemyStatus{}

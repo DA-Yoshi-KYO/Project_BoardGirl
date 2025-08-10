@@ -2,6 +2,7 @@
 #include "Main.h"
 #include "SceneGame.h"
 #include "Player.h"
+#include "Oparation.h"
 
 CCameraPlayer::~CCameraPlayer()
 {
@@ -21,11 +22,7 @@ void CCameraPlayer::Update()
 	constexpr DirectX::XMFLOAT3 ce_f3CameraOffset = { 0.0f,4.0f,0.0f };
 
 	m_f3Look = f3PlayerPos;
-	m_f3Look.x += ce_f3CameraLookOffset.x;
-	m_f3Look.y += ce_f3CameraLookOffset.y;
-	m_f3Look.z += ce_f3CameraLookOffset.z;
+	m_f3Look += ce_f3CameraLookOffset;
 
-	m_f3Pos.x = f3PlayerPos.x - f3PlayerForWard.x * ce_fCameraDistance + ce_f3CameraOffset.x;
-	m_f3Pos.y = f3PlayerPos.y - f3PlayerForWard.y * ce_fCameraDistance + ce_f3CameraOffset.y;
-	m_f3Pos.z = f3PlayerPos.z - f3PlayerForWard.z * ce_fCameraDistance + ce_f3CameraOffset.z;
+	m_f3Pos = f3PlayerPos - f3PlayerForWard * ce_fCameraDistance + ce_f3CameraOffset;
 }

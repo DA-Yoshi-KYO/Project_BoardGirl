@@ -1,5 +1,6 @@
-﻿#include "HPBar.h"
+#include "HPBar.h"
 #include "Camera.h"
+#include "Oparation.h"
 
 CHPBar::~CHPBar()
 {
@@ -37,7 +38,6 @@ void CHPBar::Draw()
 {
     m_tRendererParam[(int)TextureKind::Flont].m_f3Size.x = m_tValue.m_fMaxSize * ((float)m_tValue.m_nCurrentHP / (float)m_tValue.m_nMaxHP);
 
-    // offsetをワールド上の座標からローカルのものに変換する為にview座標を使う
     DirectX::XMFLOAT4X4 view = CCamera::GetInstance(CCamera::GetCameraKind())->GetViewMatrix(false);
     DirectX::XMMATRIX mView = DirectX::XMLoadFloat4x4(&view);
     DirectX::XMVECTOR vecCameraRight = DirectX::XMVector3Normalize(mView.r[0]);
