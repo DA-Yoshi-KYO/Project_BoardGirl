@@ -16,6 +16,7 @@ public:
 	void Play(bool Loop = false);
 	void Stop();
     void SetVolume(float inVolume);
+    bool IsPlay();
 
 private:
 	static IXAudio2*				_XAudio;

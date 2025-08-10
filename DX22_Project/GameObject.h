@@ -4,6 +4,7 @@
 #include "Defines.h"
 #include "Component.h"
 #include "CollisionBase.h"
+#include "Audio.h"
 
 // オブジェクトタグ
 enum class Tag
@@ -107,6 +108,7 @@ protected:
     DirectX::XMFLOAT3 m_f3OldPos; // 前フレームの位置
     bool m_bDestroy;            // オブジェクトが破棄されているかのフラグ
     Tag m_eTag;                 // オブジェクトのタグ
+    std::vector<CAudio*> m_pSE;
 
 };
 

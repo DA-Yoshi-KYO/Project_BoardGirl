@@ -4,7 +4,7 @@
 #include "BillboardRenderer.h"
 #include "Defines.h"
 #include <DirectXMath.h>
-#include "SceneJobSelect.h"
+#include "SelectJobs.h"
 #include "Soldier.h"
 #include "Wizard.h"
 #include "Fighter.h"
@@ -35,7 +35,7 @@ void CPlayer::Init()
 	m_f3Velocity = {};
 	m_bJump = false;
 
-    m_eJobKind = CSceneJobSelect::GetSelectedJob();
+    m_eJobKind = CSelectJobs::GetSelectedJob();
 
     switch (m_eJobKind)
     {

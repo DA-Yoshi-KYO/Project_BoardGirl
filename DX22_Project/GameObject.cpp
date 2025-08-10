@@ -12,6 +12,7 @@ CGameObject::CGameObject()
     m_tParam.m_f2UVPos = { 0.0f, 0.0f };
     m_tParam.m_f2UVSize = { 1.0f, 1.0f };
     m_f3OldPos = { 0.0f, 0.0f, 0.0f };
+    m_pSE.clear();
 }
 
 CGameObject::~CGameObject()

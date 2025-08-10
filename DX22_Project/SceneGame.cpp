@@ -29,7 +29,7 @@ void CSceneGame::Init()
     AddGameObject<CPlayer>();
     AddGameObject<CTimer>(Tag::UI);
     CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>(Tag::Sound);
-    pPlayer->Load(AUDIO_PATH("GameBGM.wav"));
+    pPlayer->Load(AUDIO_PATH("BGM/GameBGM.wav"));
     pPlayer->SetVolume(0.1f);
     pPlayer->Play();
     //AddGameObject<CField>(Collision::None,Tag::Field);

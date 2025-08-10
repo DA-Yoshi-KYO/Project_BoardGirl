@@ -142,3 +142,10 @@ void CAudio::SetVolume(float inVolume)
     _sourceVoice->SetVolume(inVolume);
 }
 
+bool CAudio::IsPlay()
+{
+    XAUDIO2_VOICE_STATE state;
+    _sourceVoice->GetState(&state);
+	return state.BuffersQueued > 0;
+}
+
