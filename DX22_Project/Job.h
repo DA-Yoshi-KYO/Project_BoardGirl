@@ -33,7 +33,7 @@ public:
     CJob();
     ~CJob();
     virtual void Update();
-    virtual void Skill(eSkill inKind);
+    virtual bool Skill(eSkill inKind);
     virtual void NormalAttack() = 0;
     virtual void QSkill() = 0;
     virtual void ESkill() = 0;

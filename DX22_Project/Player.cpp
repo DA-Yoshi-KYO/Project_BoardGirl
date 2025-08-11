@@ -18,6 +18,18 @@ constexpr float ce_fRotatePow = 1.0f;   // 回転速度
 constexpr float ce_fMovePow = 0.15f;    // 移動速度
 constexpr DirectX::XMINT2 ce_n2Split = { 6, 6 };
 
+enum class SEKind
+{
+    Walk,
+    Jump,
+    NormalSkill,
+    QSkill,
+    ESkill,
+    RSkill,
+
+    Max
+};
+
 void CPlayer::Init()
 {
     // コンポーネントの追加
@@ -36,27 +48,53 @@ void CPlayer::Init()
 	m_f3Velocity = {};
 	m_bJump = false;
 
-    m_eJobKind = CSelectJobs::GetSelectedJob();
 
+    for (int i = 0; i < (int)SEKind::Max; i++)
+    {
+        m_pSE.push_back(AddComponent<CAudio>());
+    }
+    m_pSE[(int)SEKind::Jump]->Load(AUDIO_PATH("SE/Jump.wav"));
+    m_pSE[(int)SEKind::Walk]->Load(AUDIO_PATH("SE/Walk.wav"));
+
+
+    m_eJobKind = CSelectJobs::GetSelectedJob();
     switch (m_eJobKind)
     {
     case JobKind::Soldier:
         m_pJob = std::make_unique<CSoldier>();
         m_tParam.m_f2UVPos = { 0.0f / (float)ce_n2Split.x , 1.0f / (float)ce_n2Split.y };
+        m_pSE[(int)SEKind::NormalSkill]->Load(AUDIO_PATH("SE/SoldierNomalSkill.wav"));
+        m_pSE[(int)SEKind::QSkill]->Load(AUDIO_PATH("SE/SoldierQSkill.wav"));
+        m_pSE[(int)SEKind::ESkill]->Load(AUDIO_PATH("SE/SoldierESkill.wav"));
+        m_pSE[(int)SEKind::RSkill]->Load(AUDIO_PATH("SE/SoldierRSkill.wav"));
         break;
     case JobKind::Wizard:
         m_pJob = std::make_unique<CWizard>();
         m_tParam.m_f2UVPos = { 3.0f / (float)ce_n2Split.x , 1.0f / (float)ce_n2Split.y };
+        m_pSE[(int)SEKind::NormalSkill]->Load(AUDIO_PATH("SE/WizardNomalSkill.wav"));
+        m_pSE[(int)SEKind::QSkill]->Load(AUDIO_PATH("SE/WizardQSkill.wav"));
+        m_pSE[(int)SEKind::ESkill]->Load(AUDIO_PATH("SE/WizardESkill.wav"));
+        m_pSE[(int)SEKind::RSkill]->Load(AUDIO_PATH("SE/WizardRSkill.wav"));
         break;
     case JobKind::Fighter:
         m_pJob = std::make_unique<CFighter>();
         m_tParam.m_f2UVPos = { 1.0f / (float)ce_n2Split.x , 1.0f / (float)ce_n2Split.y };
+        m_pSE[(int)SEKind::NormalSkill]->Load(AUDIO_PATH("SE/FighterNomalSkill.wav"));
+        m_pSE[(int)SEKind::QSkill]->Load(AUDIO_PATH("SE/FighterQSkill.wav"));
+        m_pSE[(int)SEKind::ESkill]->Load(AUDIO_PATH("SE/FighterESkill.wav"));
+        m_pSE[(int)SEKind::RSkill]->Load(AUDIO_PATH("SE/FighterRSkill.wav"));
         break;
     case JobKind::Max:
         break;
     default:
         break;
     }
+
+    for (int i = 0; i < (int)SEKind::Max; i++)
+    {
+        m_pSE[i]->SetVolume(0.1f);
+    }
+
     m_tParam.m_f2UVSize = { 1.0f / (float)ce_n2Split.x, 1.0f / (float)ce_n2Split.y };
 
     m_pHPBar = GetScene()->AddGameObject<CHPBar>();
@@ -205,9 +243,14 @@ void CPlayer::PlayerMove()
 		m_f3Velocity.z += f3Right.z * ce_fMovePow;
 	}
 
-    // キー入力によるジャンプ処理
+    if ((m_f3Velocity.x != 0.0f || m_f3Velocity.z != 0.0f) && !m_pSE[(int)SEKind::Walk]->IsPlay())
+    {
+        m_pSE[(int)SEKind::Walk]->Play();
+    }
+
 	if (IsKeyTrigger(VK_SPACE) && !m_bJump)
 	{
+        m_pSE[(int)SEKind::Jump]->Play();
 		m_f3Velocity.y += 0.35f;
 		m_bJump = true;
 	}
@@ -244,19 +287,19 @@ void CPlayer::PlayerSkill()
 {
     if (IsKeyTrigger('1'))
     {
-        m_pJob->Skill(eSkill::NormalAttack);
+        if(m_pJob->Skill(eSkill::NormalAttack)) m_pSE[(int)SEKind::NormalSkill]->Play();
     }
     if (IsKeyTrigger('Q'))
     {
-        m_pJob->Skill(eSkill::QSkill);
+        if (m_pJob->Skill(eSkill::QSkill)) m_pSE[(int)SEKind::QSkill]->Play();
     }
     if (IsKeyTrigger('E'))
     {
-        m_pJob->Skill(eSkill::ESkill);
+        if (m_pJob->Skill(eSkill::ESkill)) m_pSE[(int)SEKind::ESkill]->Play();
     }
     if (IsKeyTrigger('R'))
     {
-        m_pJob->Skill(eSkill::RSkill);
+        if (m_pJob->Skill(eSkill::RSkill)) m_pSE[(int)SEKind::RSkill]->Play();
     }
 
     m_pJob->Update();

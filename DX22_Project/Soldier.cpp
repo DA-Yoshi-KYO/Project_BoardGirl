@@ -19,7 +19,7 @@ CSoldier::CSoldier()
     m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack] = 0.5f;
     m_tStatus.m_fAttackDuration[(int)eSkill::QSkill] = 1.0f;
     m_tStatus.m_fAttackDuration[(int)eSkill::ESkill] = 1.0f;
-    m_tStatus.m_fAttackDuration[(int)eSkill::RSkill] = 3.0f;
+    m_tStatus.m_fAttackDuration[(int)eSkill::RSkill] = 2.0f;
 
     ObbInfo info[(int)eSkill::Max];
     info[(int)eSkill::NormalAttack] = { {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f,1.0f} };

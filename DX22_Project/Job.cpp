@@ -48,10 +48,10 @@ void CJob::Update()
     }
 }
 
-void CJob::Skill(eSkill inKind)
+bool CJob::Skill(eSkill inKind)
 {
-    if (inKind >= eSkill::Max || inKind < eSkill::NormalAttack) return;
-    if (m_tStatus.m_fSkillTime[(int)inKind] < m_tStatus.m_fSkillCooltime[(int)inKind]) return;
+    if (inKind >= eSkill::Max || inKind < eSkill::NormalAttack) return false;
+    if (m_tStatus.m_fSkillTime[(int)inKind] < m_tStatus.m_fSkillCooltime[(int)inKind]) return false;
 
 
     m_pCollisionObb[(int)inKind]->AccessorActive(true);
@@ -65,6 +65,7 @@ void CJob::Skill(eSkill inKind)
     }
 
     m_tStatus.m_fSkillTime[(int)inKind] = 0.0f;
+    return true;
 }
 
 void CJob::SkillHit(eSkill inKind, CEnemyBase* inTarget)
