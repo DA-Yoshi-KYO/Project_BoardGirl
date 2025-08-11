@@ -35,6 +35,10 @@ void CSceneGame::Init()
     //AddGameObject<CField>(Collision::None,Tag::Field);
 
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 10.0f });
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 20.0f });
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 30.0f });
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, -10.0f });
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, -20.0f });
 }
 
 void CSceneGame::Draw()
