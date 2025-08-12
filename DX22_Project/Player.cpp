@@ -48,7 +48,6 @@ void CPlayer::Init()
 	m_f3Velocity = {};
 	m_bJump = false;
 
-
     for (int i = 0; i < (int)SEKind::Max; i++)
     {
         m_pSE.push_back(AddComponent<CAudio>());
@@ -103,12 +102,15 @@ void CPlayer::Init()
     m_pHPBar->SetMaxHP(m_pJob->GetHP());
     m_pHPBar->SetCurrentHP(m_pJob->GetHP());
 
+    m_bDamage = false;
+
     CMotionBlur::GetInstance()->Init();
 }
 
 void CPlayer::Update()
 {
     m_f3OldPos = m_tParam.m_f3Pos;
+
     // 移動処理
 	PlayerMove();
     PlayerSkill();
@@ -117,8 +119,8 @@ void CPlayer::Update()
     m_pCollision->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
 
     m_pHPBar->SetCurrentHP(m_pJob->GetHP());
-
     m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 2.0f, m_tParam.m_f3Pos.z));
+
     CGameObject::Update();
 }
 

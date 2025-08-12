@@ -2,11 +2,11 @@
 
 #include "EnemyBase.h"
 
-class CSlime : public CEnemyBase
+class CGhost : public CEnemyBase
 {
 public:
-    CSlime();
-    virtual ~CSlime();
+    CGhost();
+    virtual ~CGhost();
     void Init() override;
     void Attack() override;
 

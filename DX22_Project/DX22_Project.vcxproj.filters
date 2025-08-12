@@ -273,6 +273,12 @@
     <ClCompile Include="BGMPlayer.cpp">
       <Filter>Code\GameObject\Speaker</Filter>
     </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Code\GameObject\Billboard\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAttack.cpp">
+      <Filter>Code\GameObject\Billboard\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -424,6 +430,12 @@
     </ClInclude>
     <ClInclude Include="Oparation.h">
       <Filter>Code\Work</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Code\GameObject\Billboard\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAttack.h">
+      <Filter>Code\GameObject\Billboard\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

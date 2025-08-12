@@ -1,10 +1,10 @@
 #include "EnemyBase.h"
 #include "Main.h"
-#include "Player.h"
 #include "Oparation.h"
+#include "Player.h"
 
 CEnemyBase::CEnemyBase()
-    : m_tEnemyStatus{}
+    : m_tEnemyStatus{}, m_pPlayer(nullptr), m_fTime(0.0f)
 {
     m_tEnemyStatus.m_nHP = 10;
     m_tEnemyStatus.m_nAttack = 2;
@@ -35,9 +35,9 @@ void CEnemyBase::Init()
     }
     m_pCollision[(int)EnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
     m_pCollision[(int)EnemyCollision::Body]->AccessorTag("EnemyBody");
-    m_pCollision[(int)EnemyCollision::Search]->AccessorHalfSize({ 5.0f, 5.0f, 5.0f });
+    m_pCollision[(int)EnemyCollision::Search]->AccessorHalfSize(DirectX::XMFLOAT3(5.0f, 5.0f, 5.0f));
     m_pCollision[(int)EnemyCollision::Search]->AccessorTag("EnemySearch");
-    m_pCollision[(int)EnemyCollision::Attack]->AccessorHalfSize({ 1.0f, 1.0f, 1.0f });
+    m_pCollision[(int)EnemyCollision::Attack]->AccessorHalfSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
     m_pCollision[(int)EnemyCollision::Attack]->AccessorTag("EnemyAttack");
 
     m_pHPBar = GetScene()->AddGameObject<CHPBar>();
@@ -46,23 +46,15 @@ void CEnemyBase::Init()
     m_pHPBar->SetMaxHP(m_tEnemyStatus.m_nHP);
     m_pHPBar->SetCurrentHP(m_tEnemyStatus.m_nHP);
 
-}
-
-void CEnemyBase::Uninit()
-{
-    CGameObject::Uninit();
+    m_pPlayer = GetScene()->GetGameObject<CPlayer>();
 }
 
 void CEnemyBase::Update()
 {
-    static float fTime = 0.0f;
-
-    CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
-
     if (m_tEnemyStatus.m_bMove)
     {
         m_f3OldPos = m_tParam.m_f3Pos;
-        DirectX::XMFLOAT3 f3PlayerPos = pPlayer->AccessorPos();
+        DirectX::XMFLOAT3 f3PlayerPos = m_pPlayer->AccessorPos();
         DirectX::XMVECTOR vecPlayerPos = DirectX::XMLoadFloat3(&f3PlayerPos);
         DirectX::XMVECTOR vecEnemyPos = DirectX::XMLoadFloat3(&m_tParam.m_f3Pos);
         DirectX::XMVECTOR vecDirection = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(vecPlayerPos, vecEnemyPos));
@@ -72,10 +64,9 @@ void CEnemyBase::Update()
         m_tParam.m_f3Pos.x += f3Velocity.x;
         m_tParam.m_f3Pos.z += f3Velocity.z;
     }
-
     m_tEnemyStatus.m_bMove = false;
 
-    for (int i = 0; i < (int)EnemyCollision::Max; i++)
+    for (int i = 0; i <= (int)EnemyCollision::Attack; i++)
     {
         m_pCollision[i]->AccessorCenter(m_tParam.m_f3Pos);
     }
@@ -85,25 +76,25 @@ void CEnemyBase::Update()
     {
         if (fSwitchTime >= 0.1f)
         {
-            int alpha = m_tParam.m_f4Color.w;
+            int alpha = (int)m_tParam.m_f4Color.w;
             alpha ^= 1;
             m_tParam.m_f4Color.w = static_cast<float>(alpha);
             fSwitchTime = 0.0f;
         }
-        if (fTime >= 1.0f) 
+        if (m_fTime >= 1.0f)
         {
             m_tEnemyStatus.m_bDamage = false;
             m_tParam.m_f4Color.w = 1.0f;
-            fTime = 0.0f;
+            m_fTime = 0.0f;
             fSwitchTime = 0.0f;
         }
-        fTime += fDeltaTime;
+        m_fTime += fDeltaTime;
         fSwitchTime += fDeltaTime;
     }
 
     if (m_fAttackTime >= 2.0f)
     {
-        pPlayer->Damage(m_tEnemyStatus.m_nAttack);
+        Attack();
         m_fAttackTime = 0.0f;
     }
 
@@ -121,10 +112,14 @@ void CEnemyBase::OnColliderHit(CCollisionBase* other, std::string thisTag)
         {
             m_tParam.m_f3Pos = m_f3OldPos;
         }
+        if (other->AccessorTag() == "EnemyBody")
+        {
+            m_tParam.m_f3Pos = m_f3OldPos;
+        }
 
         return;
     }
-    else if (thisTag == "EnemySearch")
+    if (thisTag == "EnemySearch")
     {
         if (other->AccessorTag() == "PlayerBody")
         {
@@ -133,16 +128,27 @@ void CEnemyBase::OnColliderHit(CCollisionBase* other, std::string thisTag)
 
         return;
     }
-    else if (thisTag == "EnemyAttack")
+    if (thisTag == "EnemyAttack")
     {
         if (other->AccessorTag() == "PlayerBody")
         {
             m_fAttackTime += fDeltaTime;
         }
+
+        return;
     }
+}
 
+void CEnemyBase::Attack()
+{
 
-    else return;
+}
+
+void CEnemyBase::Attack(AttackState inState)
+{
+    CEnemyAttack* pAttack = GetScene()->AddGameObject<CEnemyAttack>();
+    pAttack->Init();
+    pAttack->SetAttackState(inState);
 }
 
 void CEnemyBase::OnDestroy()
@@ -155,7 +161,6 @@ void CEnemyBase::Damage(int inDamage)
     if (m_tEnemyStatus.m_bDamage) return;
     m_tEnemyStatus.m_nHP -= inDamage;
     m_tEnemyStatus.m_bDamage = true;
-
 
     if (m_tEnemyStatus.m_nHP <= 0)
     {

@@ -93,7 +93,7 @@ void CScene::Draw()
         }
     }
 
-    for (int i = 0; i < m_pCollisionVec.size(); i++)
+     for (int i = 0; i < m_pCollisionVec.size(); i++)
     {
         m_pCollisionVec[i]->Draw();
     }

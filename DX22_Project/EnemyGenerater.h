@@ -2,6 +2,12 @@
 
 #include "Defines.h"
 
+const std::string c_sEnemyID[] =
+{
+    "Slime",
+    "Ghost"
+};
+
 class CEnemyGenerater
 {
 private:
