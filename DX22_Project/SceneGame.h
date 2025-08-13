@@ -8,5 +8,6 @@ class CSceneGame : public CScene
 public:
 	void Init() override;
     void Draw() override;
+
 };
 
