@@ -133,6 +133,7 @@ void CEnemyBase::OnColliderHit(CCollisionBase* other, std::string thisTag)
         if (other->AccessorTag() == "PlayerBody")
         {
             m_fAttackTime += fDeltaTime;
+            m_tEnemyStatus.m_bMove = false;
         }
 
         return;

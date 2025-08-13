@@ -16,6 +16,7 @@ void CSceneGame::Init()
     CBillboardRenderer::Load(TEXTURE_PATH("Slime.png"), "Slime");
     CBillboardRenderer::Load(TEXTURE_PATH("HPBar.jpg"), "HPBar");
     CBillboardRenderer::Load(TEXTURE_PATH("Number.png"), "Number");
+    CBillboardRenderer::Load(TEXTURE_PATH("Ghost.png"), "Ghost");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordNormalSkill.png"), "SwordNormalAttack");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordQSkill.png"), "SwordQSkill");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordESkill.png"), "SwordESkill");
@@ -36,8 +37,8 @@ void CSceneGame::Init()
 
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 10.0f });
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 20.0f });
-    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 30.0f });
-    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, -10.0f });
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", { 0.0f, 0.0f, 30.0f });
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", { 0.0f, 0.0f, -10.0f });
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, -20.0f });
 }
 

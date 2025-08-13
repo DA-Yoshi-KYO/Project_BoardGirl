@@ -311,14 +311,26 @@ inline DirectX::XMVECTOR operator/(const DirectX::XMVECTOR& lhs, const DirectX::
     return DirectX::XMVectorDivide(lhs, rhs);
 }
 
-inline DirectX::XMVECTOR operator*(const DirectX::XMVECTOR& lhs, float rhs)
+inline DirectX::XMVECTOR operator*(const DirectX::XMVECTOR& lhs, const float rhs)
 {
     return DirectX::XMVectorScale(lhs, rhs);
 }
 
-inline DirectX::XMVECTOR operator/(const DirectX::XMVECTOR& lhs, float rhs)
+inline DirectX::XMVECTOR operator*=(DirectX::XMVECTOR& lhs, const float rhs)
+{
+    lhs = DirectX::XMVectorScale(lhs, rhs);
+    return lhs;
+}
+
+inline DirectX::XMVECTOR operator/(const DirectX::XMVECTOR& lhs, const float rhs)
 {
     return DirectX::XMVectorScale(lhs, 1.0f / rhs);
+}
+
+inline DirectX::XMVECTOR operator/=(DirectX::XMVECTOR& lhs, const float rhs)
+{
+    lhs = DirectX::XMVectorScale(lhs, 1.0f / rhs);
+    return lhs;
 }
 
 inline float HelmiteValue(float t, float x0, float x1, float v0, float v1, float maxT = 1.0f)
