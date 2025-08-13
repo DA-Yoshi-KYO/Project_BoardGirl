@@ -35,11 +35,11 @@ void CSceneGame::Init()
     pPlayer->Play();
     //AddGameObject<CField>(Collision::None,Tag::Field);
 
-    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 10.0f });
-    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, 20.0f });
-    CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", { 0.0f, 0.0f, 30.0f });
-    CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", { 0.0f, 0.0f, -10.0f });
-    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", { 0.0f, 0.0f, -20.0f });
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", DirectX::XMFLOAT3(0.0f, 0.0f, 30.0f));
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", DirectX::XMFLOAT3(0.0f, 0.0f, -10.0f));
+    CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, -20.0f));
 }
 
 void CSceneGame::Draw()
