@@ -157,6 +157,7 @@
     <ClCompile Include="CollisionBase.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DirectX.cpp" />
+    <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EnemyAttack.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="CollisionBase.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="Dragon.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EnemyAttack.h" />

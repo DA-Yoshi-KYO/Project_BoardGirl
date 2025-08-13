@@ -279,6 +279,9 @@
     <ClCompile Include="EnemyAttack.cpp">
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Dragon.cpp">
+      <Filter>Code\GameObject\Billboard\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -435,6 +438,9 @@
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EnemyAttack.h">
+      <Filter>Code\GameObject\Billboard\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragon.h">
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
