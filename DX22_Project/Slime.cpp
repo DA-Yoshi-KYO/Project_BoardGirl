@@ -21,9 +21,9 @@ void CSlime::Init()
     CEnemyBase::Init();
     AddComponent<CBillboardRenderer>()->SetKey("Slime");
 
-    m_pCollision[(int)EnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
-    m_pCollision[(int)EnemyCollision::Search]->AccessorHalfSize({ 5.0f, 5.0f, 5.0f });
-    m_pCollision[(int)EnemyCollision::Attack]->AccessorHalfSize({ 1.0f, 1.0f, 1.0f });
+    m_pCollision[(int)eEnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
+    m_pCollision[(int)eEnemyCollision::Search]->AccessorHalfSize(DirectX::XMFLOAT3(5.0f, 5.0f, 5.0f));
+    m_pCollision[(int)eEnemyCollision::Attack]->AccessorHalfSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
 }
 
 void CSlime::Attack()
@@ -31,7 +31,7 @@ void CSlime::Attack()
     DirectX::XMFLOAT3 f3PlayerPos = m_pPlayer->AccessorPos();
     DirectX::XMVECTOR vecPlayerPos = DirectX::XMLoadFloat3(&f3PlayerPos);
     DirectX::XMVECTOR vecEnemyPos = DirectX::XMLoadFloat3(&m_tParam.m_f3Pos);
-    DirectX::XMVECTOR vecDirection = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(vecPlayerPos, vecEnemyPos));
+    DirectX::XMVECTOR vecDirection = DirectX::XMVector3Normalize(vecPlayerPos - vecEnemyPos);
     DirectX::XMFLOAT3 f3AttackPos;
     DirectX::XMStoreFloat3(&f3AttackPos, vecDirection);
     f3AttackPos += m_tParam.m_f3Pos;

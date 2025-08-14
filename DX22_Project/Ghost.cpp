@@ -20,9 +20,9 @@ void CGhost::Init()
 
     AddComponent<CBillboardRenderer>()->SetKey("Ghost");
 
-    m_pCollision[(int)EnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
-    m_pCollision[(int)EnemyCollision::Search]->AccessorHalfSize(DirectX::XMFLOAT3( 10.0f, 10.0f, 10.0f));
-    m_pCollision[(int)EnemyCollision::Attack]->AccessorHalfSize(DirectX::XMFLOAT3( 10.0f, 10.0f, 10.0f));
+    m_pCollision[(int)eEnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
+    m_pCollision[(int)eEnemyCollision::Search]->AccessorHalfSize(DirectX::XMFLOAT3( 10.0f, 10.0f, 10.0f));
+    m_pCollision[(int)eEnemyCollision::Attack]->AccessorHalfSize(DirectX::XMFLOAT3( 10.0f, 10.0f, 10.0f));
 }
 
 void CGhost::Attack()

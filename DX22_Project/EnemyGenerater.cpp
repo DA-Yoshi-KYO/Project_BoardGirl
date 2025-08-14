@@ -1,9 +1,10 @@
+#include <variant>
 #include "EnemyGenerater.h"
 #include "Main.h"
 #include "EnemyBase.h"
 #include "Slime.h"
 #include "Ghost.h"
-#include <variant>
+#include "Dragon.h"
 
 CEnemyGenerater* CEnemyGenerater::m_pInstance = nullptr;
 
@@ -37,6 +38,7 @@ void CEnemyGenerater::GenerateEnemy(std::string inEnemyID, const DirectX::XMFLOA
     
     if (inEnemyID == "Slime") pEnemy = pScene->AddGameObject<CSlime>();
     else if (inEnemyID == "Ghost") pEnemy = pScene->AddGameObject<CGhost>();
+    else if (inEnemyID == "Dragon") pEnemy = pScene->AddGameObject<CDragon>();
     else MessageBox(NULL, "NotFindEnemy", "Error", MB_OK);
 
     pEnemy->AccessorPos(position);

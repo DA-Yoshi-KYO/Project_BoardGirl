@@ -12,7 +12,7 @@ CEnemyBase::CEnemyBase()
     m_tEnemyStatus.m_bMove = false;
     m_tEnemyStatus.m_fSpeed = 0.05f;
     m_fAttackTime = 0.0f;
-    for (int i = 0; i < (int)EnemyCollision::Max; i++)
+    for (int i = 0; i < (int)eEnemyCollision::Max; i++)
     {
         m_pCollision[i] = nullptr;
     }
@@ -27,18 +27,18 @@ CEnemyBase::~CEnemyBase()
 
 void CEnemyBase::Init()
 {
-    for (int i = 0; i < (int)EnemyCollision::Max; i++)
+    for (int i = 0; i < (int)eEnemyCollision::Max; i++)
     {
         m_pCollision[i] = AddComponent<CCollisionObb>();
         m_pCollision[i]->AccessorActive(true);
         m_pCollision[i]->AccessorCenter(m_tParam.m_f3Pos);
     }
-    m_pCollision[(int)EnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
-    m_pCollision[(int)EnemyCollision::Body]->AccessorTag("EnemyBody");
-    m_pCollision[(int)EnemyCollision::Search]->AccessorHalfSize(DirectX::XMFLOAT3(5.0f, 5.0f, 5.0f));
-    m_pCollision[(int)EnemyCollision::Search]->AccessorTag("EnemySearch");
-    m_pCollision[(int)EnemyCollision::Attack]->AccessorHalfSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
-    m_pCollision[(int)EnemyCollision::Attack]->AccessorTag("EnemyAttack");
+    m_pCollision[(int)eEnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
+    m_pCollision[(int)eEnemyCollision::Body]->AccessorTag("EnemyBody");
+    m_pCollision[(int)eEnemyCollision::Search]->AccessorHalfSize(DirectX::XMFLOAT3(5.0f, 5.0f, 5.0f));
+    m_pCollision[(int)eEnemyCollision::Search]->AccessorTag("EnemySearch");
+    m_pCollision[(int)eEnemyCollision::Attack]->AccessorHalfSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
+    m_pCollision[(int)eEnemyCollision::Attack]->AccessorTag("EnemyAttack");
 
     m_pHPBar = GetScene()->AddGameObject<CHPBar>();
     m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 1.2f, m_tParam.m_f3Pos.z));
@@ -66,7 +66,7 @@ void CEnemyBase::Update()
     }
     m_tEnemyStatus.m_bMove = false;
 
-    for (int i = 0; i <= (int)EnemyCollision::Attack; i++)
+    for (int i = 0; i <= (int)eEnemyCollision::Attack; i++)
     {
         m_pCollision[i]->AccessorCenter(m_tParam.m_f3Pos);
     }
@@ -172,4 +172,29 @@ void CEnemyBase::Damage(int inDamage)
 void CEnemyBase::SetInvincibly(bool isInvincibly)
 {
     m_tEnemyStatus.m_bDamage = isInvincibly;
+}
+
+eEnemyStatePattern CEnemyBase::GetPattern(DirectX::XMFLOAT3 inAttackHarfSize)
+{
+    DirectX::XMFLOAT3 f3PlayerPos = m_pPlayer->AccessorPos();
+    DirectX::XMVECTOR vecPlayerPos = DirectX::XMLoadFloat3(&f3PlayerPos);
+    DirectX::XMVECTOR vecEnemyPos = DirectX::XMLoadFloat3(&m_tParam.m_f3Pos);
+    DirectX::XMVECTOR vDistance = vecPlayerPos - vecEnemyPos;
+    float fDistance = fabsf(DirectX::XMVectorGetX(vDistance));
+    float fMaxDistance = sqrtf(powf(inAttackHarfSize.x * 2, 2) + powf(inAttackHarfSize.z * 2, 2));
+
+    eEnemyStatePattern ePattern;
+    float fValue = fDistance / fMaxDistance;
+    float fStandardValue = 1.0f / (int)eEnemyStatePattern::Max;
+
+    if (fValue <= fStandardValue) ePattern = eEnemyStatePattern::Near;
+    else if (fValue <= fStandardValue * 2) ePattern = eEnemyStatePattern::Middle;
+    else ePattern = eEnemyStatePattern::Far;
+
+    return ePattern;
+}
+
+eEnemyStatePattern CEnemyBase::GetPattern(DirectX::XMFLOAT3 inAttackHarfSize, eEnemyStatePattern AdjustPattern)
+{
+    return eEnemyStatePattern();
 }

@@ -7,11 +7,20 @@
 
 class CPlayer;
 
-enum class EnemyCollision
+enum class eEnemyCollision
 {
     Body,
     Search,
     Attack,
+
+    Max
+};
+
+enum class eEnemyStatePattern
+{
+    Near,
+    Middle,
+    Far,
 
     Max
 };
@@ -31,6 +40,8 @@ public:
     void Damage(int inDamage);
     void SetInvincibly(bool isInvincibly);
     bool GetInvincibly() { return m_tEnemyStatus.m_bDamage; }
+    eEnemyStatePattern GetPattern(DirectX::XMFLOAT3 inAttackHarfSize);
+    eEnemyStatePattern GetPattern(DirectX::XMFLOAT3 inAttackHarfSize, eEnemyStatePattern AdjustPattern);
 
 private:
 
@@ -48,7 +59,7 @@ protected:
 
     float m_fAttackTime;
     float m_fTime;
-    CCollisionObb* m_pCollision[static_cast<int>(EnemyCollision::Max)];
+    CCollisionObb* m_pCollision[static_cast<int>(eEnemyCollision::Max)];
     CHPBar* m_pHPBar;
     CPlayer* m_pPlayer;
 
