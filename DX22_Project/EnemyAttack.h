@@ -9,6 +9,7 @@ struct AttackState
     DirectX::XMFLOAT3 m_f3Direction;
     float m_fAttackDuration;
     int m_nDamage;
+    std::string m_sTexKey;
 };
 
 class CEnemyAttack : public CGameObject

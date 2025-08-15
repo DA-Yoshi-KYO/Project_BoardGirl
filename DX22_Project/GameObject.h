@@ -77,6 +77,21 @@ public:
         return componentList;
     }
 
+    template<typename T = CComponent>
+    void DestroyComponent()
+    {
+        for (auto itr = m_pComponent_List.begin(); itr != m_pComponent_List.end();)
+        {
+            if (dynamic_cast<T*>(*itr))
+            {
+                delete (*itr);
+                (*itr) = nullptr;
+                itr = m_pComponent_List.erase(itr);
+            }
+            else itr++;
+        }
+    }
+
 public:
     // アクセサ
 

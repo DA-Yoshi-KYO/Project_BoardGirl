@@ -28,7 +28,7 @@ void CDragon::Init()
 
 void CDragon::Attack()
 {
-    int nPercent = rand() % 100;
+    int nPercent = GetRandOfRange(0,100);
 
     switch (CEnemyBase::GetPattern(m_pCollision[(int)eEnemyCollision::Attack]->AccessorHalfSize()))
     {
@@ -71,4 +71,22 @@ void CDragon::AttackNormal()
 
 void CDragon::AttackBreath()
 {
+    AttackState tState;
+    tState.m_f3Size = DirectX::XMFLOAT3(2.0f, 1.0f, 5.0f);
+
+    DirectX::XMFLOAT3 f3PlayerPos = m_pPlayer->AccessorPos();
+    DirectX::XMVECTOR vecPlayerPos = DirectX::XMLoadFloat3(&f3PlayerPos);
+    DirectX::XMVECTOR vecEnemyPos = DirectX::XMLoadFloat3(&m_tParam.m_f3Pos);
+    DirectX::XMVECTOR vecDirection = DirectX::XMVector3Normalize(vecPlayerPos - vecEnemyPos);
+    vecDirection *= tState.m_f3Size.z / 2.0f;
+    DirectX::XMFLOAT3 f3AttackPos;
+    DirectX::XMStoreFloat3(&f3AttackPos, vecDirection);
+    f3AttackPos += m_tParam.m_f3Pos;
+
+    tState.m_f3Center = f3AttackPos;
+    tState.m_f3Direction = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+    tState.m_fAttackDuration = 1.0f;
+    tState.m_nDamage = m_tEnemyStatus.m_nAttack;
+
+    CEnemyBase::Attack(tState);
 }

@@ -62,11 +62,13 @@ void CScene::Update()
 
     for (int i = 0; i < m_pCollisionVec.size(); i++)
     {
+        if (!m_pCollisionVec[i]) continue;
         if (m_pCollisionVec[i]->GetGameObject()->IsDestroy())
         {
             m_pCollisionVec.erase(m_pCollisionVec.begin() + i);
         }
     }
+
     for (auto& list : m_pGameObject_List)
     {
         list.remove_if([](CGameObject* pObj)
@@ -96,5 +98,16 @@ void CScene::Draw()
      for (int i = 0; i < m_pCollisionVec.size(); i++)
     {
         m_pCollisionVec[i]->Draw();
+    }
+}
+
+void CScene::DequeCollision(CGameObject* inThis)
+{
+    for (int i = 0; i < m_pCollisionVec.size(); i++)
+    {
+        if (m_pCollisionVec[i]->GetGameObject() == inThis)
+        {
+            m_pCollisionVec.erase(m_pCollisionVec.begin() + i);
+        }
     }
 }

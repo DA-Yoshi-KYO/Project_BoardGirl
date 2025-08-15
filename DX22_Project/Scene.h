@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "Defines.h"
 #include "GameObject.h"
@@ -59,6 +59,8 @@ public:
             m_pCollisionVec.push_back(inCollision);
         }
     }
+
+    void DequeCollision(CGameObject* inThis);
 
 protected:
     std::array<std::list<CGameObject*>,(int)Tag::Max> m_pGameObject_List; // シーン内のゲームオブジェクトリスト

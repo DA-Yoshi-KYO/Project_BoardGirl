@@ -29,6 +29,7 @@ void CGameObject::Uninit()
     // コンポーネントの解放
 	for (auto comp : m_pComponent_List)
 	{
+        if (!comp) continue;
 		comp->Uninit();
 		delete comp;
 	}
@@ -40,6 +41,7 @@ void CGameObject::Update()
     // コンポーネントの更新
 	for (auto comp : m_pComponent_List)
 	{
+        if (!comp) continue;
 		comp->Update();
 	}
 }
@@ -49,6 +51,7 @@ void CGameObject::Draw()
     // コンポーネントの描画
     for (auto comp : m_pComponent_List)
 	{
+        if (!comp) continue;
         // 描画用コンポーネントを使用する場合、汎用パラメータをコンポーネントに渡す
 		if (dynamic_cast<CRendererComponent*>(comp))dynamic_cast<CRendererComponent*>(comp)->SetRendererParam(m_tParam);
         // 当たり判定描画はSceneで行う

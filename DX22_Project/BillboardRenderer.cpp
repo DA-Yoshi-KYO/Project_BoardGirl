@@ -1,4 +1,4 @@
-﻿#include "BillboardRenderer.h"
+#include "BillboardRenderer.h"
 #include "Sprite.h"
 #include "DirectX.h"
 
@@ -14,6 +14,8 @@ void CBillboardRenderer::Init()
 
 void CBillboardRenderer::Draw()
 {
+    if (m_sKey.empty()) return;
+
 	RenderTarget* pRTV = GetDefaultRTV();
 	DepthStencil* pDSV = GetDefaultDSV();
 	SetRenderTargets(1, &pRTV, nullptr);

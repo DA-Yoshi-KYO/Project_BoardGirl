@@ -55,14 +55,19 @@ void CEnemyBase::Update()
     {
         m_f3OldPos = m_tParam.m_f3Pos;
         DirectX::XMFLOAT3 f3PlayerPos = m_pPlayer->AccessorPos();
-        DirectX::XMVECTOR vecPlayerPos = DirectX::XMLoadFloat3(&f3PlayerPos);
-        DirectX::XMVECTOR vecEnemyPos = DirectX::XMLoadFloat3(&m_tParam.m_f3Pos);
-        DirectX::XMVECTOR vecDirection = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(vecPlayerPos, vecEnemyPos));
+        DirectX::XMFLOAT2 f2PlayerPosXZ = DirectX::XMFLOAT2(f3PlayerPos.x, f3PlayerPos.z);
+        DirectX::XMVECTOR vecPlayerPos = DirectX::XMLoadFloat2(&f2PlayerPosXZ);
+        DirectX::XMFLOAT2 f2EnemyPosXZ = DirectX::XMFLOAT2(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.z);
+        DirectX::XMVECTOR vecEnemyPos = DirectX::XMLoadFloat2(&f2EnemyPosXZ);
+        DirectX::XMVECTOR vecDirection = DirectX::XMVector2Normalize(vecPlayerPos - vecEnemyPos);
         DirectX::XMVECTOR vecVelocity = vecDirection * m_tEnemyStatus.m_fSpeed;
-        DirectX::XMFLOAT3 f3Velocity;
-        DirectX::XMStoreFloat3(&f3Velocity, vecVelocity);
-        m_tParam.m_f3Pos.x += f3Velocity.x;
-        m_tParam.m_f3Pos.z += f3Velocity.z;
+        DirectX::XMFLOAT2 f2Velocity;
+        DirectX::XMStoreFloat2(&f2Velocity, vecVelocity);
+        m_tParam.m_f3Pos.x += f2Velocity.x;
+        m_tParam.m_f3Pos.z += f2Velocity.y;
+        DirectX::XMFLOAT2 f2Direction;
+        DirectX::XMStoreFloat2(&f2Direction, vecDirection);
+        m_tParam.m_f3Rotate.y = atan2(f2Direction.x, f2Direction.y);
     }
     m_tEnemyStatus.m_bMove = false;
 
@@ -150,6 +155,7 @@ void CEnemyBase::Attack(AttackState inState)
     CEnemyAttack* pAttack = GetScene()->AddGameObject<CEnemyAttack>();
     pAttack->Init();
     pAttack->SetAttackState(inState);
+    pAttack->AccessorRotate(m_tParam.m_f3Rotate);
 }
 
 void CEnemyBase::OnDestroy()
@@ -181,7 +187,7 @@ eEnemyStatePattern CEnemyBase::GetPattern(DirectX::XMFLOAT3 inAttackHarfSize)
     DirectX::XMVECTOR vecEnemyPos = DirectX::XMLoadFloat3(&m_tParam.m_f3Pos);
     DirectX::XMVECTOR vDistance = vecPlayerPos - vecEnemyPos;
     float fDistance = fabsf(DirectX::XMVectorGetX(vDistance));
-    float fMaxDistance = sqrtf(powf(inAttackHarfSize.x * 2, 2) + powf(inAttackHarfSize.z * 2, 2));
+    float fMaxDistance = sqrtf(powf(inAttackHarfSize.x, 2) + powf(inAttackHarfSize.z, 2));
 
     eEnemyStatePattern ePattern;
     float fValue = fDistance / fMaxDistance;

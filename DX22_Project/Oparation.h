@@ -1,6 +1,14 @@
 #pragma once
 #include <DirectXMath.h>
 
+inline int GetRandOfRange(const int inMin, const int inMax)
+{
+    int out = rand() % (inMin + inMax);
+    out += inMin;
+
+    return out;
+}
+
 inline DirectX::XMFLOAT2 operator+(const DirectX::XMFLOAT2& lhs, const DirectX::XMFLOAT2& rhs)
 {
     return { lhs.x + rhs.x, lhs.y + rhs.y };
