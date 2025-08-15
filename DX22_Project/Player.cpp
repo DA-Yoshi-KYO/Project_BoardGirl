@@ -2,8 +2,6 @@
 #include "Player.h"
 #include "Input.h"
 #include "BillboardRenderer.h"
-#include "Defines.h"
-#include <DirectXMath.h>
 #include "SelectJobs.h"
 #include "Soldier.h"
 #include "Wizard.h"

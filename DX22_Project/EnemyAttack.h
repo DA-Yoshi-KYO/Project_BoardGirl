@@ -10,6 +10,7 @@ struct AttackState
     float m_fAttackDuration;
     int m_nDamage;
     std::string m_sTexKey;
+    DirectX::XMINT2 m_n2Split;
 };
 
 class CEnemyAttack : public CGameObject
@@ -32,5 +33,6 @@ public:
 private:
     AttackState m_tAttackState;
     float m_fTime;
+    int m_nStep;
 
 };

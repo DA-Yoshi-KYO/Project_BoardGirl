@@ -51,20 +51,24 @@ void CDragon::Attack()
 
 void CDragon::AttackNormal()
 {
+    AttackState tState;
+    tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+
     DirectX::XMFLOAT3 f3PlayerPos = m_pPlayer->AccessorPos();
     DirectX::XMVECTOR vecPlayerPos = DirectX::XMLoadFloat3(&f3PlayerPos);
     DirectX::XMVECTOR vecEnemyPos = DirectX::XMLoadFloat3(&m_tParam.m_f3Pos);
     DirectX::XMVECTOR vecDirection = DirectX::XMVector3Normalize(vecPlayerPos - vecEnemyPos);
+    vecDirection *= m_tParam.m_f3Size.z;
     DirectX::XMFLOAT3 f3AttackPos;
     DirectX::XMStoreFloat3(&f3AttackPos, vecDirection);
     f3AttackPos += m_tParam.m_f3Pos;
 
-    AttackState tState;
     tState.m_f3Center = f3AttackPos;
-    tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
     tState.m_f3Direction = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
     tState.m_fAttackDuration = 1.0f;
     tState.m_nDamage = m_tEnemyStatus.m_nAttack;
+    tState.m_sTexKey = "DragonNormalAttack";
+    tState.m_n2Split = DirectX::XMINT2(5, 2);
 
     CEnemyBase::Attack(tState);
 }
@@ -87,6 +91,8 @@ void CDragon::AttackBreath()
     tState.m_f3Direction = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
     tState.m_fAttackDuration = 1.0f;
     tState.m_nDamage = m_tEnemyStatus.m_nAttack;
+    tState.m_sTexKey = "";
+    tState.m_n2Split = DirectX::XMINT2(0, 0);
 
     CEnemyBase::Attack(tState);
 }

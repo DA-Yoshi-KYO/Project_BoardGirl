@@ -7,7 +7,7 @@
 
 CEnemyAttack::CEnemyAttack()
     : CGameObject()
-    , m_tAttackState{},m_fTime(0.0f)
+    , m_tAttackState{},m_fTime(0.0f), m_nStep(0)
 {
 
 }
@@ -31,7 +31,17 @@ void CEnemyAttack::Update()
 {
     m_tAttackState.m_f3Center += m_tAttackState.m_f3Direction;
     m_tParam.m_f3Pos = m_tAttackState.m_f3Center;
-    m_tParam.m_f3Size = m_tAttackState.m_f3Size;
+    m_tParam.m_f3Size = m_tAttackState.m_f3Size * 2.0f;
+
+    if (m_tAttackState.m_n2Split.x != 0 && m_tAttackState.m_n2Split.y != 0)
+    {
+        m_tParam.m_f2UVSize.x = 1.0f / (float)m_tAttackState.m_n2Split.x;
+        m_tParam.m_f2UVSize.y = 1.0f / (float)m_tAttackState.m_n2Split.y;
+        float fStep = m_tAttackState.m_fAttackDuration / float(m_tAttackState.m_n2Split.x * m_tAttackState.m_n2Split.y);
+        if (m_fTime >= fStep * (m_nStep + 1)) m_nStep++;
+        m_tParam.m_f2UVPos.x = (1.0f / (float)m_tAttackState.m_n2Split.x) * (m_nStep % m_tAttackState.m_n2Split.x);
+        m_tParam.m_f2UVPos.y = (1.0f / (float)m_tAttackState.m_n2Split.y) * (m_nStep / m_tAttackState.m_n2Split.x);
+    }
 
     CCollisionObb* pCollision = GetComponent<CCollisionObb>();
     if (pCollision)
@@ -49,7 +59,7 @@ void CEnemyAttack::Update()
 
 void CEnemyAttack::Draw()
 {
-    // GetComponent<CBillboardRenderer>()->SetKey(m_tAttackState.m_sTexKey);
+    if (m_tAttackState.m_sTexKey != "")GetComponent<CBillboardRenderer>()->SetKey(m_tAttackState.m_sTexKey);
     CGameObject::Draw();
 }
 

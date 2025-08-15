@@ -18,11 +18,15 @@ void CSceneGame::Init()
     CBillboardRenderer::Load(TEXTURE_PATH("Number.png"), "Number");
     CBillboardRenderer::Load(TEXTURE_PATH("Ghost.png"), "Ghost");
     CBillboardRenderer::Load(TEXTURE_PATH("Dragon.png"), "Dragon");
+
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordNormalSkill.png"), "SwordNormalAttack");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordQSkill.png"), "SwordQSkill");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordESkill.png"), "SwordESkill");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordRSkill.png"), "SwordRSkill");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/PlayerAttackHit.png"), "PlayerAttackHit");
+
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SlimeAttack.png"), "SlimeAttack");
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/DragonNormalAttack.png"), "DragonNormalAttack");
 
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);
