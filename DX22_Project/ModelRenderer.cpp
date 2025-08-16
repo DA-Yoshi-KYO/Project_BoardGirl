@@ -15,6 +15,13 @@ void CModelRenderer::Load(const char* inPath,float scale, Model::Flip flip)
 {
     m_pModel = std::make_shared<Model>();
    if (!m_pModel->Load(inPath, scale, flip)) MessageBox(NULL, inPath,"Error",MB_OK);
+
+
+   for (unsigned int i = 0; i < m_pModel->GetMeshNum(); i++)
+   {
+       Model::Mesh Mesh = *m_pModel->GetMesh(i);
+       m_pMeshVec.push_back(&Mesh);
+   }
 }
 
 void CModelRenderer::Draw()
@@ -48,4 +55,9 @@ void CModelRenderer::Draw()
 
         if (m_pModel) m_pModel->Draw(i);
     }
+}
+
+std::vector<Model::Mesh*> CModelRenderer::GetMesh()
+{
+    return m_pMeshVec;
 }
