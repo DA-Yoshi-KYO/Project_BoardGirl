@@ -40,6 +40,10 @@ public:
     // オブジェクトが破棄されているかの確認
 	bool IsDestroy();
 
+    DirectX::XMFLOAT3 GetForward();
+    DirectX::XMFLOAT3 GetRight();
+    DirectX::XMFLOAT3 GetUp();
+
 public:
     // コンポーネントの追加
 	template<typename T = CComponent>

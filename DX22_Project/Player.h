@@ -14,14 +14,13 @@ public:
 
     void Damage(int inDamage);
     // プレイヤーの前方向を取得
-	DirectX::XMFLOAT3 GetForward();
+
 
 private:
     bool m_bJump;   // ジャンプ中かどうか
 	DirectX::XMFLOAT3 m_f3Velocity; // 移動量
 
 private:
-    DirectX::XMFLOAT3 GetRight();
     void PlayerMove();
     void PlayerSkill();
     bool m_bDamage;

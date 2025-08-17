@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "BillboardRenderer.h"
 #include "GameObject.h"
@@ -14,6 +14,7 @@ public:
     void SetRenderState(DirectX::XMFLOAT3 inSize, DirectX::XMFLOAT4 inFlontColor);
     void SetCurrentHP(int inCurrentHP);
     void SetMaxHP(int inMaxHP);
+    void SetParent(CGameObject* inParent);
 private:
     enum class TextureKind
     {
@@ -24,6 +25,7 @@ private:
     };
     CBillboardRenderer* m_pHPBar[(int)TextureKind::Max];
     RendererParam m_tRendererParam[(int)TextureKind::Max];
+    CGameObject* m_pParent;
 
     struct BarParam
     {

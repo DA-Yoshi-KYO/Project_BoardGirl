@@ -187,7 +187,10 @@
     <ClCompile Include="Model_morph.cpp" />
     <ClCompile Include="CollisionObb.cpp" />
     <ClCompile Include="MotionBlur.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Player.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="RendererComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />

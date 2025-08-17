@@ -31,7 +31,6 @@ void CSceneGame::Init()
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);
 
-    // オブジェクトの追加
     AddGameObject<CPlayer>();
     AddGameObject<CTimer>(Tag::UI);
     CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>(Tag::Sound);

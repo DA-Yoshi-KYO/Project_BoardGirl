@@ -79,3 +79,33 @@ bool CGameObject::IsDestroy()
 {
 	return m_bDestroy;
 }
+
+DirectX::XMFLOAT3 CGameObject::GetForward()
+{
+    DirectX::XMMATRIX mRotate = DirectX::XMMatrixRotationRollPitchYaw(m_tParam.m_f3Rotate.x, m_tParam.m_f3Rotate.y, m_tParam.m_f3Rotate.z);
+
+    DirectX::XMFLOAT3 f3ForWard;
+    DirectX::XMStoreFloat3(&f3ForWard, mRotate.r[2]);
+
+    return f3ForWard;
+}
+
+DirectX::XMFLOAT3 CGameObject::GetRight()
+{
+    DirectX::XMMATRIX mRotate = DirectX::XMMatrixRotationRollPitchYaw(m_tParam.m_f3Rotate.x, m_tParam.m_f3Rotate.y, m_tParam.m_f3Rotate.z);
+
+    DirectX::XMFLOAT3 f3Right;
+    DirectX::XMStoreFloat3(&f3Right, mRotate.r[0]);
+
+    return f3Right;
+}
+
+DirectX::XMFLOAT3 CGameObject::GetUp()
+{
+    DirectX::XMMATRIX mRotate = DirectX::XMMatrixRotationRollPitchYaw(m_tParam.m_f3Rotate.x, m_tParam.m_f3Rotate.y, m_tParam.m_f3Rotate.z);
+
+    DirectX::XMFLOAT3 f3Up;
+    DirectX::XMStoreFloat3(&f3Up, mRotate.r[1]);
+
+    return f3Up;
+}

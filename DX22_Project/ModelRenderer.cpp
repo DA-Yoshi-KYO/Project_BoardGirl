@@ -9,6 +9,7 @@ CModelRenderer::~CModelRenderer()
 void CModelRenderer::Init()
 {
     m_pModel = nullptr;
+    m_pMeshVec.clear();
 }
 
 void CModelRenderer::Load(const char* inPath,float scale, Model::Flip flip)

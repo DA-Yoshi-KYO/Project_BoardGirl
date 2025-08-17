@@ -100,6 +100,7 @@ void CPlayer::Init()
     m_pHPBar->SetMaxHP(m_pJob->GetHP());
     m_pHPBar->SetCurrentHP(m_pJob->GetHP());
 
+    m_pHPBar->SetParent(this);
     m_bDamage = false;
 
     CMotionBlur::GetInstance()->Init();
@@ -173,30 +174,6 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
 void CPlayer::Damage(int inDamage)
 {
     m_pJob->Damage(inDamage);
-}
-
-DirectX::XMFLOAT3 CPlayer::GetForward()
-{
-    // プレイヤーの前方向を取得するために、回転行列を生成
-	DirectX::XMMATRIX mRotate = DirectX::XMMatrixRotationRollPitchYaw(m_tParam.m_f3Rotate.x, m_tParam.m_f3Rotate.y, m_tParam.m_f3Rotate.z);
-
-    // 回転行列のZ軸([2])を前方向として取得
-	DirectX::XMFLOAT3 f3ForWard;
-	DirectX::XMStoreFloat3(&f3ForWard, mRotate.r[2]);
-
-	return f3ForWard;
-}
-
-DirectX::XMFLOAT3 CPlayer::GetRight()
-{
-    // プレイヤーの前方向を取得するために、回転行列を生成
-    DirectX::XMMATRIX mRotate = DirectX::XMMatrixRotationRollPitchYaw(m_tParam.m_f3Rotate.x, m_tParam.m_f3Rotate.y, m_tParam.m_f3Rotate.z);
-
-    // 回転行列のX軸([0])を右方向として取得
-    DirectX::XMFLOAT3 f3Right;
-    DirectX::XMStoreFloat3(&f3Right, mRotate.r[0]);
-
-    return f3Right;
 }
 
 void CPlayer::PlayerMove()

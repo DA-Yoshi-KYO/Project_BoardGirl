@@ -1,6 +1,8 @@
 #include "HPBar.h"
 #include "Camera.h"
 #include "Oparation.h"
+#include "Main.h"
+#include "Player.h"
 
 CHPBar::~CHPBar()
 {
@@ -36,17 +38,14 @@ void CHPBar::Init()
 
 void CHPBar::Draw()
 {
-    m_tRendererParam[(int)TextureKind::Flont].m_f3Size.x = m_tValue.m_fMaxSize * ((float)m_tValue.m_nCurrentHP / (float)m_tValue.m_nMaxHP);
-
-    DirectX::XMFLOAT4X4 view = CCamera::GetInstance(CCamera::GetCameraKind())->GetViewMatrix(false);
-    DirectX::XMMATRIX mView = DirectX::XMLoadFloat4x4(&view);
-    DirectX::XMVECTOR vecCameraRight = DirectX::XMVector3Normalize(mView.r[0]);
-    float fOffSet = (m_tValue.m_fMaxSize - m_tRendererParam[(int)TextureKind::Flont].m_f3Size.x) / 2.0f;
-
-    // カメラ右方向にオフセットをずらす
-    DirectX::XMVECTOR vecPos = DirectX::XMLoadFloat3(&m_tRendererParam[(int)TextureKind::Flont].m_f3Pos);
-    vecPos -= vecCameraRight * fOffSet;
-    DirectX::XMStoreFloat3(&m_tRendererParam[(int)TextureKind::Flont].m_f3Pos, vecPos);
+    float fStep = (float)m_tValue.m_nCurrentHP / (float)m_tValue.m_nMaxHP;
+    m_tRendererParam[(int)TextureKind::Flont].m_f3Size.x = m_tValue.m_fMaxSize * fStep;
+    float fOffSetRatio = 1.0f - fStep;
+    DirectX::XMFLOAT3 f3MovePos = GetScene()->GetGameObject<CPlayer>()->GetRight();
+    f3MovePos.x *= m_tValue.m_fMaxSize * 0.5f;
+    DirectX::XMFLOAT3 f3OffSetRight = f3MovePos * fOffSetRatio;
+    
+    m_tRendererParam[(int)TextureKind::Flont].m_f3Pos -= f3OffSetRight;
 
     for (int i = 0; i < (int)TextureKind::Max; i++)
     {
@@ -63,6 +62,11 @@ void CHPBar::SetCurrentHP(int inCurrentHP)
 void CHPBar::SetMaxHP(int inMaxHP)
 {
     m_tValue.m_nMaxHP = inMaxHP;
+}
+
+void CHPBar::SetParent(CGameObject* inParent)
+{
+    m_pParent = inParent;
 }
 
 void CHPBar::SetRenderState(DirectX::XMFLOAT3 inSize, DirectX::XMFLOAT4 inFlontColor)
