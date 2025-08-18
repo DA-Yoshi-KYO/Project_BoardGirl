@@ -7,16 +7,13 @@
 #include "ShaderList.h"
 #include "Audio.h"
 
-#include "imgui.h"
-#include "imgui_impl_dx11.h"
-#include "imgui_impl_win32.h"
-
 #include "Scene.h"
 #include "SceneTitle.h"
 
 #include "Defines.h"
 
 #include "EnemyGenerater.h"
+#include "DebugSystem.h"
 
 CScene* g_pScene;
 CScene* g_pNextScene;
@@ -30,17 +27,7 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 	// 初期化の例
 	if (FAILED(hr)) { return hr; }
 
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-	io.DisplaySize = ImVec2((float)width, (float)height);
-	ImGui::StyleColorsDark();
-
-	ImGui_ImplWin32_Init(hWnd);
-	ImGui_ImplDX11_Init(GetDevice(), GetContext());
-
+    CDebugSystem::GetInstance()->Init();
     CAudio::InitMaster();
 	Geometory::Init();
 	Sprite::Init();
@@ -68,10 +55,8 @@ void Uninit()
 	Sprite::Uninit();
 	Geometory::Uninit();
     CAudio::UninitMaster();
-
-	ImGui_ImplDX11_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
+    CDebugSystem::GetInstance()->Uninit();
+    CDebugSystem::GetInstance()->ReleaseInstance();
 
 	UninitDirectX();
 }
@@ -94,14 +79,13 @@ void Update()
 	}
 
 	g_pScene->Update();
+    CDebugSystem::GetInstance()->Update();
 }
 
 void Draw()
 {
 	BeginDrawDirectX();
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
+
 	// 軸線の表示
 #if 1
 	// グリッド
@@ -163,9 +147,8 @@ void Draw()
 	Geometory::SetProjection(mat[1]);
 #endif
 	g_pScene->Draw();
+    CDebugSystem::GetInstance()->Draw();
 
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	EndDrawDirectX();
 }
 
@@ -179,3 +162,4 @@ void ChangeScene(CScene* inScene)
 	g_pNextScene = inScene;
 	g_bSceneChanging = true;
 }
+

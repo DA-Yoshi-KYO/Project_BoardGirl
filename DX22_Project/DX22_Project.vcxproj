@@ -156,6 +156,7 @@
     <ClCompile Include="CameraSelect.cpp" />
     <ClCompile Include="CollisionBase.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DebugSystem.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="CameraSelect.h" />
     <ClInclude Include="CollisionBase.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DebugSystem.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Dragon.h" />
     <ClInclude Include="Easing.h" />

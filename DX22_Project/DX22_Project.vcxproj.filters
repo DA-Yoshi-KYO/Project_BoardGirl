@@ -282,6 +282,9 @@
     <ClCompile Include="Dragon.cpp">
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="DebugSystem.cpp">
+      <Filter>Code\Work\External\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -442,6 +445,9 @@
     </ClInclude>
     <ClInclude Include="Dragon.h">
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugSystem.h">
+      <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

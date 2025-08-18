@@ -15,6 +15,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 bool g_bEnd = false;
+HWND myHWnd;
 
 // エントリポイント
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -24,7 +25,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//--- 変数宣言
 	WNDCLASSEX wcex;
-	HWND hWnd;
 	MSG message;
 
 	// ウィンドクラス情報の設定
@@ -51,7 +51,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DWORD style = WS_CAPTION | WS_SYSMENU;
 	DWORD exStyle = WS_EX_OVERLAPPEDWINDOW;
 	AdjustWindowRectEx(&rect, style, false, exStyle);
-	hWnd = CreateWindowEx(
+    myHWnd = CreateWindowEx(
 		exStyle, wcex.lpszClassName,
 		NULL, style,
 		CW_USEDEFAULT, CW_USEDEFAULT,
@@ -61,11 +61,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	);
 
 	// ウィンドウの表示
-	ShowWindow(hWnd, nCmdShow);
-	UpdateWindow(hWnd);
+	ShowWindow(myHWnd, nCmdShow);
+	UpdateWindow(myHWnd);
 
 	// 初期化処理
-	if (FAILED(Init(hWnd, SCREEN_WIDTH, SCREEN_HEIGHT)))
+	if (FAILED(Init(myHWnd, SCREEN_WIDTH, SCREEN_HEIGHT)))
 	{
 		Uninit();
 		UnregisterClass(wcex.lpszClassName, hInstance);
@@ -116,7 +116,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					//sprintf→文字列に対してprintfで書き込む
 					sprintf(mes, "FPS:%d", fpsCount);
 					//FPSの表示
-					SetWindowText(hWnd, mes);
+					SetWindowText(myHWnd, mes);
 
 					//次の計測の準備
 					fpsCount = 0;
@@ -154,4 +154,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 void AppEnd()
 {
 	g_bEnd = true;
+}
+
+HWND GetMyWindow()
+{
+    return myHWnd;
 }

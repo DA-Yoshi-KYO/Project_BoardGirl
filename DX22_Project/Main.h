@@ -15,4 +15,7 @@ void AppEnd();
 CScene* GetScene();
 void ChangeScene(CScene* inScene);
 
+HWND GetMyWindow();
+
+
 #endif // __MAIN_H__
