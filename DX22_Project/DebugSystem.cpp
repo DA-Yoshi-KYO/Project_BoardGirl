@@ -6,8 +6,10 @@
 #include "Main.h"
 
 CDebugSystem* CDebugSystem::m_pInstance = nullptr;
+constexpr float ce_fCharaSize = 30.0f;
 
 CDebugSystem::CDebugSystem()
+    : m_pObject(nullptr)
 {
 
 }
@@ -102,11 +104,50 @@ void CDebugSystem::DrawInspecter()
 
     if (m_pObject)
     {
+        int nChildCnt = 0;
         ObjectID id = m_pObject->AccessorID();
         std::string name = id.m_sName;
         if (id.m_nSameCount != 0) name += std::to_string(id.m_nSameCount);
         name = "Name:" + name;
+        ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, ce_fCharaSize), ImGuiWindowFlags_NoTitleBar);
+        nChildCnt++;
         ImGui::Text(name.c_str());
+        ImGui::EndChild();
+
+        std::list<CRendererComponent*> pRenderer = m_pObject->GetSameComponents<CRendererComponent>();
+        int nCompCnt = 0;
+        if (!pRenderer.empty())
+        {
+            for (auto itr : pRenderer)
+            {
+                RendererParam param = itr->GetRendererParam();
+                ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, ce_fCharaSize * 9), ImGuiWindowFlags_NoTitleBar);
+
+                ImGui::Text(std::string("[Position" + std::to_string(nCompCnt) + "]").c_str());
+                DirectX::XMFLOAT3 pos = param.m_f3Pos;
+                ImGui::Text(std::string("PosX:" + std::to_string(pos.x)).c_str());
+                ImGui::Text(std::string("PosY:" + std::to_string(pos.y)).c_str());
+                ImGui::Text(std::string("PosZ:" + std::to_string(pos.z)).c_str());
+                ImGui::Text("\n");
+
+                ImGui::Text(std::string("[Size" + std::to_string(nCompCnt) + "]").c_str());
+                DirectX::XMFLOAT3 size = param.m_f3Size;
+                ImGui::Text(std::string("SizeX:" + std::to_string(size.x)).c_str());
+                ImGui::Text(std::string("SizeY:" + std::to_string(size.y)).c_str());
+                ImGui::Text(std::string("SizeZ:" + std::to_string(size.z)).c_str());
+                ImGui::Text("\n");
+
+                ImGui::Text(std::string("[Rotation" + std::to_string(nCompCnt) + "]").c_str());
+                DirectX::XMFLOAT3 rotate = param.m_f3Rotate;
+                ImGui::Text(std::string("RotateX:" + std::to_string(rotate.x)).c_str());
+                ImGui::Text(std::string("RotateY:" + std::to_string(rotate.y)).c_str());
+                ImGui::Text(std::string("RotateZ:" + std::to_string(rotate.z)).c_str());
+
+                ImGui::EndChild();
+                nChildCnt++;
+                nCompCnt++;
+            }
+        }
     }
 
     ImGui::End();

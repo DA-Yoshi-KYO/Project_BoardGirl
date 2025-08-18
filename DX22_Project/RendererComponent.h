@@ -65,6 +65,8 @@ public:
 	/// <param name="inUVSize">設定するUV座標のサイズ(DirectX::XMFLOAT2)</param>
 	void SetUVSize(DirectX::XMFLOAT2 inUVSize);
 
+    RendererParam GetRendererParam();
+
     void SetKey(std::string inKey);
     static void Load(const char* inPath, std::string inKey);
     static void Unload();

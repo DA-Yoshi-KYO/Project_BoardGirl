@@ -65,6 +65,11 @@ void CRendererComponent::SetUVSize(DirectX::XMFLOAT2 inUVSize)
 	m_tParam.m_f2UVSize = inUVSize;
 }
 
+RendererParam CRendererComponent::GetRendererParam()
+{
+    return m_tParam;
+}
+
 
 void CRendererComponent::SetKey(std::string inKey)
 {
