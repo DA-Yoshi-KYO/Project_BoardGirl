@@ -9,8 +9,8 @@ void CSceneJobSelect::Init()
 
     CCamera::SetCameraKind(CAM_SELECT);
 
-    AddGameObject<CSelectJobs>();
-    CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>(Tag::Sound);
+    AddGameObject<CSelectJobs>("Jobs");
+    CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>("BGM",Tag::Sound);
     pPlayer->Load(AUDIO_PATH("BGM/SelectBGM.wav"));
     pPlayer->SetVolume(0.1f);
     pPlayer->Play();

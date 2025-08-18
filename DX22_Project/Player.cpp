@@ -94,7 +94,7 @@ void CPlayer::Init()
 
     m_tParam.m_f2UVSize = { 1.0f / (float)ce_n2Split.x, 1.0f / (float)ce_n2Split.y };
 
-    m_pHPBar = GetScene()->AddGameObject<CHPBar>();
+    m_pHPBar = GetScene()->AddGameObject<CHPBar>("PlayerHPBar");
     m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 1.2f, m_tParam.m_f3Pos.z));
     m_pHPBar->SetRenderState(DirectX::XMFLOAT3(2.0f, 0.25f, 1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
     m_pHPBar->SetMaxHP(m_pJob->GetHP());
@@ -137,7 +137,7 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
         {
             if (thisTag == "NormalAttack")
             {
-                CEffect* pEffect = GetScene()->AddGameObject<CEffect>();
+                CEffect* pEffect = GetScene()->AddGameObject<CEffect>("NormalAttackEffect");
                 pEffect->SetParam(eEffectKind::PlayerAttackHit, 0.5f);
                 pEffect->AccessorPos(pEnemy->AccessorPos());
                 pEffect->AccessorSize(DirectX::XMFLOAT3(1.0f,1.0f,1.0f));
@@ -145,7 +145,7 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
             }
             else if (thisTag == "QSkill")
             {
-                CEffect* pEffect = GetScene()->AddGameObject<CEffect>();
+                CEffect* pEffect = GetScene()->AddGameObject<CEffect>("QAttackEffect");
                 pEffect->SetParam(eEffectKind::PlayerAttackHit, 0.5f);
                 pEffect->AccessorPos(pEnemy->AccessorPos());
                 pEffect->AccessorSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
@@ -153,7 +153,7 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
             }
             else if (thisTag == "ESkill")
             {
-                CEffect* pEffect = GetScene()->AddGameObject<CEffect>();
+                CEffect* pEffect = GetScene()->AddGameObject<CEffect>("EAttackEffect");
                 pEffect->SetParam(eEffectKind::PlayerAttackHit, 0.5f);
                 pEffect->AccessorPos(pEnemy->AccessorPos());
                 pEffect->AccessorSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
@@ -161,7 +161,7 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
             }
             else if (thisTag == "RSkill")
             {
-                CEffect* pEffect = GetScene()->AddGameObject<CEffect>();
+                CEffect* pEffect = GetScene()->AddGameObject<CEffect>("RAttackEffect");
                 pEffect->SetParam(eEffectKind::PlayerAttackHit, 0.5f);
                 pEffect->AccessorPos(pEnemy->AccessorPos());
                 pEffect->AccessorSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));

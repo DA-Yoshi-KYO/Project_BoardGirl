@@ -36,9 +36,9 @@ void CEnemyGenerater::GenerateEnemy(std::string inEnemyID, const DirectX::XMFLOA
     CScene* pScene = GetScene();
     CEnemyBase* pEnemy = nullptr;
     
-    if (inEnemyID == "Slime") pEnemy = pScene->AddGameObject<CSlime>();
-    else if (inEnemyID == "Ghost") pEnemy = pScene->AddGameObject<CGhost>();
-    else if (inEnemyID == "Dragon") pEnemy = pScene->AddGameObject<CDragon>();
+    if (inEnemyID == "Slime") pEnemy = pScene->AddGameObject<CSlime>("Slime");
+    else if (inEnemyID == "Ghost") pEnemy = pScene->AddGameObject<CGhost>("Ghost");
+    else if (inEnemyID == "Dragon") pEnemy = pScene->AddGameObject<CDragon>("Dragon");
     else MessageBox(NULL, "NotFindEnemy", "Error", MB_OK);
 
     pEnemy->AccessorPos(position);

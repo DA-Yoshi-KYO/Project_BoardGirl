@@ -17,7 +17,8 @@
 
 CScene* g_pScene;
 CScene* g_pNextScene;
-bool g_bSceneChanging;
+bool g_bSceneChanging = false;
+bool g_bDebugMode = false;
 
 HRESULT Init(HWND hWnd, UINT width, UINT height)
 {
@@ -79,7 +80,13 @@ void Update()
 	}
 
 	g_pScene->Update();
-    CDebugSystem::GetInstance()->Update();
+
+    if (IsKeyPress(VK_SPACE))
+    {
+        if (IsKeyTrigger(VK_RETURN)) g_bDebugMode ^= true;
+    }
+
+    if (g_bDebugMode) CDebugSystem::GetInstance()->Update();
 }
 
 void Draw()
@@ -147,7 +154,7 @@ void Draw()
 	Geometory::SetProjection(mat[1]);
 #endif
 	g_pScene->Draw();
-    CDebugSystem::GetInstance()->Draw();
+    if (g_bDebugMode) CDebugSystem::GetInstance()->Draw();
 
 	EndDrawDirectX();
 }

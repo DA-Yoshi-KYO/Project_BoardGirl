@@ -93,7 +93,7 @@ void CSoldier::AllSkill(eSkill inKind)
 
     m_pCollisionObb[(int)inKind]->AccessorCenter(f3AttackPos);
 
-    CEffect* pEffect = GetScene()->AddGameObject<CEffect>();
+    CEffect* pEffect = GetScene()->AddGameObject<CEffect>("SoldierSkill");
     switch (inKind)
     {
     case eSkill::NormalAttack:

@@ -117,7 +117,7 @@ public:
             DirectX::XMMatrixTranslation(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y, m_tParam.m_f3Pos.z));
         return &world;
     }
-    
+
 public:
     // コンポーネントのリスト
     std::list<CComponent*> m_pComponent_List;
@@ -128,6 +128,7 @@ protected:
     bool m_bDestroy;            // オブジェクトが破棄されているかのフラグ
     Tag m_eTag;                 // オブジェクトのタグ
     std::vector<CAudio*> m_pSE;
+    std::string m_sName;        // IMGUI識別用名称
 
 };
 

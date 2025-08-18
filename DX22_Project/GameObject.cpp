@@ -4,6 +4,7 @@
 CGameObject::CGameObject()
     : m_bDestroy(false)
     , m_eTag(Tag::None)
+    , m_sName("Object")
 {
     m_tParam.m_f3Pos = { 0.0f, 0.0f, 0.0f };
     m_tParam.m_f3Size = { 1.0f, 1.0f, 1.0f };

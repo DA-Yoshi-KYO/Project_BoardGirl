@@ -48,8 +48,29 @@ void CDebugSystem::Draw()
     ImGui::NewFrame();
     ImGui::ShowDemoWindow();
 
+    DrawHierarchy();
+
+
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+}
+
+void CDebugSystem::DrawHierarchy()
+{
+    ImGui::SetNextWindowPos(ImVec2(20, 20));
+    ImGui::SetNextWindowSize(ImVec2(280, 300));
+    ImGui::Begin("Hierarchy");
+    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(250, 100), ImGuiWindowFlags_NoTitleBar);
+
+    auto Objects = GetScene()->GetNameList();
+
+    for (auto itr : Objects)
+    {
+        ImGui::Button(itr.c_str());
+    }
+
+    ImGui::EndChild();
+    ImGui::End();
 }
 
 CDebugSystem* CDebugSystem::GetInstance()

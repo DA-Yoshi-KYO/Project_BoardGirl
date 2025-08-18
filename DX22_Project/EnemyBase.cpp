@@ -40,7 +40,7 @@ void CEnemyBase::Init()
     m_pCollision[(int)eEnemyCollision::Attack]->AccessorHalfSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
     m_pCollision[(int)eEnemyCollision::Attack]->AccessorTag("EnemyAttack");
 
-    m_pHPBar = GetScene()->AddGameObject<CHPBar>();
+    m_pHPBar = GetScene()->AddGameObject<CHPBar>("HPBar");
     m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 1.2f, m_tParam.m_f3Pos.z));
     m_pHPBar->SetRenderState(DirectX::XMFLOAT3(2.0f, 0.25f, 1.0f), DirectX::XMFLOAT4(1.0f,0.0f,0.0f,1.0f));
     m_pHPBar->SetMaxHP(m_tEnemyStatus.m_nHP);
@@ -153,7 +153,7 @@ void CEnemyBase::Attack()
 
 void CEnemyBase::Attack(AttackState inState)
 {
-    CEnemyAttack* pAttack = GetScene()->AddGameObject<CEnemyAttack>();
+    CEnemyAttack* pAttack = GetScene()->AddGameObject<CEnemyAttack>("EnemyAttack");
     pAttack->Init();
     pAttack->SetAttackState(inState);
     pAttack->AccessorRotate(m_tParam.m_f3Rotate);

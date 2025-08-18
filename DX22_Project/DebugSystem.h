@@ -19,4 +19,7 @@ public:
 private:
     static CDebugSystem* m_pInstance;
 
+private:
+    void DrawHierarchy();
+
 };
