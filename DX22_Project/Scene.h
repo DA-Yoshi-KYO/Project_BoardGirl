@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Defines.h"
-#include "GameObject.h"
 #include "CollisionBase.h"
 #include "BillboardRenderer.h"
 #include "SpriteRenderer.h"
 #include "Sprite3DRenderer.h"
 #include "ModelRenderer.h"
+#include "GameObject.h"
 
 class CScene
 {
@@ -27,17 +27,17 @@ public:
 		gameObject->Init();
         gameObject->AccessorTag(inTag);
 
-        std::string name = inName;
-        int nSameCount = 0;
-        for (auto itr : m_sNameList)
+        ObjectID id{};
+        for (auto itr : m_tIDVec)
         {
-            if (itr == name)
+            if (itr.m_sName == inName)
             {
-                nSameCount++;
-                name = inName + std::to_string(nSameCount);
+                id.m_nSameCount++;
             }
         }
-        m_sNameList.push_back(name);
+        id.m_sName = inName;
+        m_tIDVec.push_back(id);
+        gameObject->AccessorID(id);
 
         std::list<CCollisionBase*> pCollisionList = gameObject->GetSameComponents<CCollisionBase>();
         for (auto itr : pCollisionList)
@@ -63,6 +63,24 @@ public:
 		return nullptr;
 	}
 
+	CGameObject* GetGameObject(ObjectID inID)
+	{
+        int check = 0;
+        for (auto list : m_pGameObject_List)
+        {
+            for (auto obj : list)
+            {
+                ObjectID id = obj->AccessorID();
+                if (id.m_sName == inID.m_sName &&
+                    id.m_nSameCount == inID.m_nSameCount)
+                {
+                    return obj;
+                }
+            }
+        }
+		return nullptr;
+	}
+
     void AddCollision(CCollisionBase* inCollision)
     {
         if (inCollision)
@@ -73,10 +91,10 @@ public:
 
     void DequeCollision(CGameObject* inThis);
     std::array<std::list<CGameObject*>, (int)Tag::Max> GetGameObjectList();
-    std::vector<std::string> GetNameList() { return m_sNameList; };
 
 protected:
     std::array<std::list<CGameObject*>,(int)Tag::Max> m_pGameObject_List; // シーン内のゲームオブジェクトリスト
     std::vector<CCollisionBase*> m_pCollisionVec; // 衝突判定用のコンポーネントリスト
-    std::vector<std::string> m_sNameList;        // IMGUI識別用名称
+private:
+    std::vector<ObjectID> m_tIDVec;
 };

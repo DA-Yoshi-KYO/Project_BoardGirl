@@ -19,6 +19,8 @@ CDebugSystem::~CDebugSystem()
 
 void CDebugSystem::Init()
 {
+    m_pObject = nullptr;
+
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
@@ -46,10 +48,9 @@ void CDebugSystem::Draw()
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
-    ImGui::ShowDemoWindow();
 
     DrawHierarchy();
-
+    DrawInspecter();
 
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -60,16 +61,54 @@ void CDebugSystem::DrawHierarchy()
     ImGui::SetNextWindowPos(ImVec2(20, 20));
     ImGui::SetNextWindowSize(ImVec2(280, 300));
     ImGui::Begin("Hierarchy");
-    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(250, 100), ImGuiWindowFlags_NoTitleBar);
+    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(250, 280), ImGuiWindowFlags_NoTitleBar);
 
-    auto Objects = GetScene()->GetNameList();
+    auto Objects = GetScene()->GetGameObjectList();
 
+    std::list<ObjectID> objectList{};
     for (auto itr : Objects)
     {
-        ImGui::Button(itr.c_str());
+        for (auto obj : itr)
+        {
+            objectList.push_back(obj->AccessorID());
+        }
+    }
+
+    objectList.sort([](ObjectID a, ObjectID b)
+        {
+            return a.m_sName < b.m_sName;
+        });
+
+    for (auto itr : objectList)
+    {
+        std::string name = itr.m_sName;
+        if (itr.m_nSameCount != 0) name += std::to_string(itr.m_nSameCount);
+
+        if (ImGui::Button(name.c_str()))
+        {
+            m_pObject = GetScene()->GetGameObject(itr);
+        }
     }
 
     ImGui::EndChild();
+    ImGui::End();
+}
+
+void CDebugSystem::DrawInspecter()
+{
+    ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH - 300, 20));
+    ImGui::SetNextWindowSize(ImVec2(280, 300));
+    ImGui::Begin("Inspecter");
+
+    if (m_pObject)
+    {
+        ObjectID id = m_pObject->AccessorID();
+        std::string name = id.m_sName;
+        if (id.m_nSameCount != 0) name += std::to_string(id.m_nSameCount);
+        name = "Name:" + name;
+        ImGui::Text(name.c_str());
+    }
+
     ImGui::End();
 }
 

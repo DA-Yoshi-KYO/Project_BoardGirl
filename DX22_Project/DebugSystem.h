@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GameObject.h"
+
 class CDebugSystem
 {
 private:
@@ -18,8 +20,10 @@ public:
 
 private:
     static CDebugSystem* m_pInstance;
+    CGameObject* m_pObject;
 
 private:
     void DrawHierarchy();
+    void DrawInspecter();
 
 };

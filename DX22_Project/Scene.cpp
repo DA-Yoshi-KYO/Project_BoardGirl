@@ -25,6 +25,7 @@ void CScene::Uninit()
         list.clear();
 	}
 
+    m_tIDVec.clear();
     m_pCollisionVec.clear();
 }
 

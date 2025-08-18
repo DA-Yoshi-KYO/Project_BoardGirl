@@ -19,6 +19,12 @@ enum class Tag
 	Max
 };
 
+struct ObjectID
+{
+    std::string m_sName;
+    int m_nSameCount;
+};
+
 class CGameObject
 {
 public:
@@ -43,6 +49,7 @@ public:
     DirectX::XMFLOAT3 GetForward();
     DirectX::XMFLOAT3 GetRight();
     DirectX::XMFLOAT3 GetUp();
+
 
 public:
     // コンポーネントの追加
@@ -107,6 +114,8 @@ public:
     DirectX::XMFLOAT3 AccessorSize() { return m_tParam.m_f3Size; }
     void AccessorTag(Tag inTag) { m_eTag = inTag; }
     Tag AccessorTag() { return m_eTag; }
+    void AccessorID(ObjectID inTag) { m_tID = inTag; }
+    ObjectID AccessorID() { return m_tID; }
 
     DirectX::XMFLOAT4X4* GetWorld()
     {
@@ -127,8 +136,8 @@ protected:
     DirectX::XMFLOAT3 m_f3OldPos; // 前フレームの位置
     bool m_bDestroy;            // オブジェクトが破棄されているかのフラグ
     Tag m_eTag;                 // オブジェクトのタグ
+    ObjectID m_tID;
     std::vector<CAudio*> m_pSE;
-    std::string m_sName;        // IMGUI識別用名称
-
+    
 };
 
