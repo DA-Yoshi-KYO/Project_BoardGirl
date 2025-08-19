@@ -70,4 +70,6 @@ protected:
     PlayerStatus m_tStatus;
     std::unique_ptr<CCollisionObb> m_pCollisionObb[(int)eSkill::Max];
 
+public:
+    PlayerStatus GetStatus() { return m_tStatus; };
 };

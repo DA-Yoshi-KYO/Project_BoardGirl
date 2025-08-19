@@ -1,6 +1,9 @@
 #pragma once
 
 #include "GameObject.h"
+#include "imgui.h"
+
+constexpr ImVec2 ce_f2InspecterSize = ImVec2(250, 30);
 
 class CDebugSystem
 {
@@ -12,6 +15,7 @@ public:
     CDebugSystem& operator=(const CDebugSystem&) = delete;
     static CDebugSystem* GetInstance();
     void ReleaseInstance();
+    void ReleaseGameObject();
 
     void Init();
     void Uninit();
@@ -24,6 +28,6 @@ private:
 
 private:
     void DrawHierarchy();
-    void DrawInspecter();
+    void DrawCameraParam();
 
 };

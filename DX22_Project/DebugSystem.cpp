@@ -1,9 +1,10 @@
 #include "DebugSystem.h"
-#include "imgui.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 #include "DirectX.h"
 #include "Main.h"
+#include "Camera.h"
+#include "Oparation.h"
 
 CDebugSystem* CDebugSystem::m_pInstance = nullptr;
 constexpr float ce_fCharaSize = 30.0f;
@@ -52,7 +53,8 @@ void CDebugSystem::Draw()
     ImGui::NewFrame();
 
     DrawHierarchy();
-    DrawInspecter();
+    if (m_pObject) m_pObject->Inspecter();
+    //DrawCameraParam();
 
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -67,21 +69,26 @@ void CDebugSystem::DrawHierarchy()
 
     auto Objects = GetScene()->GetGameObjectList();
 
-    std::list<ObjectID> objectList{};
-    for (auto itr : Objects)
+    std::list<ObjectID> objectIDList{};
+    for (auto list : Objects)
     {
-        for (auto obj : itr)
+        for (auto obj : list)
         {
-            objectList.push_back(obj->AccessorID());
+            objectIDList.push_back(obj->AccessorID());
         }
     }
 
-    objectList.sort([](ObjectID a, ObjectID b)
+    objectIDList.sort([](ObjectID a, ObjectID b)
+        {
+            return a.m_nSameCount < b.m_nSameCount;
+        });
+
+    objectIDList.sort([](ObjectID a, ObjectID b)
         {
             return a.m_sName < b.m_sName;
         });
 
-    for (auto itr : objectList)
+    for (auto itr : objectIDList)
     {
         std::string name = itr.m_sName;
         if (itr.m_nSameCount != 0) name += std::to_string(itr.m_nSameCount);
@@ -96,58 +103,37 @@ void CDebugSystem::DrawHierarchy()
     ImGui::End();
 }
 
-void CDebugSystem::DrawInspecter()
+void CDebugSystem::DrawCameraParam()
 {
-    ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH - 300, 20));
+    CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
+
+    if (!pCamera) return;
+
+    DirectX::XMFLOAT3 pos = pCamera->GetPos();
+    DirectX::XMFLOAT3 look = pCamera->GetLook();
+    pCamera->SetCameraKind(CameraKind::CAM_DEBUG);
+    pCamera->SetPos(pos);
+    pCamera->SetLook(look);
+
+    ImGui::SetNextWindowPos(ImVec2(340, 20));
     ImGui::SetNextWindowSize(ImVec2(280, 300));
-    ImGui::Begin("Inspecter");
+    ImGui::Begin("Camera");
 
-    if (m_pObject)
+    if (ImGui::CollapsingHeader(std::string("Position").c_str()))
     {
-        int nChildCnt = 0;
-        ObjectID id = m_pObject->AccessorID();
-        std::string name = id.m_sName;
-        if (id.m_nSameCount != 0) name += std::to_string(id.m_nSameCount);
-        name = "Name:" + name;
-        ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, ce_fCharaSize), ImGuiWindowFlags_NoTitleBar);
-        nChildCnt++;
-        ImGui::Text(name.c_str());
-        ImGui::EndChild();
+        DirectX::XMFLOAT3 pos = pCamera->GetPos();
+        float value[3] = { pos.x,pos.y, pos.z };
+        ImGui::SliderFloat3("pos", value, -1000.0f, 1000.0f);
+        DirectX::XMFLOAT3 newPos = DirectX::XMFLOAT3(value[0], value[1], value[2]);
+        pCamera->SetPos(newPos);
+        pCamera->SetLook(pCamera->GetLook() - (newPos - pos));
+    }
 
-        std::list<CRendererComponent*> pRenderer = m_pObject->GetSameComponents<CRendererComponent>();
-        int nCompCnt = 0;
-        if (!pRenderer.empty())
-        {
-            for (auto itr : pRenderer)
-            {
-                RendererParam param = itr->GetRendererParam();
-                ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, ce_fCharaSize * 9), ImGuiWindowFlags_NoTitleBar);
-
-                ImGui::Text(std::string("[Position" + std::to_string(nCompCnt) + "]").c_str());
-                DirectX::XMFLOAT3 pos = param.m_f3Pos;
-                ImGui::Text(std::string("PosX:" + std::to_string(pos.x)).c_str());
-                ImGui::Text(std::string("PosY:" + std::to_string(pos.y)).c_str());
-                ImGui::Text(std::string("PosZ:" + std::to_string(pos.z)).c_str());
-                ImGui::Text("\n");
-
-                ImGui::Text(std::string("[Size" + std::to_string(nCompCnt) + "]").c_str());
-                DirectX::XMFLOAT3 size = param.m_f3Size;
-                ImGui::Text(std::string("SizeX:" + std::to_string(size.x)).c_str());
-                ImGui::Text(std::string("SizeY:" + std::to_string(size.y)).c_str());
-                ImGui::Text(std::string("SizeZ:" + std::to_string(size.z)).c_str());
-                ImGui::Text("\n");
-
-                ImGui::Text(std::string("[Rotation" + std::to_string(nCompCnt) + "]").c_str());
-                DirectX::XMFLOAT3 rotate = param.m_f3Rotate;
-                ImGui::Text(std::string("RotateX:" + std::to_string(rotate.x)).c_str());
-                ImGui::Text(std::string("RotateY:" + std::to_string(rotate.y)).c_str());
-                ImGui::Text(std::string("RotateZ:" + std::to_string(rotate.z)).c_str());
-
-                ImGui::EndChild();
-                nChildCnt++;
-                nCompCnt++;
-            }
-        }
+    if (ImGui::CollapsingHeader(std::string("Look").c_str()))
+    {
+        DirectX::XMFLOAT3 look = pCamera->GetLook();
+        float value[3] = { look.x,look.y, look.z };
+        ImGui::SliderFloat3("look", value, -1000.0f, 1000.0f);
     }
 
     ImGui::End();
@@ -169,4 +155,9 @@ void CDebugSystem::ReleaseInstance()
         delete m_pInstance;
         m_pInstance = nullptr;
     }
+}
+
+void CDebugSystem::ReleaseGameObject()
+{
+    m_pObject = nullptr;
 }

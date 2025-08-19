@@ -15,6 +15,7 @@ public:
     void Damage(int inDamage);
     // プレイヤーの前方向を取得
 
+    void Inspecter() override;
 
 private:
     bool m_bJump;   // ジャンプ中かどうか

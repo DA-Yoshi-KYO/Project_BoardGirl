@@ -14,11 +14,13 @@
 
 #include "EnemyGenerater.h"
 #include "DebugSystem.h"
+#include "Camera.h"
 
 CScene* g_pScene;
 CScene* g_pNextScene;
 bool g_bSceneChanging = false;
 bool g_bDebugMode = false;
+CameraKind g_ekind;
 
 HRESULT Init(HWND hWnd, UINT width, UINT height)
 {
@@ -37,6 +39,7 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 
 	g_pScene = new CSceneTitle();
 	g_pScene->Init();
+    g_ekind = CCamera::GetCameraKind();
 
 	return hr;
 }
@@ -67,8 +70,16 @@ void Update()
 	UpdateInput();
 	srand(timeGetTime());
 
+    CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
+    if (!g_bDebugMode)
+    {
+        pCamera->SetCameraKind(g_ekind);
+        pCamera->Update();
+    }
+
 	if (g_bSceneChanging)
 	{
+        CDebugSystem::GetInstance()->ReleaseGameObject();
         CBillboardRenderer::Unload();
         CSpriteRenderer::Unload();
         CSprite3DRenderer::Unload();
@@ -77,16 +88,21 @@ void Update()
 		g_pScene = g_pNextScene;
 		g_pScene->Init();
 		g_bSceneChanging = false;
+        g_ekind = CCamera::GetCameraKind();
 	}
 
 	g_pScene->Update();
 
     if (IsKeyPress(VK_SPACE))
     {
-        if (IsKeyTrigger(VK_RETURN)) g_bDebugMode ^= true;
+        if (IsKeyTrigger(VK_RETURN))
+        {
+            if (!g_bDebugMode) g_ekind = CCamera::GetCameraKind();
+            g_bDebugMode ^= true;
+        }
     }
 
-    if (g_bDebugMode) CDebugSystem::GetInstance()->Update();
+    if (g_bDebugMode) pCamera->Update();
 }
 
 void Draw()

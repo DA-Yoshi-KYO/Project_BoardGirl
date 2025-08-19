@@ -2,7 +2,7 @@
 #include "Defines.h"
 
 CCameraDebug::CCameraDebug()
-	: m_radXZ(0.0f), m_radY(DirectX::XMConvertToRadians(    0.0f)), m_radius(0.0f)
+	: m_radXZ(0.0f), m_radY(DirectX::XMConvertToRadians(0.0f)), m_radius(0.0f)
 {
 	m_f3Pos = { 0.0f,0.0f, 161.0f };
 	m_f3Look = { 0.0f,3.5f,111.0f };

@@ -25,6 +25,8 @@ public:
 	DirectX::XMFLOAT4X4 GetProjectionMatrix(bool transpose = true);
 	DirectX::XMFLOAT3 GetPos() { return m_f3Pos; }
 	DirectX::XMFLOAT3 GetLook() { return m_f3Look; }
+	void SetPos(DirectX::XMFLOAT3 inPos) { m_f3Pos = inPos; }
+    void SetLook(DirectX::XMFLOAT3 inLook) { m_f3Look = inLook; }
 	
 	static const DirectX::XMFLOAT4X4 Get2DWolrdMatrix(float rotate = 0.0f,bool transpose = true);
 	static const DirectX::XMFLOAT4X4 Get2DViewMatrix(bool transpose = true);

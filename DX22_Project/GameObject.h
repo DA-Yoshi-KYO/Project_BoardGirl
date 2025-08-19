@@ -5,6 +5,7 @@
 #include "Component.h"
 #include "CollisionBase.h"
 #include "Audio.h"
+#include "imgui.h"
 
 // オブジェクトタグ
 enum class Tag
@@ -21,8 +22,8 @@ enum class Tag
 
 struct ObjectID
 {
-    std::string m_sName;
-    int m_nSameCount;
+    std::string m_sName;    // オブジェクトの名前
+    int m_nSameCount;       // 同オブジェクトの数
 };
 
 class CGameObject
@@ -45,6 +46,9 @@ public:
 	void Destroy();
     // オブジェクトが破棄されているかの確認
 	bool IsDestroy();
+
+    virtual void Inspecter();
+    void InspecterNotEnd();
 
     DirectX::XMFLOAT3 GetForward();
     DirectX::XMFLOAT3 GetRight();

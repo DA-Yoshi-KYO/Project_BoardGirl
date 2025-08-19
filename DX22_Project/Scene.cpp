@@ -31,8 +31,6 @@ void CScene::Uninit()
 
 void CScene::Update()
 {
-    CCamera::GetInstance(CCamera::GetCameraKind())->Update();
-
     for (auto& list : m_pGameObject_List)
     {
         for (auto obj : list)

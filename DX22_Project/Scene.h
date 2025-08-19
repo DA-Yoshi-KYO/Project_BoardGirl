@@ -65,7 +65,6 @@ public:
 
 	CGameObject* GetGameObject(ObjectID inID)
 	{
-        int check = 0;
         for (auto list : m_pGameObject_List)
         {
             for (auto obj : list)
