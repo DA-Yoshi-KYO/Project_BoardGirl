@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "RendererComponent.h"
+#include "DebugSystem.h"
 
 CGameObject::CGameObject()
     : m_bDestroy(false)
@@ -81,7 +82,7 @@ bool CGameObject::IsDestroy()
 	return m_bDestroy;
 }
 
-void CGameObject::Inspecter()
+int CGameObject::Inspecter(bool isEnd)
 {
     ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH - 300, 20));
     ImGui::SetNextWindowSize(ImVec2(280, SCREEN_HEIGHT - 40));
@@ -93,105 +94,40 @@ void CGameObject::Inspecter()
     if (id.m_nSameCount != 0) name += std::to_string(id.m_nSameCount);
     name = "Name:" + name;
     ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, 30), ImGuiWindowFlags_NoTitleBar);
+
     nChildCnt++;
     ImGui::Text(name.c_str());
     ImGui::EndChild();
-
-    std::list<CRendererComponent*> pRenderer = GetSameComponents<CRendererComponent>();
-    int nCompCnt = 0;
-    if (!pRenderer.empty())
+    if (ImGui::CollapsingHeader(std::string("[Transform]").c_str()))
     {
-        for (auto itr : pRenderer)
-        {
-            if (ImGui::CollapsingHeader(std::string("[Transform" + std::to_string(nCompCnt) + "]").c_str()))
-            {
-                RendererParam param = itr->GetRendererParam();
-                ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, 30 * 9), ImGuiWindowFlags_NoTitleBar);
+        ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(ce_f2InspecterSize.x, ce_f2InspecterSize.y * 9), ImGuiWindowFlags_NoTitleBar);
 
-                ImGui::Text(std::string("[Position" + std::to_string(nCompCnt) + "]").c_str());
-                DirectX::XMFLOAT3 pos = param.m_f3Pos;
-                ImGui::Text(std::string("PosX:" + std::to_string(pos.x)).c_str());
-                ImGui::Text(std::string("PosY:" + std::to_string(pos.y)).c_str());
-                ImGui::Text(std::string("PosZ:" + std::to_string(pos.z)).c_str());
-                ImGui::Text("\n");
+        ImGui::Text(std::string("Position").c_str());
+        DirectX::XMFLOAT3 pos = m_tParam.m_f3Pos;
+        ImGui::Text(std::string("PosX:" + std::to_string(pos.x)).c_str());
+        ImGui::Text(std::string("PosY:" + std::to_string(pos.y)).c_str());
+        ImGui::Text(std::string("PosZ:" + std::to_string(pos.z)).c_str());
+        ImGui::Text("\n");
 
-                ImGui::Text(std::string("[Size" + std::to_string(nCompCnt) + "]").c_str());
-                DirectX::XMFLOAT3 size = param.m_f3Size;
-                ImGui::Text(std::string("SizeX:" + std::to_string(size.x)).c_str());
-                ImGui::Text(std::string("SizeY:" + std::to_string(size.y)).c_str());
-                ImGui::Text(std::string("SizeZ:" + std::to_string(size.z)).c_str());
-                ImGui::Text("\n");
+        ImGui::Text(std::string("Size").c_str());
+        DirectX::XMFLOAT3 size = m_tParam.m_f3Size;
+        ImGui::Text(std::string("SizeX:" + std::to_string(size.x)).c_str());
+        ImGui::Text(std::string("SizeY:" + std::to_string(size.y)).c_str());
+        ImGui::Text(std::string("SizeZ:" + std::to_string(size.z)).c_str());
+        ImGui::Text("\n");
 
-                ImGui::Text(std::string("[Rotation" + std::to_string(nCompCnt) + "]").c_str());
-                DirectX::XMFLOAT3 rotate = param.m_f3Rotate;
-                ImGui::Text(std::string("RotateX:" + std::to_string(rotate.x)).c_str());
-                ImGui::Text(std::string("RotateY:" + std::to_string(rotate.y)).c_str());
-                ImGui::Text(std::string("RotateZ:" + std::to_string(rotate.z)).c_str());
+        ImGui::Text(std::string("Rotation").c_str());
+        DirectX::XMFLOAT3 rotate = m_tParam.m_f3Rotate;
+        ImGui::Text(std::string("RotateX:" + std::to_string(rotate.x)).c_str());
+        ImGui::Text(std::string("RotateY:" + std::to_string(rotate.y)).c_str());
+        ImGui::Text(std::string("RotateZ:" + std::to_string(rotate.z)).c_str());
 
-                ImGui::EndChild();
-            }
-            nChildCnt++;
-            nCompCnt++;
-        }
+        ImGui::EndChild();
     }
 
+    if (isEnd) ImGui::End();
 
-    ImGui::End();
-}
-
-void CGameObject::InspecterNotEnd()
-{
-    ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH - 300, 20));
-    ImGui::SetNextWindowSize(ImVec2(280, SCREEN_HEIGHT - 40));
-    ImGui::Begin("Inspecter");
-
-    int nChildCnt = 0;
-    ObjectID id = m_tID;
-    std::string name = id.m_sName;
-    if (id.m_nSameCount != 0) name += std::to_string(id.m_nSameCount);
-    name = "Name:" + name;
-    ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, 30), ImGuiWindowFlags_NoTitleBar);
-    nChildCnt++;
-    ImGui::Text(name.c_str());
-    ImGui::EndChild();
-
-    std::list<CRendererComponent*> pRenderer = GetSameComponents<CRendererComponent>();
-    int nCompCnt = 0;
-    if (!pRenderer.empty())
-    {
-        for (auto itr : pRenderer)
-        {
-            if (ImGui::CollapsingHeader(std::string("[Transform" + std::to_string(nCompCnt) + "]").c_str()))
-            {
-                RendererParam param = itr->GetRendererParam();
-                ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, 30 * 9), ImGuiWindowFlags_NoTitleBar);
-
-                ImGui::Text(std::string("[Position" + std::to_string(nCompCnt) + "]").c_str());
-                DirectX::XMFLOAT3 pos = param.m_f3Pos;
-                ImGui::Text(std::string("PosX:" + std::to_string(pos.x)).c_str());
-                ImGui::Text(std::string("PosY:" + std::to_string(pos.y)).c_str());
-                ImGui::Text(std::string("PosZ:" + std::to_string(pos.z)).c_str());
-                ImGui::Spacing();
-
-                ImGui::Text(std::string("[Size" + std::to_string(nCompCnt) + "]").c_str());
-                DirectX::XMFLOAT3 size = param.m_f3Size;
-                ImGui::Text(std::string("SizeX:" + std::to_string(size.x)).c_str());
-                ImGui::Text(std::string("SizeY:" + std::to_string(size.y)).c_str());
-                ImGui::Text(std::string("SizeZ:" + std::to_string(size.z)).c_str());
-                ImGui::Spacing();
-
-                ImGui::Text(std::string("[Rotation" + std::to_string(nCompCnt) + "]").c_str());
-                DirectX::XMFLOAT3 rotate = param.m_f3Rotate;
-                ImGui::Text(std::string("RotateX:" + std::to_string(DirectX::XMConvertToDegrees(rotate.x))).c_str());
-                ImGui::Text(std::string("RotateY:" + std::to_string(DirectX::XMConvertToDegrees(rotate.y))).c_str());
-                ImGui::Text(std::string("RotateZ:" + std::to_string(DirectX::XMConvertToDegrees(rotate.z))).c_str());
-
-                ImGui::EndChild();
-            }
-            nChildCnt++;
-            nCompCnt++;
-        }
-    }
+    return nChildCnt;
 }
 
 DirectX::XMFLOAT3 CGameObject::GetForward()

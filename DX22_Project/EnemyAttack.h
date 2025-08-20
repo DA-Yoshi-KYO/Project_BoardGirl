@@ -28,7 +28,7 @@ public:
     void SetSize(DirectX::XMFLOAT3 inSize) { m_tAttackState.m_f3Size = inSize; }
     void SetDirection(DirectX::XMFLOAT3 inDirection) { m_tAttackState.m_f3Direction = inDirection; }
     void SetAttackDuration(float inAttackDuration) { m_tAttackState.m_fAttackDuration = inAttackDuration; }
-    void SetAttack(float inAttack) { m_tAttackState.m_nDamage = inAttack; }
+    void SetAttack(int inAttack) { m_tAttackState.m_nDamage = inAttack; }
 
 private:
     AttackState m_tAttackState;

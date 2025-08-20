@@ -47,13 +47,11 @@ public:
     // オブジェクトが破棄されているかの確認
 	bool IsDestroy();
 
-    virtual void Inspecter();
-    void InspecterNotEnd();
-
+    virtual int Inspecter(bool isEnd = true);
+    
     DirectX::XMFLOAT3 GetForward();
     DirectX::XMFLOAT3 GetRight();
     DirectX::XMFLOAT3 GetUp();
-
 
 public:
     // コンポーネントの追加

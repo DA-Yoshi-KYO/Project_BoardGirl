@@ -27,6 +27,18 @@ enum class JobKind
     Max
 };
 
+struct PlayerStatus
+{
+    int m_nHP;
+    int m_nAttack;
+    int m_nDefense;
+    float m_fSkillTime[(int)eSkill::Max];
+    float m_fSkillCooltime[(int)eSkill::Max];
+    float m_fDurationTime[(int)eSkill::Max];
+    float m_fAttackDuration[(int)eSkill::Max];
+    float m_fCriticalPercentage;
+};
+
 class CJob
 {
 public:
@@ -55,18 +67,6 @@ protected:
     static int m_nExp;
     CEnemyBase* m_pTargetEnemy;
     bool isEnd;
-
-    struct PlayerStatus
-    {
-        int m_nHP;
-        int m_nAttack;
-        int m_nDefense;
-        float m_fSkillTime[(int)eSkill::Max];
-        float m_fSkillCooltime[(int)eSkill::Max];
-        float m_fDurationTime[(int)eSkill::Max];
-        float m_fAttackDuration[(int)eSkill::Max];
-        float m_fCriticalPercentage;
-    };
     PlayerStatus m_tStatus;
     std::unique_ptr<CCollisionObb> m_pCollisionObb[(int)eSkill::Max];
 

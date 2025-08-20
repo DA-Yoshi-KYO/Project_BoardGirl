@@ -177,24 +177,27 @@ void CPlayer::Damage(int inDamage)
     m_pJob->Damage(inDamage);
 }
 
-void CPlayer::Inspecter()
+int CPlayer::Inspecter(bool isEnd)
 {
-    CGameObject::InspecterNotEnd();
+    int nChildCnt = CGameObject::Inspecter(false);
 
+    nChildCnt++;
     if (ImGui::CollapsingHeader(std::string("[Status]").c_str()))
     {
-        ImGui::BeginChild(ImGui::GetID((void*)2), ImVec2(ce_f2InspecterSize.x,ce_f2InspecterSize.y * 4));
+        ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(ce_f2InspecterSize.x,ce_f2InspecterSize.y * 4));
 
-        ImGui::Text(std::string("HP:" + std::to_string(m_pJob->GetStatus().m_nHP)).c_str());
-        ImGui::Text(std::string("ATK:" + std::to_string(m_pJob->GetStatus().m_nAttack)).c_str());
-        ImGui::Text(std::string("DEF:" + std::to_string(m_pJob->GetStatus().m_nDefense)).c_str());
-        ImGui::Text(std::string("CRT:" + std::to_string(m_pJob->GetStatus().m_fCriticalPercentage) + "%").c_str());
+        PlayerStatus tStatus = m_pJob->GetStatus();
+        ImGui::Text(std::string("HP:" + std::to_string(tStatus.m_nHP)).c_str());
+        ImGui::Text(std::string("ATK:" + std::to_string(tStatus.m_nAttack)).c_str());
+        ImGui::Text(std::string("DEF:" + std::to_string(tStatus.m_nDefense)).c_str());
+        ImGui::Text(std::string("CRT:" + std::to_string(tStatus.m_fCriticalPercentage)).c_str());
         
         ImGui::EndChild();
     }
 
-
     ImGui::End();
+
+    return nChildCnt;
 }
 
 void CPlayer::PlayerMove()
