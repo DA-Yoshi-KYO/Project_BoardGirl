@@ -22,12 +22,15 @@ public:
     void Update();
     void Draw();
 
+    bool IsUpdate() { return m_bUpdate; }
 private:
     static CDebugSystem* m_pInstance;
     CGameObject* m_pObject;
+    bool m_bUpdate;
 
 private:
     void DrawHierarchy();
     void DrawCameraParam();
+    void DrawUpdateTick();
 
 };

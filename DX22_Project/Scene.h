@@ -24,8 +24,6 @@ public:
 		T* gameObject;
 		gameObject = new T();
 		m_pGameObject_List[(int)inTag].push_back(gameObject);
-		gameObject->Init();
-        gameObject->AccessorTag(inTag);
 
         ObjectID id{};
         for (auto itr : m_tIDVec)
@@ -38,6 +36,9 @@ public:
         id.m_sName = inName;
         m_tIDVec.push_back(id);
         gameObject->AccessorID(id);
+
+		gameObject->Init();
+        gameObject->AccessorTag(inTag);
 
         std::list<CCollisionBase*> pCollisionList = gameObject->GetSameComponents<CCollisionBase>();
         for (auto itr : pCollisionList)

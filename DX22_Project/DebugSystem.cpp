@@ -10,7 +10,7 @@ CDebugSystem* CDebugSystem::m_pInstance = nullptr;
 constexpr float ce_fCharaSize = 30.0f;
 
 CDebugSystem::CDebugSystem()
-    : m_pObject(nullptr)
+    : m_pObject(nullptr), m_bUpdate(true)
 {
 
 }
@@ -55,6 +55,7 @@ void CDebugSystem::Draw()
     DrawHierarchy();
     if (m_pObject) m_pObject->Inspecter();
     //DrawCameraParam();
+    DrawUpdateTick();
 
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -134,6 +135,29 @@ void CDebugSystem::DrawCameraParam()
         DirectX::XMFLOAT3 look = pCamera->GetLook();
         float value[3] = { look.x,look.y, look.z };
         ImGui::SliderFloat3("look", value, -1000.0f, 1000.0f);
+    }
+
+    ImGui::End();
+}
+
+void CDebugSystem::DrawUpdateTick()
+{
+    ImGui::SetNextWindowPos(ImVec2(20,SCREEN_HEIGHT - 120));
+    ImGui::SetNextWindowSize(ImVec2(280, 100));
+    ImGui::Begin("UpdateTick");
+
+    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(ce_f2InspecterSize), ImGuiWindowFlags_NoTitleBar);
+    ImGui::Checkbox("Use Update", &m_bUpdate);
+    ImGui::EndChild();
+
+    if (!m_bUpdate)
+    {
+        ImGui::BeginChild(ImGui::GetID((void*)1), ImVec2(ce_f2InspecterSize), ImGuiWindowFlags_NoTitleBar);
+        if (ImGui::Button("Step"))
+        {
+            GetScene()->Update();
+        }
+        ImGui::EndChild();
     }
 
     ImGui::End();

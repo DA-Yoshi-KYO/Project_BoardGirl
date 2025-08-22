@@ -70,28 +70,31 @@ void Update()
 	UpdateInput();
 	srand(timeGetTime());
 
-    CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
-    if (!g_bDebugMode)
+    //if (!g_bDebugMode)
+    //{
+    //    pCamera->SetCameraKind(g_ekind);
+    //}
+
+    if (CDebugSystem::GetInstance()->IsUpdate())
     {
-        pCamera->SetCameraKind(g_ekind);
+        if (g_bSceneChanging)
+        {
+            CDebugSystem::GetInstance()->ReleaseGameObject();
+            CBillboardRenderer::Unload();
+            CSpriteRenderer::Unload();
+            CSprite3DRenderer::Unload();
+            g_pScene->Uninit();
+            delete g_pScene;
+            g_pScene = g_pNextScene;
+            g_pScene->Init();
+            g_bSceneChanging = false;
+            g_ekind = CCamera::GetCameraKind();
+        }
+
+        CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
         pCamera->Update();
+        g_pScene->Update();
     }
-
-	if (g_bSceneChanging)
-	{
-        CDebugSystem::GetInstance()->ReleaseGameObject();
-        CBillboardRenderer::Unload();
-        CSpriteRenderer::Unload();
-        CSprite3DRenderer::Unload();
-		g_pScene->Uninit();
-		delete g_pScene;
-		g_pScene = g_pNextScene;
-		g_pScene->Init();
-		g_bSceneChanging = false;
-        g_ekind = CCamera::GetCameraKind();
-	}
-
-	g_pScene->Update();
 
     if (IsKeyPress(VK_SPACE))
     {
@@ -102,7 +105,7 @@ void Update()
         }
     }
 
-    if (g_bDebugMode) pCamera->Update();
+    //if (g_bDebugMode) pCamera->Update();
 }
 
 void Draw()

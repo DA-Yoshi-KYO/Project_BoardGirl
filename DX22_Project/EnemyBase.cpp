@@ -105,7 +105,7 @@ void CEnemyBase::Update()
 
     m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y, m_tParam.m_f3Pos.z));
     m_pHPBar->SetCurrentHP(m_tEnemyStatus.m_nHP);
-    m_pHPBar->SetParent(this);
+    m_pHPBar->SetParentID(m_tID);
 
     CGameObject::Update();
 }

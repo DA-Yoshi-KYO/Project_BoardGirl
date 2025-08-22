@@ -95,13 +95,13 @@ void CPlayer::Init()
 
     m_tParam.m_f2UVSize = { 1.0f / (float)ce_n2Split.x, 1.0f / (float)ce_n2Split.y };
 
-    m_pHPBar = GetScene()->AddGameObject<CHPBar>("PlayerHPBar");
+    m_pHPBar = GetScene()->AddGameObject<CHPBar>("HPBar");
     m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 1.2f, m_tParam.m_f3Pos.z));
     m_pHPBar->SetRenderState(DirectX::XMFLOAT3(2.0f, 0.25f, 1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
     m_pHPBar->SetMaxHP(m_pJob->GetHP());
     m_pHPBar->SetCurrentHP(m_pJob->GetHP());
 
-    m_pHPBar->SetParent(this);
+    m_pHPBar->SetParentID(m_tID);
     m_bDamage = false;
 
     CMotionBlur::GetInstance()->Init();
@@ -190,7 +190,7 @@ int CPlayer::Inspecter(bool isEnd)
         ImGui::Text(std::string("HP:" + std::to_string(tStatus.m_nHP)).c_str());
         ImGui::Text(std::string("ATK:" + std::to_string(tStatus.m_nAttack)).c_str());
         ImGui::Text(std::string("DEF:" + std::to_string(tStatus.m_nDefense)).c_str());
-        ImGui::Text(std::string("CRT:" + std::to_string(tStatus.m_fCriticalPercentage)).c_str());
+        ImGui::Text(std::string("CRT:" + std::to_string(tStatus.m_fCriticalPercentage) + "%%").c_str());
         
         ImGui::EndChild();
     }
