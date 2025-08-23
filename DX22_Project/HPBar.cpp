@@ -106,69 +106,53 @@ int CHPBar::Inspecter(bool isEnd)
     if (id.m_nSameCount != 0) name += std::to_string(id.m_nSameCount);
     name = "Name:" + name;
     name += m_tID.m_sName;
-    ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, 30), ImGuiWindowFlags_NoTitleBar);
+    ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(ce_f2InspecterSize), ImGuiWindowFlags_NoTitleBar);
     ImGui::Text(name.c_str());
     ImGui::EndChild();
     nChildCnt++;
 
-    if (ImGui::CollapsingHeader(std::string("[Transform]").c_str()))
+    std::string sJobName[(int)TextureKind::Max] =
     {
-        if (ImGui::CollapsingHeader(std::string("Back").c_str()))
+        "Back",
+        "Fill",
+    };
+
+    for (int i = 0; i < (int)TextureKind::Max; i++)
+    {
+        if (ImGui::CollapsingHeader(sJobName[i].c_str()))
         {
-            ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, 30 * 9), ImGuiWindowFlags_NoTitleBar);
-            ImGui::Text(std::string("Position").c_str());
-            DirectX::XMFLOAT3 pos = m_tRendererParam[(int)TextureKind::Back].m_f3Pos;
-            ImGui::Text(std::string("PosX:" + std::to_string(pos.x)).c_str());
-            ImGui::Text(std::string("PosY:" + std::to_string(pos.y)).c_str());
-            ImGui::Text(std::string("PosZ:" + std::to_string(pos.z)).c_str());
-            ImGui::Text("\n");
+            ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(ce_f2InspecterSize.x, ce_f2InspecterSize.y * 9), ImGuiWindowFlags_NoTitleBar);
+            if (ImGui::CollapsingHeader(std::string("[Transform]").c_str()))
+            {
+                ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(ce_f2InspecterSize.x, ce_f2InspecterSize.y * 9), ImGuiWindowFlags_NoTitleBar);
+                ImGui::Text(std::string("Position").c_str());
+                DirectX::XMFLOAT3 pos = m_tRendererParam[i].m_f3Pos;
+                ImGui::Text(std::string("PosX:" + std::to_string(pos.x)).c_str());
+                ImGui::Text(std::string("PosY:" + std::to_string(pos.y)).c_str());
+                ImGui::Text(std::string("PosZ:" + std::to_string(pos.z)).c_str());
+                ImGui::Text("\n");
 
-            ImGui::Text(std::string("Size").c_str());
-            DirectX::XMFLOAT3 size = m_tRendererParam[(int)TextureKind::Back].m_f3Size;
-            ImGui::Text(std::string("SizeX:" + std::to_string(size.x)).c_str());
-            ImGui::Text(std::string("SizeY:" + std::to_string(size.y)).c_str());
-            ImGui::Text(std::string("SizeZ:" + std::to_string(size.z)).c_str());
-            ImGui::Text("\n");
+                ImGui::Text(std::string("Size").c_str());
+                DirectX::XMFLOAT3 size = m_tRendererParam[i].m_f3Size;
+                ImGui::Text(std::string("SizeX:" + std::to_string(size.x)).c_str());
+                ImGui::Text(std::string("SizeY:" + std::to_string(size.y)).c_str());
+                ImGui::Text(std::string("SizeZ:" + std::to_string(size.z)).c_str());
+                ImGui::Text("\n");
 
-            ImGui::Text(std::string("Rotation").c_str());
-            DirectX::XMFLOAT3 rotate = m_tRendererParam[(int)TextureKind::Back].m_f3Rotate;
-            ImGui::Text(std::string("RotateX:" + std::to_string(rotate.x)).c_str());
-            ImGui::Text(std::string("RotateY:" + std::to_string(rotate.y)).c_str());
-            ImGui::Text(std::string("RotateZ:" + std::to_string(rotate.z)).c_str());
-
-            ImGui::EndChild();
-            nChildCnt++;
-        }
-        if (ImGui::CollapsingHeader(std::string("Fill").c_str()))
-        {
-
-            ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, 30 * 9), ImGuiWindowFlags_NoTitleBar);
-            ImGui::Text(std::string("Position").c_str());
-            DirectX::XMFLOAT3 pos = m_tRendererParam[(int)TextureKind::Flont].m_f3Pos;
-            ImGui::Text(std::string("PosX:" + std::to_string(pos.x)).c_str());
-            ImGui::Text(std::string("PosY:" + std::to_string(pos.y)).c_str());
-            ImGui::Text(std::string("PosZ:" + std::to_string(pos.z)).c_str());
-            ImGui::Text("\n");
-
-            ImGui::Text(std::string("Size").c_str());
-            DirectX::XMFLOAT3 size = m_tRendererParam[(int)TextureKind::Flont].m_f3Size;
-            ImGui::Text(std::string("SizeX:" + std::to_string(size.x)).c_str());
-            ImGui::Text(std::string("SizeY:" + std::to_string(size.y)).c_str());
-            ImGui::Text(std::string("SizeZ:" + std::to_string(size.z)).c_str());
-            ImGui::Text("\n");
-
-            ImGui::Text(std::string("Rotation").c_str());
-            DirectX::XMFLOAT3 rotate = m_tRendererParam[(int)TextureKind::Flont].m_f3Rotate;
-            ImGui::Text(std::string("RotateX:" + std::to_string(rotate.x)).c_str());
-            ImGui::Text(std::string("RotateY:" + std::to_string(rotate.y)).c_str());
-            ImGui::Text(std::string("RotateZ:" + std::to_string(rotate.z)).c_str());
-
+                ImGui::Text(std::string("Rotation").c_str());
+                DirectX::XMFLOAT3 rotate = m_tRendererParam[i].m_f3Rotate;
+                ImGui::Text(std::string("RotateX:" + std::to_string(rotate.x)).c_str());
+                ImGui::Text(std::string("RotateY:" + std::to_string(rotate.y)).c_str());
+                ImGui::Text(std::string("RotateZ:" + std::to_string(rotate.z)).c_str());
+                ImGui::EndChild();
+                nChildCnt++;
+            }
             ImGui::EndChild();
             nChildCnt++;
         }
     }
 
-    if (ImGui::CollapsingHeader(std::string("[HP]").c_str()))
+    if (ImGui::CollapsingHeader(std::string("HP").c_str()))
     {
         ImGui::Text(std::string(std::to_string(m_tValue.m_nCurrentHP) + "/" + std::to_string(m_tValue.m_nMaxHP)).c_str());
         ImGui::SameLine();

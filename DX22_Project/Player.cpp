@@ -181,7 +181,6 @@ int CPlayer::Inspecter(bool isEnd)
 {
     int nChildCnt = CGameObject::Inspecter(false);
 
-    nChildCnt++;
     if (ImGui::CollapsingHeader(std::string("[Status]").c_str()))
     {
         ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(ce_f2InspecterSize.x,ce_f2InspecterSize.y * 4));
@@ -193,6 +192,7 @@ int CPlayer::Inspecter(bool isEnd)
         ImGui::Text(std::string("CRT:" + std::to_string(tStatus.m_fCriticalPercentage) + "%%").c_str());
         
         ImGui::EndChild();
+        nChildCnt++;
     }
 
     ImGui::End();

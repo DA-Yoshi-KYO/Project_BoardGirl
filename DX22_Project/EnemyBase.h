@@ -34,6 +34,7 @@ public:
     void Update() override;
     void OnColliderHit(CCollisionBase* other,std::string thisTag = "None") override;
     void OnDestroy() override;
+    int Inspecter(bool isEnd = true) override;
 
     virtual void Attack();
     void Attack(AttackState inState);

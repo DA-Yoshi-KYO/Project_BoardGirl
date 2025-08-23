@@ -12,7 +12,14 @@ public:
     void Stop();
     void SetVolume(float inVolume);
 
+    virtual int Inspecter(bool isEnd = true) override;
+
 private:
     CAudio* m_pAudio;
-
+    struct AudioState
+    {
+        std::string m_sBGMName;
+        float m_fVolume;
+    }m_tState;
+    
 };

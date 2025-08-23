@@ -2,6 +2,7 @@
 #include "Main.h"
 #include "Oparation.h"
 #include "Player.h"
+#include "DebugSystem.h"
 
 CEnemyBase::CEnemyBase()
     : m_tEnemyStatus{}, m_pPlayer(nullptr), m_fTime(0.0f)
@@ -204,4 +205,26 @@ eEnemyStatePattern CEnemyBase::GetPattern(DirectX::XMFLOAT3 inAttackHarfSize)
 eEnemyStatePattern CEnemyBase::GetPattern(DirectX::XMFLOAT3 inAttackHarfSize, eEnemyStatePattern AdjustPattern)
 {
     return eEnemyStatePattern();
+}
+
+int CEnemyBase::Inspecter(bool isEnd)
+{
+    int nChildCnt = CGameObject::Inspecter(false);
+
+    if (ImGui::CollapsingHeader(std::string("[Status]").c_str()))
+    {
+        ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(ce_f2InspecterSize.x, ce_f2InspecterSize.y * 4));
+
+        ImGui::Text(std::string("HP:" + std::to_string(m_tEnemyStatus.m_nHP)).c_str());
+        ImGui::Text(std::string("ATK:" + std::to_string(m_tEnemyStatus.m_nAttack)).c_str());
+        ImGui::Text(std::string("DEF:" + std::to_string(m_tEnemyStatus.m_nDefense)).c_str());
+        ImGui::Text(std::string("SPD:" + std::to_string(m_tEnemyStatus.m_fSpeed)).c_str());
+
+        ImGui::EndChild();
+        nChildCnt++;
+    }
+
+    ImGui::End();
+
+    return nChildCnt;
 }
