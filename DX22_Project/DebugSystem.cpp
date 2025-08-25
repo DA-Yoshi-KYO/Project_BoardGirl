@@ -89,15 +89,37 @@ void CDebugSystem::DrawHierarchy()
             return a.m_sName < b.m_sName;
         });
 
-    for (auto itr : objectIDList)
+    for (auto itr = objectIDList.begin(); itr != objectIDList.end();)
     {
-        std::string name = itr.m_sName;
-        if (itr.m_nSameCount != 0) name += std::to_string(itr.m_nSameCount);
+        std::string name = itr->m_sName;
 
-        if (ImGui::Button(name.c_str()))
+        int nItrCount = 0;
+        for (auto idItr : objectIDList)
         {
-            m_pObject = GetScene()->GetGameObject(itr);
+            if (idItr.m_sName == name)
+            {
+                nItrCount++;
+            }
         }
+
+        if (ImGui::CollapsingHeader(std::string("[" + name + "]").c_str()))
+        {
+            for (int i = 0; i < nItrCount; i++)
+            {
+                std::string sButtonName = name;
+                if (i != 0) sButtonName += std::to_string(i + 1);
+                ObjectID id;
+                id.m_sName = name;
+                id.m_nSameCount = i;
+                if (ImGui::Button(sButtonName.c_str()))
+                {
+                    m_pObject = GetScene()->GetGameObject(id);
+                }
+            }
+
+        }
+
+        std::advance(itr, nItrCount);
     }
 
     ImGui::EndChild();
