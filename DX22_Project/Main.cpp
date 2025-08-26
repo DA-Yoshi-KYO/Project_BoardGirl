@@ -9,12 +9,19 @@
 
 #include "Scene.h"
 #include "SceneTitle.h"
+#include "SceneJobSelect.h"
+#include "SceneGame.h"
 
 #include "Defines.h"
 
 #include "EnemyGenerater.h"
 #include "DebugSystem.h"
 #include "Camera.h"
+
+#include "BillboardRenderer.h"
+#include "SpriteRenderer.h"
+#include "Sprite3DRenderer.h"
+#include "ModelRenderer.h"
 
 CScene* g_pScene;
 CScene* g_pNextScene;

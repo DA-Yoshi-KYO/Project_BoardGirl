@@ -120,7 +120,7 @@ void CWizard::ESkill()
 {
     m_nOldAttack = m_tStatus.m_nAttack;
 
-    m_tStatus.m_nAttack *= 2.0f;
+    m_tStatus.m_nAttack *= 2;
 }
 
 void CWizard::RSkill()

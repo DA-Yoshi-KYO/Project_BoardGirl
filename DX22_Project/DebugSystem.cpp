@@ -6,6 +6,10 @@
 #include "Camera.h"
 #include "Oparation.h"
 
+#include "SceneTitle.h"
+#include "SceneJobSelect.h"
+#include "SceneGame.h"
+
 CDebugSystem* CDebugSystem::m_pInstance = nullptr;
 constexpr float ce_fCharaSize = 30.0f;
 
@@ -56,6 +60,7 @@ void CDebugSystem::Draw()
     if (m_pObject) m_pObject->Inspecter();
     //DrawCameraParam();
     DrawUpdateTick();
+    DrawSceneSelect();
 
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -180,6 +185,38 @@ void CDebugSystem::DrawUpdateTick()
             GetScene()->Update();
         }
         ImGui::EndChild();
+    }
+
+    ImGui::End();
+}
+
+void CDebugSystem::DrawSceneSelect()
+{
+    ImGui::SetNextWindowPos(ImVec2(20, SCREEN_HEIGHT - 240));
+    ImGui::SetNextWindowSize(ImVec2(280, 100));
+    ImGui::Begin("Scene");
+
+    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(ce_f2InspecterSize), ImGuiWindowFlags_NoTitleBar);
+    static int nSelect = 0;
+    ImGui::Combo("kind", &nSelect, "Title\0JobSelect\0Game\0");
+    ImGui::EndChild();
+
+    if (ImGui::Button("Go"))
+    {
+        switch (nSelect)
+        {
+        case 0:
+            ChangeScene(new CSceneTitle());
+            break;
+        case 1:
+            ChangeScene(new CSceneJobSelect());
+            break;
+        case 2:
+            ChangeScene(new CSceneGame());
+            break;
+        default:
+            break;
+        }
     }
 
     ImGui::End();

@@ -2,10 +2,6 @@
 
 #include "Defines.h"
 #include "CollisionBase.h"
-#include "BillboardRenderer.h"
-#include "SpriteRenderer.h"
-#include "Sprite3DRenderer.h"
-#include "ModelRenderer.h"
 #include "GameObject.h"
 
 class CScene
@@ -95,6 +91,8 @@ public:
 protected:
     std::array<std::list<CGameObject*>,(int)Tag::Max> m_pGameObject_List; // シーン内のゲームオブジェクトリスト
     std::vector<CCollisionBase*> m_pCollisionVec; // 衝突判定用のコンポーネントリスト
+
 private:
     std::vector<ObjectID> m_tIDVec;
+
 };

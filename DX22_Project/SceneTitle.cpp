@@ -1,6 +1,7 @@
 #include "SceneTitle.h"
 #include "TitleBackGround.h"
 #include "BGMPlayer.h"
+#include "SpriteRenderer.h"
 
 CSceneTitle::~CSceneTitle()
 {

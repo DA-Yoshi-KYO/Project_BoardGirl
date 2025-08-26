@@ -32,5 +32,6 @@ private:
     void DrawHierarchy();
     void DrawCameraParam();
     void DrawUpdateTick();
+    void DrawSceneSelect();
 
 };
