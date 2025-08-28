@@ -1,8 +1,10 @@
 // インクルード部
 #include "Field.h"
-#include "ModelRenderer.h"
 #include "Main.h"
-#include "Player.h"
+#include "Oparation.h"
+
+std::vector<Model::Mesh> CField::m_Mesh = {};
+HitResult CField::m_tResult = {};
 
 CField::~CField()
 {
@@ -10,38 +12,87 @@ CField::~CField()
 
 void CField::Init()
 {
-    // コンポーネントの追加
-    AddComponent<CModelRenderer>()->Load(MODEL_PATH("Terrain.obj"),TERRAIN_SCALE, Model::Flip::ZFlip);
-    m_pHeightMap = std::make_unique<Texture>();
-    m_pHeightMap->Create(DXGI_FORMAT_R32_TYPELESS, 513, 513, L"Assets\\Texture\\Heightmap.png");
+    CModelRenderer* pRenderer = AddComponent<CModelRenderer>();
+    pRenderer->Load(MODEL_PATH("Test.fbx"), 1.0f, Model::Flip::XFlip);
+    m_Mesh = pRenderer->GetMesh();
+    m_tParam.m_f3Pos = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 }
 
-void CField::Update()
+HitResult CField::RayIntersectsTriangle(const DirectX::XMFLOAT3& rayOrigin, const DirectX::XMFLOAT3& rayDir)
 {
-    CPlayer* player = GetScene()->GetGameObject<CPlayer>();
-    float height = GetGroundHeight(player->AccessorPos());
-    OutputDebugString(std::to_string(height).c_str());
-    OutputDebugString("\n");
-    CGameObject::Update();
+    DirectX::XMVECTOR ro = DirectX::XMLoadFloat3(&rayOrigin);
+    DirectX::XMVECTOR rd = DirectX::XMVector3Normalize(DirectX::XMLoadFloat3(&rayDir));
+
+    m_tResult.bHit = false;
+    m_tResult.Position = {};
+    m_tResult.Normal = {};
+    m_tResult.Distance = FLT_MAX;
+    m_tResult.MeshIndex = SIZE_MAX;
+    m_tResult.TriIndex = SIZE_MAX;
+
+    for (unsigned int idx = 0; idx < m_Mesh.size(); idx++)
+    {
+        Model::Vertices ver = m_Mesh[idx].vertices;
+        Model::Indices ind = m_Mesh[idx].indices;
+
+        for (unsigned int i = 0; i < ind.size(); i+=3)
+        {
+            const DirectX::XMFLOAT3& v0 = ver[ind[i]].pos;
+            const DirectX::XMFLOAT3& v1 = ver[ind[i + 1]].pos;
+            const DirectX::XMFLOAT3& v2 = ver[ind[i + 2]].pos;
+
+            float t = 0.0f;
+            if (Check(ro, rd, v0, v1, v2, t))
+            {
+                if (t < m_tResult.Distance)
+                {
+                    m_tResult.bHit = true;
+                    m_tResult.Distance = t;
+                    m_tResult.MeshIndex = idx;
+                    m_tResult.TriIndex = i / 3;
+
+                    DirectX::XMVECTOR hitPos = ro + rd * t;
+                    DirectX::XMStoreFloat3(&m_tResult.Position, hitPos);
+
+                    DirectX::XMVECTOR normal = DirectX::XMVector3Normalize(
+                        DirectX::XMVector3Cross(XMLoadFloat3(&v1) - XMLoadFloat3(&v0),
+                            XMLoadFloat3(&v2) - XMLoadFloat3(&v0)));
+                    DirectX::XMStoreFloat3(&m_tResult.Normal, normal);
+                }
+            }
+
+        }
+    }
+    return m_tResult;
 }
 
-float CField::GetGroundHeight(DirectX::XMFLOAT3 pos)
+bool CField::Check(const DirectX::XMVECTOR& rayOrigin, const DirectX::XMVECTOR& rayDir, const DirectX::XMFLOAT3& v0, const DirectX::XMFLOAT3& v1, const DirectX::XMFLOAT3& v2, float& outT)
 {
-    DirectX::XMINT2 index;
-    index.x = static_cast<int>(pos.x / TERRAIN_SIZE);
-    index.y = static_cast<int>(pos.z / TERRAIN_SIZE);
-    float* pData = m_pHeightMap->GetHeightMapData();
+    const float EPSILON = 1e-6f;
+    DirectX::XMVECTOR V0 = DirectX::XMLoadFloat3(&v0);
+    DirectX::XMVECTOR V1 = DirectX::XMLoadFloat3(&v1);
+    DirectX::XMVECTOR V2 = DirectX::XMLoadFloat3(&v2);
 
-    DirectX::XMINT2 posIndex;
-    posIndex.x = pos.x - index.x * TERRAIN_SIZE;
-    posIndex.y = pos.z - index.y * TERRAIN_SIZE;
-    int width = m_pHeightMap->GetWidth();
-    int height = m_pHeightMap->GetHeight();
-    float calc = static_cast<float>(width) / static_cast<float>(TERRAIN_SIZE) ;
+    DirectX::XMVECTOR v0v1 = V1 - V0;
+    DirectX::XMVECTOR v0v2 = V2 - V0;
+    DirectX::XMVECTOR pvec = DirectX::XMVector3Cross(rayDir, v0v2);
+    float det = DirectX::XMVectorGetX(DirectX::XMVector3Dot(v0v1, pvec));
 
-    posIndex.y = TERRAIN_SIZE - posIndex.y; // Y軸反転
-    posIndex.x *= calc;
-    posIndex.y *= calc;
+    if (fabs(det) < EPSILON) return false;
 
-    return pData[posIndex.y * posIndex.x];
+    float invDet = 1.0f / det;
+    DirectX::XMVECTOR tvec = rayOrigin - V0;
+    float u = DirectX::XMVectorGetX(DirectX::XMVector3Dot(tvec, pvec)) * invDet;
+    if (u < 0 || u > 1) return false;
+
+    DirectX::XMVECTOR qvec = DirectX::XMVector3Cross(tvec, v0v1);
+    float v = DirectX::XMVectorGetX(DirectX::XMVector3Dot(rayDir, qvec)) * invDet;
+    if (v < 0 || u + v > 1) return false;
+
+    float t = DirectX::XMVectorGetX(DirectX::XMVector3Dot(v0v2, qvec)) * invDet;
+    if (t < EPSILON) return false;
+
+    outT = t;
+    return true;
 }
+

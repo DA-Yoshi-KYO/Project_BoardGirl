@@ -35,10 +35,6 @@ static const float fDeltaTime = 1.0f / fFPS; // フレーム時間(秒)
 #define KMETER(value) (value * 1000.0f)
 #define MSEC(value) (value / fFPS)
 #define CMSEC(value) MSEC(CMETER(value))
-#define TERRAIN_HEIGHT_MAX KMETER(6.0f)
-#define TERRAIN_SCALE (0.1f)
-#define TERRAIN_CALC(value) (value * TERRAIN_SCALE)
-#define TERRAIN_SIZE KMETER(1.0f * TERRAIN_SCALE)
 
 // フィールド定義
 static const DirectX::XMFLOAT3 ChunkSize = { 100.0f, 100.0f, 100.0f };  // 描画するチャンクのサイズ

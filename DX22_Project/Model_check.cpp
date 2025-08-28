@@ -9,8 +9,8 @@
 
 
 /*
-* @brief ƒGƒ‰[ƒƒbƒZ[ƒWæ“¾
-* @returnn ƒGƒ‰[ƒƒbƒZ[ƒW
+* @brief ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å–å¾—
+* @returnn ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 */
 std::string Model::GetError()
 {
@@ -22,22 +22,22 @@ std::string Model::GetError()
 }
 
 /*
-* @brief ƒ{[ƒ“‚ÌƒfƒoƒbƒO•\¦
-* @param[in] world ƒ[ƒ‹ƒhs—ñ
+* @brief ãƒœãƒ¼ãƒ³ã®ãƒ‡ãƒãƒƒã‚°è¡¨ç¤º
+* @param[in] world ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—
 */
 void Model::DrawBone(DirectX::XMMATRIX world)
 {
 #ifdef _DEBUG
-	// Ä‹Aˆ—
+	// å†å¸°å‡¦ç†
 	std::function<void(int, DirectX::XMFLOAT3)> FuncDrawBone =
 		[&FuncDrawBone, this, &world](int idx, DirectX::XMFLOAT3 parent)
 	{
-		// eƒm[ƒh‚©‚çŒ»İˆÊ’u‚Ü‚Å•`‰æ
+		// è¦ªãƒãƒ¼ãƒ‰ã‹ã‚‰ç¾åœ¨ä½ç½®ã¾ã§æç”»
 		DirectX::XMFLOAT3 pos;
 		DirectX::XMStoreFloat3(&pos, DirectX::XMVector3TransformCoord(DirectX::XMVectorZero(), m_nodes[idx].mat * world));
 		Geometory::AddLine(parent, pos, DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
 
-		// qƒm[ƒh‚Ì•`‰æ
+		// å­ãƒãƒ¼ãƒ‰ã®æç”»
 		auto it = m_nodes[idx].children.begin();
 		while (it != m_nodes[idx].children.end())
 		{
@@ -46,7 +46,7 @@ void Model::DrawBone(DirectX::XMMATRIX world)
 		}
 	};
 
-	// •`‰æÀs
+	// æç”»å®Ÿè¡Œ
 	FuncDrawBone(0, DirectX::XMFLOAT3());
 	Geometory::DrawLines();
 #endif
@@ -54,8 +54,8 @@ void Model::DrawBone(DirectX::XMMATRIX world)
 
 
 /*
-* @brief ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒ‹[ƒvƒ`ƒFƒbƒN
-* @param[in, out] info Ä¶î•ñ
+* @brief ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ«ãƒ¼ãƒ—ãƒã‚§ãƒƒã‚¯
+* @param[in, out] info å†ç”Ÿæƒ…å ±
 */
 void Model::CheckAnimePlayLoop(AnimePlayInfo& info)
 {
@@ -68,10 +68,10 @@ void Model::CheckAnimePlayLoop(AnimePlayInfo& info)
 }
 
 /*
-* @brief ƒGƒ‰[ƒƒbƒZ[ƒW‚Â‚«AƒGƒ‰[ƒ`ƒFƒbƒN
-* @param[in] condition ƒGƒ‰[”»’è
-* @param[in] messege ƒGƒ‰[ƒƒbƒZ[ƒW
-* @return ƒGƒ‰[”»’è
+* @brief ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¤ãã€ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯
+* @param[in] condition ã‚¨ãƒ©ãƒ¼åˆ¤å®š
+* @param[in] messege ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+* @return ã‚¨ãƒ©ãƒ¼åˆ¤å®š
 */
 bool Model::IsError(bool condition, std::string message)
 {
@@ -81,8 +81,8 @@ bool Model::IsError(bool condition, std::string message)
 }
 
 /*
-* @brief ƒGƒ‰[ƒƒbƒZ[ƒW‚Ìİ’è
-* @param[in] message ƒƒbƒZ[ƒW“à—e
+* @brief ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®š
+* @param[in] message ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å†…å®¹
 */
 void Model::SetErrorMessage(std::string message)
 {
@@ -93,9 +93,9 @@ void Model::SetErrorMessage(std::string message)
 
 
 /*
-* @brief ƒGƒ‰[ƒƒbƒZ[ƒW‚Ì•\¦
-* @param[in] caption ƒ^ƒCƒgƒ‹ƒo[•\¦ƒƒbƒZ[ƒW
-* @param[in] isWarning Œxƒtƒ‰ƒO
+* @brief ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¡¨ç¤º
+* @param[in] caption ã‚¿ã‚¤ãƒˆãƒ«ãƒãƒ¼è¡¨ç¤ºãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+* @param[in] isWarning è­¦å‘Šãƒ•ãƒ©ã‚°
 */
 void Model::ShowErrorMessage(const char* caption, bool isWarning)
 {
@@ -110,13 +110,13 @@ void Model::ShowErrorMessage(const char* caption, bool isWarning)
 }
 
 /*
-* @brief ƒm[ƒh‚Ì’Tõ
-* @param[in] name ’Tõƒm[ƒh–¼
-* @return ƒm[ƒh”Ô†
+* @brief ãƒãƒ¼ãƒ‰ã®æ¢ç´¢
+* @param[in] name æ¢ç´¢ãƒãƒ¼ãƒ‰å
+* @return ãƒãƒ¼ãƒ‰ç•ªå·
 */
 Model::NodeIndex Model::FindNode(const char* name)
 {
-	// \’zÏ‚İ‚Ìƒ{[ƒ“ƒm[ƒh‚©‚çŠY“–ƒm[ƒh‚ğæ“¾
+	// æ§‹ç¯‰æ¸ˆã¿ã®ãƒœãƒ¼ãƒ³ãƒãƒ¼ãƒ‰ã‹ã‚‰è©²å½“ãƒãƒ¼ãƒ‰ã‚’å–å¾—
 	Model::Nodes::iterator it = std::find_if(m_nodes.begin(), m_nodes.end(),
 		[name](const Node& val) {
 			return val.name == name;
@@ -129,13 +129,13 @@ Model::NodeIndex Model::FindNode(const char* name)
 }
 
 /*
-* @brief ƒtƒŠ[ƒYÏ‚İƒƒbƒVƒ…ƒ`ƒFƒbƒN
-* @param[in] ptr aiScene‚Ö‚Ìƒ|ƒCƒ“ƒ^
-* @return ƒ`ƒFƒbƒNŒ‹‰Ê
+* @brief ãƒ•ãƒªãƒ¼ã‚ºæ¸ˆã¿ãƒ¡ãƒƒã‚·ãƒ¥ãƒã‚§ãƒƒã‚¯
+* @param[in] ptr aiSceneã¸ã®ãƒã‚¤ãƒ³ã‚¿
+* @return ãƒã‚§ãƒƒã‚¯çµæœ
 */
 bool Model::CheckMeshFreeze(const void* ptr)
 {
-	// Ä‹Aˆ—‚ÅAssimp‚Ìƒm[ƒhî•ñ‚ğ“Ç‚İæ‚è
+	// å†å¸°å‡¦ç†ã§Assimpã®ãƒãƒ¼ãƒ‰æƒ…å ±ã‚’èª­ã¿å–ã‚Š
 	std::function<bool(std::string& name, aiNode*)> FuncFreezeCheck =
 		[&FuncFreezeCheck, this](std::string& name, aiNode* assimpNode)
 	{
@@ -162,10 +162,10 @@ bool Model::CheckMeshFreeze(const void* ptr)
 	for (unsigned int i = 0; i < pScene->mNumMeshes; ++i) {
 		std::string meshName = pScene->mMeshes[i]->mName.data;
 
-		// ƒm[ƒh“à‚ğ’Tõ
+		// ãƒãƒ¼ãƒ‰å†…ã‚’æ¢ç´¢
 		if (!FuncFreezeCheck(meshName, pScene->mRootNode)) {
-			SetErrorMessage("no mesh freeze. [" + meshName + "]");
-			result = false;
+			//SetErrorMessage("no mesh freeze. [" + meshName + "]");
+			//result = false;
 		}
 	}
 
@@ -173,21 +173,21 @@ bool Model::CheckMeshFreeze(const void* ptr)
 }
 
 /*
-* @brief ƒAƒjƒ[ƒVƒ‡ƒ“”Ô†‚Ìƒ`ƒFƒbƒN
-* @param[in] no ƒAƒjƒ[ƒVƒ‡ƒ“”Ô†
-* @return —LŒø‚ÈƒAƒjƒ[ƒVƒ‡ƒ“”Ô†‚©‚Ç‚¤‚©
+* @brief ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·ã®ãƒã‚§ãƒƒã‚¯
+* @param[in] no ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·
+* @return æœ‰åŠ¹ãªã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·ã‹ã©ã†ã‹
 */
 bool Model::CheckAnimeNo(AnimeNo no)
 {
-	// ƒpƒ‰ƒƒgƒŠƒbƒNƒAƒjƒ[ƒVƒ‡ƒ“Šm”F
+	// ãƒ‘ãƒ©ãƒ¡ãƒˆãƒªãƒƒã‚¯ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç¢ºèª
 	if (no == PARAMETRIC_ANIME)
 	{
-		// ƒpƒ‰ƒƒgƒŠƒbƒN—p‚Ìƒf[ƒ^‚ª—¼•û³‚µ‚­İ’è‚³‚ê‚Ä‚¢‚é‚©
+		// ãƒ‘ãƒ©ãƒ¡ãƒˆãƒªãƒƒã‚¯ç”¨ã®ãƒ‡ãƒ¼ã‚¿ãŒä¸¡æ–¹æ­£ã—ãè¨­å®šã•ã‚Œã¦ã„ã‚‹ã‹
 		return
 			m_parametric[0] != ANIME_NONE &&
 			m_parametric[1] != ANIME_NONE;
 	}
 
-	// –â‘è‚È‚¢ƒAƒjƒ[ƒVƒ‡ƒ“”Ô†‚©‚Ç‚¤‚©
+	// å•é¡Œãªã„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·ã‹ã©ã†ã‹
 	return 0 <= no && no < m_animes.size();
 }

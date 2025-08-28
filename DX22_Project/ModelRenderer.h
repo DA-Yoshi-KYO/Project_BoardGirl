@@ -11,10 +11,10 @@ public:
     void Init() override;
     void Load(const char* inPath, float scale = 1.0f, Model::Flip flip = Model::Flip::None);
     void Draw() override;
-    std::vector<Model::Mesh*> GetMesh();
+    std::vector<Model::Mesh> GetMesh();
 
 private:
     std::shared_ptr<Model> m_pModel;
-    std::vector<Model::Mesh*> m_pMeshVec;
+    std::vector<Model::Mesh> m_MeshVec;
 };
 

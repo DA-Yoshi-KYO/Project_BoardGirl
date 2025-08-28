@@ -11,6 +11,7 @@
 #include "Effect.h"
 #include "Oparation.h"
 #include "DebugSystem.h"
+#include "Field.h"
 
 // 定数定義
 constexpr float ce_fRotatePow = 1.0f;   // 回転速度
@@ -120,6 +121,8 @@ void CPlayer::Update()
 
     m_pHPBar->SetCurrentHP(m_pJob->GetHP());
     m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 2.0f, m_tParam.m_f3Pos.z));
+
+
 
     CGameObject::Update();
 }
@@ -267,8 +270,17 @@ void CPlayer::PlayerMove()
     }
 
     // 重力
-	m_f3Velocity.y -= 0.015f;
-
+    DirectX::XMFLOAT3 origin = DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y - m_tParam.m_f3Size.y * 0.5f, m_tParam.m_f3Pos.z);
+    HitResult result = CField::RayIntersectsTriangle(m_tParam.m_f3Pos, DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f));
+    if (result.Distance <= 0.1f)
+    {
+        m_tParam.m_f3Pos.y = m_f3OldPos.y;
+        m_f3Velocity.y = 0.0f;
+    }
+    else
+    {
+        m_f3Velocity.y -= 0.015f;
+    }
     // 移動量を使用してプレイヤーの位置を更新
     m_tParam.m_f3Pos.x += m_f3Velocity.x;
 	m_tParam.m_f3Pos.y += m_f3Velocity.y;

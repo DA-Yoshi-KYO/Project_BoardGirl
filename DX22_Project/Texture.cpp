@@ -60,56 +60,6 @@ HRESULT Texture::Create(DXGI_FORMAT format, UINT width, UINT height, const void*
 	return CreateResource(desc, pData);
 }
 
-float* Texture::GetHeightMapData()
-{
-    // 1. ステージングテクスチャ作成
-    D3D11_TEXTURE2D_DESC desc = {};
-    m_pTex->GetDesc(&desc);
-
-    desc.Usage = D3D11_USAGE_STAGING;
-    desc.BindFlags = 0;
-    desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-    desc.MiscFlags = 0;
-
-    ID3D11Texture2D* pStagingTex = nullptr;
-    HRESULT hr = GetDevice()->CreateTexture2D(&desc, nullptr, &pStagingTex);
-    if (FAILED(hr)) return nullptr;
-
-    // 2. GPUリソースからステージングへコピー
-    GetContext()->CopyResource(pStagingTex, m_pTex);
-
-    // 3. マッピング
-    D3D11_MAPPED_SUBRESOURCE mapped = {};
-    hr = GetContext()->Map(pStagingTex, 0, D3D11_MAP_READ, 0, &mapped);
-    if (FAILED(hr))
-    {
-        pStagingTex->Release();
-        return nullptr;
-    }
-
-    // 4. データを読み取る
-    unsigned char* data = reinterpret_cast<unsigned char*>(mapped.pData);
-    int width = m_width;
-    int height = m_height;
-
-    float* heightMap = new float[width * height];
-    for (int y = 0; y < height; ++y)
-    {
-        for (int x = 0; x < width; ++x)
-        {
-            unsigned char value = data[y * x];  // フォーマットによっては変更が必要
-            float normalized = value / 255.0f;
-            heightMap[y * x] = normalized * TERRAIN_HEIGHT_MAX;
-        }
-    }
-
-    GetContext()->Unmap(pStagingTex, 0);
-    pStagingTex->Release();
-
-    return heightMap;
-}
-
-
 UINT Texture::GetWidth() const
 {
 	return m_width;

@@ -33,18 +33,18 @@ void CSceneGame::Init()
 
     AddGameObject<CPlayer>("Player");
     AddGameObject<CTimer>("Timer", Tag::UI);
-    CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>("BGM",Tag::Sound);
-    pPlayer->Load(AUDIO_PATH("BGM/GameBGM.wav"));
-    pPlayer->SetVolume(0.1f);
-    pPlayer->Play();
-    //AddGameObject<CField>(Collision::None,Tag::Field);
-
+    AddGameObject<CField>("Field",Tag::Field);
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
     CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", DirectX::XMFLOAT3(0.0f, 0.0f, 30.0f));
     CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", DirectX::XMFLOAT3(0.0f, 0.0f, -10.0f));
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, -20.0f));
     CEnemyGenerater::GetInstance()->GenerateEnemy("Dragon", DirectX::XMFLOAT3(20.0f, 0.0f, 0.0f));
+
+    CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>("BGM",Tag::Sound);
+    pPlayer->Load(AUDIO_PATH("BGM/GameBGM.wav"));
+    pPlayer->SetVolume(0.1f);
+    pPlayer->Play();
 }
 
 void CSceneGame::Draw()

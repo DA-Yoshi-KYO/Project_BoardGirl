@@ -13,8 +13,7 @@ public:
 	virtual ~Texture();
 	HRESULT Create(const char* fileName);
 	HRESULT Create(DXGI_FORMAT format, UINT width, UINT height, const void* pData = nullptr);
-    float* GetHeightMapData();
-
+    
 	UINT GetWidth() const;
 	UINT GetHeight() const;
 	ID3D11ShaderResourceView* GetResource() const;

@@ -9,20 +9,19 @@ CModelRenderer::~CModelRenderer()
 void CModelRenderer::Init()
 {
     m_pModel = nullptr;
-    m_pMeshVec.clear();
 }
 
-void CModelRenderer::Load(const char* inPath,float scale, Model::Flip flip)
+void CModelRenderer::Load(const char* inPath, float scale, Model::Flip flip)
 {
     m_pModel = std::make_shared<Model>();
-   if (!m_pModel->Load(inPath, scale, flip)) MessageBox(NULL, inPath,"Error",MB_OK);
+    if (!m_pModel->Load(inPath, scale, flip)) MessageBox(NULL, inPath, "Error", MB_OK);
 
 
-   for (unsigned int i = 0; i < m_pModel->GetMeshNum(); i++)
-   {
-       Model::Mesh Mesh = *m_pModel->GetMesh(i);
-       m_pMeshVec.push_back(&Mesh);
-   }
+    for (unsigned int i = 0; i < m_pModel->GetMeshNum(); i++)
+    {
+        Model::Mesh Mesh = *m_pModel->GetMesh(i);
+        m_MeshVec.push_back(Mesh);
+    }
 }
 
 void CModelRenderer::Draw()
@@ -48,9 +47,8 @@ void CModelRenderer::Draw()
 
     for (unsigned int i = 0; i < m_pModel->GetMeshNum(); i++)
     {
-        Model::Mesh mesh = *m_pModel->GetMesh(i);
-
-        Model::Material material = *m_pModel->GetMaterial(mesh.materialID);
+        Model::Mesh Mesh = *m_pModel->GetMesh(i);
+        Model::Material material = *m_pModel->GetMaterial(Mesh.materialID);
 
         ShaderList::SetMaterial(material);
 
@@ -58,7 +56,7 @@ void CModelRenderer::Draw()
     }
 }
 
-std::vector<Model::Mesh*> CModelRenderer::GetMesh()
+std::vector<Model::Mesh> CModelRenderer::GetMesh()
 {
-    return m_pMeshVec;
+    return m_MeshVec;
 }
