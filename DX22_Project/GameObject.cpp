@@ -87,7 +87,7 @@ int CGameObject::Inspecter(bool isEnd)
     int nChildCnt = 0;
 
     ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH - 300, 20));
-    ImGui::SetNextWindowSize(ImVec2(280, SCREEN_HEIGHT - 40));
+    ImGui::SetNextWindowSize(ImVec2(280, SCREEN_HEIGHT - 140));
     ImGui::Begin("Inspecter");
 
     ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(250, 30), ImGuiWindowFlags_NoTitleBar);

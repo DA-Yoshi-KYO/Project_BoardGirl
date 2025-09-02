@@ -27,11 +27,13 @@ private:
     static CDebugSystem* m_pInstance;
     CGameObject* m_pObject;
     bool m_bUpdate;
+    bool m_bCollision;
 
 private:
     void DrawHierarchy();
     void DrawCameraParam();
     void DrawUpdateTick();
     void DrawSceneSelect();
+    void DrawCollision();
 
 };

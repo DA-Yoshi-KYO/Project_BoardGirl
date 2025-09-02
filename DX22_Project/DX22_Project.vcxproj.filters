@@ -449,6 +449,9 @@
     <ClInclude Include="DebugSystem.h">
       <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="OperatorAccessor.h">
+      <Filter>Code\Work</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Terrain.txt">

@@ -255,6 +255,7 @@
     <ClInclude Include="CollisionObb.h" />
     <ClInclude Include="MotionBlur.h" />
     <ClInclude Include="Oparation.h" />
+    <ClInclude Include="OperatorAccessor.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RendererComponent.h" />
     <ClInclude Include="Scene.h" />

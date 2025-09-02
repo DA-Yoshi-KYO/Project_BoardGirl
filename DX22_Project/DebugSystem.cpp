@@ -14,7 +14,7 @@ CDebugSystem* CDebugSystem::m_pInstance = nullptr;
 constexpr float ce_fCharaSize = 30.0f;
 
 CDebugSystem::CDebugSystem()
-    : m_pObject(nullptr), m_bUpdate(true)
+    : m_pObject(nullptr), m_bUpdate(true), m_bCollision(true)
 {
 
 }
@@ -45,7 +45,7 @@ void CDebugSystem::Uninit()
 
 void CDebugSystem::Update()
 {
-
+    if (!m_bUpdate) CCamera::GetInstance(CCamera::GetCameraKind())->Update();
 }
 
 void CDebugSystem::Draw()
@@ -57,10 +57,11 @@ void CDebugSystem::Draw()
     ImGui::NewFrame();
 
     DrawHierarchy();
-    if (m_pObject) m_pObject->Inspecter();
-    //DrawCameraParam();
+    DrawCameraParam();
     DrawUpdateTick();
     DrawSceneSelect();
+    DrawCollision();
+    if (m_pObject) m_pObject->Inspecter();
 
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -71,7 +72,7 @@ void CDebugSystem::DrawHierarchy()
     ImGui::SetNextWindowPos(ImVec2(20, 20));
     ImGui::SetNextWindowSize(ImVec2(280, 300));
     ImGui::Begin("Hierarchy");
-    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(250, 280), ImGuiWindowFlags_NoTitleBar);
+    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(250, 260), ImGuiWindowFlags_NoTitleBar);
 
     auto Objects = GetScene()->GetGameObjectList();
 
@@ -127,6 +128,7 @@ void CDebugSystem::DrawHierarchy()
         std::advance(itr, nItrCount);
     }
 
+
     ImGui::EndChild();
     ImGui::End();
 }
@@ -134,36 +136,45 @@ void CDebugSystem::DrawHierarchy()
 void CDebugSystem::DrawCameraParam()
 {
     CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
+    CScene* pScene = GetScene();
+
+    if (dynamic_cast<CSceneGame*>(pScene))pCamera->SetCameraKind(CAM_PLAYER);
+    else if (dynamic_cast<CSceneJobSelect*>(pScene))pCamera->SetCameraKind(CAM_SELECT);
 
     if (!pCamera) return;
-
-    DirectX::XMFLOAT3 pos = pCamera->GetPos();
-    DirectX::XMFLOAT3 look = pCamera->GetLook();
-    pCamera->SetCameraKind(CameraKind::CAM_DEBUG);
-    pCamera->SetPos(pos);
-    pCamera->SetLook(look);
-
-    ImGui::SetNextWindowPos(ImVec2(340, 20));
-    ImGui::SetNextWindowSize(ImVec2(280, 300));
+    if (m_bUpdate) return;
+    pCamera->SetCameraKind(CAM_DEBUG);
+    ImGui::SetNextWindowPos(ImVec2(20, SCREEN_HEIGHT - 400));
+    ImGui::SetNextWindowSize(ImVec2(280, 180));
     ImGui::Begin("Camera");
+    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(250, 160), ImGuiWindowFlags_NoTitleBar);
 
-    if (ImGui::CollapsingHeader(std::string("Position").c_str()))
+
+    if (ImGui::CollapsingHeader(std::string("[Transform]").c_str()))
     {
+        ImGui::Text(std::string("Position").c_str());
         DirectX::XMFLOAT3 pos = pCamera->GetPos();
-        float value[3] = { pos.x,pos.y, pos.z };
-        ImGui::SliderFloat3("pos", value, -1000.0f, 1000.0f);
-        DirectX::XMFLOAT3 newPos = DirectX::XMFLOAT3(value[0], value[1], value[2]);
-        pCamera->SetPos(newPos);
-        pCamera->SetLook(pCamera->GetLook() - (newPos - pos));
-    }
+        ImGui::Text(std::string("PosX:" + std::to_string(pos.x)).c_str());
+        ImGui::Text(std::string("PosY:" + std::to_string(pos.y)).c_str());
+        ImGui::Text(std::string("PosZ:" + std::to_string(pos.z)).c_str());
+        ImGui::Text("\n");
 
-    if (ImGui::CollapsingHeader(std::string("Look").c_str()))
-    {
+        ImGui::Text(std::string("Look").c_str());
         DirectX::XMFLOAT3 look = pCamera->GetLook();
-        float value[3] = { look.x,look.y, look.z };
-        ImGui::SliderFloat3("look", value, -1000.0f, 1000.0f);
+        ImGui::Text(std::string("LookX:" + std::to_string(look.x)).c_str());
+        ImGui::Text(std::string("LookY:" + std::to_string(look.y)).c_str());
+        ImGui::Text(std::string("LookZ:" + std::to_string(look.z)).c_str());
+        ImGui::Text("\n");
+
+        ImGui::Text(std::string("UpVector").c_str());
+        DirectX::XMFLOAT3 up = pCamera->GetUp();
+        ImGui::Text(std::string("UpX:" + std::to_string(up.x)).c_str());
+        ImGui::Text(std::string("UpY:" + std::to_string(up.y)).c_str());
+        ImGui::Text(std::string("UpZ:" + std::to_string(up.z)).c_str());
     }
 
+
+    ImGui::EndChild();
     ImGui::End();
 }
 
@@ -192,7 +203,7 @@ void CDebugSystem::DrawUpdateTick()
 
 void CDebugSystem::DrawSceneSelect()
 {
-    ImGui::SetNextWindowPos(ImVec2(20, SCREEN_HEIGHT - 240));
+    ImGui::SetNextWindowPos(ImVec2(20, SCREEN_HEIGHT - 220));
     ImGui::SetNextWindowSize(ImVec2(280, 100));
     ImGui::Begin("Scene");
 
@@ -220,6 +231,25 @@ void CDebugSystem::DrawSceneSelect()
     }
 
     ImGui::End();
+}
+
+void CDebugSystem::DrawCollision()
+{
+    ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH - 300, SCREEN_HEIGHT - 120));
+    ImGui::SetNextWindowSize(ImVec2(280, 100));
+    ImGui::Begin("Collision");
+
+    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(ce_f2InspecterSize), ImGuiWindowFlags_NoTitleBar);
+    ImGui::Checkbox("DrawCollision", &m_bCollision);
+    ImGui::EndChild();
+    ImGui::End();
+    if (!m_bCollision)return;
+
+    auto CollisionVec = GetScene()->GetCollisionVec();
+    for (int i = 0; i < CollisionVec.size(); i++)
+    {
+        CollisionVec[i]->Draw();
+    }
 }
 
 CDebugSystem* CDebugSystem::GetInstance()

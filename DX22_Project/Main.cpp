@@ -111,8 +111,7 @@ void Update()
             g_bDebugMode ^= true;
         }
     }
-
-    //if (g_bDebugMode) pCamera->Update();
+    CDebugSystem::GetInstance()->Update();
 }
 
 void Draw()

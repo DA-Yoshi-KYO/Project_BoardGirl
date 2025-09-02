@@ -25,6 +25,7 @@ public:
 	DirectX::XMFLOAT4X4 GetProjectionMatrix(bool transpose = true);
 	DirectX::XMFLOAT3 GetPos() { return m_f3Pos; }
 	DirectX::XMFLOAT3 GetLook() { return m_f3Look; }
+	DirectX::XMFLOAT3 GetUp() { return m_f3Up; }
 	void SetPos(DirectX::XMFLOAT3 inPos) { m_f3Pos = inPos; }
     void SetLook(DirectX::XMFLOAT3 inLook) { m_f3Look = inLook; }
 	
