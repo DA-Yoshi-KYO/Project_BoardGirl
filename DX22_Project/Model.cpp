@@ -25,7 +25,7 @@
 #endif
 #endif
 
-// staticƒƒ“ƒo•Ï”’è‹`
+// staticãƒ¡ãƒ³ãƒå¤‰æ•°å®šç¾©
 VertexShader*	Model::m_pDefVS		= nullptr;
 PixelShader*	Model::m_pDefPS		= nullptr;
 unsigned int	Model::m_shaderRef	= 0;
@@ -33,12 +33,12 @@ unsigned int	Model::m_shaderRef	= 0;
 std::string		Model::m_errorStr	= "";
 #endif
 
-// ƒvƒƒgƒ^ƒCƒvéŒ¾
+// ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€
 DirectX::XMMATRIX GetMatrixFromAssimpMatrix(aiMatrix4x4 M);
 void MakeModelDefaultShader(VertexShader** vs, PixelShader** ps);
 
 /*
-* @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+* @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 */
 Model::Model()
 	: m_loadScale(1.0f)
@@ -51,7 +51,7 @@ Model::Model()
 	, m_blendTotalTime(0.0f)
 	, m_parametricBlend(0.0f)
 {
-	// ƒfƒtƒHƒ‹ƒgƒVƒF[ƒ_[‚Ì“K—p
+	// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®é©ç”¨
 	if (m_shaderRef == 0)
 	{
 		MakeModelDefaultShader(&m_pDefVS, &m_pDefPS);
@@ -62,7 +62,7 @@ Model::Model()
 }
 
 /*
-* @brief ƒfƒXƒgƒ‰ƒNƒ^
+* @brief ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 */
 Model::~Model()
 {
@@ -76,11 +76,11 @@ Model::~Model()
 }
 
 /*
-* @brief “à•”ƒf[ƒ^íœ
+* @brief å†…éƒ¨ãƒ‡ãƒ¼ã‚¿å‰Šé™¤
 */
 void Model::Reset()
 {
-	// ƒƒbƒVƒ…ƒf[ƒ^íœ
+	// ãƒ¡ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿å‰Šé™¤
 	auto meshIt = m_meshes.begin();
 	while (meshIt != m_meshes.end())
 	{
@@ -88,7 +88,7 @@ void Model::Reset()
 		++meshIt;
 	}
 
-	// ƒ}ƒeƒŠƒAƒ‹ƒf[ƒ^íœ
+	// ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ‡ãƒ¼ã‚¿å‰Šé™¤
 	auto matIt = m_materials.begin();
 	while (matIt != m_materials.end())
 	{
@@ -96,12 +96,12 @@ void Model::Reset()
 		++matIt;
 	}
 
-	// ƒm[ƒhƒf[ƒ^íœ
+	// ãƒãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿å‰Šé™¤
 	m_nodes.clear();
 }
 
 /*
-* @brief ’¸“_ƒVƒF[ƒ_[İ’è
+* @brief é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 */
 void Model::SetVertexShader(Shader* vs)
 {
@@ -112,7 +112,7 @@ void Model::SetVertexShader(Shader* vs)
 }
 
 /*
-* @brief ƒsƒNƒZƒ‹ƒVƒF[ƒ_[İ’è
+* @brief ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 */
 void Model::SetPixelShader(Shader* ps)
 {
@@ -123,35 +123,35 @@ void Model::SetPixelShader(Shader* ps)
 }
 
 /*
-* @brief ƒ‚ƒfƒ‹ƒf[ƒ^‚Ì“Ç‚İ‚İ
-* @param[in] file “Ç‚İ‚İæƒpƒX
-* @param[in] scale Šg‘å—¦
-* @param[in] flip ”½“]İ’è
-* @return “Ç‚İ‚İŒ‹‰Ê
+* @brief ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
+* @param[in] file èª­ã¿è¾¼ã¿å…ˆãƒ‘ã‚¹
+* @param[in] scale æ‹¡å¤§ç‡
+* @param[in] flip åè»¢è¨­å®š
+* @return èª­ã¿è¾¼ã¿çµæœ
 */
 bool Model::Load(const char* file, float scale, Flip flip)
 {
 	Reset();
 
-	// “Ç‚İ‚İ‚Ìİ’è‚ğ•Û‘¶
+	// èª­ã¿è¾¼ã¿æ™‚ã®è¨­å®šã‚’ä¿å­˜
 	m_loadScale = scale;
 	m_loadFlip = flip;
 
-	// Assimp‘¤‚Å“Ç‚İ‚İ‚ğÀs
+	// Assimpå´ã§èª­ã¿è¾¼ã¿ã‚’å®Ÿè¡Œ
 	const aiScene* pScene = static_cast<const aiScene*>(LoadAssimpScene(file));
 	if (!pScene) { return false; }
 
-	// ƒtƒŠ[ƒYƒ`ƒFƒbƒN
+	// ãƒ•ãƒªãƒ¼ã‚ºãƒã‚§ãƒƒã‚¯
 #ifdef _DEBUG
 	CheckMeshFreeze(pScene);
 #endif
 
-	// ƒm[ƒh‚Ìì¬
+	// ãƒãƒ¼ãƒ‰ã®ä½œæˆ
 	MakeNodes(pScene);
-	// ƒƒbƒVƒ…ì¬
+	// ãƒ¡ãƒƒã‚·ãƒ¥ä½œæˆ
 	MakeMesh(pScene);
-	// ƒ}ƒeƒŠƒAƒ‹‚Ìì¬
-	MakeMaterial(pScene, GetDirectory(file));
+	// ãƒãƒ†ãƒªã‚¢ãƒ«ã®ä½œæˆ
+ 	MakeMaterial(pScene, GetDirectory(file));
 
 #if MODEL_FORCE_ERROR
 	ShowErrorMessage(file, true);
@@ -160,8 +160,8 @@ bool Model::Load(const char* file, float scale, Flip flip)
 }
 
 /*
-* @brief XVˆ—
-* @param[in] tick Œo‰ßŠÔ(•b)
+* @brief æ›´æ–°å‡¦ç†
+* @param[in] tick çµŒéæ™‚é–“(ç§’)
 */
 void Model::Step(float tick)
 {
@@ -171,26 +171,26 @@ void Model::Step(float tick)
 }
 
 /*
-* @brief •`‰æˆ—
-* @param[in] meshNo •`‰æƒƒbƒVƒ…”Ô†(-1‚Å‚·‚×‚Ä•\¦
+* @brief æç”»å‡¦ç†
+* @param[in] meshNo æç”»ãƒ¡ãƒƒã‚·ãƒ¥ç•ªå·(-1ã§ã™ã¹ã¦è¡¨ç¤º
 */
 void Model::Draw(int meshNo)
 {
-	// ƒVƒF[ƒ_[İ’è
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 	m_pVS->Bind();
 	m_pPS->Bind();
 
-	// ƒeƒNƒXƒ`ƒƒ©“®İ’è
+	// ãƒ†ã‚¯ã‚¹ãƒãƒ£è‡ªå‹•è¨­å®š
 	bool isAutoTexture = (meshNo == -1);
 
-	// •`‰æ”İ’è
+	// æç”»æ•°è¨­å®š
 	size_t drawNum = m_meshes.size();
 	if (meshNo != -1)
 		drawNum = meshNo + 1;
 	else
 		meshNo = 0;
 
-	// •`‰æ
+	// æç”»
 	for (UINT i = meshNo; i < drawNum; ++i)
 	{
 		if (isAutoTexture) {
@@ -203,9 +203,9 @@ void Model::Draw(int meshNo)
 
 
 /*
-* @brief Assimp‚Åƒf[ƒ^‚Ì“Ç‚İ‚İ
-* @param[in] file “Ç‚İ‚İæƒpƒX
-* @return aiSceneƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
+* @brief Assimpã§ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
+* @param[in] file èª­ã¿è¾¼ã¿å…ˆãƒ‘ã‚¹
+* @return aiSceneã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
 */
 const void* Model::LoadAssimpScene(const char* file)
 {
@@ -213,14 +213,14 @@ const void* Model::LoadAssimpScene(const char* file)
 	m_errorStr = "";
 #endif
 
-	// assimp‚Ìİ’è
+	// assimpã®è¨­å®š
 	static Assimp::Importer importer;
 	int flag = 0;
 	flag |= aiProcess_Triangulate;
 	flag |= aiProcess_FlipUVs;
 	if (m_loadFlip == Flip::XFlip)  flag |= aiProcess_MakeLeftHanded;
 
-	// assimp‚Å“Ç‚İ‚İ
+	// assimpã§èª­ã¿è¾¼ã¿
 	const aiScene* pScene = importer.ReadFile(file, flag);
 #ifdef _DEBUG
 	if (!pScene)
@@ -231,37 +231,37 @@ const void* Model::LoadAssimpScene(const char* file)
 }
 
 /*
-* @brief ŠK‘wî•ñ‚Ì\’z
-* @param[in] ptr aiScene‚Ö‚Ìƒ|ƒCƒ“ƒ^
+* @brief éšå±¤æƒ…å ±ã®æ§‹ç¯‰
+* @param[in] ptr aiSceneã¸ã®ãƒã‚¤ãƒ³ã‚¿
 */
 void Model::MakeNodes(const void* ptr)
 {
-	// Ä‹Aˆ—‚ÅAssimp‚Ìƒm[ƒhî•ñ‚ğ“Ç‚İæ‚è
+	// å†å¸°å‡¦ç†ã§Assimpã®ãƒãƒ¼ãƒ‰æƒ…å ±ã‚’èª­ã¿å–ã‚Š
 	using FuncRecurciveMakeNodes = std::function<NodeIndex(aiNode*, NodeIndex, DirectX::XMMATRIX)>;
 	FuncRecurciveMakeNodes func = [&func, this](aiNode* assimpNode, NodeIndex parent, DirectX::XMMATRIX mat)
 	{
-		// assimp‘¤‚ÅŠK‘wî•ñ‚ª×‚©‚­•ªŠ„‚³‚ê‚Ä‚¢‚éê‡‚Ìˆ—
+		// assimpå´ã§éšå±¤æƒ…å ±ãŒç´°ã‹ãåˆ†å‰²ã•ã‚Œã¦ã„ã‚‹å ´åˆã®å‡¦ç†
 		std::string name = assimpNode->mName.data;
 		if (name.find("$AssimpFbx") != std::string::npos)
 		{
-			// •ªŠ„‘O‚Ìƒm[ƒh‚É“’B‚·‚é‚Ü‚ÅAŠes—ñ‚ğŠ|‚¯‡‚í‚¹‚Ä‚¢‚­
+			// åˆ†å‰²å‰ã®ãƒãƒ¼ãƒ‰ã«åˆ°é”ã™ã‚‹ã¾ã§ã€å„è¡Œåˆ—ã‚’æ›ã‘åˆã‚ã›ã¦ã„ã
 			DirectX::XMMATRIX transform = GetMatrixFromAssimpMatrix(assimpNode->mTransformation);
 			mat = transform * mat;
 			return func(assimpNode->mChildren[0], parent, mat);
 		}
 
-		// Assimp‚Ìƒm[ƒhî•ñ‚ğŠi”[
+		// Assimpã®ãƒãƒ¼ãƒ‰æƒ…å ±ã‚’æ ¼ç´
 		Node node;
 		node.name	= name;
 		node.parent	= parent;
 		node.children.resize(assimpNode->mNumChildren);
 		node.mat = mat;
 
-		// ƒm[ƒh‚Ìˆê——‚É’Ç‰Á
+		// ãƒãƒ¼ãƒ‰ã®ä¸€è¦§ã«è¿½åŠ 
 		m_nodes.push_back(node);
 		NodeIndex nodeIndex = static_cast<NodeIndex>(m_nodes.size() - 1);
 
-		// q—v‘f‚Ìî•ñ‚ğ’Ç‰Á
+		// å­è¦ç´ ã®æƒ…å ±ã‚’è¿½åŠ 
 		for (UINT i = 0; i < assimpNode->mNumChildren; ++i)
 		{
 			m_nodes[nodeIndex].children[i] =
@@ -271,11 +271,11 @@ void Model::MakeNodes(const void* ptr)
 		return nodeIndex;
 	};
 
-	// ƒm[ƒhì¬
+	// ãƒãƒ¼ãƒ‰ä½œæˆ
 	const aiScene* pScene = reinterpret_cast<const aiScene*>(ptr);
 	func(pScene->mRootNode, NODE_NONE, DirectX::XMMatrixIdentity());
 
-	// ƒAƒjƒ[ƒVƒ‡ƒ“ŒvZ—Ìˆæ‚ÉAƒm[ƒh”•ª‚Ì‰Šúƒf[ƒ^‚ğì¬
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨ˆç®—é ˜åŸŸã«ã€ãƒãƒ¼ãƒ‰æ•°åˆ†ã®åˆæœŸãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆ
 	AnimeTransform init = {
 		DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f),
 		DirectX::XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f),
@@ -288,9 +288,9 @@ void Model::MakeNodes(const void* ptr)
 }
 
 /*
-* @brief ’¸“_‚Éƒ{[ƒ“‚ÌƒuƒŒƒ“ƒhî•ñ‚ğ’Ç‰Á
-* @param[in] ptr aiScene‚Ö‚Ìƒ|ƒCƒ“ƒ^
-* @param[in] meshIndex ’¸“_î•ñ‚ğ•ÏX‚·‚éƒƒbƒVƒ…
+* @brief é ‚ç‚¹ã«ãƒœãƒ¼ãƒ³ã®ãƒ–ãƒ¬ãƒ³ãƒ‰æƒ…å ±ã‚’è¿½åŠ 
+* @param[in] ptr aiSceneã¸ã®ãƒã‚¤ãƒ³ã‚¿
+* @param[in] meshIndex é ‚ç‚¹æƒ…å ±ã‚’å¤‰æ›´ã™ã‚‹ãƒ¡ãƒƒã‚·ãƒ¥
 */
 void Model::MakeVertexWeight(const void* ptr, int meshIndex)
 {
@@ -303,9 +303,9 @@ void Model::MakeVertexWeight(const void* ptr, int meshIndex)
 }
 
 /*
-* @brief ƒ{[ƒ“‚ğŒ³‚ÉƒuƒŒƒ“ƒhî•ñ‚ğæ“¾
-* @param[in] ptr aiMesh‚Ö‚Ìƒ|ƒCƒ“ƒ^
-* @param[out] mesh ’¸“_î•ñ‚ğ•ÏX‚·‚éƒƒbƒVƒ…
+* @brief ãƒœãƒ¼ãƒ³ã‚’å…ƒã«ãƒ–ãƒ¬ãƒ³ãƒ‰æƒ…å ±ã‚’å–å¾—
+* @param[in] ptr aiMeshã¸ã®ãƒã‚¤ãƒ³ã‚¿
+* @param[out] mesh é ‚ç‚¹æƒ…å ±ã‚’å¤‰æ›´ã™ã‚‹ãƒ¡ãƒƒã‚·ãƒ¥
 */
 void Model::MakeVertexWeightHasBone(const void* ptr, Mesh& mesh)
 {
@@ -315,7 +315,7 @@ void Model::MakeVertexWeightHasBone(const void* ptr, Mesh& mesh)
 	DirectX::XMMATRIX mScale =
 		DirectX::XMMatrixScaling(1.f / m_loadScale, 1.f / m_loadScale, 1.f / m_loadScale);
 
-	// “Ç‚İæ‚è—p‚ÌƒEƒFƒCƒgƒf[ƒ^ì¬
+	// èª­ã¿å–ã‚Šç”¨ã®ã‚¦ã‚§ã‚¤ãƒˆãƒ‡ãƒ¼ã‚¿ä½œæˆ
 	struct WeightPair
 	{
 		unsigned int idx;
@@ -325,28 +325,28 @@ void Model::MakeVertexWeightHasBone(const void* ptr, Mesh& mesh)
 	weights.resize(mesh.vertices.size());
 
 
-	// ƒƒbƒVƒ…‚ÉŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚éƒ{[ƒ“—ÌˆæŠm•Û
+	// ãƒ¡ãƒƒã‚·ãƒ¥ã«å‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ã‚‹ãƒœãƒ¼ãƒ³é ˜åŸŸç¢ºä¿
 	mesh.bones.resize(assimpMesh->mNumBones);
 	for (auto boneIt = mesh.bones.begin(); boneIt != mesh.bones.end(); ++boneIt)
 	{
 		UINT boneIdx = static_cast<UINT>(boneIt - mesh.bones.begin());
 		aiBone* assimpBone = assimpMesh->mBones[boneIdx];
 
-		// \’zÏ‚İ‚Ìƒm[ƒh‚©‚çŠY“–ƒm[ƒh‚ÌƒCƒ“ƒfƒbƒNƒX‚ğæ“¾
+		// æ§‹ç¯‰æ¸ˆã¿ã®ãƒãƒ¼ãƒ‰ã‹ã‚‰è©²å½“ãƒãƒ¼ãƒ‰ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å–å¾—
 		boneIt->nodeIndex = FindNode(assimpBone->mName.data);
 		if (boneIt->nodeIndex == NODE_NONE)
 		{
 			continue;
 		}
 
-		// ƒƒbƒVƒ…‚ÉŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚éƒ{[ƒ“‚ğAŒ´“_‚É–ß‚·‹ts—ñ‚ğİ’è
+		// ãƒ¡ãƒƒã‚·ãƒ¥ã«å‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ã„ã‚‹ãƒœãƒ¼ãƒ³ã‚’ã€åŸç‚¹ã«æˆ»ã™é€†è¡Œåˆ—ã‚’è¨­å®š
 		boneIt->invOffset = GetMatrixFromAssimpMatrix(assimpBone->mOffsetMatrix);
 		boneIt->invOffset.r[3].m128_f32[0] *= m_loadScale;
 		boneIt->invOffset.r[3].m128_f32[1] *= m_loadScale;
 		boneIt->invOffset.r[3].m128_f32[2] *= m_loadScale;
 		boneIt->invOffset = mFlip * boneIt->invOffset * mScale;
 
-		// ƒEƒFƒCƒg‚Ìİ’è
+		// ã‚¦ã‚§ã‚¤ãƒˆã®è¨­å®š
 		for (UINT i = 0; i < assimpBone->mNumWeights; ++i)
 		{
 			aiVertexWeight& weight = assimpBone->mWeights[i];
@@ -354,18 +354,18 @@ void Model::MakeVertexWeightHasBone(const void* ptr, Mesh& mesh)
 		}
 	}
 
-	// æ“¾‚µ‚Ä‚«‚½’¸“_ƒEƒFƒCƒg‚ğ’¸“_ƒf[ƒ^‚É‘‚«‚İ
+	// å–å¾—ã—ã¦ããŸé ‚ç‚¹ã‚¦ã‚§ã‚¤ãƒˆã‚’é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã«æ›¸ãè¾¼ã¿
 	for (int i = 0; i < weights.size(); ++i)
 	{
-		// ƒvƒƒOƒ‰ƒ€‘¤‚ÌŠ„‚è“–‚Ä”‚ğ’´‚¦‚éê‡‚Ì³‹K‰»ˆ—
+		// ãƒ—ãƒ­ã‚°ãƒ©ãƒ å´ã®å‰²ã‚Šå½“ã¦æ•°ã‚’è¶…ãˆã‚‹å ´åˆã®æ­£è¦åŒ–å‡¦ç†
 		if (weights[i].size() >= MAX_WEIGHT)
 		{
-			// Š„‡‚ª‚‚¢‡‚Éƒ\[ƒg
+			// å‰²åˆãŒé«˜ã„é †ã«ã‚½ãƒ¼ãƒˆ
 			std::sort(weights[i].begin(), weights[i].end(),
 				[](WeightPair& a, WeightPair& b) {
 					return a.weight > b.weight;
 				});
-			// ƒEƒFƒCƒg”‚É‡‚í‚¹‚Ä³‹K‰»
+			// ã‚¦ã‚§ã‚¤ãƒˆæ•°ã«åˆã‚ã›ã¦æ­£è¦åŒ–
 			float total = 0.0f;
 			for (int j = 0; j < MAX_WEIGHT; ++j)
 				total += weights[i][j].weight;
@@ -373,7 +373,7 @@ void Model::MakeVertexWeightHasBone(const void* ptr, Mesh& mesh)
 				weights[i][j].weight /= total;
 		}
 
-		// ³‹K‰»‚µ‚½ƒf[ƒ^‚ğ’¸“_ƒf[ƒ^‚ÉŠ„‚è“–‚Ä
+		// æ­£è¦åŒ–ã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã«å‰²ã‚Šå½“ã¦
 		for (int j = 0; j < weights[i].size() && j < MAX_WEIGHT; ++j)
 		{
 			mesh.vertices[i].index[j] = weights[i][j].idx;
@@ -383,28 +383,28 @@ void Model::MakeVertexWeightHasBone(const void* ptr, Mesh& mesh)
 }
 
 /*
-* @brief ƒm[ƒh‚ğŒ³‚ÉƒuƒŒƒ“ƒhî•ñ‚ğæ“¾
-* @param[in] scene aiScene‚Ö‚Ìƒ|ƒCƒ“ƒ^
-* @param[in] ptr aiMesh‚Ö‚Ìƒ|ƒCƒ“ƒ^
-* @param[out] mesh ’¸“_î•ñ‚ğ•ÏX‚·‚éƒƒbƒVƒ…
-* @detail ƒ{[ƒ“‚ªŠ„‚è“–‚Ä‚ç‚ê‚Ä‚È‚¢ƒƒbƒVƒ…‚ÍAeƒm[ƒh‚Ìƒ{[ƒ“‚ğŒ³‚Æ‚µ‚ÄŒvZ
+* @brief ãƒãƒ¼ãƒ‰ã‚’å…ƒã«ãƒ–ãƒ¬ãƒ³ãƒ‰æƒ…å ±ã‚’å–å¾—
+* @param[in] scene aiSceneã¸ã®ãƒã‚¤ãƒ³ã‚¿
+* @param[in] ptr aiMeshã¸ã®ãƒã‚¤ãƒ³ã‚¿
+* @param[out] mesh é ‚ç‚¹æƒ…å ±ã‚’å¤‰æ›´ã™ã‚‹ãƒ¡ãƒƒã‚·ãƒ¥
+* @detail ãƒœãƒ¼ãƒ³ãŒå‰²ã‚Šå½“ã¦ã‚‰ã‚Œã¦ãªã„ãƒ¡ãƒƒã‚·ãƒ¥ã¯ã€è¦ªãƒãƒ¼ãƒ‰ã®ãƒœãƒ¼ãƒ³ã‚’å…ƒã¨ã—ã¦è¨ˆç®—
 */
 void Model::MakeVertexWeightFromNode(const void* scene, const void* ptr, Mesh& mesh)
 {
 	const aiScene* pScene = reinterpret_cast<const aiScene*>(scene);
 	const aiMesh* assimpMesh = reinterpret_cast<const aiMesh*>(ptr);
 
-	// ŠK‘w“à‚ÌƒƒbƒVƒ…‚ğ’Tõ
+	// éšå±¤å†…ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚’æ¢ç´¢
 	NodeIndex nodeIndex = FindNode(assimpMesh->mName.data);
 	if (nodeIndex == NODE_NONE) { return; }
 
-	// ƒƒbƒVƒ…‚Å‚È‚¢eƒm[ƒh‚ğÄ‹A’Tõ
+	// ãƒ¡ãƒƒã‚·ãƒ¥ã§ãªã„è¦ªãƒãƒ¼ãƒ‰ã‚’å†å¸°æ¢ç´¢
 	using FuncRecurciveFindNoMesh = std::function<int(int)>;
 	FuncRecurciveFindNoMesh func = [&func, this, pScene](NodeIndex parent)
 	{
 		if (parent == NODE_NONE) { return NODE_NONE; }
 
-		// Œ»İ’Tõ’†‚Ìƒm[ƒh–¼‚ªƒƒbƒVƒ…‚Ìˆê——‚Æˆê’v‚·‚é‚©Šm”F
+		// ç¾åœ¨æ¢ç´¢ä¸­ã®ãƒãƒ¼ãƒ‰åãŒãƒ¡ãƒƒã‚·ãƒ¥ã®ä¸€è¦§ã¨ä¸€è‡´ã™ã‚‹ã‹ç¢ºèª
 		std::string name = m_nodes[parent].name;
 		for (UINT i = 0; i < pScene->mNumMeshes; ++i)
 		{
@@ -414,21 +414,21 @@ void Model::MakeVertexWeightFromNode(const void* scene, const void* ptr, Mesh& m
 			}
 		}
 
-		// ˆê’v‚µ‚È‚¢ƒm[ƒh‚ğ•ÏŠ·Œ³‚Æ‚µ‚Äˆµ‚¤
+		// ä¸€è‡´ã—ãªã„ãƒãƒ¼ãƒ‰ã‚’å¤‰æ›å…ƒã¨ã—ã¦æ‰±ã†
 		return parent;
 	};
 
-	// ƒ{[ƒ“Š„‚è“–‚Äî•ñ‚ğì¬
+	// ãƒœãƒ¼ãƒ³å‰²ã‚Šå½“ã¦æƒ…å ±ã‚’ä½œæˆ
 	Bone bone = {};
 	bone.nodeIndex = func(m_nodes[nodeIndex].parent);
 	if (bone.nodeIndex != NODE_NONE) {
-		// ƒm[ƒh‚É•Û‘¶‚³‚ê‚Ä‚¢‚és—ñ‚ğ‹ts—ñ‚Æ‚µ‚Äİ’è
+		// ãƒãƒ¼ãƒ‰ã«ä¿å­˜ã•ã‚Œã¦ã„ã‚‹è¡Œåˆ—ã‚’é€†è¡Œåˆ—ã¨ã—ã¦è¨­å®š
 		bone.invOffset = DirectX::XMMatrixInverse(nullptr, m_nodes[bone.nodeIndex].mat);
-		// ƒ{[ƒ“‚Ìî•ñ‚ğİ’è
+		// ãƒœãƒ¼ãƒ³ã®æƒ…å ±ã‚’è¨­å®š
 		mesh.bones.resize(1);
 		mesh.bones[0] = bone;
 
-		// ’¸“_‚·‚×‚Ä‚ğŠ„‚è“–‚Ä‚½ƒ{[ƒ“‚É100%ˆË‘¶‚Æ‚·‚é
+		// é ‚ç‚¹ã™ã¹ã¦ã‚’å‰²ã‚Šå½“ã¦ãŸãƒœãƒ¼ãƒ³ã«100%ä¾å­˜ã¨ã™ã‚‹
 		for (auto vtxIt = mesh.vertices.begin(); vtxIt != mesh.vertices.end(); ++vtxIt)
 			vtxIt->weight[0] = 1.0f;
 	}
@@ -437,9 +437,9 @@ void Model::MakeVertexWeightFromNode(const void* scene, const void* ptr, Mesh& m
 
 
 /*
-* @brief assimp“à‚Ìs—ñ‚ğXMMATRIXŒ^‚É•ÏŠ·
-* @param[in] M assimp‚Ìs—ñ
-* @return •ÏŠ·Œã‚Ìs—ñ
+* @brief assimpå†…ã®è¡Œåˆ—ã‚’XMMATRIXå‹ã«å¤‰æ›
+* @param[in] M assimpã®è¡Œåˆ—
+* @return å¤‰æ›å¾Œã®è¡Œåˆ—
 */
 DirectX::XMMATRIX GetMatrixFromAssimpMatrix(aiMatrix4x4 M)
 {
@@ -452,9 +452,9 @@ DirectX::XMMATRIX GetMatrixFromAssimpMatrix(aiMatrix4x4 M)
 }
 
 /*
-* @brief ƒfƒtƒHƒ‹ƒg‚ÌƒVƒF[ƒ_[‚ğì¬
-* @param[out] vs ’¸“_ƒVƒF[ƒ_[Ši”[æ
-* @param[out] ps ƒsƒNƒZƒ‹ƒVƒF[ƒ_[Ši”[æ
+* @brief ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ä½œæˆ
+* @param[out] vs é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼æ ¼ç´å…ˆ
+* @param[out] ps ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼æ ¼ç´å…ˆ
 */
 void MakeModelDefaultShader(VertexShader** vs, PixelShader** ps)
 {

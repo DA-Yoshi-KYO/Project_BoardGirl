@@ -2,10 +2,11 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include "Defines.h"
 
 void Model::MakeMesh(const void* ptr)
 {
-	// –‘O€”õ
+	// äº‹å‰æº–å‚™
 	aiVector3D zero3(0.0f, 0.0f, 0.0f);
 	aiColor4D one4(1.0f, 1.0f, 1.0f, 1.0f);
 	const aiScene* pScene = reinterpret_cast<const aiScene*>(ptr);
@@ -14,29 +15,29 @@ void Model::MakeMesh(const void* ptr)
 	int idx1 = (m_loadFlip == Flip::XFlip || m_loadFlip == Flip::ZFlip) ? 2 : 1;
 	int idx2 = (m_loadFlip == Flip::XFlip || m_loadFlip == Flip::ZFlip) ? 1 : 2;
 
-	// ƒƒbƒVƒ…‚Ìì¬
+	// ãƒ¡ãƒƒã‚·ãƒ¥ã®ä½œæˆ
 	m_meshes.resize(pScene->mNumMeshes);
 	for (unsigned int i = 0; i < m_meshes.size(); ++i)
 	{
 		aiMesh* assimpMesh = pScene->mMeshes[i];
 		Mesh& mesh = m_meshes[i];
 
-		// ƒm[ƒhŠK‘w“à‚Ì’Tõ
+		// ãƒãƒ¼ãƒ‰éšå±¤å†…ã®æ¢ç´¢
 		mesh.nodeIndex = FindNode(assimpMesh->mName.data);
 		if (mesh.nodeIndex == NODE_NONE) { continue; }
 
-		// ’¸“_‘‚«‚İæ‚Ì—Ìˆæ‚ğ—pˆÓ
+		// é ‚ç‚¹æ›¸ãè¾¼ã¿å…ˆã®é ˜åŸŸã‚’ç”¨æ„
 		mesh.vertices.resize(assimpMesh->mNumVertices);
 
-		// ’¸“_ƒf[ƒ^‚Ì‘‚«‚İ
+		// é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®æ›¸ãè¾¼ã¿
 		for (unsigned int j = 0; j < mesh.vertices.size(); ++j) {
-			// ƒ‚ƒfƒ‹ƒf[ƒ^‚©‚ç’l‚Ìæ“¾
+			// ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å€¤ã®å–å¾—
 			aiVector3D pos		= assimpMesh->mVertices[j];
 			aiVector3D normal	= assimpMesh->HasNormals() ? assimpMesh->mNormals[j] : zero3;
 			aiVector3D uv		= assimpMesh->HasTextureCoords(0) ?
 				assimpMesh->mTextureCoords[0][j] : zero3;
 			aiColor4D color		= assimpMesh->HasVertexColors(0) ? assimpMesh->mColors[0][j] : one4;
-			// ’l‚ğİ’è
+			// å€¤ã‚’è¨­å®š
 			mesh.vertices[j] = {
 				DirectX::XMFLOAT3(pos.x * m_loadScale * xFlip, pos.y * m_loadScale, pos.z * m_loadScale * zFlip),
 				DirectX::XMFLOAT3(normal.x, normal.y, normal.z),
@@ -45,29 +46,29 @@ void Model::MakeMesh(const void* ptr)
 			};
 		}
 
-		// ƒ{[ƒ“¶¬
+		// ãƒœãƒ¼ãƒ³ç”Ÿæˆ
 		MakeVertexWeight(pScene, i);
 
-		// ƒCƒ“ƒfƒbƒNƒX‚Ì‘‚«‚İæ‚Ì—pˆÓ
-		// mNumFaces‚Íƒ|ƒŠƒSƒ“‚Ì”‚ğ•\‚·(‚Pƒ|ƒŠƒSƒ“‚Å3ƒCƒ“ƒfƒbƒNƒX
+		// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®æ›¸ãè¾¼ã¿å…ˆã®ç”¨æ„
+		// mNumFacesã¯ãƒãƒªã‚´ãƒ³ã®æ•°ã‚’è¡¨ã™(ï¼‘ãƒãƒªã‚´ãƒ³ã§3ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 		mesh.indices.resize(assimpMesh->mNumFaces * 3);
 
-		// ƒCƒ“ƒfƒbƒNƒX‚Ì‘‚«‚İ
+		// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®æ›¸ãè¾¼ã¿
 		for (unsigned int j = 0; j < assimpMesh->mNumFaces; ++j) {
-			// ƒ‚ƒfƒ‹ƒf[ƒ^‚©‚ç’l‚Ìæ“¾
+			// ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰å€¤ã®å–å¾—
 			aiFace face = assimpMesh->mFaces[j];
 
-			// ’l‚Ìİ’è
+			// å€¤ã®è¨­å®š
 			int idx = j * 3;
 			mesh.indices[idx + 0] = face.mIndices[0];
 			mesh.indices[idx + 1] = face.mIndices[idx1];
 			mesh.indices[idx + 2] = face.mIndices[idx2];
 		}
 
-		// ƒ}ƒeƒŠƒAƒ‹‚ÌŠ„‚è“–‚Ä
+		// ãƒãƒ†ãƒªã‚¢ãƒ«ã®å‰²ã‚Šå½“ã¦
 		mesh.materialID = assimpMesh->mMaterialIndex;
 
-		// ƒƒbƒVƒ…‚ğŒ³‚É’¸“_ƒoƒbƒtƒ@ì¬
+		// ãƒ¡ãƒƒã‚·ãƒ¥ã‚’å…ƒã«é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 		MeshBuffer::Description desc = {};
 		desc.pVtx		= mesh.vertices.data();
 		desc.vtxSize	= sizeof(Vertex);
@@ -83,70 +84,72 @@ void Model::MakeMesh(const void* ptr)
 
 void Model::MakeMaterial(const void* ptr, std::string directory)
 {
-	// –‘O€”õ
+	// äº‹å‰æº–å‚™
 	aiColor3D color(0.0f, 0.0f, 0.0f);
 	const aiScene* pScene = reinterpret_cast<const aiScene*>(ptr);
 	float shininess;
 
-	// ƒ}ƒeƒŠƒAƒ‹‚Ìì¬
+	// ãƒãƒ†ãƒªã‚¢ãƒ«ã®ä½œæˆ
 	m_materials.resize(pScene->mNumMaterials);
 	for (unsigned int i = 0; i < m_materials.size(); ++i)
 	{
 		aiMaterial* assimpMaterial = pScene->mMaterials[i];
 		Material& material = m_materials[i];
 
-		//--- Šeíƒ}ƒeƒŠƒAƒ‹ƒpƒ‰ƒ[ƒ^[‚Ì“Ç‚İæ‚è
-		// ŠgUŒõ‚Ì“Ç‚İæ‚è
+		//--- å„ç¨®ãƒãƒ†ãƒªã‚¢ãƒ«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã®èª­ã¿å–ã‚Š
+		// æ‹¡æ•£å…‰ã®èª­ã¿å–ã‚Š
 		if (assimpMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, color) == AI_SUCCESS)
 			material.diffuse = DirectX::XMFLOAT4(color.r, color.g, color.b, 1.0f);
 		else
 			material.diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-		// ŠÂ‹«Œõ‚Ì“Ç‚İæ‚è
+		// ç’°å¢ƒå…‰ã®èª­ã¿å–ã‚Š
 		if (assimpMaterial->Get(AI_MATKEY_COLOR_AMBIENT, color) == AI_SUCCESS)
 			material.ambient = DirectX::XMFLOAT4(color.r, color.g, color.b, 1.0f);
 		else
 			material.ambient = DirectX::XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
-		// ”½ËŒõ‚Ì“Ç‚İæ‚è
+		// åå°„å…‰ã®èª­ã¿å–ã‚Š
 		if (assimpMaterial->Get(AI_MATKEY_COLOR_SPECULAR, color) == AI_SUCCESS)
 			material.specular = DirectX::XMFLOAT4(color.r, color.g, color.b, 0.0f);
 		else
 			material.specular = DirectX::XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
-		// ”½ËŒõ‚Ì‹­‚³‚ğ“Ç‚İæ‚è
+		// åå°„å…‰ã®å¼·ã•ã‚’èª­ã¿å–ã‚Š
 		if (assimpMaterial->Get(AI_MATKEY_SHININESS, shininess) == AI_SUCCESS)
 			material.specular.w = shininess;
 
-		// ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İˆ—
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿å‡¦ç†
 		HRESULT hr;
 		aiString path;
 
-		// ƒeƒNƒXƒ`ƒƒ‚ÌƒpƒXî•ñ‚ğ“Ç‚İ‚İ
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‘ã‚¹æƒ…å ±ã‚’èª­ã¿è¾¼ã¿
 		material.pTexture = nullptr;
 		if (assimpMaterial->Get(AI_MATKEY_TEXTURE_DIFFUSE(0), path) != AI_SUCCESS) {
 			continue;
 		}
 
-		// ƒeƒNƒXƒ`ƒƒ—ÌˆæŠm•Û
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£é ˜åŸŸç¢ºä¿
 		material.pTexture = new Texture;
 
-		// ‚»‚Ì‚Ü‚Ü“Ç‚İ‚İ
-		hr = material.pTexture->Create(path.C_Str());
+		// ãã®ã¾ã¾èª­ã¿è¾¼ã¿
+        std::string sTemp = std::string(path.C_Str());
+        sTemp = "Assets/Model/" + sTemp;
+        hr = material.pTexture->Create(sTemp.c_str());
 		if (SUCCEEDED(hr)) { continue; }
 
-		// ƒfƒBƒŒƒNƒgƒŠ‚Æ˜AŒ‹‚µ‚Ä’Tõ
+		// ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¨é€£çµã—ã¦æ¢ç´¢
 		hr = material.pTexture->Create((directory + path.C_Str()).c_str());
 		if (SUCCEEDED(hr)) { continue; }
 
-		// ƒ‚ƒfƒ‹‚Æ“¯‚¶ŠK‘w‚ğ’Tõ
-		// ƒpƒX‚©‚çƒtƒ@ƒCƒ‹–¼‚Ì‚İæ“¾
+		// ãƒ¢ãƒ‡ãƒ«ã¨åŒã˜éšå±¤ã‚’æ¢ç´¢
+		// ãƒ‘ã‚¹ã‹ã‚‰ãƒ•ã‚¡ã‚¤ãƒ«åã®ã¿å–å¾—
 		std::string fullPath = path.C_Str();
 		std::string baseDir = GetDirectory(fullPath.c_str());
 		std::string fileName = fullPath.substr(baseDir.size());
 
-		// ƒeƒNƒXƒ`ƒƒ‚Ì“Ç
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®èª­è¾¼
 		hr = material.pTexture->Create((directory + fileName).c_str());
 		if (SUCCEEDED(hr)) { continue; }
 
-		// ƒeƒNƒXƒ`ƒƒ‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸ
 		delete material.pTexture;
 		material.pTexture = nullptr;
 		SetErrorMessage("Not find texture. [" + fullPath + "]");

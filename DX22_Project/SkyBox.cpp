@@ -8,7 +8,7 @@ CSkyBox::~CSkyBox()
 void CSkyBox::Init()
 {
     CModelRenderer* pRenderer = AddComponent<CModelRenderer>();
-    pRenderer->Load(MODEL_PATH("SkyBox.obj"),10000);
+    pRenderer->Load(MODEL_PATH("SkyBox.obj"));
 }
 
 void CSkyBox::Update()
