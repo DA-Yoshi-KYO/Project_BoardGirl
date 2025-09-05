@@ -1,5 +1,6 @@
 #include "CameraDebug.h"
 #include "Defines.h"
+#include "Oparation.h"
 
 CCameraDebug::CCameraDebug()
 	: m_radXZ(0.0f), m_radY(DirectX::XMConvertToRadians(0.0f)), m_radius(0.0f)
@@ -14,17 +15,34 @@ CCameraDebug::~CCameraDebug()
 
 void CCameraDebug::Update()
 {
-	if (IsKeyPress(VK_UP))m_f3Look.z += CAMERA_SPEED;
-	if (IsKeyPress(VK_DOWN))m_f3Look.z -= CAMERA_SPEED;
-	if (IsKeyPress(VK_RIGHT))m_f3Look.x += CAMERA_SPEED;
-	if (IsKeyPress(VK_LEFT))m_f3Look.x -= CAMERA_SPEED;
-	if (IsKeyPress(VK_SHIFT))m_f3Look.y += CAMERA_SPEED;
-	if (IsKeyPress(VK_CONTROL))m_f3Look.y -= CAMERA_SPEED;
+    DirectX::XMFLOAT3 f3Forward = m_f3Look - m_f3Pos;
+    DirectX::XMVECTOR vForward = DirectX::XMLoadFloat3(&f3Forward);
+    vForward = DirectX::XMVector3Normalize(vForward);
+    DirectX::XMStoreFloat3(&f3Forward, vForward);
+
+    DirectX::XMFLOAT3 fUp = m_f3Up;
+    DirectX::XMVECTOR vUp = DirectX::XMLoadFloat3(&m_f3Up);
+    vUp = DirectX::XMVector3Normalize(vUp);
+    DirectX::XMStoreFloat3(&fUp, vUp);
+
+    DirectX::XMVECTOR vRight = DirectX::XMVector3Cross(vUp, vForward);
+    DirectX::XMFLOAT3 f3Right;
+    DirectX::XMStoreFloat3(&f3Right, vRight);
+
+    DirectX::XMFLOAT3 f3Velocity{};
+	if (IsKeyPress(VK_UP))f3Velocity += f3Forward;
+	if (IsKeyPress(VK_DOWN))f3Velocity -= f3Forward;
+	if (IsKeyPress(VK_RIGHT))f3Velocity += f3Right;
+	if (IsKeyPress(VK_LEFT))f3Velocity -= f3Right;
+	if (IsKeyPress(VK_SHIFT))f3Velocity += fUp;
+	if (IsKeyPress(VK_CONTROL))f3Velocity -= fUp;
+
+    m_f3Look += f3Velocity;
 
 	if (IsKeyPress('A')) m_radXZ -= CAMERA_ROTATE;
 	if (IsKeyPress('D')) m_radXZ += CAMERA_ROTATE;
-	if (IsKeyPress('W')) m_radY += CAMERA_ROTATE;
-	if (IsKeyPress('S')) m_radY -= CAMERA_ROTATE;
+	if (IsKeyPress('W')) m_radY -= CAMERA_ROTATE;
+	if (IsKeyPress('S')) m_radY += CAMERA_ROTATE;
 
 	if (IsKeyPress('E')) m_radius += CAMERA_SPEED;
 	if (IsKeyPress('Q')) m_radius -= CAMERA_SPEED;
