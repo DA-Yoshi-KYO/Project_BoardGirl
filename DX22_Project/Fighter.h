@@ -11,8 +11,4 @@ public:
     void QSkill() override;
     void ESkill() override;
     void RSkill() override;
-    void NormalAttackHit() override;
-    void QSkillHit() override;
-    void ESkillHit() override;
-    void RSkillHit() override;
 };

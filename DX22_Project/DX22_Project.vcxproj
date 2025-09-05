@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AttackObject.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="BGMPlayer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -190,11 +191,11 @@
     <ClCompile Include="Model_get.cpp" />
     <ClCompile Include="Model_morph.cpp" />
     <ClCompile Include="CollisionObb.cpp" />
-    <ClCompile Include="MotionBlur.cpp" />
     <ClCompile Include="Player.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="PlayerAttack.cpp" />
     <ClCompile Include="RendererComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="SelectJobs.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderList.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Soldier.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -218,6 +220,7 @@
     <ClCompile Include="_model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AttackObject.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="BGMPlayer.h" />
     <ClInclude Include="BillboardRenderer.h" />
@@ -253,10 +256,10 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelRenderer.h" />
     <ClInclude Include="CollisionObb.h" />
-    <ClInclude Include="MotionBlur.h" />
     <ClInclude Include="Oparation.h" />
     <ClInclude Include="OperatorAccessor.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerAttack.h" />
     <ClInclude Include="RendererComponent.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
@@ -264,6 +267,7 @@
     <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="SelectBackGround.h" />
     <ClInclude Include="SelectJobs.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="Soldier.h" />
     <ClInclude Include="Sprite.h" />

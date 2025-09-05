@@ -7,7 +7,6 @@
 #include "Wizard.h"
 #include "Fighter.h"
 #include "Main.h"
-#include "MotionBlur.h"
 #include "Effect.h"
 #include "Oparation.h"
 #include "DebugSystem.h"
@@ -105,7 +104,6 @@ void CPlayer::Init()
     m_pHPBar->SetParentID(m_tID);
     m_bDamage = false;
 
-    CMotionBlur::GetInstance()->Init();
 }
 
 void CPlayer::Update()
@@ -136,41 +134,6 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
         if (thisTag == "PlayerBody")
         {
             m_tParam.m_f3Pos = m_f3OldPos;
-        }
-        if (!pEnemy->GetInvincibly())
-        {
-            if (thisTag == "NormalAttack")
-            {
-                CEffect* pEffect = GetScene()->AddGameObject<CEffect>("NormalAttackEffect");
-                pEffect->SetParam(eEffectKind::PlayerAttackHit, 0.5f);
-                pEffect->AccessorPos(pEnemy->AccessorPos());
-                pEffect->AccessorSize(DirectX::XMFLOAT3(1.0f,1.0f,1.0f));
-                m_pJob->SkillHit(eSkill::NormalAttack, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
-            }
-            else if (thisTag == "QSkill")
-            {
-                CEffect* pEffect = GetScene()->AddGameObject<CEffect>("QAttackEffect");
-                pEffect->SetParam(eEffectKind::PlayerAttackHit, 0.5f);
-                pEffect->AccessorPos(pEnemy->AccessorPos());
-                pEffect->AccessorSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
-                m_pJob->SkillHit(eSkill::QSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
-            }
-            else if (thisTag == "ESkill")
-            {
-                CEffect* pEffect = GetScene()->AddGameObject<CEffect>("EAttackEffect");
-                pEffect->SetParam(eEffectKind::PlayerAttackHit, 0.5f);
-                pEffect->AccessorPos(pEnemy->AccessorPos());
-                pEffect->AccessorSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
-                m_pJob->SkillHit(eSkill::ESkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
-            }
-            else if (thisTag == "RSkill")
-            {
-                CEffect* pEffect = GetScene()->AddGameObject<CEffect>("RAttackEffect");
-                pEffect->SetParam(eEffectKind::PlayerAttackHit, 0.5f);
-                pEffect->AccessorPos(pEnemy->AccessorPos());
-                pEffect->AccessorSize(DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
-                m_pJob->SkillHit(eSkill::RSkill, dynamic_cast<CEnemyBase*>(other->GetGameObject()));
-            }
         }
     }
 }
@@ -205,7 +168,6 @@ int CPlayer::Inspecter(bool isEnd)
 
 void CPlayer::PlayerMove()
 {
-    CMotionBlur::GetInstance()->Update();
 
     // プレイヤーの前方向と右方向を取得
 	DirectX::XMFLOAT3 f3ForWard = GetForward();
@@ -258,16 +220,6 @@ void CPlayer::PlayerMove()
 		m_f3Velocity.y += 0.35f;
 		m_bJump = true;
 	}
-
-    if (IsKeyTrigger('O'))
-    {
-        CMotionBlur::GetInstance()->ExecMotionBlur();
-    }
-
-    if (IsKeyTrigger('P'))
-    {
-        CMotionBlur::GetInstance()->StopMotionBlur();
-    }
 
     // 重力
     DirectX::XMFLOAT3 origin = DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y - m_tParam.m_f3Size.y * 0.5f, m_tParam.m_f3Pos.z);

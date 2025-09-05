@@ -5,18 +5,9 @@
 #include "Defines.h"
 #include "EnemyBase.h"
 #include "Effect.h"
+#include "PlayerAttack.h"
 
 class CPlayer;
-
-enum class eSkill
-{
-    NormalAttack = 0,
-    QSkill,
-    ESkill,
-    RSkill,
-
-    Max
-};
 
 enum class JobKind
 {
@@ -50,13 +41,9 @@ public:
     virtual void QSkill() = 0;
     virtual void ESkill() = 0;
     virtual void RSkill() = 0;
-    virtual void SkillHit(eSkill inKind, CEnemyBase* inTarget);
-    virtual void NormalAttackHit() = 0;
-    virtual void QSkillHit() = 0;
-    virtual void ESkillHit() = 0;
-    virtual void RSkillHit() = 0;
-    CCollisionObb* GetCollision(eSkill inSkill);
-
+    
+    void Attack(AttackState inState);
+    
     void Damage(int inDamage);
     int GetHP() { return m_tStatus.m_nHP; };
 
@@ -68,7 +55,7 @@ protected:
     CEnemyBase* m_pTargetEnemy;
     bool isEnd;
     PlayerStatus m_tStatus;
-    std::unique_ptr<CCollisionObb> m_pCollisionObb[(int)eSkill::Max];
+    AttackState m_tAttackState[(int)eSkill::Max];
 
 public:
     PlayerStatus GetStatus() { return m_tStatus; };

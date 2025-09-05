@@ -7,7 +7,7 @@ CSoldier::CSoldier()
     : CJob()
 {
     m_tStatus.m_nHP = 100;
-    m_tStatus.m_fCriticalPercentage = 12.5f;
+    m_tStatus.m_fCriticalPercentage = 1.0f / 16.0f;
     m_tStatus.m_nAttack = 2;
     m_tStatus.m_nDefense = 1;
 
@@ -28,8 +28,6 @@ CSoldier::CSoldier()
     info[(int)eSkill::RSkill] = { {0.0f, 0.0f, 0.0f}, {3.0f, 3.0f,3.0f} };
     for (int i = 0; i < (int)eSkill::Max; i++)
     {
-        m_pCollisionObb[i]->AccessorCollisionInfo(info[i]);
-
         m_tStatus.m_fDurationTime[i] = 0.0f;
         m_tStatus.m_fSkillTime[i] = 0.0f;
     }
@@ -59,23 +57,6 @@ void CSoldier::RSkill()
     AllSkill(eSkill::RSkill);
 }
 
-void CSoldier::NormalAttackHit()
-{
-    m_pTargetEnemy->Damage(m_tStatus.m_nAttack);
-}
-
-void CSoldier::QSkillHit()
-{
-}
-
-void CSoldier::ESkillHit()
-{
-}
-
-void CSoldier::RSkillHit()
-{
-}
-
 void CSoldier::AllSkill(eSkill inKind)
 {
     if (inKind >= eSkill::Max || inKind < eSkill::NormalAttack) return;
@@ -91,8 +72,7 @@ void CSoldier::AllSkill(eSkill inKind)
     DirectX::XMFLOAT3 f3AttackPos;
     DirectX::XMStoreFloat3(&f3AttackPos, vPos);
 
-    m_pCollisionObb[(int)inKind]->AccessorCenter(f3AttackPos);
-
+    
     CEffect* pEffect = GetScene()->AddGameObject<CEffect>("SoldierSkill");
     switch (inKind)
     {
@@ -113,7 +93,5 @@ void CSoldier::AllSkill(eSkill inKind)
     default:
         break;
     }
-    pEffect->AccessorPos(m_pCollisionObb[(int)inKind]->AccessorCenter());
-    pEffect->AccessorSize(m_pCollisionObb[(int)inKind]->AccessorHalfSize() * 2.0f);
-
+    
 }

@@ -4,11 +4,12 @@
 #include "Oparation.h"
 
 CWizard::CWizard()
-    : m_f3Forward{}, m_f3TargetPos{}, m_f3InitPos{}
+    : m_fESkillTime(0.0f)
     , m_nOldAttack()
+    , m_bAttackUp(false)
 {
     m_tStatus.m_nHP = 80;
-    m_tStatus.m_fCriticalPercentage = 12.5f;
+    m_tStatus.m_fCriticalPercentage = 1.0f / 16.0f;
     m_tStatus.m_nAttack = 2;
     m_tStatus.m_nDefense = 1;
     m_nOldAttack = m_tStatus.m_nAttack;
@@ -23,15 +24,8 @@ CWizard::CWizard()
     m_tStatus.m_fAttackDuration[(int)eSkill::ESkill] = 4.0f;
     m_tStatus.m_fAttackDuration[(int)eSkill::RSkill] = 5.0f;
 
-    ObbInfo info[(int)eSkill::Max];
-    info[(int)eSkill::NormalAttack] = { {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f,1.0f} };
-    info[(int)eSkill::QSkill] = { {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f,1.0f} };
-    info[(int)eSkill::ESkill] = { {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f,0.0f} };
-    info[(int)eSkill::RSkill] = { {0.0f, 0.0f, 0.0f}, {4.0f, 1.0f,4.0f} };
     for (int i = 0; i < (int)eSkill::Max; i++)
     {
-        m_pCollisionObb[i]->AccessorCollisionInfo(info[i]);
-
         m_tStatus.m_fDurationTime[i] = 0.0f;
         m_tStatus.m_fSkillTime[i] = 0.0f;
     }
@@ -43,77 +37,61 @@ CWizard::~CWizard()
 
 void CWizard::Update()
 {
-    static float fTime[4] = {};
-    DirectX::XMFLOAT3 f3ObbPos{};
-    CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
-    for (int i = 0; i < (int)eSkill::Max; i++)
+    if (m_bAttackUp)
     {
-        if (m_pCollisionObb[i]->AccessorActive())
+        m_fESkillTime += fDeltaTime;
+        if (m_fESkillTime >= 5.0f)
         {
-            switch (i)
-            {
-            case (int)eSkill::NormalAttack:
-                DirectX::XMFLOAT3 f3NowPos = m_pCollisionObb[(int)eSkill::NormalAttack]->AccessorCenter();
-                f3ObbPos = f3NowPos + m_f3Forward;
-                m_pCollisionObb[(int)eSkill::NormalAttack]->AccessorCenter(f3ObbPos);
-                break;
-            case (int)eSkill::QSkill:
-                DirectX::XMFLOAT3 f3Forward = pPlayer->GetForward();
-                f3ObbPos.x = HelmiteValue(fTime[i], m_f3InitPos.x, m_f3TargetPos.x, 10, 0, m_tStatus.m_fAttackDuration[(int)eSkill::QSkill]);
-                f3ObbPos.y = HelmiteValue(fTime[i], m_f3InitPos.y, m_f3TargetPos.y, 10, 0, m_tStatus.m_fAttackDuration[(int)eSkill::QSkill]);
-                f3ObbPos.z = HelmiteValue(fTime[i], m_f3InitPos.z, m_f3TargetPos.z, 10, 0, m_tStatus.m_fAttackDuration[(int)eSkill::QSkill]);
-                m_pCollisionObb[(int)eSkill::QSkill]->AccessorCenter(f3ObbPos);
-                break;
-            case (int)eSkill::ESkill:
-                if (fTime[i] >= 4.0f)
-                {
-                    m_tStatus.m_nAttack = m_nOldAttack;
-                }
-
-                break;
-            case (int)eSkill::RSkill:
-                f3ObbPos = pPlayer->AccessorPos();
-                m_pCollisionObb[(int)eSkill::RSkill]->AccessorCenter(f3ObbPos);
-
-                break;
-            default:
-                break;
-            }
-            fTime[i] += fDeltaTime;
-        }
-        else
-        {
-            fTime[i] = 0.0f;
-            switch (i)
-            {
-            case (int)eSkill::ESkill:
-                m_tStatus.m_nAttack = m_nOldAttack;
-                break;
-            }
+            m_bAttackUp = false;
+            m_tStatus.m_nAttack = m_nOldAttack;
+            m_fESkillTime = 0.0f;
         }
     }
-
     CJob::Update();
 }
 
 void CWizard::NormalAttack()
 {
     CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
-    m_f3Forward = pPlayer->GetForward();
-    m_pCollisionObb[(int)eSkill::NormalAttack]->AccessorCenter(pPlayer->AccessorPos());
+    m_tAttackState[(int)eSkill::NormalAttack].m_f3Center = pPlayer->AccessorPos();
+    m_tAttackState[(int)eSkill::NormalAttack].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+    m_tAttackState[(int)eSkill::NormalAttack].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack];
+    m_tAttackState[(int)eSkill::NormalAttack].m_n2Split = DirectX::XMINT2(5, 5);
+    m_tAttackState[(int)eSkill::NormalAttack].m_nDamage = m_tStatus.m_nAttack;
+    m_tAttackState[(int)eSkill::NormalAttack].m_sTexKey = "WizardAttack";
+    m_tAttackState[(int)eSkill::NormalAttack].m_tDirectionState.m_eKind = DirectionKind::Toward;
+    m_tAttackState[(int)eSkill::NormalAttack].m_tDirectionState.m_tToward.m_f3Direction = pPlayer->GetForward();
+    CJob::Attack(m_tAttackState[(int)eSkill::NormalAttack]);
 }
 
 void CWizard::QSkill()
 {
     CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
     DirectX::XMFLOAT3 f3Forward = pPlayer->GetForward();
-    m_f3InitPos = pPlayer->AccessorPos();
+    DirectX::XMFLOAT3 f3InitPos = pPlayer->AccessorPos();
     DirectX::XMVECTOR vecForward = DirectX::XMLoadFloat3(&f3Forward);
     DirectX::XMVECTOR vecTarget = vecForward * 5.0f;
-    DirectX::XMFLOAT3 f3Target;
-    DirectX::XMStoreFloat3(&f3Target,vecTarget);
-    m_f3TargetPos = m_f3InitPos + f3Target;
-    m_f3TargetPos.y = 0.0f;
+    DirectX::XMFLOAT3 f3TargetPos;
+    DirectX::XMStoreFloat3(&f3TargetPos,vecTarget);
+    f3TargetPos += f3InitPos;
+    f3TargetPos.y = 0.0f;
+
+    m_tAttackState[(int)eSkill::QSkill].m_f3Center = pPlayer->AccessorPos();
+    m_tAttackState[(int)eSkill::QSkill].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+    m_tAttackState[(int)eSkill::QSkill].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::QSkill];
+    m_tAttackState[(int)eSkill::QSkill].m_n2Split = DirectX::XMINT2(5, 5);
+    m_tAttackState[(int)eSkill::QSkill].m_nDamage = m_tStatus.m_nAttack;
+    m_tAttackState[(int)eSkill::QSkill].m_sTexKey = "WizardAttack";
+    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_eKind = DirectionKind::Helmite;
+    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_f3InitPos = f3InitPos;
+    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_f3InitPos = f3TargetPos;
+    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_fInitTangentVector[0] = 10.0f;
+    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_fInitTangentVector[1] = 10.0f;
+    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_fInitTangentVector[2] = 10.0f;
+    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_fTargetTangentVector[0] = 0.0f;
+    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_fTargetTangentVector[1] = 0.0f;
+    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_fTargetTangentVector[2] = 0.0f;
+    CJob::Attack(m_tAttackState[(int)eSkill::QSkill]);
 }
 
 void CWizard::ESkill()
@@ -121,27 +99,19 @@ void CWizard::ESkill()
     m_nOldAttack = m_tStatus.m_nAttack;
 
     m_tStatus.m_nAttack *= 2;
+    m_bAttackUp = true;
 }
 
 void CWizard::RSkill()
 {
-}
-
-void CWizard::NormalAttackHit()
-{
-    m_pTargetEnemy->Damage(m_tStatus.m_nAttack);
-}
-
-void CWizard::QSkillHit()
-{
-    m_pTargetEnemy->Damage(m_tStatus.m_nAttack * 2);
-}
-
-void CWizard::ESkillHit()
-{
-}
-
-void CWizard::RSkillHit()
-{
-    m_pTargetEnemy->Damage(m_tStatus.m_nAttack * 2);
+    CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
+    m_tAttackState[(int)eSkill::RSkill].m_f3Center = pPlayer->AccessorPos();
+    m_tAttackState[(int)eSkill::RSkill].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+    m_tAttackState[(int)eSkill::RSkill].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::QSkill];
+    m_tAttackState[(int)eSkill::RSkill].m_n2Split = DirectX::XMINT2(5, 5);
+    m_tAttackState[(int)eSkill::RSkill].m_nDamage = m_tStatus.m_nAttack;
+    m_tAttackState[(int)eSkill::RSkill].m_sTexKey = "WizardAttack";
+    m_tAttackState[(int)eSkill::RSkill].m_tDirectionState.m_eKind = DirectionKind::FollowUp;
+    m_tAttackState[(int)eSkill::RSkill].m_tDirectionState.m_tFollowUp.pTarget = pPlayer;
+    CJob::Attack(m_tAttackState[(int)eSkill::RSkill]);
 }

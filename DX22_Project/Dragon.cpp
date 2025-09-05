@@ -64,7 +64,6 @@ void CDragon::AttackNormal()
     f3AttackPos += m_tParam.m_f3Pos;
 
     tState.m_f3Center = f3AttackPos;
-    tState.m_f3Direction = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
     tState.m_fAttackDuration = 1.0f;
     tState.m_nDamage = m_tEnemyStatus.m_nAttack;
     tState.m_sTexKey = "DragonNormalAttack";
@@ -88,7 +87,6 @@ void CDragon::AttackBreath()
     f3AttackPos += m_tParam.m_f3Pos;
 
     tState.m_f3Center = f3AttackPos;
-    tState.m_f3Direction = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
     tState.m_fAttackDuration = 1.0f;
     tState.m_nDamage = m_tEnemyStatus.m_nAttack;
     tState.m_sTexKey = "";

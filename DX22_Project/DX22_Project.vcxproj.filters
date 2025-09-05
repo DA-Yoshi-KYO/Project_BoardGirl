@@ -261,9 +261,6 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Code\GameObject\UI\InGame</Filter>
     </ClCompile>
-    <ClCompile Include="MotionBlur.cpp">
-      <Filter>Code\GameSystem</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Code\GameObject\Billboard</Filter>
     </ClCompile>
@@ -284,6 +281,11 @@
     </ClCompile>
     <ClCompile Include="DebugSystem.cpp">
       <Filter>Code\Work\External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackObject.cpp" />
+    <ClCompile Include="PlayerAttack.cpp" />
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Code\GameObject\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -422,9 +424,6 @@
     <ClInclude Include="Timer.h">
       <Filter>Code\GameObject\UI\InGame</Filter>
     </ClInclude>
-    <ClInclude Include="MotionBlur.h">
-      <Filter>Code\GameSystem</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Code\GameObject\Billboard</Filter>
     </ClInclude>
@@ -451,6 +450,11 @@
     </ClInclude>
     <ClInclude Include="OperatorAccessor.h">
       <Filter>Code\Work</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackObject.h" />
+    <ClInclude Include="PlayerAttack.h" />
+    <ClInclude Include="SkyBox.h">
+      <Filter>Code\GameObject\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

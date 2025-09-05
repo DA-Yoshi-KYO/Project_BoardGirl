@@ -16,6 +16,7 @@ enum class Tag
 	Enemy,
 
     Field,
+    SkyBox,
 	UI,
 	Max
 };

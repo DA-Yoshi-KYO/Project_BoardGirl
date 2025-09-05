@@ -38,7 +38,6 @@ void CGhost::Attack()
     AttackState tState;
     tState.m_f3Center = m_tParam.m_f3Pos;
     tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-    tState.m_f3Direction = f3ShotDir;
     tState.m_fAttackDuration = 3.0f;
     tState.m_nDamage = m_tEnemyStatus.m_nAttack;
     tState.m_sTexKey = "";
