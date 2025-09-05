@@ -30,22 +30,22 @@ void CCameraDebug::Update()
     DirectX::XMStoreFloat3(&f3Right, vRight);
 
     DirectX::XMFLOAT3 f3Velocity{};
-	if (IsKeyPress(VK_UP))f3Velocity += f3Forward;
-	if (IsKeyPress(VK_DOWN))f3Velocity -= f3Forward;
-	if (IsKeyPress(VK_RIGHT))f3Velocity += f3Right;
-	if (IsKeyPress(VK_LEFT))f3Velocity -= f3Right;
-	if (IsKeyPress(VK_SHIFT))f3Velocity += fUp;
-	if (IsKeyPress(VK_CONTROL))f3Velocity -= fUp;
+	if (IsKeyPress('W'))f3Velocity += f3Forward;
+	if (IsKeyPress('A'))f3Velocity -= f3Forward;
+	if (IsKeyPress('D'))f3Velocity += f3Right;
+	if (IsKeyPress('S'))f3Velocity -= f3Right;
+	if (IsKeyPress('Q'))f3Velocity += fUp;
+	if (IsKeyPress('E'))f3Velocity -= fUp;
 
     m_f3Look += f3Velocity;
 
-	if (IsKeyPress('A')) m_radXZ -= CAMERA_ROTATE;
-	if (IsKeyPress('D')) m_radXZ += CAMERA_ROTATE;
-	if (IsKeyPress('W')) m_radY -= CAMERA_ROTATE;
-	if (IsKeyPress('S')) m_radY += CAMERA_ROTATE;
+	if (IsKeyPress('J')) m_radXZ -= CAMERA_ROTATE;
+	if (IsKeyPress('L')) m_radXZ += CAMERA_ROTATE;
+	if (IsKeyPress('I')) m_radY -= CAMERA_ROTATE;
+	if (IsKeyPress('K')) m_radY += CAMERA_ROTATE;
 
-	if (IsKeyPress('E')) m_radius += CAMERA_SPEED;
-	if (IsKeyPress('Q')) m_radius -= CAMERA_SPEED;
+	if (IsKeyPress('U')) m_radius += CAMERA_SPEED;
+	if (IsKeyPress('O')) m_radius -= CAMERA_SPEED;
 
 	if (m_radius <= 10.0f) m_radius = 10.0f;
 
