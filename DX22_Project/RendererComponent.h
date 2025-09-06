@@ -74,7 +74,6 @@ public:
 
     void SetKey(std::string inKey);
     static void Load(const char* inPath, std::string inKey);
-    static void Unload();
 
 protected:
     static std::map<std::string, Texture*> m_pTextureMap;

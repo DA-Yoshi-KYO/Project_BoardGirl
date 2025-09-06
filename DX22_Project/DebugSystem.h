@@ -36,5 +36,6 @@ private:
     void DrawSceneSelect();
     void DrawCollision();
     void DrawMousePos();
+    void DrawFPS();
 
 };

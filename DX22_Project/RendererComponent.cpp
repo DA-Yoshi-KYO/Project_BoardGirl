@@ -7,6 +7,11 @@ std::map<std::string, Texture*> CRendererComponent::m_pTextureMap{};
 
 CRendererComponent::~CRendererComponent()
 {
+    for (auto& itr : m_pTextureMap)
+    {
+        SAFE_DELETE(itr.second);
+    }
+    m_pTextureMap.clear();
 }
 
 void CRendererComponent::SetRendererParam(const RendererParam inParam)
@@ -102,21 +107,12 @@ void CRendererComponent::Load(const char* inPath, std::string inKey)
     }
 
     Texture* tex = new Texture();
-    if (FAILED(tex->Create(inPath))) {
+    if (FAILED(tex->Create(inPath)))
+    {
         assert(false); // Create失敗
         delete tex;
         return;
     }
 
     m_pTextureMap.emplace(keyStr, tex);
-}
-
-void CRendererComponent::Unload()
-{
-    for (auto& itr : m_pTextureMap)
-    {
-        delete itr.second;
-        itr.second = nullptr;
-    }
-    m_pTextureMap.clear();
 }

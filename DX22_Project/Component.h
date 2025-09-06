@@ -12,7 +12,7 @@ public:
 	{
 		m_pGameObject = inGameObject;
 	}
-	~CComponent();
+	virtual ~CComponent();
 	virtual void Init();
 	virtual void Uninit();	
 	virtual void Update();

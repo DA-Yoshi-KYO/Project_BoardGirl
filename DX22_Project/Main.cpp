@@ -57,9 +57,7 @@ void Uninit()
 	delete g_pScene;
 	g_pScene = nullptr;
     CEnemyGenerater::GetInstance()->ReleaseInstance();
-    CBillboardRenderer::Unload();
-    CSpriteRenderer::Unload();
-    CSprite3DRenderer::Unload();
+
 
 	UninitInput();
 	ShaderList::Uninit();
@@ -77,19 +75,12 @@ void Update()
 	UpdateInput();
 	srand(timeGetTime());
 
-    //if (!g_bDebugMode)
-    //{
-    //    pCamera->SetCameraKind(g_ekind);
-    //}
-
     if (CDebugSystem::GetInstance()->IsUpdate())
     {
         if (g_bSceneChanging)
         {
             CDebugSystem::GetInstance()->ReleaseGameObject();
-            CBillboardRenderer::Unload();
-            CSpriteRenderer::Unload();
-            CSprite3DRenderer::Unload();
+
             g_pScene->Uninit();
             delete g_pScene;
             g_pScene = g_pNextScene;

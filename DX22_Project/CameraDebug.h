@@ -2,14 +2,11 @@
 
 #include "Camera.h"
 
-#define CAMERA_SPEED (0.5f)
-#define CAMERA_ROTATE (0.01f)
-
 class CCameraDebug : public CCamera
 {
 public:
 	CCameraDebug();
-	~CCameraDebug();
+	virtual ~CCameraDebug();
 	void Update() final;
 private:
 	float m_radXZ;
