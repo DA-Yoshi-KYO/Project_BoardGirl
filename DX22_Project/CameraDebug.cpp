@@ -1,6 +1,7 @@
 #include "CameraDebug.h"
 #include "Defines.h"
 #include "Oparation.h"
+#include "Input.h"
 
 CCameraDebug::CCameraDebug()
 	: m_radXZ(0.0f), m_radY(DirectX::XMConvertToRadians(0.0f)), m_radius(0.0f)
@@ -31,19 +32,32 @@ void CCameraDebug::Update()
 
     DirectX::XMFLOAT3 f3Velocity{};
 	if (IsKeyPress('W'))f3Velocity += f3Forward;
-	if (IsKeyPress('A'))f3Velocity -= f3Forward;
+	if (IsKeyPress('S'))f3Velocity -= f3Forward;
 	if (IsKeyPress('D'))f3Velocity += f3Right;
-	if (IsKeyPress('S'))f3Velocity -= f3Right;
+	if (IsKeyPress('A'))f3Velocity -= f3Right;
 	if (IsKeyPress('Q'))f3Velocity += fUp;
 	if (IsKeyPress('E'))f3Velocity -= fUp;
-
     m_f3Look += f3Velocity;
 
-	if (IsKeyPress('J')) m_radXZ -= CAMERA_ROTATE;
-	if (IsKeyPress('L')) m_radXZ += CAMERA_ROTATE;
-	if (IsKeyPress('I')) m_radY -= CAMERA_ROTATE;
-	if (IsKeyPress('K')) m_radY += CAMERA_ROTATE;
+    if (IsMouseButtonTrigger(MOUSEBUTTON_R))
+    {
+        POINT center;
+        center.x = 0;
+        center.y = 0;
+        SetMousePosition(center);
+    }
 
+    if (IsMouseButtonPress(MOUSEBUTTON_R))
+    {
+        POINT mousePos = *GetMousePosition();
+        m_radXZ += mousePos.x * 0.001f;
+        m_radY -= mousePos.y * 0.001f;
+
+        POINT center;
+        center.x = 0;
+        center.y = 0;
+        SetMousePosition(center);
+    }
 	if (IsKeyPress('U')) m_radius += CAMERA_SPEED;
 	if (IsKeyPress('O')) m_radius -= CAMERA_SPEED;
 

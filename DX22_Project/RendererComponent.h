@@ -64,6 +64,11 @@ public:
 	/// </summary>
 	/// <param name="inUVSize">設定するUV座標のサイズ(DirectX::XMFLOAT2)</param>
 	void SetUVSize(DirectX::XMFLOAT2 inUVSize);
+	/// <summary>
+	/// UV座標のサイズを設定
+	/// </summary>
+	/// <param name="inUVSize">設定するUV座標のサイズ(DirectX::XMFLOAT2)</param>
+	void SetCullingMode(D3D11_CULL_MODE inCulling);
 
     RendererParam GetRendererParam();
 

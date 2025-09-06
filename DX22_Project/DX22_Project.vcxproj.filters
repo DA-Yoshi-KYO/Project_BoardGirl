@@ -456,6 +456,9 @@
     <ClInclude Include="SkyBox.h">
       <Filter>Code\GameObject\Model</Filter>
     </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Code\Work\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Terrain.txt">

@@ -35,5 +35,6 @@ private:
     void DrawUpdateTick();
     void DrawSceneSelect();
     void DrawCollision();
+    void DrawMousePos();
 
 };

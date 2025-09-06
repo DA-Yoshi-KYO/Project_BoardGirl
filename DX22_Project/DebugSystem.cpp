@@ -10,6 +10,8 @@
 #include "SceneJobSelect.h"
 #include "SceneGame.h"
 
+#include "Input.h"
+
 CDebugSystem* CDebugSystem::m_pInstance = nullptr;
 constexpr float ce_fCharaSize = 30.0f;
 
@@ -61,6 +63,7 @@ void CDebugSystem::Draw()
     DrawUpdateTick();
     DrawSceneSelect();
     DrawCollision();
+    DrawMousePos();
     if (m_pObject) m_pObject->Inspecter();
 
     ImGui::Render();
@@ -250,6 +253,22 @@ void CDebugSystem::DrawCollision()
     {
         CollisionVec[i]->Draw();
     }
+}
+
+void CDebugSystem::DrawMousePos()
+{
+    ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH / 2 - 140, 20.0f));
+    ImGui::SetNextWindowSize(ImVec2(280, 100));
+    ImGui::Begin("Mouse");
+    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(ce_f2InspecterSize), ImGuiWindowFlags_NoTitleBar);
+
+    POINT* mousePos = GetMousePosition();
+    ImGui::Text(std::string("MouseX:" + std::to_string(mousePos->x)).c_str());
+    ImGui::SameLine();
+    ImGui::Text(std::string("MouseY:" + std::to_string(mousePos->y)).c_str());
+
+    ImGui::EndChild();
+    ImGui::End();
 }
 
 CDebugSystem* CDebugSystem::GetInstance()

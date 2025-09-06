@@ -28,7 +28,9 @@ void CModelRenderer::Draw()
 {
     RenderTarget* pRTV = GetDefaultRTV();
     DepthStencil* pDSV = GetDefaultDSV();
-    SetRenderTargets(1, &pRTV, pDSV);
+    if (m_bIsDepth) SetRenderTargets(1, &pRTV, pDSV);
+    else SetRenderTargets(1, &pRTV, nullptr);
+    SetCullingMode(m_tParam.m_eCulling);
 
     CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
     DirectX::XMFLOAT4X4 wvp[3];

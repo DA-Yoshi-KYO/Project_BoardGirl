@@ -14,6 +14,7 @@
 #include <list>
 #include <array>
 #include <algorithm>
+#include <d3d11.h>
 
 // std::min, std::maxを使用するための定義
 #undef min
@@ -59,6 +60,7 @@ struct RendererParam
 	DirectX::XMFLOAT4 m_f4Color = { 1.0f,1.0f,1.0f,1.0f };
 	DirectX::XMFLOAT2 m_f2UVPos = { 0.0f,0.0f };
 	DirectX::XMFLOAT2 m_f2UVSize = {1.0f,1.0f};
+    D3D11_CULL_MODE m_eCulling = D3D11_CULL_BACK;
 };
 
 #endif // __DEFINES_H__

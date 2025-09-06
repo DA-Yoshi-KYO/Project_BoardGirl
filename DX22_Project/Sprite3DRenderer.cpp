@@ -14,6 +14,7 @@ void CSprite3DRenderer::Draw()
 
     if (m_bIsDepth) SetRenderTargets(1, &pRTV, pDSV);
     else SetRenderTargets(1, &pRTV, nullptr);
+    SetCullingMode(m_tParam.m_eCulling);
 
 	Sprite::SetParam(m_tParam, SpriteKind::World);
 	Sprite::SetTexture(m_pTextureMap.find(m_sKey.c_str())->second);

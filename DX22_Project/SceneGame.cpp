@@ -76,7 +76,7 @@ void CSceneGame::Draw()
         {
             // UIはカメラと関係なく描画する
             Tag objTag = obj->AccessorTag();
-            if (objTag == Tag::UI || objTag == Tag::Field)
+            if (objTag == Tag::UI || objTag == Tag::Field || objTag == Tag::SkyBox)
             {
                 obj->Draw();
                 continue;
