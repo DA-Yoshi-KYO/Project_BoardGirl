@@ -115,6 +115,8 @@ public:
     DirectX::XMFLOAT3 AccessorRotate() { return m_tParam.m_f3Rotate; }
     void AccessorSize(DirectX::XMFLOAT3 inSize) { m_tParam.m_f3Size = inSize; }
     DirectX::XMFLOAT3 AccessorSize() { return m_tParam.m_f3Size; }
+    void AccessorColor(DirectX::XMFLOAT4 inColor) { m_tParam.m_f4Color = inColor; }
+    DirectX::XMFLOAT4 AccessorColor() { return m_tParam.m_f4Color; }
     void AccessorTag(Tag inTag) { m_eTag = inTag; }
     Tag AccessorTag() { return m_eTag; }
     void AccessorID(ObjectID inTag) { m_tID = inTag; }

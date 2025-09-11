@@ -291,6 +291,9 @@
     <ClCompile Include="AttackObject.cpp">
       <Filter>Code\GameObject\Billboard</Filter>
     </ClCompile>
+    <ClCompile Include="Alphabet.cpp">
+      <Filter>Code\GameObject\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -466,6 +469,9 @@
     </ClInclude>
     <ClInclude Include="AttackObject.h">
       <Filter>Code\GameObject\Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Alphabet.h">
+      <Filter>Code\GameObject\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

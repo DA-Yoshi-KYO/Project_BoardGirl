@@ -72,6 +72,15 @@ public:
         return --t * t * t + 1;
     }
 
+    static float EaseOutQuint(float t, float maxT = 1.0f)
+    {
+        t /= maxT;
+
+        t = std::clamp(t, 0.0f, 1.0f);
+
+        return 1 - powf(1 - t, 5);
+    }
+
     // https://easings.net/ja#easeInOutCubic
     static float EaseInOutCubic(float t, float maxT = 1.0f)
     {
@@ -97,4 +106,27 @@ public:
         return --t * t * ((s + 1) * t + s) + 1;
     }
 
+    // https://easings.net/ja#easeOutBounce
+    static float EaseOutBounce(float t, float maxT = 1.0f)
+    {
+        t /= maxT;
+        t = std::clamp(t, 0.0f, 1.0f);
+        const float n1 = 7.5625;
+        const float d1 = 2.75;
+
+        if (t < 1 / d1)
+        {
+            return n1 * t * t;
+        }
+        else if (t < 2 / d1) {
+            return n1 * (t -= 1.5 / d1) * t + 0.75;
+        }
+        else if (t < 2.5 / d1) {
+            return n1 * (t -= 2.25 / d1) * t + 0.9375;
+        }
+        else
+        {
+            return n1 * (t -= 2.625 / d1) * t + 0.984375;
+        }
+    }
 };

@@ -22,14 +22,8 @@ CFighter::CFighter()
     m_tStatus.m_fAttackDuration[(int)eSkill::ESkill] = 1.0f;
     m_tStatus.m_fAttackDuration[(int)eSkill::RSkill] = 0.5f;
 
-    ObbInfo info[(int)eSkill::Max];
-    info[(int)eSkill::NormalAttack] = { {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f,1.0f} };
-    info[(int)eSkill::QSkill] = { {0.0f, 0.0f, 0.0f}, {2.0f, 2.0f, 2.0f} };
-    info[(int)eSkill::ESkill] = { {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f} };
-    info[(int)eSkill::RSkill] = { {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f} };
     for (int i = 0; i < (int)eSkill::Max; i++)
     {
-
         m_tStatus.m_fDurationTime[i] = 0.0f;
         m_tStatus.m_fSkillTime[i] = 0.0f;
     }

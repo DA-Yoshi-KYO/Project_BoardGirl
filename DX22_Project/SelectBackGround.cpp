@@ -1,5 +1,5 @@
 #include "SelectBackGround.h"
-#include "SpriteRenderer.h"
+#include "Sprite3DRenderer.h"
 
 CSelectBackGround::~CSelectBackGround()
 {
@@ -7,8 +7,6 @@ CSelectBackGround::~CSelectBackGround()
 
 void CSelectBackGround::Init()
 {
-    CSpriteRenderer* pRenderer = AddComponent<CSpriteRenderer>();
-    pRenderer->Init();
-    pRenderer->Load(TEXTURE_PATH("Select.jpg"), "SelectBG");
-    m_tParam.m_f3Size = { SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f };
+    AddComponent<CSprite3DRenderer>()->SetKey("SelectBG");
+    m_tParam.m_f3Size = { 25.0f, 15.0f, 0.0f };
 }

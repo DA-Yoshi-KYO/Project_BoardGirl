@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Alphabet.cpp" />
     <ClCompile Include="AttackObject.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="BGMPlayer.cpp">
@@ -220,6 +221,7 @@
     <ClCompile Include="_model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alphabet.h" />
     <ClInclude Include="AttackObject.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="BGMPlayer.h" />
