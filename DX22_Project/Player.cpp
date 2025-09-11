@@ -77,10 +77,10 @@ void CPlayer::Init()
     case JobKind::Fighter:
         m_pJob = std::make_unique<CFighter>();
         m_tParam.m_f2UVPos = { 1.0f / (float)ce_n2Split.x , 1.0f / (float)ce_n2Split.y };
-        m_pSE[(int)SEKind::NormalSkill]->Load(AUDIO_PATH("SE/FighterNomalSkill.wav"));
-        m_pSE[(int)SEKind::QSkill]->Load(AUDIO_PATH("SE/FighterQSkill.wav"));
-        m_pSE[(int)SEKind::ESkill]->Load(AUDIO_PATH("SE/FighterESkill.wav"));
-        m_pSE[(int)SEKind::RSkill]->Load(AUDIO_PATH("SE/FighterRSkill.wav"));
+        m_pSE[(int)SEKind::NormalSkill]->Load(AUDIO_PATH("SE/SoldierNomalSkill.wav"));
+        m_pSE[(int)SEKind::QSkill]->Load(AUDIO_PATH("SE/SoldierQSkill.wav"));
+        m_pSE[(int)SEKind::ESkill]->Load(AUDIO_PATH("SE/SoldierESkill.wav"));
+        m_pSE[(int)SEKind::RSkill]->Load(AUDIO_PATH("SE/SoldierRSkill.wav"));
         break;
     case JobKind::Max:
         break;

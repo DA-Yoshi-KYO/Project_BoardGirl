@@ -3,7 +3,7 @@
 
 inline int GetRandOfRange(const int inMin, const int inMax)
 {
-    int out = rand() % (inMin + inMax);
+    int out = rand() % (inMax - inMin);
     out += inMin;
 
     return out;

@@ -72,9 +72,16 @@ void CScene::Update()
     {
         list.remove_if([](CGameObject* pObj)
             {
-                bool bDestroy = pObj->IsDestroy();
-                if (bDestroy) pObj->OnDestroy();
-                return pObj->IsDestroy();
+                if (pObj->IsDestroy())
+                {
+                    pObj->OnDestroy();
+                    pObj->Uninit();
+                    delete pObj;
+                    pObj = nullptr;
+
+                    return true;
+                }
+                return false;
             });
 
     }

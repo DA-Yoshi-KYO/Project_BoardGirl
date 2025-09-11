@@ -64,6 +64,7 @@ void Uninit()
 	Sprite::Uninit();
 	Geometory::Uninit();
     CAudio::UninitMaster();
+    CRendererComponent::UnLoad();
     CDebugSystem::GetInstance()->Uninit();
     CDebugSystem::GetInstance()->ReleaseInstance();
 
