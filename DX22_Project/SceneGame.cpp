@@ -42,7 +42,6 @@ void CSceneGame::Init()
     CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", DirectX::XMFLOAT3(0.0f, 0.0f, -10.0f));
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, -20.0f));
     CEnemyGenerater::GetInstance()->GenerateEnemy("Dragon", DirectX::XMFLOAT3(20.0f, 0.0f, 0.0f));
-
     CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>("BGM",Tag::Sound);
     pPlayer->Load(AUDIO_PATH("BGM/GameBGM.wav"));
     pPlayer->SetVolume(0.1f);

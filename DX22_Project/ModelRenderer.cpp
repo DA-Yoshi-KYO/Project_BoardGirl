@@ -38,6 +38,7 @@ void CModelRenderer::Draw()
         DirectX::XMMatrixScaling(m_tParam.m_f3Size.x, m_tParam.m_f3Size.y, m_tParam.m_f3Size.z) *
         DirectX::XMMatrixRotationRollPitchYaw(m_tParam.m_f3Rotate.x, m_tParam.m_f3Rotate.y, m_tParam.m_f3Rotate.z) *
         DirectX::XMMatrixTranslation(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y, m_tParam.m_f3Pos.z);
+    world = DirectX::XMMatrixTranspose(world);
     DirectX::XMStoreFloat4x4(&wvp[0], world);
     wvp[1] = pCamera->GetViewMatrix();
     wvp[2] = pCamera->GetProjectionMatrix();

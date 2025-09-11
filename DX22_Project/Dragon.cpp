@@ -68,6 +68,8 @@ void CDragon::AttackNormal()
     tState.m_nDamage = m_tEnemyStatus.m_nAttack;
     tState.m_sTexKey = "DragonNormalAttack";
     tState.m_n2Split = DirectX::XMINT2(5, 2);
+    tState.m_tDirectionState.m_eKind = DirectionKind::Stay;
+    tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
 
     CEnemyBase::Attack(tState);
 }
@@ -91,6 +93,8 @@ void CDragon::AttackBreath()
     tState.m_nDamage = m_tEnemyStatus.m_nAttack;
     tState.m_sTexKey = "";
     tState.m_n2Split = DirectX::XMINT2(0, 0);
+    tState.m_tDirectionState.m_eKind = DirectionKind::Stay;
+    tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
 
     CEnemyBase::Attack(tState);
 }

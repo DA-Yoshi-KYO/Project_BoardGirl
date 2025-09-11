@@ -282,10 +282,14 @@
     <ClCompile Include="DebugSystem.cpp">
       <Filter>Code\Work\External\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="AttackObject.cpp" />
-    <ClCompile Include="PlayerAttack.cpp" />
     <ClCompile Include="SkyBox.cpp">
       <Filter>Code\GameObject\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttack.cpp">
+      <Filter>Code\GameObject\Billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackObject.cpp">
+      <Filter>Code\GameObject\Billboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -451,13 +455,17 @@
     <ClInclude Include="OperatorAccessor.h">
       <Filter>Code\Work</Filter>
     </ClInclude>
-    <ClInclude Include="AttackObject.h" />
-    <ClInclude Include="PlayerAttack.h" />
     <ClInclude Include="SkyBox.h">
       <Filter>Code\GameObject\Model</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Code\Work\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttack.h">
+      <Filter>Code\GameObject\Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackObject.h">
+      <Filter>Code\GameObject\Billboard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -12,11 +12,11 @@ enum class Tag
 {
 	None,
     Sound,
+    SkyBox,
 	Player,
 	Enemy,
 
     Field,
-    SkyBox,
 	UI,
 	Max
 };

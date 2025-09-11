@@ -42,6 +42,8 @@ void CGhost::Attack()
     tState.m_nDamage = m_tEnemyStatus.m_nAttack;
     tState.m_sTexKey = "";
     tState.m_n2Split = DirectX::XMINT2(0, 0);
+    tState.m_tDirectionState.m_eKind = DirectionKind::Toward;
+    tState.m_tDirectionState.m_tToward.m_f3Direction = f3ShotDir;
 
     CEnemyBase::Attack(tState);
 }

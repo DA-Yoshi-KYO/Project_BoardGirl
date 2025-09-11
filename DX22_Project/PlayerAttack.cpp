@@ -26,6 +26,5 @@ void CPlayerAttack::OnColliderHit(CCollisionBase* other, std::string thisTag)
     if (other->AccessorTag() == "EnemyBody")
     {
         dynamic_cast<CEnemyBase*>(pOtherObject)->Damage(m_tAttackState.m_nDamage);
-        GetComponent<CCollisionObb>()->AccessorActive(false);
     }
 }

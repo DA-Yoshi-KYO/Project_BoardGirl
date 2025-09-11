@@ -14,4 +14,3 @@ public:
 private:
     void AllSkill(eSkill inKind);
 };
-

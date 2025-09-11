@@ -21,11 +21,6 @@ CSoldier::CSoldier()
     m_tStatus.m_fAttackDuration[(int)eSkill::ESkill] = 1.0f;
     m_tStatus.m_fAttackDuration[(int)eSkill::RSkill] = 2.0f;
 
-    ObbInfo info[(int)eSkill::Max];
-    info[(int)eSkill::NormalAttack] = { {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f,1.0f} };
-    info[(int)eSkill::QSkill] = { {0.0f, 0.0f, 0.0f}, {3.0f, 1.0f,1.0f} };
-    info[(int)eSkill::ESkill] = { {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f,3.0f} };
-    info[(int)eSkill::RSkill] = { {0.0f, 0.0f, 0.0f}, {3.0f, 3.0f,3.0f} };
     for (int i = 0; i < (int)eSkill::Max; i++)
     {
         m_tStatus.m_fDurationTime[i] = 0.0f;
@@ -72,26 +67,37 @@ void CSoldier::AllSkill(eSkill inKind)
     DirectX::XMFLOAT3 f3AttackPos;
     DirectX::XMStoreFloat3(&f3AttackPos, vPos);
 
-    
     CEffect* pEffect = GetScene()->AddGameObject<CEffect>("SoldierSkill");
     switch (inKind)
     {
     case eSkill::NormalAttack:
         pEffect->SetParam(eEffectKind::PlayerSwordNormalSkill, m_tStatus.m_fAttackDuration[(int)inKind]);
+        m_tAttackState[(int)inKind].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
         break;
     case eSkill::QSkill:
         pEffect->SetParam(eEffectKind::PlayerSwordQSkill, m_tStatus.m_fAttackDuration[(int)inKind]);
+        m_tAttackState[(int)inKind].m_f3Size = DirectX::XMFLOAT3(3.0f, 1.0f, 1.0f);
         break;
     case eSkill::ESkill:
         pEffect->SetParam(eEffectKind::PlayerSwordESkill, m_tStatus.m_fAttackDuration[(int)inKind]);
+        m_tAttackState[(int)inKind].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 3.0f);
         break;
     case eSkill::RSkill:
         pEffect->SetParam(eEffectKind::PlayerSwordRSkill, m_tStatus.m_fAttackDuration[(int)inKind], 3);
+        m_tAttackState[(int)inKind].m_f3Size = DirectX::XMFLOAT3(3.0f, 3.0f, 3.0f);
         break;
     case eSkill::Max:
         break;
     default:
         break;
     }
-    
+    pEffect->AccessorPos(f3AttackPos);
+    pEffect->AccessorSize(m_tAttackState[(int)inKind].m_f3Size);
+
+    m_tAttackState[(int)inKind].m_f3Center = f3AttackPos;
+    m_tAttackState[(int)inKind].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)inKind];
+    m_tAttackState[(int)inKind].m_nDamage = m_tStatus.m_nAttack;
+    m_tAttackState[(int)inKind].m_tDirectionState.m_eKind = DirectionKind::Stay;
+    m_tAttackState[(int)inKind].m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
+    CJob::Attack(m_tAttackState[(int)inKind]);
 }
