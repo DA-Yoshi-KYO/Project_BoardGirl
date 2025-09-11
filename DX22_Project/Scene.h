@@ -77,6 +77,22 @@ public:
 		return nullptr;
 	}
 
+    CGameObject* GetGameObject(std::string inName)
+	{
+        for (auto list : m_pGameObject_List)
+        {
+            for (auto obj : list)
+            {
+                ObjectID id = obj->AccessorID();
+                if (id.m_sName == inName)
+                {
+                    return obj;
+                }
+            }
+        }
+		return nullptr;
+	}
+
     void AddCollision(CCollisionBase* inCollision)
     {
         if (inCollision)
@@ -86,6 +102,7 @@ public:
     }
 
     void DequeCollision(CGameObject* inThis);
+    std::vector<ObjectID> GetIDVec();
     std::array<std::list<CGameObject*>, (int)Tag::Max> GetGameObjectList();
 
     std::vector<CCollisionBase*> GetCollisionVec() { return m_pCollisionVec; };

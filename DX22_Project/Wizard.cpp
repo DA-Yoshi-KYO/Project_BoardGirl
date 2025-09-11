@@ -58,7 +58,7 @@ void CWizard::NormalAttack()
     m_tAttackState[(int)eSkill::NormalAttack].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack];
     m_tAttackState[(int)eSkill::NormalAttack].m_n2Split = DirectX::XMINT2(5, 5);
     m_tAttackState[(int)eSkill::NormalAttack].m_nDamage = m_tStatus.m_nAttack;
-    m_tAttackState[(int)eSkill::NormalAttack].m_sTexKey = "WizardAttack";
+    m_tAttackState[(int)eSkill::NormalAttack].m_sTexKey = "";
     m_tAttackState[(int)eSkill::NormalAttack].m_tDirectionState.m_eKind = DirectionKind::Toward;
     m_tAttackState[(int)eSkill::NormalAttack].m_tDirectionState.m_tToward.m_f3Direction = pPlayer->GetForward();
     CJob::Attack(m_tAttackState[(int)eSkill::NormalAttack]);
@@ -81,7 +81,7 @@ void CWizard::QSkill()
     m_tAttackState[(int)eSkill::QSkill].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::QSkill];
     m_tAttackState[(int)eSkill::QSkill].m_n2Split = DirectX::XMINT2(5, 5);
     m_tAttackState[(int)eSkill::QSkill].m_nDamage = m_tStatus.m_nAttack;
-    m_tAttackState[(int)eSkill::QSkill].m_sTexKey = "WizardAttack";
+    m_tAttackState[(int)eSkill::QSkill].m_sTexKey = "";
     m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_eKind = DirectionKind::Helmite;
     m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_f3InitPos = f3InitPos;
     m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_f3InitPos = f3TargetPos;
@@ -110,7 +110,7 @@ void CWizard::RSkill()
     m_tAttackState[(int)eSkill::RSkill].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::QSkill];
     m_tAttackState[(int)eSkill::RSkill].m_n2Split = DirectX::XMINT2(5, 5);
     m_tAttackState[(int)eSkill::RSkill].m_nDamage = m_tStatus.m_nAttack;
-    m_tAttackState[(int)eSkill::RSkill].m_sTexKey = "WizardAttack";
+    m_tAttackState[(int)eSkill::RSkill].m_sTexKey = "";
     m_tAttackState[(int)eSkill::RSkill].m_tDirectionState.m_eKind = DirectionKind::FollowUp;
     m_tAttackState[(int)eSkill::RSkill].m_tDirectionState.m_tFollowUp.pTarget = pPlayer;
     CJob::Attack(m_tAttackState[(int)eSkill::RSkill]);

@@ -77,15 +77,12 @@ void CDebugSystem::DrawHierarchy()
     ImGui::Begin("Hierarchy");
     ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(250, 260), ImGuiWindowFlags_NoTitleBar);
 
-    auto Objects = GetScene()->GetGameObjectList();
+    auto Objects = GetScene()->GetIDVec();
 
     std::list<ObjectID> objectIDList{};
-    for (auto list : Objects)
+    for (auto Id : Objects)
     {
-        for (auto obj : list)
-        {
-            objectIDList.push_back(obj->AccessorID());
-        }
+        objectIDList.push_back(Id);
     }
 
     objectIDList.sort([](ObjectID a, ObjectID b)
@@ -110,27 +107,33 @@ void CDebugSystem::DrawHierarchy()
                 nItrCount++;
             }
         }
+        ObjectID id;
+        id.m_sName = name;
 
-        if (ImGui::CollapsingHeader(std::string("[" + name + "]").c_str()))
+        if (GetScene()->GetGameObject(name))
         {
-            for (int i = 0; i < nItrCount; i++)
+            if (ImGui::CollapsingHeader(std::string("[" + name + "]").c_str()))
             {
-                std::string sButtonName = name;
-                if (i != 0) sButtonName += std::to_string(i + 1);
-                ObjectID id;
-                id.m_sName = name;
-                id.m_nSameCount = i;
-                if (ImGui::Button(sButtonName.c_str()))
+                for (int i = 0; i < nItrCount; i++)
                 {
-                    m_pObject = GetScene()->GetGameObject(id);
+                    std::string sButtonName = name;
+                    if (i != 0) sButtonName += std::to_string(i);
+                    id.m_nSameCount = i;
+                    CGameObject* temp = GetScene()->GetGameObject(id);
+                    if (temp)
+                    {
+                        if (ImGui::Button(sButtonName.c_str()))
+                        {
+                            m_pObject = temp;
+                        }
+                    }
                 }
-            }
 
+            }
         }
 
         std::advance(itr, nItrCount);
     }
-
 
     ImGui::EndChild();
     ImGui::End();

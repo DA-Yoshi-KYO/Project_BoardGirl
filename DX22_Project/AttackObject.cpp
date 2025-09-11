@@ -21,30 +21,30 @@ void CAttackObject::Init()
 void CAttackObject::Update()
 {
 
-    switch (m_tDirectionState.m_eKind)
+    switch (m_tAttackState.m_tDirectionState.m_eKind)
     {
     case DirectionKind::Stay:
-        m_tAttackState.m_f3Center = m_tDirectionState.m_tStayPos.m_f3StayPos;
+        m_tAttackState.m_f3Center = m_tAttackState.m_tDirectionState.m_tStayPos.m_f3StayPos;
         break;
     case DirectionKind::Toward:
-        m_tAttackState.m_f3Center += m_tDirectionState.m_tToward.m_f3Direction;
+        m_tAttackState.m_f3Center += m_tAttackState.m_tDirectionState.m_tToward.m_f3Direction;
         break;
     case DirectionKind::Helmite:
         m_tAttackState.m_f3Center.x = HelmiteValue(m_fTime,
-            m_tDirectionState.m_tHelmite.m_f3InitPos.x, m_tDirectionState.m_tHelmite.m_f3TargetPos.x,
-            m_tDirectionState.m_tHelmite.m_fInitTangentVector[0], m_tDirectionState.m_tHelmite.m_fTargetTangentVector[0],
+            m_tAttackState.m_tDirectionState.m_tHelmite.m_f3InitPos.x, m_tAttackState.m_tDirectionState.m_tHelmite.m_f3TargetPos.x,
+            m_tAttackState.m_tDirectionState.m_tHelmite.m_fInitTangentVector[0], m_tAttackState.m_tDirectionState.m_tHelmite.m_fTargetTangentVector[0],
             m_tAttackState.m_fAttackDuration);
         m_tAttackState.m_f3Center.y = HelmiteValue(m_fTime,
-            m_tDirectionState.m_tHelmite.m_f3InitPos.y, m_tDirectionState.m_tHelmite.m_f3TargetPos.y,
-            m_tDirectionState.m_tHelmite.m_fInitTangentVector[1], m_tDirectionState.m_tHelmite.m_fTargetTangentVector[1],
+            m_tAttackState.m_tDirectionState.m_tHelmite.m_f3InitPos.y, m_tAttackState.m_tDirectionState.m_tHelmite.m_f3TargetPos.y,
+            m_tAttackState.m_tDirectionState.m_tHelmite.m_fInitTangentVector[1], m_tAttackState.m_tDirectionState.m_tHelmite.m_fTargetTangentVector[1],
             m_tAttackState.m_fAttackDuration);
-        m_tAttackState.m_f3Center.x = HelmiteValue(m_fTime,
-            m_tDirectionState.m_tHelmite.m_f3InitPos.z, m_tDirectionState.m_tHelmite.m_f3TargetPos.z,
-            m_tDirectionState.m_tHelmite.m_fInitTangentVector[2], m_tDirectionState.m_tHelmite.m_fTargetTangentVector[2],
+        m_tAttackState.m_f3Center.z = HelmiteValue(m_fTime,
+            m_tAttackState.m_tDirectionState.m_tHelmite.m_f3InitPos.z, m_tAttackState.m_tDirectionState.m_tHelmite.m_f3TargetPos.z,
+            m_tAttackState.m_tDirectionState.m_tHelmite.m_fInitTangentVector[2], m_tAttackState.m_tDirectionState.m_tHelmite.m_fTargetTangentVector[2],
             m_tAttackState.m_fAttackDuration);
         break;
     case DirectionKind::FollowUp:
-        m_tAttackState.m_f3Center = m_tDirectionState.m_tFollowUp.pTarget->AccessorPos();
+        m_tAttackState.m_f3Center = m_tAttackState.m_tDirectionState.m_tFollowUp.pTarget->AccessorPos();
         break;
     default:
         break;
@@ -78,15 +78,11 @@ void CAttackObject::Update()
 
 void CAttackObject::Draw()
 {
-    if (m_tAttackState.m_sTexKey != "")GetComponent<CBillboardRenderer>()->SetKey(m_tAttackState.m_sTexKey);
+    if (m_tAttackState.m_sTexKey != "") GetComponent<CBillboardRenderer>()->SetKey(m_tAttackState.m_sTexKey);
     CGameObject::Draw();
 }
 
 void CAttackObject::OnColliderHit(CCollisionBase* other, std::string thisTag)
 {
 
-}
-
-void CAttackObject::SetDirection(DirectionState inDirState)
-{
 }

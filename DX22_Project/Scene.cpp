@@ -106,6 +106,11 @@ void CScene::DequeCollision(CGameObject* inThis)
     }
 }
 
+std::vector<ObjectID> CScene::GetIDVec()
+{
+    return m_tIDVec;
+}
+
 std::array<std::list<CGameObject*>, (int)Tag::Max> CScene::GetGameObjectList()
 {
     return m_pGameObject_List;

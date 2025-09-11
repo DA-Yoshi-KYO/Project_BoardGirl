@@ -74,13 +74,12 @@ public:
     void SetAttackDuration(float inAttackDuration) { m_tAttackState.m_fAttackDuration = inAttackDuration; }
     void SetAttack(int inAttack) { m_tAttackState.m_nDamage = inAttack; }
 
-    void SetDirection(DirectionState inDirState);
+    void SetDirection(DirectionState inDirState) { m_tAttackState.m_tDirectionState = inDirState; };
 
 private:
     float m_fTime;
     int m_nStep;
-    DirectionState m_tDirectionState;
-
+   
 protected:
     AttackState m_tAttackState;
 };
