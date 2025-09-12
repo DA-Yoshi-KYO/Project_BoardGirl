@@ -266,7 +266,7 @@ void CPlayer::PlayerMove()
 
 void CPlayer::PlayerSkill()
 {
-    if (IsKeyTrigger('1'))
+    if (IsMouseButtonTrigger(MOUSEBUTTON_L))
     {
         if(m_pJob->Skill(eSkill::NormalAttack)) m_pSE[(int)SEKind::NormalSkill]->Play();
     }
@@ -278,7 +278,7 @@ void CPlayer::PlayerSkill()
     {
         if (m_pJob->Skill(eSkill::ESkill)) m_pSE[(int)SEKind::ESkill]->Play();
     }
-    if (IsKeyTrigger('R'))
+    if (IsMouseButtonTrigger(MOUSEBUTTON_M))
     {
         if (m_pJob->Skill(eSkill::RSkill)) m_pSE[(int)SEKind::RSkill]->Play();
     }
