@@ -11,6 +11,7 @@
 #include "SceneTitle.h"
 #include "SceneJobSelect.h"
 #include "SceneGame.h"
+#include "Transition.h"
 
 #include "Defines.h"
 
@@ -25,6 +26,7 @@
 
 CScene* g_pScene;
 CScene* g_pNextScene;
+CTransition* g_pTransition;
 bool g_bSceneChanging = false;
 bool g_bDebugMode = false;
 CameraKind g_ekind;
@@ -47,6 +49,8 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 	g_pScene = new CSceneTitle();
 	g_pScene->Init();
     g_ekind = CCamera::GetCameraKind();
+    g_pTransition = new CTransition();
+    g_pTransition->Init();
 
 	return hr;
 }
@@ -56,6 +60,10 @@ void Uninit()
 	g_pScene->Uninit();
 	delete g_pScene;
 	g_pScene = nullptr;
+    g_pTransition->Uninit();
+    delete g_pTransition;
+    g_pTransition = nullptr;
+
     CEnemyGenerater::GetInstance()->ReleaseInstance();
 
 
@@ -93,6 +101,7 @@ void Update()
         CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
         pCamera->Update();
         g_pScene->Update();
+        g_pTransition->Update();
     }
 
     if (IsKeyPress(VK_SPACE))
@@ -171,6 +180,7 @@ void Draw()
 	Geometory::SetProjection(mat[1]);
 #endif
 	g_pScene->Draw();
+    g_pTransition->Draw();
     if (g_bDebugMode) CDebugSystem::GetInstance()->Draw();
 
 	EndDrawDirectX();
@@ -185,5 +195,15 @@ void ChangeScene(CScene* inScene)
 {
 	g_pNextScene = inScene;
 	g_bSceneChanging = true;
+}
+
+void FadeIn(std::function<void()> onFadeComplete)
+{
+    g_pTransition->FadeIn(50, onFadeComplete);
+}
+
+void FadeOut(std::function<void()> onFadeComplete)
+{
+    g_pTransition->FadeOut(50, onFadeComplete);
 }
 

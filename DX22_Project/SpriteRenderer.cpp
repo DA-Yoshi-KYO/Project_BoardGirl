@@ -4,11 +4,7 @@
 
 CSpriteRenderer::~CSpriteRenderer()
 {
-    for (auto& itr : m_pTextureMap)
-    {
-        SAFE_DELETE(itr.second);
-    }
-    m_pTextureMap.clear();
+
 }
 
 void CSpriteRenderer::Init()

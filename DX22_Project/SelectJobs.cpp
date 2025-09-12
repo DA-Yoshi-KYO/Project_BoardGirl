@@ -139,7 +139,11 @@ void CSelectJobs::Update()
         if (!m_pSE[(int)SEKind::Decision]->IsPlay() && !m_bTransition && m_bEnd)
         {
             m_bTransition = true;
-            ChangeScene(new CSceneGame());
+            FadeOut([]()
+                {
+                    ChangeScene(new CSceneGame());
+                    FadeIn(nullptr);
+                });
         }
     }
  

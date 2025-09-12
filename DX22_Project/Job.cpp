@@ -59,7 +59,11 @@ void CJob::Damage(int inDamage)
     if (m_tStatus.m_nHP <= 0 && !isEnd)
     {
         isEnd = true;
-        ChangeScene(new CSceneTitle());
+        FadeOut([]()
+            {
+                ChangeScene(new CSceneTitle());
+                FadeIn(nullptr);
+            });
     }
 }
 

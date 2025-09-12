@@ -14,6 +14,7 @@
 #include <list>
 #include <array>
 #include <algorithm>
+#include <functional>
 #include <d3d11.h>
 
 // std::min, std::maxを使用するための定義

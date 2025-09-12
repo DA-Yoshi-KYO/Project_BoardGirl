@@ -14,6 +14,8 @@ void AppEnd();
 
 CScene* GetScene();
 void ChangeScene(CScene* inScene);
+void FadeIn(std::function<void()> onFadeComplete);
+void FadeOut(std::function<void()> onFadeComplete);
 
 HWND GetMyWindow();
 

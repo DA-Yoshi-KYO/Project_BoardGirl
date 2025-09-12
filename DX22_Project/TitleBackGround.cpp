@@ -36,6 +36,10 @@ void CTitleBackGround::Update()
     if (!m_pSE[(int)SEKind::Decision]->IsPlay() && !m_bTransition && m_bEnd)
     {
         m_bTransition = true;
-        ChangeScene(new CSceneJobSelect());
+        FadeOut([]()
+            {
+                ChangeScene(new CSceneJobSelect());
+                FadeIn(nullptr);
+            });
     }
 }
