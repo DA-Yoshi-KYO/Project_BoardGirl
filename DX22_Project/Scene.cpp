@@ -59,12 +59,15 @@ void CScene::Update()
         }
     }
 
-    for (int i = 0; i < m_pCollisionVec.size(); i++)
+    for (auto itr = m_pCollisionVec.begin(); itr != m_pCollisionVec.end();)
     {
-        if (!m_pCollisionVec[i]) continue;
-        if (m_pCollisionVec[i]->GetGameObject()->IsDestroy())
+        if ((*itr)->GetGameObject()->IsDestroy())
         {
-            m_pCollisionVec.erase(m_pCollisionVec.begin() + i);
+            itr = m_pCollisionVec.erase(itr);
+        }
+        else
+        {
+            itr++;
         }
     }
 
