@@ -13,7 +13,7 @@
 #include "Field.h"
 
 // 定数定義
-constexpr float ce_fRotatePow = 1.0f;   // 回転速度
+constexpr float ce_fRotatePow = 0.01f;   // 回転速度
 constexpr float ce_fMovePow = 0.15f;    // 移動速度
 constexpr DirectX::XMINT2 ce_n2Split = { 6, 6 };
 
@@ -177,11 +177,27 @@ void CPlayer::PlayerMove()
 	m_f3Velocity.x = 0.0f;
 	m_f3Velocity.z = 0.0f;
 
-    // キー入力によるカメラ回転処理
-	if (IsKeyPress(VK_LEFT)) m_tParam.m_f3Rotate.y -= DirectX::XMConvertToRadians(ce_fRotatePow);
-	else if (IsKeyPress(VK_RIGHT)) m_tParam.m_f3Rotate.y += DirectX::XMConvertToRadians(ce_fRotatePow);
-	if (IsKeyPress(VK_DOWN)) m_tParam.m_f3Rotate.x -= DirectX::XMConvertToRadians(ce_fRotatePow);
-	else if (IsKeyPress(VK_UP)) m_tParam.m_f3Rotate.x += DirectX::XMConvertToRadians(ce_fRotatePow);
+    if (!IsDebugMode())
+    {
+        if (ShowCursor(false) < -1)
+        {
+            ShowCursor(true);
+        }
+        POINT mousePos = *GetMousePosition();
+	    m_tParam.m_f3Rotate.y += DirectX::XMConvertToRadians(mousePos.x * ce_fRotatePow);
+	    m_tParam.m_f3Rotate.x += DirectX::XMConvertToRadians(mousePos.y * ce_fRotatePow);
+        POINT center;
+        center.x = 0;
+        center.y = 0;
+        SetMousePosition(center);
+    }
+    else
+    {
+        if (ShowCursor(true) > 0)
+        {
+            ShowCursor(false);
+        }
+    }
     // 回転の速度は-45度から45度の範囲に制限する
 	constexpr float ce_fMinRotateX = DirectX::XMConvertToRadians(-45.0f);
 	constexpr float ce_fMaxRotateX = DirectX::XMConvertToRadians(45.0f);

@@ -19,6 +19,6 @@ void FadeOut(std::function<void()> onFadeComplete);
 
 HWND GetMyWindow();
 int GetFPS();
-
+bool IsDebugMode();
 
 #endif // __MAIN_H__

@@ -208,3 +208,7 @@ void FadeOut(std::function<void()> onFadeComplete)
     g_pTransition->FadeOut(50, onFadeComplete);
 }
 
+bool IsDebugMode()
+{
+    return g_bDebugMode;
+}
