@@ -46,10 +46,10 @@ void CSceneTitle::Init()
     m_pAplhaPressSpace[3]->SetAlphabet(ALPHA_S);
     m_pAplhaPressSpace[4]->SetAlphabet(ALPHA_S);
     m_pAplhaPressSpace[5]->SetAlphabet(ALPHA_S);
-    m_pAplhaPressSpace[6]->SetAlphabet(ALPHA_T);
+    m_pAplhaPressSpace[6]->SetAlphabet(ALPHA_P);
     m_pAplhaPressSpace[7]->SetAlphabet(ALPHA_A);
-    m_pAplhaPressSpace[8]->SetAlphabet(ALPHA_R);
-    m_pAplhaPressSpace[9]->SetAlphabet(ALPHA_T);
+    m_pAplhaPressSpace[8]->SetAlphabet(ALPHA_C);
+    m_pAplhaPressSpace[9]->SetAlphabet(ALPHA_E);
 
     CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>("BGM",Tag::Sound);
     pPlayer->Load(AUDIO_PATH("BGM/TitleBGM.wav"));
@@ -96,7 +96,7 @@ void CSceneTitle::Update()
         fTime += fDeltaTime;
         for (int i = 0; i < 10; i++)
         {
-            m_pAplhaPressSpace[i]->AccessorSize(DirectX::XMFLOAT3(100.0f, 100.0f, 100.0f) * (1 - fabsf(sinf(DirectX::XMConvertToRadians(fTime * 90.0f))) + 0.5f));
+            m_pAplhaPressSpace[i]->AccessorSize(DirectX::XMFLOAT3(100.0f, 100.0f, 100.0f) * (1 - fabsf(sinf(DirectX::XMConvertToRadians(fTime * 90.0f)) * 0.5f)));
         }
         break;
     case CSceneTitle::TitleAnime::Max:
@@ -104,5 +104,5 @@ void CSceneTitle::Update()
     default:
         break;
     }
-
+    CScene::Update();
 }

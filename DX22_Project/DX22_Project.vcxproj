@@ -202,6 +202,7 @@
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneJobSelect.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
+    <ClCompile Include="SelectArrow.cpp" />
     <ClCompile Include="SelectBackGround.cpp" />
     <ClCompile Include="SelectJobs.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -216,6 +217,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleBackGround.cpp" />
+    <ClCompile Include="Transition.cpp" />
     <ClCompile Include="Wizard.cpp" />
     <ClCompile Include="_geometory.cpp" />
     <ClCompile Include="_model.cpp" />
@@ -268,6 +270,7 @@
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneJobSelect.h" />
     <ClInclude Include="SceneTitle.h" />
+    <ClInclude Include="SelectArrow.h" />
     <ClInclude Include="SelectBackGround.h" />
     <ClInclude Include="SelectJobs.h" />
     <ClInclude Include="SkyBox.h" />
@@ -279,6 +282,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TitleBackGround.h" />
+    <ClInclude Include="Transition.h" />
     <ClInclude Include="Wizard.h" />
   </ItemGroup>
   <ItemGroup>

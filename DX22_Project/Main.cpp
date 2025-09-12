@@ -111,7 +111,7 @@ void Draw()
 	BeginDrawDirectX();
 
 	// 軸線の表示
-#if 1
+#if 0
 	// グリッド
 	DirectX::XMFLOAT4 lineColor(0.5f, 0.5f, 0.5f, 1.0f);
 	float size = DEBUG_GRID_NUM * DEBUG_GRID_MARGIN;
