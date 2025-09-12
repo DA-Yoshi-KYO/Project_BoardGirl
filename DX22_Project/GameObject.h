@@ -11,8 +11,8 @@
 enum class Tag
 {
 	None,
-    Sound,
     SkyBox,
+    Sound,
 	Player,
 	Enemy,
 
