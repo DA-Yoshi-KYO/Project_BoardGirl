@@ -47,7 +47,7 @@ void CScene::Update()
         {
             CCollisionBase* pCollisionB = m_pCollisionVec[j];
             if (!pCollisionB->AccessorActive()) continue;
-            if (pCollisionA->GetCollisionKind() != pCollisionB->GetCollisionKind()) continue;
+            //if (pCollisionA->GetCollisionKind() != pCollisionB->GetCollisionKind()) continue;
 
             if (pCollisionA->IsHit(pCollisionB))
             {

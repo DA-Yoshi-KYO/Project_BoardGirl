@@ -1,4 +1,3 @@
-// CCollisionObbコンポーネント実装 [obbColider.cpp]
 #include "CollisionObb.h"
 #include "GameObject.h"
 #include "modelRenderer.h"
@@ -11,7 +10,6 @@ bool CCollisionObb::IsHit(CCollisionBase* other)
 	DirectX::XMMATRIX wa = DirectX::XMLoadFloat4x4(pWA);
 	DirectX::XMMATRIX wb = DirectX::XMLoadFloat4x4(pWB);
 
-	// ワールド空間上の境界ボックス中心座標を求める
 	DirectX::XMFLOAT3 fCenterA, fCenterB;
     fCenterA = dynamic_cast<CCollisionObb*>(this)->AccessorCenter();
     fCenterB = dynamic_cast<CCollisionObb*>(other)->AccessorCenter();
@@ -137,4 +135,5 @@ void CCollisionObb::Draw()
     Geometory::AddLine(vertex[2], vertex[6], DirectX::XMFLOAT4(0.0f,1.0f,0.0f,1.0f));
     Geometory::AddLine(vertex[3], vertex[7], DirectX::XMFLOAT4(0.0f,1.0f,0.0f,1.0f));
 
+    Geometory::DrawLines();
 }
