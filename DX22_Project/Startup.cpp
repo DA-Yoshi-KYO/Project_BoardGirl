@@ -16,6 +16,7 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 
 bool g_bEnd = false;
 HWND myHWnd;
+DWORD myFPS = 0;				//直近のFPS
 
 // エントリポイント
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -78,9 +79,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DWORD preExecTime = countStartTime;
 	DWORD time = timeGetTime();	//現在の処理時間
 	DWORD oldTime = time;		//以前に実行した時間
-	DWORD fpsCount = 0;			//FPS値計測カウンタ
-	DWORD FPS = 0;				//直近のFPS
 	DWORD fpsTime = time;		//fpsの計測し始め
+    DWORD fpsCount = 0;			//FPS値計測カウンタ
 
 	//--- ウィンドウの管理
 	while (!g_bEnd)
@@ -105,7 +105,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				Update();
 				Draw();
 				oldTime = time;
-#ifdef _DEBUG	//デバッグ時のみ実行
+
 				//処理回数をカウント
 				fpsCount++;
 				//前回の実行から一秒以上経過したら
@@ -117,12 +117,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					sprintf(mes, "FPS:%d", fpsCount);
 					//FPSの表示
 					SetWindowText(myHWnd, mes);
-
+                    myFPS = fpsCount;
 					//次の計測の準備
 					fpsCount = 0;
 					fpsTime = time;
 				}
-#endif
 			}
 		}
 	}
@@ -159,4 +158,9 @@ void AppEnd()
 HWND GetMyWindow()
 {
     return myHWnd;
+}
+
+int GetFPS()
+{
+    return myFPS;
 }

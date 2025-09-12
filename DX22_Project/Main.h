@@ -18,6 +18,7 @@ void FadeIn(std::function<void()> onFadeComplete);
 void FadeOut(std::function<void()> onFadeComplete);
 
 HWND GetMyWindow();
+int GetFPS();
 
 
 #endif // __MAIN_H__

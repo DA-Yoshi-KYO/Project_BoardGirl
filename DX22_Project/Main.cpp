@@ -51,6 +51,7 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
     g_ekind = CCamera::GetCameraKind();
     g_pTransition = new CTransition();
     g_pTransition->Init();
+    FadeIn(nullptr);
 
 	return hr;
 }

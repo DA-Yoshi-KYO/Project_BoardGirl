@@ -64,6 +64,7 @@ void CDebugSystem::Draw()
     DrawSceneSelect();
     DrawCollision();
     DrawMousePos();
+    DrawFPS();
     if (m_pObject) m_pObject->Inspecter();
 
     ImGui::Render();
@@ -261,14 +262,14 @@ void CDebugSystem::DrawCollision()
 void CDebugSystem::DrawMousePos()
 {
     ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH / 2 - 140, 20.0f));
-    ImGui::SetNextWindowSize(ImVec2(280, 50));
+    ImGui::SetNextWindowSize(ImVec2(280, 70));
     ImGui::Begin("Mouse");
     ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(ce_f2InspecterSize), ImGuiWindowFlags_NoTitleBar);
 
-    POINT* mousePos = GetMousePosition();
-    ImGui::Text(std::string("MouseX:" + std::to_string(mousePos->x)).c_str());
+    POINT mousePos = *GetMousePosition();
+    ImGui::Text(std::string("MouseX:" + std::to_string(mousePos.x)).c_str());
     ImGui::SameLine();
-    ImGui::Text(std::string("MouseY:" + std::to_string(mousePos->y)).c_str());
+    ImGui::Text(std::string("MouseY:" + std::to_string(mousePos.y)).c_str());
 
     ImGui::EndChild();
     ImGui::End();
@@ -276,16 +277,14 @@ void CDebugSystem::DrawMousePos()
 
 void CDebugSystem::DrawFPS()
 {
-    ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH / 2 - 420, 20.0f));
-    ImGui::SetNextWindowSize(ImVec2(280, 50));
-    ImGui::Begin("Mouse");
-    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(ce_f2InspecterSize), ImGuiWindowFlags_NoTitleBar);
+    ImGui::SetNextWindowPos(ImVec2(SCREEN_WIDTH / 2 + 170, 20.0f));
+    ImGui::SetNextWindowSize(ImVec2(140, 70));
+    ImGui::Begin("FPS");
+    ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(120.0f,30.0f), ImGuiWindowFlags_NoTitleBar);
 
-    POINT* mousePos = GetMousePosition();
-    ImGui::Text(std::string("MouseX:" + std::to_string(mousePos->x)).c_str());
-    ImGui::SameLine();
-    ImGui::Text(std::string("MouseY:" + std::to_string(mousePos->y)).c_str());
-
+    int fps = GetFPS();
+    ImGui::Text(std::string("FPS:" + std::to_string(fps)).c_str());
+    
     ImGui::EndChild();
     ImGui::End();
 }

@@ -2,6 +2,7 @@
 #define __INPUT_H__
 
 #include <Windows.h>
+#include <DirectXMath.h>
 #undef max
 #undef min
 
@@ -24,5 +25,6 @@ void SetMousePosition(POINT inPos, bool CenterIsZero = true);
 bool IsMouseButtonPress(DWORD dwBtnID);
 bool IsMouseButtonTrigger(DWORD dwBtnID);
 bool IsMouseButtonRelease(DWORD dwBtnID);
+bool IsMouseHover(DirectX::XMFLOAT4 inPosAndSize,POINT inMousePos);
 
 #endif // __INPUT_H__
