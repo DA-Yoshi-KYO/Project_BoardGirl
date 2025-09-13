@@ -208,6 +208,7 @@
     <ClCompile Include="SelectJobs.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderList.cpp" />
+    <ClCompile Include="SkillUI.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Soldier.cpp" />
@@ -274,6 +275,7 @@
     <ClInclude Include="SelectArrow.h" />
     <ClInclude Include="SelectBackGround.h" />
     <ClInclude Include="SelectJobs.h" />
+    <ClInclude Include="SkillUI.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="Soldier.h" />

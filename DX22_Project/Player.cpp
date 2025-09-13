@@ -88,6 +88,8 @@ void CPlayer::Init()
         break;
     }
 
+    m_pJob->Init();
+
     for (int i = 0; i < (int)SEKind::Max; i++)
     {
         m_pSE[i]->SetVolume(0.1f);

@@ -6,6 +6,7 @@
 #include "EnemyBase.h"
 #include "Effect.h"
 #include "PlayerAttack.h"
+#include "SkillUI.h"
 
 class CPlayer;
 
@@ -35,6 +36,7 @@ class CJob
 public:
     CJob();
     ~CJob();
+    void Init();
     virtual void Update();
     virtual bool Skill(eSkill inKind);
     virtual void NormalAttack() = 0;
@@ -48,6 +50,7 @@ public:
     int GetHP() { return m_tStatus.m_nHP; };
 
 private:
+    CSkillUI* m_pSkillUI[3];
     
 protected:
     static int m_nLevel;

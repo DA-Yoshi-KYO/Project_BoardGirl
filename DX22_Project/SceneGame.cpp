@@ -9,6 +9,7 @@
 #include "Timer.h"
 #include "BGMPlayer.h"
 #include "SkyBox.h"
+#include "SpriteRenderer.h"
 
 void CSceneGame::Init()
 {
@@ -28,6 +29,9 @@ void CSceneGame::Init()
 
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SlimeAttack.png"), "SlimeAttack");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/DragonNormalAttack.png"), "DragonNormalAttack");
+
+    CSpriteRenderer::Load(TEXTURE_PATH("Circle.png"), "Circle");
+    CSpriteRenderer::Load(TEXTURE_PATH("Frame.png"), "Frame");
 
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);
@@ -54,23 +58,27 @@ void CSceneGame::Draw()
     Geometory::SetView(pCamera->GetViewMatrix());
     Geometory::SetProjection(pCamera->GetProjectionMatrix());
 
+    int i = 0;
     for (auto& list : m_pGameObject_List)
     {
-        list.sort([](CGameObject* a, CGameObject* b)
-            {
-                DirectX::XMFLOAT3 posA = a->AccessorPos();
-                DirectX::XMVECTOR vecA = DirectX::XMLoadFloat3(&posA);
-                DirectX::XMFLOAT3 posB = b->AccessorPos();
-                DirectX::XMVECTOR vecB = DirectX::XMLoadFloat3(&posB);
-                DirectX::XMFLOAT3 posCamera = CCamera::GetInstance(CCamera::GetCameraKind())->GetPos();
-                DirectX::XMVECTOR vecCamera = DirectX::XMLoadFloat3(&posCamera);
-                DirectX::XMVECTOR disCamA = DirectX::XMVectorSubtract(vecA, vecCamera);
-                DirectX::XMVECTOR disCamB = DirectX::XMVectorSubtract(vecB, vecCamera);
-                float disA = DirectX::XMVectorGetX(DirectX::XMVector3Length(vecA));;
-                float disB = DirectX::XMVectorGetX(DirectX::XMVector3Length(vecB));;
+        if (i != (int)Tag::UI)
+        {
+            list.sort([](CGameObject* a, CGameObject* b)
+                {
+                    DirectX::XMFLOAT3 posA = a->AccessorPos();
+                    DirectX::XMVECTOR vecA = DirectX::XMLoadFloat3(&posA);
+                    DirectX::XMFLOAT3 posB = b->AccessorPos();
+                    DirectX::XMVECTOR vecB = DirectX::XMLoadFloat3(&posB);
+                    DirectX::XMFLOAT3 posCamera = CCamera::GetInstance(CCamera::GetCameraKind())->GetPos();
+                    DirectX::XMVECTOR vecCamera = DirectX::XMLoadFloat3(&posCamera);
+                    DirectX::XMVECTOR disCamA = DirectX::XMVectorSubtract(vecA, vecCamera);
+                    DirectX::XMVECTOR disCamB = DirectX::XMVectorSubtract(vecB, vecCamera);
+                    float disA = DirectX::XMVectorGetX(DirectX::XMVector3Length(vecA));;
+                    float disB = DirectX::XMVectorGetX(DirectX::XMVector3Length(vecB));;
 
-                return disA > disB;
-            });
+                    return disA > disB;
+                });
+        }
         for (auto obj : list)
         {
             // UIはカメラと関係なく描画する
@@ -102,5 +110,6 @@ void CSceneGame::Draw()
                 }
             }
         }
+        i++;
     }
 }

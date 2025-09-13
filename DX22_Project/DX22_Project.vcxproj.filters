@@ -300,6 +300,9 @@
     <ClCompile Include="Transition.cpp">
       <Filter>Code\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="SkillUI.cpp">
+      <Filter>Code\GameObject\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -484,6 +487,9 @@
     </ClInclude>
     <ClInclude Include="Transition.h">
       <Filter>Code\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillUI.h">
+      <Filter>Code\GameObject\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
