@@ -71,6 +71,18 @@ void CScene::Update()
         }
     }
 
+    for (auto itr = m_tIDVec.begin(); itr != m_tIDVec.end();)
+    {
+        if (GetGameObject(*itr)->IsDestroy())
+        {
+            itr = m_tIDVec.erase(itr);
+        }
+        else
+        {
+            itr++;
+        }
+    }
+
     for (auto& list : m_pGameObject_List)
     {
         list.remove_if([](CGameObject* pObj)

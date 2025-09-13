@@ -111,8 +111,6 @@ void CDebugSystem::DrawHierarchy()
         ObjectID id;
         id.m_sName = name;
 
-        if (GetScene()->GetGameObject(name))
-        {
             if (ImGui::CollapsingHeader(std::string("[" + name + "]").c_str()))
             {
                 for (int i = 0; i < nItrCount; i++)
@@ -120,18 +118,15 @@ void CDebugSystem::DrawHierarchy()
                     std::string sButtonName = name;
                     if (i != 0) sButtonName += std::to_string(i);
                     id.m_nSameCount = i;
-                    CGameObject* temp = GetScene()->GetGameObject(id);
-                    if (temp)
+                    if (ImGui::Button(sButtonName.c_str()))
                     {
-                        if (ImGui::Button(sButtonName.c_str()))
-                        {
-                            m_pObject = temp;
-                        }
+                        m_pObject = GetScene()->GetGameObject(id);
                     }
+
                 }
 
             }
-        }
+        
 
         std::advance(itr, nItrCount);
     }

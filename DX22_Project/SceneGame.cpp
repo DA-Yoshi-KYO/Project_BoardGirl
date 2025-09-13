@@ -38,7 +38,7 @@ void CSceneGame::Init()
 
     AddGameObject<CPlayer>("Player");
     AddGameObject<CTimer>("Timer", Tag::UI);
-    //AddGameObject<CField>("Field",Tag::Field);
+    AddGameObject<CField>("Field",Tag::Field);
     //AddGameObject<CSkyBox>("SkyBox",Tag::SkyBox);
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
