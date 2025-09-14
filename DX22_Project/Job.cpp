@@ -129,7 +129,7 @@ void CJob::Damage(int inDamage)
 
 void CJob::Attack(AttackState inState)
 {
-    CPlayerAttack* pAttack = GetScene()->AddGameObject<CPlayerAttack>("PlayerAttack");
+    CPlayerAttack* pAttack = GetScene()->AddGameObject<CPlayerAttack>("PlayerAttack", Tag::GameObject);
     pAttack->Init();
     pAttack->SetAttackState(inState);
     pAttack->AccessorRotate(GetScene()->GetGameObject<CPlayer>()->AccessorRotate());

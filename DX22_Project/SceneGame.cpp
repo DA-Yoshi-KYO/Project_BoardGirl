@@ -36,10 +36,10 @@ void CSceneGame::Init()
     // カメラの設定をインゲームモードに変更
 	CCamera::SetCameraKind(CAM_PLAYER);
 
-    AddGameObject<CPlayer>("Player");
+    AddGameObject<CPlayer>("Player", Tag::GameObject);
     AddGameObject<CTimer>("Timer", Tag::UI);
     AddGameObject<CField>("Field",Tag::Field);
-    //AddGameObject<CSkyBox>("SkyBox",Tag::SkyBox);
+    AddGameObject<CSkyBox>("SkyBox",Tag::SkyBox);
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, 10.0f));
     CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(0.0f, 0.0f, 20.0f));
     CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", DirectX::XMFLOAT3(0.0f, 0.0f, 30.0f));

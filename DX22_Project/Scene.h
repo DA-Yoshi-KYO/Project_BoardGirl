@@ -15,7 +15,7 @@ public:
 
     // ゲームオブジェクトを追加する
 	template<typename T = CGameObject>
-	T* AddGameObject(std::string inName, Tag inTag = Tag::None)
+	T* AddGameObject(std::string inName, Tag inTag)
 	{
 		T* gameObject;
 		gameObject = new T();

@@ -13,10 +13,9 @@ enum class Tag
 	None,
     SkyBox,
     Sound,
-	Player,
-	Enemy,
-
     Field,
+	GameObject,
+	
 	UI,
 	Max
 };
