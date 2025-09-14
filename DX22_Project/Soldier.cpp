@@ -66,7 +66,8 @@ void CSoldier::AllSkill(eSkill inKind)
     vPos = vPos + vForward;
     DirectX::XMFLOAT3 f3AttackPos;
     DirectX::XMStoreFloat3(&f3AttackPos, vPos);
-
+    f3AttackPos.y = f3Pos.y;
+    
     CEffect* pEffect = GetScene()->AddGameObject<CEffect>("SoldierSkill", Tag::GameObject);
     switch (inKind)
     {

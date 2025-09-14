@@ -11,7 +11,6 @@ public:
     void Update() override;
     void Draw() override;
 
-    void SetPos(DirectX::XMFLOAT3 inPos);
     void SetRenderState(DirectX::XMFLOAT3 inSize, DirectX::XMFLOAT4 inFlontColor);
     void SetCurrentHP(int inCurrentHP);
     void SetMaxHP(int inMaxHP);

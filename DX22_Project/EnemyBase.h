@@ -33,7 +33,7 @@ public:
     void Init() override;
     void Update() override;
     void OnColliderHit(CCollisionBase* other,std::string thisTag = "None") override;
-    void OnDestroy() override;
+    void Destroy() override;
     int Inspecter(bool isEnd = true) override;
 
     virtual void Attack();
@@ -45,6 +45,7 @@ public:
     eEnemyStatePattern GetPattern(DirectX::XMFLOAT3 inAttackHarfSize, eEnemyStatePattern AdjustPattern);
 
 private:
+    DirectX::XMFLOAT3 m_f3Velocity;
 
 protected:
     struct EnemyStatus

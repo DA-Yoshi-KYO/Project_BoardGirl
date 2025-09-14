@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "Oparation.h"
 
+constexpr float ce_fNormalAttackSpeed = 0.1f;
+
 CWizard::CWizard()
     : m_fESkillTime(0.0f)
     , m_nOldAttack()
@@ -56,11 +58,11 @@ void CWizard::NormalAttack()
     m_tAttackState[(int)eSkill::NormalAttack].m_f3Center = pPlayer->AccessorPos();
     m_tAttackState[(int)eSkill::NormalAttack].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
     m_tAttackState[(int)eSkill::NormalAttack].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack];
-    m_tAttackState[(int)eSkill::NormalAttack].m_n2Split = DirectX::XMINT2(5, 5);
+    m_tAttackState[(int)eSkill::NormalAttack].m_n2Split = DirectX::XMINT2(1, 4);
     m_tAttackState[(int)eSkill::NormalAttack].m_nDamage = m_tStatus.m_nAttack;
-    m_tAttackState[(int)eSkill::NormalAttack].m_sTexKey = "";
+    m_tAttackState[(int)eSkill::NormalAttack].m_sTexKey = "WizardNormalAttack";
     m_tAttackState[(int)eSkill::NormalAttack].m_tDirectionState.m_eKind = DirectionKind::Toward;
-    m_tAttackState[(int)eSkill::NormalAttack].m_tDirectionState.m_tToward.m_f3Direction = pPlayer->GetForward();
+    m_tAttackState[(int)eSkill::NormalAttack].m_tDirectionState.m_tToward.m_f3Direction = pPlayer->GetForward() * ce_fNormalAttackSpeed;
     CJob::Attack(m_tAttackState[(int)eSkill::NormalAttack]);
 }
 

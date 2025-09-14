@@ -30,7 +30,7 @@ HitResult CField::RayIntersectsTriangle(const DirectX::XMFLOAT3& rayOrigin, cons
     m_tResult.Distance = FLT_MAX;
     m_tResult.MeshIndex = SIZE_MAX;
     m_tResult.TriIndex = SIZE_MAX;
-
+    
     for (unsigned int idx = 0; idx < m_Mesh.size(); idx++)
     {
         Model::Vertices ver = m_Mesh[idx].vertices;
@@ -91,8 +91,7 @@ bool CField::Check(const DirectX::XMVECTOR& rayOrigin, const DirectX::XMVECTOR& 
     if (v < 0 || u + v > 1) return false;
 
     float t = DirectX::XMVectorGetX(DirectX::XMVector3Dot(v0v2, qvec)) * invDet;
-    if (t < EPSILON) return false;
-
+ 
     outT = t;
     return true;
 }

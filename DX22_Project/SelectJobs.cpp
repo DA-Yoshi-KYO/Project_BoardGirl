@@ -71,9 +71,8 @@ void CSelectJobs::Update()
             int nSelect = (int)m_eSelectedJob;
             if (!isMove)
             {
-                POINT pt = *GetMousePosition();
-                bool a = IsMouseHover({ 500.0f, 0.0f, 50.0f, 50.0f },pt);
-                if (a)
+                if ((IsMouseHover(DirectX::XMFLOAT2(500.0f, 0.0f), DirectX::XMFLOAT2(150.0f, 150.0f)) && IsMouseButtonTrigger(MOUSEBUTTON_L))
+                    || IsKeyTrigger('D'))
                 {
                     m_pSE[(int)SEKind::Select]->Play();
                     nSelect++;
@@ -84,7 +83,8 @@ void CSelectJobs::Update()
                     isNext = true;
                     isMove = true;
                 }
-                else if (IsMouseButtonTrigger(MOUSEBUTTON_L) && IsMouseHover(DirectX::XMFLOAT4(-500.0f, 0.0f, 50.0f, 50.0f), pt))
+                else if ((IsMouseHover(DirectX::XMFLOAT2(-500.0f, 0.0f), DirectX::XMFLOAT2(150.0f, 150.0f)) && IsMouseButtonTrigger(MOUSEBUTTON_L))
+                    || IsKeyTrigger('A'))
                 {
                     m_pSE[(int)SEKind::Select]->Play();
                     nSelect--;
@@ -95,7 +95,8 @@ void CSelectJobs::Update()
                     isNext = false;
                     isMove = true;
                 }
-                else if (IsKeyTrigger(VK_SPACE))
+                else if ((IsMouseHover(DirectX::XMFLOAT2(0.0f, 0.0f), DirectX::XMFLOAT2(600.0f, 600.0f)) && IsMouseButtonTrigger(MOUSEBUTTON_L))
+                    || IsKeyTrigger(VK_SPACE))
                 {
                     m_pSE[(int)SEKind::Decision]->Play();
                     m_bEnd = true;

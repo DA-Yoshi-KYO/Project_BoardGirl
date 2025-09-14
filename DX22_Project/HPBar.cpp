@@ -40,15 +40,23 @@ void CHPBar::Init()
 
 void CHPBar::Update()
 {
+    CScene* pScene = GetScene();
+    DirectX::XMFLOAT3 f3ObjectPos = pScene->GetGameObject(m_tParentID)->AccessorPos();
+    float fOffsetY = pScene->GetGameObject(m_tParentID)->AccessorSize().y * 0.5f;
+    f3ObjectPos.y += fOffsetY;
+    for (int i = 0; i < (int)TextureKind::Max; i++)
+    {
+        m_tRendererParam[i].m_f3Pos = f3ObjectPos;
+    }
     float fStep = (float)m_tValue.m_nCurrentHP / (float)m_tValue.m_nMaxHP;
     m_tRendererParam[(int)TextureKind::Flont].m_f3Size.x = m_tValue.m_fMaxSize * fStep;
     float fOffSetRatio = 1.0f - fStep;
-    DirectX::XMFLOAT3 f3MovePos = GetScene()->GetGameObject<CPlayer>()->GetRight();
+    DirectX::XMFLOAT3 f3MovePos = pScene->GetGameObject<CPlayer>()->GetRight();
     f3MovePos.x *= m_tValue.m_fMaxSize * 0.5f;
     DirectX::XMFLOAT3 f3OffSetRight = f3MovePos * fOffSetRatio;
 
     m_tRendererParam[(int)TextureKind::Flont].m_f3Pos -= f3OffSetRight;
-
+    m_tParam.m_f3Pos = m_tRendererParam[(int)TextureKind::Back].m_f3Pos;
     CGameObject::Update();
 }
 
@@ -84,14 +92,6 @@ void CHPBar::SetRenderState(DirectX::XMFLOAT3 inSize, DirectX::XMFLOAT4 inFlontC
     }
     m_tValue.m_fMaxSize = inSize.x;
     m_tRendererParam[(int)TextureKind::Flont].m_f4Color = inFlontColor;
-}
-
-void CHPBar::SetPos(DirectX::XMFLOAT3 inPos)
-{
-    for (int i = 0; i < (int)TextureKind::Max; i++)
-    {
-        m_tRendererParam[i].m_f3Pos = inPos;
-    }
 }
 
 int CHPBar::Inspecter(bool isEnd)

@@ -36,7 +36,7 @@ void CPlayer::Init()
     m_pCollision = AddComponent<CCollisionObb>();
 
     // 汎用パラメータの初期化
-	m_tParam.m_f3Pos = { 0.0f,0.0f,0.0f };
+	m_tParam.m_f3Pos = { 0.0f,2.0f,0.0f };
     m_f3OldPos = m_tParam.m_f3Pos;
 	m_tParam.m_f3Size = { 1.0f,1.0f,1.0f };
     m_pCollision->AccessorCenter(m_tParam.m_f3Pos);
@@ -98,7 +98,6 @@ void CPlayer::Init()
     m_tParam.m_f2UVSize = { 1.0f / (float)ce_n2Split.x, 1.0f / (float)ce_n2Split.y };
 
     m_pHPBar = GetScene()->AddGameObject<CHPBar>("HPBar", Tag::GameObject);
-    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 1.2f, m_tParam.m_f3Pos.z));
     m_pHPBar->SetRenderState(DirectX::XMFLOAT3(2.0f, 0.25f, 1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
     m_pHPBar->SetMaxHP(m_pJob->GetHP());
     m_pHPBar->SetCurrentHP(m_pJob->GetHP());
@@ -120,7 +119,6 @@ void CPlayer::Update()
     m_pCollision->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
 
     m_pHPBar->SetCurrentHP(m_pJob->GetHP());
-    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 2.0f, m_tParam.m_f3Pos.z));
 
 
 
@@ -170,7 +168,6 @@ int CPlayer::Inspecter(bool isEnd)
 
 void CPlayer::PlayerMove()
 {
-
     // プレイヤーの前方向と右方向を取得
 	DirectX::XMFLOAT3 f3ForWard = GetForward();
 	DirectX::XMFLOAT3 f3Right = GetRight();
@@ -239,31 +236,25 @@ void CPlayer::PlayerMove()
 		m_bJump = true;
 	}
 
-    // 重力
-    DirectX::XMFLOAT3 origin = DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y - m_tParam.m_f3Size.y * 0.5f, m_tParam.m_f3Pos.z);
-    HitResult result = CField::RayIntersectsTriangle(m_tParam.m_f3Pos, DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f));
-    if (result.Distance <= 0.1f)
-    {
-        m_tParam.m_f3Pos.y = m_f3OldPos.y;
-        m_f3Velocity.y = 0.0f;
-    }
-    else
-    {
-        m_f3Velocity.y -= 0.015f;
-    }
     // 移動量を使用してプレイヤーの位置を更新
     m_tParam.m_f3Pos.x += m_f3Velocity.x;
 	m_tParam.m_f3Pos.y += m_f3Velocity.y;
 	m_tParam.m_f3Pos.z += m_f3Velocity.z;
 
-    // 着地処理
-	float ground_height = 0.0f;
-	if (m_tParam.m_f3Pos.y < ground_height + m_tParam.m_f3Size.y * 0.5f)
-	{
-		m_tParam.m_f3Pos.y = ground_height + m_tParam.m_f3Size.y * 0.5f;
-		m_f3Velocity.y = 0.0f;
-		m_bJump = false;
-	}
+    DirectX::XMFLOAT3 origin = DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y - m_tParam.m_f3Size.y * 0.5f, m_tParam.m_f3Pos.z);
+    HitResult result = CField::RayIntersectsTriangle(m_tParam.m_f3Pos, DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f));
+
+    if (result.Distance <= m_tParam.m_f3Size.y * 0.5f)
+    {
+        m_tParam.m_f3Pos.y = result.Position.y + m_tParam.m_f3Size.y * 0.5f;
+        m_f3Velocity.y = 0.0f;
+        m_bJump = false;
+    }
+    else
+    {
+        // 重力
+        m_f3Velocity.y -= 0.015f;
+    } 
 }
 
 void CPlayer::PlayerSkill()

@@ -43,7 +43,7 @@ public:
     // オブジェクトの破棄時の処理
 	virtual void OnDestroy();
     // オブジェクトの破棄
-	void Destroy();
+	virtual void Destroy();
     // オブジェクトが破棄されているかの確認
 	bool IsDestroy();
 

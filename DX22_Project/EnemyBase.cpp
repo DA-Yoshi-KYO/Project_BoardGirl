@@ -3,6 +3,7 @@
 #include "Oparation.h"
 #include "Player.h"
 #include "DebugSystem.h"
+#include "Field.h"
 
 CEnemyBase::CEnemyBase()
     : m_tEnemyStatus{}, m_pPlayer(nullptr), m_fTime(0.0f)
@@ -42,7 +43,6 @@ void CEnemyBase::Init()
     m_pCollision[(int)eEnemyCollision::Attack]->AccessorTag("EnemyAttack");
 
     m_pHPBar = GetScene()->AddGameObject<CHPBar>("HPBar",Tag::GameObject);
-    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y / 1.2f, m_tParam.m_f3Pos.z));
     m_pHPBar->SetRenderState(DirectX::XMFLOAT3(2.0f, 0.25f, 1.0f), DirectX::XMFLOAT4(1.0f,0.0f,0.0f,1.0f));
     m_pHPBar->SetMaxHP(m_tEnemyStatus.m_nHP);
     m_pHPBar->SetCurrentHP(m_tEnemyStatus.m_nHP);
@@ -52,6 +52,7 @@ void CEnemyBase::Init()
 
 void CEnemyBase::Update()
 {
+    m_f3OldPos = m_tParam.m_f3Pos;
     if (m_tEnemyStatus.m_bMove)
     {
         m_f3OldPos = m_tParam.m_f3Pos;
@@ -64,8 +65,10 @@ void CEnemyBase::Update()
         DirectX::XMVECTOR vecVelocity = vecDirection * m_tEnemyStatus.m_fSpeed;
         DirectX::XMFLOAT2 f2Velocity;
         DirectX::XMStoreFloat2(&f2Velocity, vecVelocity);
-        m_tParam.m_f3Pos.x += f2Velocity.x;
-        m_tParam.m_f3Pos.z += f2Velocity.y;
+        m_f3Velocity.x = f2Velocity.x;
+        m_f3Velocity.z = f2Velocity.y;
+        m_tParam.m_f3Pos.x += m_f3Velocity.x;
+        m_tParam.m_f3Pos.z += m_f3Velocity.z;
         DirectX::XMFLOAT2 f2Direction;
         DirectX::XMStoreFloat2(&f2Direction, vecDirection);
         m_tParam.m_f3Rotate.y = atan2(f2Direction.x, f2Direction.y);
@@ -75,6 +78,21 @@ void CEnemyBase::Update()
     for (int i = 0; i <= (int)eEnemyCollision::Attack; i++)
     {
         m_pCollision[i]->AccessorCenter(m_tParam.m_f3Pos);
+    }
+
+    m_tParam.m_f3Pos.y += m_f3Velocity.y;
+    DirectX::XMFLOAT3 origin = DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y - m_tParam.m_f3Size.y * 0.5f, m_tParam.m_f3Pos.z);
+    HitResult result = CField::RayIntersectsTriangle(m_tParam.m_f3Pos, DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f));
+
+    if (result.Distance <= m_tParam.m_f3Size.y * 0.5f)
+    {
+        m_tParam.m_f3Pos.y = result.Position.y + m_tParam.m_f3Size.y * 0.5f;
+        m_f3Velocity.y = 0.0f;
+    }
+    else
+    {
+        // 重力
+        m_f3Velocity.y -= 0.015f;
     }
 
     static float fSwitchTime = 0.0f;
@@ -97,14 +115,12 @@ void CEnemyBase::Update()
         m_fTime += fDeltaTime;
         fSwitchTime += fDeltaTime;
     }
-
     if (m_fAttackTime >= 2.0f)
     {
         Attack();
         m_fAttackTime = 0.0f;
     }
 
-    m_pHPBar->SetPos(DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y + m_tParam.m_f3Size.y, m_tParam.m_f3Pos.z));
     m_pHPBar->SetCurrentHP(m_tEnemyStatus.m_nHP);
     m_pHPBar->SetParentID(m_tID);
 
@@ -160,8 +176,9 @@ void CEnemyBase::Attack(AttackState inState)
     pAttack->AccessorRotate(m_tParam.m_f3Rotate);
 }
 
-void CEnemyBase::OnDestroy()
+void CEnemyBase::Destroy()
 {
+    m_bDestroy = true;
     m_pHPBar->Destroy();
 }
 

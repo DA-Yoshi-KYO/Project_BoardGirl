@@ -25,6 +25,6 @@ void SetMousePosition(POINT inPos, bool CenterIsZero = true);
 bool IsMouseButtonPress(DWORD dwBtnID);
 bool IsMouseButtonTrigger(DWORD dwBtnID);
 bool IsMouseButtonRelease(DWORD dwBtnID);
-bool IsMouseHover(DirectX::XMFLOAT4 inPosAndSize,POINT inMousePos);
+bool IsMouseHover(DirectX::XMFLOAT2 inPos, DirectX::XMFLOAT2 inSize);
 
 #endif // __INPUT_H__

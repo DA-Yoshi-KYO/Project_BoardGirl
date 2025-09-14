@@ -101,12 +101,12 @@ bool IsMouseButtonRelease(DWORD dwBtnID)
     return IsKeyRelease(g_nMouseBtn[dwBtnID]);
 }
 
-bool IsMouseHover(DirectX::XMFLOAT4 inPosAndSize, POINT inMousePos)
+bool IsMouseHover(DirectX::XMFLOAT2 inPos, DirectX::XMFLOAT2 inSize)
 {
     POINT pt = *GetMousePosition();
-    if (inPosAndSize.x - inPosAndSize.z * 0.5f >= pt.x && inPosAndSize.x + inPosAndSize.z * 0.5f <= pt.x)
+    if (inPos.x - inSize.x * 0.5f <= pt.x && inPos.x + inSize.x * 0.5f >= pt.x)
     {
-        if (inPosAndSize.y - inPosAndSize.w * 0.5f >= pt.y && inPosAndSize.y + inPosAndSize.w * 0.5f <= pt.y)
+        if (inPos.y - inSize.y * 0.5f <= pt.y && inPos.y + inSize.y * 0.5f >= pt.y)
         {
             return true;
         }

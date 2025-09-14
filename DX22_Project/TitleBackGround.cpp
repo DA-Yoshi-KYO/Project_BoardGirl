@@ -27,7 +27,7 @@ void CTitleBackGround::Init()
 
 void CTitleBackGround::Update()
 {
-	if (IsKeyTrigger(VK_SPACE) && !m_bEnd)
+    if ((IsKeyTrigger(VK_SPACE) || IsMouseButtonTrigger(MOUSEBUTTON_L)) && !m_bEnd)
 	{
         m_bEnd = true;
         m_pSE[(int)SEKind::Decision]->Play();
