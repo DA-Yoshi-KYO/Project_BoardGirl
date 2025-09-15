@@ -1,7 +1,7 @@
 #include "Job.h"
 #include "Main.h"
 #include "Player.h"
-#include "SceneTitle.h"
+#include "SceneResult.h"
 #include "PlayerAttack.h"
 #include "Alphabet.h"
 
@@ -121,7 +121,7 @@ void CJob::Damage(int inDamage)
         isEnd = true;
         FadeOut([]()
             {
-                ChangeScene(new CSceneTitle());
+                ChangeScene(new CSceneResult());
                 FadeIn(nullptr);
             });
     }

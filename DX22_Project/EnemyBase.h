@@ -54,6 +54,7 @@ protected:
         int m_nAttack;
         int m_nDefense;
         float m_fSpeed;
+        int m_nScore;
 
         bool m_bMove;
         bool m_bDamage;

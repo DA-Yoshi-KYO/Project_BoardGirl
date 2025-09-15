@@ -7,6 +7,7 @@ CDragon::CDragon()
     m_tEnemyStatus.m_nHP = 30;
     m_tEnemyStatus.m_nAttack = 20;
     m_tEnemyStatus.m_nDefense = 1;
+    m_tEnemyStatus.m_nScore = 50;
 
     m_tParam.m_f3Size = DirectX::XMFLOAT3(3.0f,3.0f,3.0f);
 }

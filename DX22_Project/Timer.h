@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "GameObject.h"
 
@@ -9,6 +9,7 @@ public:
     void Init() override;
     void Update() override;
     void Draw() override;
+    static int GetTime() { return m_nTimeCount; }
 
 private:
     RendererParam m_tRenderParam[5];

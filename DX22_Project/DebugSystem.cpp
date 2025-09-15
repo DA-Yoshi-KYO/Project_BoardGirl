@@ -9,6 +9,7 @@
 #include "SceneTitle.h"
 #include "SceneJobSelect.h"
 #include "SceneGame.h"
+#include "SceneResult.h"
 
 #include "Input.h"
 
@@ -211,7 +212,7 @@ void CDebugSystem::DrawSceneSelect()
 
     ImGui::BeginChild(ImGui::GetID((void*)0), ImVec2(ce_f2InspecterSize), ImGuiWindowFlags_NoTitleBar);
     static int nSelect = 0;
-    ImGui::Combo("kind", &nSelect, "Title\0JobSelect\0Game\0");
+    ImGui::Combo("kind", &nSelect, "Title\0JobSelect\0Game\0Result\0");
     ImGui::EndChild();
 
     if (ImGui::Button("Go"))
@@ -226,6 +227,9 @@ void CDebugSystem::DrawSceneSelect()
             break;
         case 2:
             ChangeScene(new CSceneGame());
+            break;
+        case 3:
+            ChangeScene(new CSceneResult());
             break;
         default:
             break;

@@ -1,4 +1,4 @@
-﻿#include "Timer.h"
+#include "Timer.h"
 #include "SpriteRenderer.h"
 
 constexpr DirectX::XMINT2 ce_nSplit = { 5,5 };

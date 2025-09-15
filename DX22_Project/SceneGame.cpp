@@ -7,6 +7,7 @@
 #include "BillboardRenderer.h"
 #include "EnemyGenerater.h"
 #include "Timer.h"
+#include "Score.h"
 #include "BGMPlayer.h"
 #include "SkyBox.h"
 #include "SpriteRenderer.h"
@@ -55,6 +56,7 @@ void CSceneGame::Init()
 
     AddGameObject<CPlayer>("Player", Tag::GameObject);
     AddGameObject<CTimer>("Timer", Tag::UI);
+    AddGameObject<CScore>("Score", Tag::UI);
     AddGameObject<CField>("Field", Tag::Field);
     AddGameObject<CSkyBox>("SkyBox", Tag::SkyBox);
 

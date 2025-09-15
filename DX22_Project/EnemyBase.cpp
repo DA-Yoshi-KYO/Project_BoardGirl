@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "DebugSystem.h"
 #include "Field.h"
+#include "Score.h"
 
 CEnemyBase::CEnemyBase()
     : m_tEnemyStatus{}, m_pPlayer(nullptr), m_fTime(0.0f)
@@ -14,6 +15,7 @@ CEnemyBase::CEnemyBase()
     m_tEnemyStatus.m_bMove = false;
     m_tEnemyStatus.m_fSpeed = 0.05f;
     m_fAttackTime = 0.0f;
+    m_tEnemyStatus.m_nScore = 10;
     for (int i = 0; i < (int)eEnemyCollision::Max; i++)
     {
         m_pCollision[i] = nullptr;
@@ -191,6 +193,7 @@ void CEnemyBase::Damage(int inDamage)
 
     if (m_tEnemyStatus.m_nHP <= 0)
     {
+        CScore::AddScore(m_tEnemyStatus.m_nScore);
         Destroy();
     }
 }

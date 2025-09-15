@@ -199,10 +199,15 @@
     </ClCompile>
     <ClCompile Include="PlayerAttack.cpp" />
     <ClCompile Include="RendererComponent.cpp" />
+    <ClCompile Include="ResultBackGround.cpp" />
+    <ClCompile Include="ResultScore.cpp" />
+    <ClCompile Include="ResultTime.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneJobSelect.cpp" />
+    <ClCompile Include="SceneResult.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="SelectArrow.cpp" />
     <ClCompile Include="SelectBackGround.cpp" />
     <ClCompile Include="SelectJobs.cpp" />
@@ -268,10 +273,15 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAttack.h" />
     <ClInclude Include="RendererComponent.h" />
+    <ClInclude Include="ResultBackGround.h" />
+    <ClInclude Include="ResultScore.h" />
+    <ClInclude Include="ResultTime.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneJobSelect.h" />
+    <ClInclude Include="SceneResult.h" />
     <ClInclude Include="SceneTitle.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="SelectArrow.h" />
     <ClInclude Include="SelectBackGround.h" />
     <ClInclude Include="SelectJobs.h" />

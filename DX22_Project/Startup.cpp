@@ -17,6 +17,7 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 bool g_bEnd = false;
 HWND myHWnd;
 DWORD myFPS = 0;				//直近のFPS
+const char* AppName = "BoardFight";
 
 // エントリポイント
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -64,6 +65,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// ウィンドウの表示
 	ShowWindow(myHWnd, nCmdShow);
 	UpdateWindow(myHWnd);
+    SetWindowText(myHWnd, AppName);
 
 	// 初期化処理
 	if (FAILED(Init(myHWnd, SCREEN_WIDTH, SCREEN_HEIGHT)))
@@ -114,9 +116,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					//整数型から文字列へ変換
 					char mes[256];
 					//sprintf→文字列に対してprintfで書き込む
-					sprintf(mes, "FPS:%d", fpsCount);
+					//sprintf(mes, "FPS:%d");
 					//FPSの表示
-					SetWindowText(myHWnd, mes);
                     myFPS = fpsCount;
 					//次の計測の準備
 					fpsCount = 0;
