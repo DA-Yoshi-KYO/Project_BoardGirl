@@ -91,8 +91,8 @@ void CDragon::AttackBreath()
     tState.m_f3Center = f3AttackPos;
     tState.m_fAttackDuration = 1.0f;
     tState.m_nDamage = m_tEnemyStatus.m_nAttack;
-    tState.m_sTexKey = "";
-    tState.m_n2Split = DirectX::XMINT2(0, 0);
+    tState.m_sTexKey = "DragonBreathAttack";
+    tState.m_n2Split = DirectX::XMINT2(1, 11);
     tState.m_tDirectionState.m_eKind = DirectionKind::Stay;
     tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
 

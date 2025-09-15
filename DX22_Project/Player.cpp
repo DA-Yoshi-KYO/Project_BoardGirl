@@ -36,7 +36,7 @@ void CPlayer::Init()
     m_pCollision = AddComponent<CCollisionObb>();
 
     // 汎用パラメータの初期化
-	m_tParam.m_f3Pos = { 0.0f,2.0f,0.0f };
+	m_tParam.m_f3Pos = { 0.0f,2.0f,-10.0f };
     m_f3OldPos = m_tParam.m_f3Pos;
 	m_tParam.m_f3Size = { 1.0f,1.0f,1.0f };
     m_pCollision->AccessorCenter(m_tParam.m_f3Pos);

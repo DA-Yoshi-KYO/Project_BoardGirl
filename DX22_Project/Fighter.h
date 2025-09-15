@@ -16,5 +16,6 @@ public:
 private:
     bool m_bQSkill;
     bool m_bRSkill;
+    int m_nLastSpawnEffectCount;
 
 };

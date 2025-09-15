@@ -42,6 +42,7 @@ struct DirectionState
         struct FollowUpValue
         {
             CGameObject* pTarget;
+            DirectX::XMFLOAT3* m_f3Offset;
         }m_tFollowUp;
     };
 };

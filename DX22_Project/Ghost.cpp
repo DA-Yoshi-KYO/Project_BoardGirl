@@ -8,6 +8,9 @@ constexpr float ce_fShotSpeed = 0.2f;
 
 CGhost::CGhost()
 {
+    m_tEnemyStatus.m_nHP = 10;
+    m_tEnemyStatus.m_nAttack = 5;
+    m_tEnemyStatus.m_nDefense = 1;
 }
 
 CGhost::~CGhost()
@@ -38,10 +41,10 @@ void CGhost::Attack()
     AttackState tState;
     tState.m_f3Center = m_tParam.m_f3Pos;
     tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-    tState.m_fAttackDuration = 3.0f;
+    tState.m_fAttackDuration = 1.0f;
     tState.m_nDamage = m_tEnemyStatus.m_nAttack;
-    tState.m_sTexKey = "";
-    tState.m_n2Split = DirectX::XMINT2(0, 0);
+    tState.m_sTexKey = "GhostAttack";
+    tState.m_n2Split = DirectX::XMINT2(10, 1);
     tState.m_tDirectionState.m_eKind = DirectionKind::Toward;
     tState.m_tDirectionState.m_tToward.m_f3Direction = f3ShotDir;
 

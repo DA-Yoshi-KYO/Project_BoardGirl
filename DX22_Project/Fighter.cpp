@@ -5,7 +5,7 @@
 #include "Oparation.h"
 
 CFighter::CFighter()
-    : m_bQSkill(false), m_bRSkill(false)
+    : m_bQSkill(false), m_bRSkill(false), m_nLastSpawnEffectCount(0)
 {
     m_tStatus.m_nHP = 100;
     m_tStatus.m_nAttack = 1;
@@ -53,6 +53,8 @@ void CFighter::Update()
             nDamage = m_tStatus.m_nAttack * 1.0f;
             break;
         case 2:
+            nDamage = m_tStatus.m_nAttack * 1.5f;
+            break;
         case 3:
             nDamage = m_tStatus.m_nAttack * 2.0f;
             break;
@@ -65,6 +67,26 @@ void CFighter::Update()
         default:
             nDamage = m_tStatus.m_nAttack * 0.5f;
             break;
+        }
+
+        if (m_nLastSpawnEffectCount != (int)fQSkillTime && m_nLastSpawnEffectCount < 4)
+        {
+            int nChargeNo = (int)fQSkillTime;
+            m_nLastSpawnEffectCount = nChargeNo;
+            std::string sKey = "FighterQSkillCharge" + std::to_string(nChargeNo + 1);
+            AttackState tState;
+            CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
+            tState.m_f3Center = pPlayer->AccessorPos();
+            tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+            tState.m_fAttackDuration = 1.0f;
+            tState.m_nDamage = 0.0f;
+            tState.m_tDirectionState.m_eKind = DirectionKind::FollowUp;
+            DirectX::XMFLOAT3 temp = DirectX::XMFLOAT3();
+            tState.m_tDirectionState.m_tFollowUp.m_f3Offset = &temp;
+            tState.m_tDirectionState.m_tFollowUp.pTarget = pPlayer;
+            tState.m_sTexKey = sKey;
+            tState.m_n2Split = DirectX::XMINT2(10, 1);
+            CJob::Attack(tState);
         }
 
         if (IsKeyRelease('Q'))
@@ -82,16 +104,17 @@ void CFighter::Update()
 
             AttackState tState;
             tState.m_f3Center = f3AttackPos;
-            tState.m_f3Size = DirectX::XMFLOAT3({ 1.0f, 1.0f, 1.0f });
-            tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack];
+            tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f) * (((int)fQSkillTime + 1) * 0.5f);
+            tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::QSkill];
             tState.m_nDamage = nDamage;
             tState.m_tDirectionState.m_eKind = DirectionKind::Stay;
             tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
-            tState.m_sTexKey = "";
-            tState.m_n2Split = DirectX::XMINT2(0, 0);
+            tState.m_sTexKey = "FighterQSkill";
+            tState.m_n2Split = DirectX::XMINT2(5, 2);
             CJob::Attack(tState);
             m_bQSkill = false;
             fQSkillTime = 0.0f;
+            m_nLastSpawnEffectCount = 0;
         }
     }
 
@@ -127,11 +150,12 @@ void CFighter::Update()
             AttackState tState;
             tState.m_f3Center = f3AttackPos;
             tState.m_f3Size = DirectX::XMFLOAT3({ 1.0f, 1.0f, 1.0f });
-            tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack];
+            tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::RSkill];
             tState.m_nDamage = m_tStatus.m_nAttack;
             tState.m_tDirectionState.m_eKind = DirectionKind::Stay;
             tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
-            tState.m_sTexKey = "";
+            tState.m_sTexKey = "FighterRSkill";
+            tState.m_n2Split = DirectX::XMINT2(5, 1);
             CJob::Attack(tState);
         }
 
@@ -159,24 +183,53 @@ void CFighter::NormalAttack()
 
     AttackState tState;
     tState.m_f3Center = f3AttackPos;
-    tState.m_f3Size = DirectX::XMFLOAT3({ 1.0f, 1.0f, 1.0f });
+    tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
     tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack];
     tState.m_nDamage = m_tStatus.m_nAttack;
     tState.m_tDirectionState.m_eKind = DirectionKind::Stay;
     tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
-    tState.m_sTexKey = "";
+    tState.m_sTexKey = "FighterNormalAttack";
+    tState.m_n2Split = DirectX::XMINT2(10,1);
     CJob::Attack(tState);
 }
 
 void CFighter::QSkill()
 {
     m_bQSkill = true;
+
+    CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
+    AttackState tState;
+    tState.m_f3Center = pPlayer->AccessorPos();
+    tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+    tState.m_fAttackDuration = 1.0f;
+    tState.m_nDamage = 0;
+    tState.m_tDirectionState.m_eKind = DirectionKind::FollowUp;
+    DirectX::XMFLOAT3 temp = DirectX::XMFLOAT3();
+    tState.m_tDirectionState.m_tFollowUp.m_f3Offset = &temp;
+    tState.m_tDirectionState.m_tFollowUp.pTarget = pPlayer;
+    tState.m_sTexKey = "FighterQSkillCharge1";
+    tState.m_n2Split = DirectX::XMINT2(10, 1);
+    CJob::Attack(tState);
 }
 
 void CFighter::ESkill()
 {
     m_tStatus.m_nHP += 10;
     m_tStatus.m_nHP = std::min(m_tStatus.m_nHP, 100);
+
+    CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
+    AttackState tState;
+    tState.m_f3Center = pPlayer->AccessorPos();
+    tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+    tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::ESkill];
+    DirectX::XMFLOAT3 temp = DirectX::XMFLOAT3();
+    tState.m_tDirectionState.m_tFollowUp.m_f3Offset = &temp;
+    tState.m_nDamage = 0;
+    tState.m_tDirectionState.m_eKind = DirectionKind::FollowUp;
+    tState.m_tDirectionState.m_tFollowUp.pTarget = pPlayer;
+    tState.m_sTexKey = "FighterESkill";
+    tState.m_n2Split = DirectX::XMINT2(8,1);
+    CJob::Attack(tState);
 }
 
 void CFighter::RSkill()
