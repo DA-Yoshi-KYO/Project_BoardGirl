@@ -28,7 +28,6 @@ struct PlayerStatus
     float m_fSkillCooltime[(int)eSkill::Max];
     float m_fDurationTime[(int)eSkill::Max];
     float m_fAttackDuration[(int)eSkill::Max];
-    float m_fCriticalPercentage;
 };
 
 class CJob

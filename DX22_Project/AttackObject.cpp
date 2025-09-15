@@ -56,8 +56,9 @@ void CAttackObject::Update()
     {
         m_tParam.m_f2UVSize.x = 1.0f / (float)m_tAttackState.m_n2Split.x;
         m_tParam.m_f2UVSize.y = 1.0f / (float)m_tAttackState.m_n2Split.y;
-        float fStep = m_tAttackState.m_fAttackDuration / float(m_tAttackState.m_n2Split.x * m_tAttackState.m_n2Split.y);
-        if (m_fTime >= fStep * (m_nStep + 1)) m_nStep++;
+        float fStep = (m_tAttackState.m_fAttackDuration) / float(m_tAttackState.m_n2Split.x * m_tAttackState.m_n2Split.y);
+        if (m_fTime >= (fStep * (m_nStep + 1)) / (float)m_tAttackState.m_nSpeed) m_nStep++;
+        //if (m_nStep >= m_tAttackState.m_n2Split.x * m_tAttackState.m_n2Split.x) m_nStep = 0;
         m_tParam.m_f2UVPos.x = (1.0f / (float)m_tAttackState.m_n2Split.x) * (m_nStep % m_tAttackState.m_n2Split.x);
         m_tParam.m_f2UVPos.y = (1.0f / (float)m_tAttackState.m_n2Split.y) * (m_nStep / m_tAttackState.m_n2Split.x);
     }

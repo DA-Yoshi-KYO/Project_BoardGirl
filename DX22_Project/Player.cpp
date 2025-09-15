@@ -155,7 +155,6 @@ int CPlayer::Inspecter(bool isEnd)
         ImGui::Text(std::string("HP:" + std::to_string(tStatus.m_nHP)).c_str());
         ImGui::Text(std::string("ATK:" + std::to_string(tStatus.m_nAttack)).c_str());
         ImGui::Text(std::string("DEF:" + std::to_string(tStatus.m_nDefense)).c_str());
-        ImGui::Text(std::string("CRT:" + std::to_string(tStatus.m_fCriticalPercentage) + "%%").c_str());
         
         ImGui::EndChild();
         nChildCnt++;

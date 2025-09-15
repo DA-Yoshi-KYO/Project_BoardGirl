@@ -26,7 +26,9 @@ void CSceneGame::Init()
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordESkill.png"), "SwordESkill");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordRSkill.png"), "SwordRSkill");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/WizardNormalSkill.png"), "WizardNormalAttack");
-    //CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordRSkill.png"), "SwordRSkill");
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/WizardQSkill.png"), "WizardQSkill");
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/WizardESkill.png"), "WizardESkill");
+    CBillboardRenderer::Load(TEXTURE_PATH("Effect/WizardRSkill.png"), "WizardRSkill");
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/PlayerAttackHit.png"), "PlayerAttackHit");
 
     CBillboardRenderer::Load(TEXTURE_PATH("Effect/SlimeAttack.png"), "SlimeAttack");

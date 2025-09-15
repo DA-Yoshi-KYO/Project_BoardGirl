@@ -7,7 +7,6 @@ CSoldier::CSoldier()
     : CJob()
 {
     m_tStatus.m_nHP = 100;
-    m_tStatus.m_fCriticalPercentage = 1.0f / 16.0f;
     m_tStatus.m_nAttack = 2;
     m_tStatus.m_nDefense = 1;
 

@@ -184,6 +184,7 @@ void CEnemyBase::Destroy()
 
 void CEnemyBase::Damage(int inDamage)
 {
+    if (inDamage <= 0) return;
     if (m_tEnemyStatus.m_bDamage) return;
     m_tEnemyStatus.m_nHP -= inDamage;
     m_tEnemyStatus.m_bDamage = true;

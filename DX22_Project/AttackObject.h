@@ -55,6 +55,7 @@ struct AttackState
     std::string m_sTexKey;
     DirectX::XMINT2 m_n2Split;
     DirectionState m_tDirectionState;
+    int m_nSpeed = 1;
 };
 
 
@@ -79,7 +80,7 @@ public:
 private:
     float m_fTime;
     int m_nStep;
-   
+
 protected:
     AttackState m_tAttackState;
 };

@@ -11,7 +11,6 @@ CWizard::CWizard()
     , m_bAttackUp(false)
 {
     m_tStatus.m_nHP = 80;
-    m_tStatus.m_fCriticalPercentage = 1.0f / 16.0f;
     m_tStatus.m_nAttack = 2;
     m_tStatus.m_nDefense = 1;
     m_nOldAttack = m_tStatus.m_nAttack;
@@ -81,12 +80,12 @@ void CWizard::QSkill()
     m_tAttackState[(int)eSkill::QSkill].m_f3Center = pPlayer->AccessorPos();
     m_tAttackState[(int)eSkill::QSkill].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
     m_tAttackState[(int)eSkill::QSkill].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::QSkill];
-    m_tAttackState[(int)eSkill::QSkill].m_n2Split = DirectX::XMINT2(5, 5);
+    m_tAttackState[(int)eSkill::QSkill].m_n2Split = DirectX::XMINT2(10, 1);
     m_tAttackState[(int)eSkill::QSkill].m_nDamage = m_tStatus.m_nAttack;
-    m_tAttackState[(int)eSkill::QSkill].m_sTexKey = "";
+    m_tAttackState[(int)eSkill::QSkill].m_sTexKey = "WizardQSkill";
     m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_eKind = DirectionKind::Helmite;
     m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_f3InitPos = f3InitPos;
-    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_f3InitPos = f3TargetPos;
+    m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_f3TargetPos = f3TargetPos;
     m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_fInitTangentVector[0] = 10.0f;
     m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_fInitTangentVector[1] = 10.0f;
     m_tAttackState[(int)eSkill::QSkill].m_tDirectionState.m_tHelmite.m_fInitTangentVector[2] = 10.0f;
@@ -102,18 +101,31 @@ void CWizard::ESkill()
 
     m_tStatus.m_nAttack *= 2;
     m_bAttackUp = true;
+
+    CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
+    m_tAttackState[(int)eSkill::ESkill].m_f3Center = pPlayer->AccessorPos();
+    m_tAttackState[(int)eSkill::ESkill].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+    m_tAttackState[(int)eSkill::ESkill].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::QSkill];
+    m_tAttackState[(int)eSkill::ESkill].m_n2Split = DirectX::XMINT2(5, 4);
+    m_tAttackState[(int)eSkill::ESkill].m_nDamage = 0;
+    m_tAttackState[(int)eSkill::ESkill].m_sTexKey = "WizardESkill";
+    m_tAttackState[(int)eSkill::ESkill].m_tDirectionState.m_eKind = DirectionKind::FollowUp;
+    m_tAttackState[(int)eSkill::ESkill].m_tDirectionState.m_tFollowUp.pTarget = pPlayer;
+    CJob::Attack(m_tAttackState[(int)eSkill::ESkill]);
 }
 
 void CWizard::RSkill()
 {
     CPlayer* pPlayer = GetScene()->GetGameObject<CPlayer>();
     m_tAttackState[(int)eSkill::RSkill].m_f3Center = pPlayer->AccessorPos();
-    m_tAttackState[(int)eSkill::RSkill].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-    m_tAttackState[(int)eSkill::RSkill].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::QSkill];
-    m_tAttackState[(int)eSkill::RSkill].m_n2Split = DirectX::XMINT2(5, 5);
+    m_tAttackState[(int)eSkill::RSkill].m_f3Size = DirectX::XMFLOAT3(5.0f, 5.0f, 5.0f);
+    m_tAttackState[(int)eSkill::RSkill].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::RSkill];
+    m_tAttackState[(int)eSkill::RSkill].m_n2Split = DirectX::XMINT2(5, 2);
     m_tAttackState[(int)eSkill::RSkill].m_nDamage = m_tStatus.m_nAttack;
-    m_tAttackState[(int)eSkill::RSkill].m_sTexKey = "";
+    m_tAttackState[(int)eSkill::RSkill].m_sTexKey = "WizardRSkill";
     m_tAttackState[(int)eSkill::RSkill].m_tDirectionState.m_eKind = DirectionKind::FollowUp;
     m_tAttackState[(int)eSkill::RSkill].m_tDirectionState.m_tFollowUp.pTarget = pPlayer;
+    m_tAttackState[(int)eSkill::RSkill].m_nSpeed = 5;
+
     CJob::Attack(m_tAttackState[(int)eSkill::RSkill]);
 }
