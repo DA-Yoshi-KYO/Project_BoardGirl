@@ -79,7 +79,7 @@ void CSceneGame::Update()
 
 void CSceneGame::Draw()
 {
-    CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
+    CCamera* pCamera = CCamera::GetInstance().get();
     Geometory::SetView(pCamera->GetViewMatrix());
     Geometory::SetProjection(pCamera->GetProjectionMatrix());
 
@@ -94,7 +94,7 @@ void CSceneGame::Draw()
                     DirectX::XMVECTOR vecA = DirectX::XMLoadFloat3(&posA);
                     DirectX::XMFLOAT3 posB = b->AccessorPos();
                     DirectX::XMVECTOR vecB = DirectX::XMLoadFloat3(&posB);
-                    DirectX::XMFLOAT3 posCamera = CCamera::GetInstance(CCamera::GetCameraKind())->GetPos();
+                    DirectX::XMFLOAT3 posCamera = CCamera::GetInstance()->GetPos();
                     DirectX::XMVECTOR vecCamera = DirectX::XMLoadFloat3(&posCamera);
                     DirectX::XMVECTOR disCamA = DirectX::XMVectorSubtract(vecA, vecCamera);
                     DirectX::XMVECTOR disCamB = DirectX::XMVectorSubtract(vecB, vecCamera);

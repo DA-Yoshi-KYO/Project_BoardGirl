@@ -1,20 +1,24 @@
+// インクルード部
 #include "Camera.h"
 #include "Defines.h"
 #include "CameraDebug.h"
 #include "CameraPlayer.h"
 #include "CameraSelect.h"
 
+// 静的変数初期化
 CameraKind CCamera::m_eCameraKind = CameraKind::CAM_DEBUG;
 
 CCamera::CCamera()
-	: m_f3Pos{ 0.0f, 10.0f, 0.0f }, m_f3Look{ 0.0f ,0.0f,0.0f }, m_f3Up{ 0.0f,1.0f,0.0f }
+	: m_f3Pos(DirectX::XMFLOAT3(0.0f, 10.0f, 0.0f)), m_f3Look(DirectX::XMFLOAT3(0.0f ,0.0f,0.0f)), m_f3Up(DirectX::XMFLOAT3(0.0f,1.0f,0.0f))
 	, m_fFovy(DirectX::XMConvertToRadians(60.0f)), m_fAspect(16.0f / 9.0f)
 	, m_fNear(CMETER(30.0f)), m_fFar(METER(1000.0f))
 {
+
 }
 
 CCamera::~CCamera()
 {
+
 }
 
 DirectX::XMFLOAT4X4 CCamera::GetViewMatrix(bool transpose)
@@ -84,34 +88,18 @@ const DirectX::XMFLOAT4X4 CCamera::Get2DProjectionMatrix(bool transpose)
 	return proj;
 }
 
-std::unique_ptr<CCamera>& CCamera::GetInstance(int CamKind)
+std::unique_ptr<CCamera>& CCamera::GetInstance()
 {
 	static std::unique_ptr<CCamera> CamInstance[] = {
 		std::make_unique<CCameraDebug>(),
 		std::make_unique<CCameraPlayer>(),
-        std::make_unique<CCameraSelect>(),
-    };
+		std::make_unique<CCameraSelect>(),
+	};
 
-	switch (CamKind)
-	{
-	case CAM_DEBUG:		return CamInstance[CAM_DEBUG];		break;
-	case CAM_PLAYER:	return CamInstance[CAM_PLAYER];		break;
-    case CAM_SELECT:	return CamInstance[CAM_SELECT];		break;
-	default: return CamInstance[CAM_DEBUG]; break;
-	}
-}
-
-void CCamera::Release()
-{
-
+	return CamInstance[m_eCameraKind];
 }
 
 void CCamera::SetCameraKind(CameraKind kind)
 {
 	m_eCameraKind = kind;
-}
-
-CameraKind CCamera::GetCameraKind()
-{
-	return m_eCameraKind;
 }

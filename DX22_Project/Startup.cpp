@@ -23,7 +23,7 @@ const char* AppName = "BoardFight";
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(235);
+	//_CrtSetBreakAlloc(235);
 
 	//--- 変数宣言
 	WNDCLASSEX wcex;
@@ -53,7 +53,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DWORD style = WS_CAPTION | WS_SYSMENU;
 	DWORD exStyle = WS_EX_OVERLAPPEDWINDOW;
 	AdjustWindowRectEx(&rect, style, false, exStyle);
-    myHWnd = CreateWindowEx(
+	myHWnd = CreateWindowEx(
 		exStyle, wcex.lpszClassName,
 		NULL, style,
 		CW_USEDEFAULT, CW_USEDEFAULT,
@@ -65,7 +65,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// ウィンドウの表示
 	ShowWindow(myHWnd, nCmdShow);
 	UpdateWindow(myHWnd);
-    SetWindowText(myHWnd, AppName);
+	SetWindowText(myHWnd, AppName);
 
 	// 初期化処理
 	if (FAILED(Init(myHWnd, SCREEN_WIDTH, SCREEN_HEIGHT)))
@@ -82,7 +82,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	DWORD time = timeGetTime();	//現在の処理時間
 	DWORD oldTime = time;		//以前に実行した時間
 	DWORD fpsTime = time;		//fpsの計測し始め
-    DWORD fpsCount = 0;			//FPS値計測カウンタ
+	DWORD fpsCount = 0;			//FPS値計測カウンタ
 
 	//--- ウィンドウの管理
 	while (!g_bEnd)
@@ -118,7 +118,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					//sprintf→文字列に対してprintfで書き込む
 					//sprintf(mes, "FPS:%d");
 					//FPSの表示
-                    myFPS = fpsCount;
+					myFPS = fpsCount;
 					//次の計測の準備
 					fpsCount = 0;
 					fpsTime = time;
@@ -158,11 +158,11 @@ void AppEnd()
 
 HWND GetMyWindow()
 {
-    return myHWnd;
+	return myHWnd;
 }
 
 int GetFPS()
 {
-    return myFPS;
+	return myFPS;
 }
 

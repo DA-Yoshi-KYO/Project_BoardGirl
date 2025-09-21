@@ -178,7 +178,7 @@ void Sprite::SetParam(RendererParam param,SpriteKind inKind)
 	// 色
 	m_data.param[2] = param.m_f4Color;
 
-	CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
+	CCamera* pCamera = CCamera::GetInstance().get();
 
 	DirectX::XMMATRIX mWorld = DirectX::XMMatrixIdentity();
 	DirectX::XMMATRIX mInvView = DirectX::XMMatrixIdentity();
@@ -218,7 +218,7 @@ void Sprite::SetParam(RendererParam param,SpriteKind inKind)
 DirectX::XMFLOAT4X4 Sprite::GetBillboardMatrix(DirectX::XMFLOAT3 pos)
 {
 	DirectX::XMMATRIX mCamInv = DirectX::XMMatrixIdentity();
-	DirectX::XMFLOAT4X4 view = CCamera::GetInstance(CCamera::GetCameraKind())->GetViewMatrix(false);
+	DirectX::XMFLOAT4X4 view = CCamera::GetInstance()->GetViewMatrix(false);
 	mCamInv = DirectX::XMLoadFloat4x4(&view);
 	mCamInv = DirectX::XMMatrixInverse(nullptr, mCamInv);
 	DirectX::XMStoreFloat4x4(&view, mCamInv);

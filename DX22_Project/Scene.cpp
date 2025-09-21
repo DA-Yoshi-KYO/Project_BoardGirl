@@ -104,7 +104,7 @@ void CScene::Update()
 
 void CScene::Draw()
 {
-    CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
+    CCamera* pCamera = CCamera::GetInstance().get();
     Geometory::SetView(pCamera->GetViewMatrix());
     Geometory::SetProjection(pCamera->GetProjectionMatrix());
 

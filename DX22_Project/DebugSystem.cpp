@@ -48,7 +48,7 @@ void CDebugSystem::Uninit()
 
 void CDebugSystem::Update()
 {
-    if (!m_bUpdate) CCamera::GetInstance(CCamera::GetCameraKind())->Update();
+    if (!m_bUpdate) CCamera::GetInstance()->Update();
 }
 
 void CDebugSystem::Draw()
@@ -138,7 +138,7 @@ void CDebugSystem::DrawHierarchy()
 
 void CDebugSystem::DrawCameraParam()
 {
-    CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
+    CCamera* pCamera = CCamera::GetInstance().get();
     CScene* pScene = GetScene();
 
     if (dynamic_cast<CSceneGame*>(pScene))pCamera->SetCameraKind(CAM_PLAYER);

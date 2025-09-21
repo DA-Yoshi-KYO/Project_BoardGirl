@@ -32,7 +32,7 @@ void CModelRenderer::Draw()
     else SetRenderTargets(1, &pRTV, nullptr);
     SetCullingMode(m_tParam.m_eCulling);
 
-    CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
+    CCamera* pCamera = CCamera::GetInstance().get();
     DirectX::XMFLOAT4X4 wvp[3];
     DirectX::XMMATRIX world =
         DirectX::XMMatrixScaling(m_tParam.m_f3Size.x, m_tParam.m_f3Size.y, m_tParam.m_f3Size.z) *

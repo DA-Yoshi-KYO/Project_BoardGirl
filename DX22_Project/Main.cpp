@@ -39,8 +39,8 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 	// 初期化の例
 	if (FAILED(hr)) { return hr; }
 
-    CDebugSystem::GetInstance()->Init();
-    CAudio::InitMaster();
+	CDebugSystem::GetInstance()->Init();
+	CAudio::InitMaster();
 	Geometory::Init();
 	Sprite::Init();
 	ShaderList::Init();
@@ -48,10 +48,9 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 
 	g_pScene = new CSceneTitle();
 	g_pScene->Init();
-    g_ekind = CCamera::GetCameraKind();
-    g_pTransition = new CTransition();
-    g_pTransition->Init();
-    FadeIn(nullptr);
+	g_pTransition = new CTransition();
+	g_pTransition->Init();
+	FadeIn(nullptr);
 
 	return hr;
 }
@@ -61,21 +60,21 @@ void Uninit()
 	g_pScene->Uninit();
 	delete g_pScene;
 	g_pScene = nullptr;
-    g_pTransition->Uninit();
-    delete g_pTransition;
-    g_pTransition = nullptr;
+	g_pTransition->Uninit();
+	delete g_pTransition;
+	g_pTransition = nullptr;
 
-    CEnemyGenerater::GetInstance()->ReleaseInstance();
+	CEnemyGenerater::GetInstance()->ReleaseInstance();
 
 
 	UninitInput();
 	ShaderList::Uninit();
 	Sprite::Uninit();
 	Geometory::Uninit();
-    CAudio::UninitMaster();
-    CRendererComponent::UnLoad();
-    CDebugSystem::GetInstance()->Uninit();
-    CDebugSystem::GetInstance()->ReleaseInstance();
+	CAudio::UninitMaster();
+	CRendererComponent::UnLoad();
+	CDebugSystem::GetInstance()->Uninit();
+	CDebugSystem::GetInstance()->ReleaseInstance();
 
 	UninitDirectX();
 }
@@ -85,35 +84,33 @@ void Update()
 	UpdateInput();
 	srand(timeGetTime());
 
-    if (CDebugSystem::GetInstance()->IsUpdate())
-    {
-        if (g_bSceneChanging)
-        {
-            CDebugSystem::GetInstance()->ReleaseGameObject();
+	if (CDebugSystem::GetInstance()->IsUpdate())
+	{
+		if (g_bSceneChanging)
+		{
+			CDebugSystem::GetInstance()->ReleaseGameObject();
 
-            g_pScene->Uninit();
-            delete g_pScene;
-            g_pScene = g_pNextScene;
-            g_pScene->Init();
-            g_bSceneChanging = false;
-            g_ekind = CCamera::GetCameraKind();
-        }
+			g_pScene->Uninit();
+			delete g_pScene;
+			g_pScene = g_pNextScene;
+			g_pScene->Init();
+			g_bSceneChanging = false;
+		}
 
-        CCamera* pCamera = CCamera::GetInstance(CCamera::GetCameraKind()).get();
-        pCamera->Update();
-        g_pScene->Update();
-        g_pTransition->Update();
-    }
+		CCamera* pCamera = CCamera::GetInstance().get();
+		pCamera->Update();
+		g_pScene->Update();
+		g_pTransition->Update();
+	}
 
-    if (IsKeyPress('U'))
-    {
-        if (IsKeyTrigger('I'))
-        {
-            if (!g_bDebugMode) g_ekind = CCamera::GetCameraKind();
-            g_bDebugMode ^= true;
-        }
-    }
-    CDebugSystem::GetInstance()->Update();
+	if (IsKeyPress('U'))
+	{
+		if (IsKeyTrigger('I'))
+		{
+			g_bDebugMode ^= true;
+		}
+	}
+	CDebugSystem::GetInstance()->Update();
 }
 
 void Draw()
@@ -121,8 +118,8 @@ void Draw()
 	BeginDrawDirectX();
 
 	g_pScene->Draw();
-    g_pTransition->Draw();
-    if (g_bDebugMode) CDebugSystem::GetInstance()->Draw();
+	g_pTransition->Draw();
+	if (g_bDebugMode) CDebugSystem::GetInstance()->Draw();
 
 	EndDrawDirectX();
 }
@@ -140,15 +137,15 @@ void ChangeScene(CScene* inScene)
 
 void FadeIn(std::function<void()> onFadeComplete)
 {
-    g_pTransition->FadeIn(50, onFadeComplete);
+	g_pTransition->FadeIn(50, onFadeComplete);
 }
 
 void FadeOut(std::function<void()> onFadeComplete)
 {
-    g_pTransition->FadeOut(50, onFadeComplete);
+	g_pTransition->FadeOut(50, onFadeComplete);
 }
 
 bool IsDebugMode()
 {
-    return g_bDebugMode;
+	return g_bDebugMode;
 }

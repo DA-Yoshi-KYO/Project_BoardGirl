@@ -16,7 +16,7 @@ void CSkyBox::Init()
 
 void CSkyBox::Update()
 {
-    m_tParam.m_f3Pos = CCamera::GetInstance(CCamera::GetCameraKind())->GetPos();
+    m_tParam.m_f3Pos = CCamera::GetInstance()->GetPos();
     CGameObject::Update();
 }
 

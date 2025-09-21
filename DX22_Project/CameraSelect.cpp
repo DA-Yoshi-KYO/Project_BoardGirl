@@ -1,3 +1,4 @@
+// インクルード部
 #include "CameraSelect.h"
 
 CCameraSelect::~CCameraSelect()
@@ -7,7 +8,7 @@ CCameraSelect::~CCameraSelect()
 
 void CCameraSelect::Update()
 {
-    m_f3Pos = { 0.0f, 0.0f, -10.0f };
-    m_f3Look = { 0.0f, 0.0f, 0.0f };
-    m_f3Up = { 0.0f, 1.0f, 0.0f };
+	m_f3Pos = DirectX::XMFLOAT3(0.0f, 0.0f, -10.0f);
+	m_f3Look = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	m_f3Up = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
 }
