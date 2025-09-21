@@ -321,6 +321,9 @@
     <ClCompile Include="Score.cpp">
       <Filter>Code\GameObject\UI\InGame</Filter>
     </ClCompile>
+    <ClCompile Include="MouseUI.cpp">
+      <Filter>Code\GameObject\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -523,6 +526,9 @@
     </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>Code\GameObject\UI\InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseUI.h">
+      <Filter>Code\GameObject\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

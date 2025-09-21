@@ -4,6 +4,7 @@
 #include "SceneResult.h"
 #include "PlayerAttack.h"
 #include "Alphabet.h"
+#include "MouseUI.h"
 
 CJob::CJob()
     : m_tStatus{}, m_pTargetEnemy(nullptr), isEnd(false), m_pSkillUI{}
@@ -34,7 +35,7 @@ void CJob::Init()
     }             
     m_pSkillUI[0]->SetTransform(DirectX::XMFLOAT3(450.0f,180.0f,0.0f),DirectX::XMFLOAT3(100.0f,100.0f,0.0f));
     m_pSkillUI[1]->SetTransform(DirectX::XMFLOAT3(550.0f,280.0f,0.0f),DirectX::XMFLOAT3(100.0f,100.0f,0.0f));
-    m_pSkillUI[2]->SetTransform(DirectX::XMFLOAT3(-520,240.0f,0.0f),DirectX::XMFLOAT3(150.0f,150.0f,0.0f));
+    m_pSkillUI[2]->SetTransform(DirectX::XMFLOAT3(-520.0f,240.0f,0.0f),DirectX::XMFLOAT3(150.0f,150.0f,0.0f));
 
     CAlphabet* AlphaQ = pScene->AddGameObject<CAlphabet>("Q",Tag::UI);
     AlphaQ->AccessorPos(DirectX::XMFLOAT3(450.0f, 180.0f, -50.0f));
@@ -47,6 +48,12 @@ void CJob::Init()
     AlphaE->AccessorSize(DirectX::XMFLOAT3(100.0f, 100.0f, 0.0f));
     AlphaE->SetAlphabet(ALPHA_E);
     AlphaE->AccessorColor(DirectX::XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+
+    CMouseUI* MouseMiddle = pScene->AddGameObject<CMouseUI>("Middle", Tag::UI);
+    MouseMiddle->AccessorPos(DirectX::XMFLOAT3(-520.0f, 240.0f, 0.0f));
+    MouseMiddle->AccessorSize(DirectX::XMFLOAT3(100.0f, 100.0f, 0.0f));
+    MouseMiddle->SetKind(MouseKind::Middle);
+    MouseMiddle->AccessorColor(DirectX::XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f));
 }
 
 void CJob::Update()
@@ -60,25 +67,25 @@ void CJob::Update()
             m_tStatus.m_fSkillTime[i] += fDeltaTime;
             m_tStatus.m_fSkillTime[i] = std::min(m_tStatus.m_fSkillTime[i], m_tStatus.m_fSkillCooltime[i]);
 
-            if (i == (int)eSkill::NormalAttack || i == (int)eSkill::RSkill) continue;
+            if (i == (int)eSkill::NormalAttack) continue;
             switch (i)
             {
             case (int)eSkill::QSkill: id.m_sName = "Q"; break;
             case (int)eSkill::ESkill: id.m_sName = "E"; break;
-            case (int)eSkill::RSkill: id.m_sName = "E"; break;
+            case (int)eSkill::RSkill: id.m_sName = "Middle"; break;
             }
-            GetScene()->GetGameObject(id)->AccessorColor(DirectX::XMFLOAT4(0.0f, 0.0f, 0.0f, 0.5f));
+            GetScene()->GetGameObject(id)->AccessorColor(DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 0.5f));
         }
         else
         {
-            if (i == (int)eSkill::NormalAttack || i == (int)eSkill::RSkill) continue;
+            if (i == (int)eSkill::NormalAttack) continue;
             switch (i)
             {
             case (int)eSkill::QSkill: id.m_sName = "Q"; break;
             case (int)eSkill::ESkill: id.m_sName = "E"; break;
-            case (int)eSkill::RSkill: id.m_sName = "E"; break;
+            case (int)eSkill::RSkill: id.m_sName = "Middle"; break;
             }
-            GetScene()->GetGameObject(id)->AccessorColor(DirectX::XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+            GetScene()->GetGameObject(id)->AccessorColor(DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
         }
 
         m_tStatus.m_fDurationTime[i] += fDeltaTime;
@@ -89,7 +96,6 @@ void CJob::Update()
         if (i != 0)
         {
             m_pSkillUI[i - 1]->SetCurrentValue(m_tStatus.m_fSkillTime[i]);
-
         }
     }
 }

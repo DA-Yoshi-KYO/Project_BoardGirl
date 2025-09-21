@@ -50,6 +50,7 @@ void CSceneGame::Init()
 
     CSpriteRenderer::Load(TEXTURE_PATH("Circle.png"), "Circle");
     CSpriteRenderer::Load(TEXTURE_PATH("Frame.png"), "Frame");
+    CSpriteRenderer::Load(TEXTURE_PATH("Mouse.png"), "MouseUI");
 
     // カメラの設定をインゲームモードに変更
     CCamera::SetCameraKind(CAM_PLAYER);
