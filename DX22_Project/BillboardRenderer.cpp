@@ -1,3 +1,4 @@
+// インクルード部
 #include "BillboardRenderer.h"
 #include "Sprite.h"
 #include "DirectX.h"
@@ -9,12 +10,22 @@ CBillboardRenderer::~CBillboardRenderer()
 
 void CBillboardRenderer::Draw()
 {
-    if (m_sKey.empty()) return;
+	// キーが設定されていない時は描画しない
+	if (m_sKey.empty()) return;
+
+	// 深度バッファを無効にする 
 	RenderTarget* pRTV = GetDefaultRTV();
-	DepthStencil* pDSV = GetDefaultDSV();
 	SetRenderTargets(1, &pRTV, nullptr);
-    SetCullingMode(m_tParam.m_eCulling);
+
+	// カリングのセット
+	SetCullingMode(m_tParam.m_eCulling);
+
+	// 描画用パラメータのセット
 	Sprite::SetParam(m_tParam, SpriteKind::Billboard);
+
+	// テクスチャのセット
 	Sprite::SetTexture(std::get<Texture*>(m_RendererObjectMap.find(m_sKey.c_str())->second.m_Data));
+
+	// 描画
 	Sprite::Draw();
 }

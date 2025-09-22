@@ -9,6 +9,8 @@ insert_final_newline = true   # ファイル末尾に改行を入れる
 trim_trailing_whitespace = true   # 行末の余分なスペースを削除
 indent_style = space     # インデントはスペースを使用
 indent_size = 4          # インデント幅は4
+end_of_line = crlf
+insert_final_newline = true
 
 # MarkdownやYAMLなど、行末スペースを残したいファイルは例外設定
 [*.md]
