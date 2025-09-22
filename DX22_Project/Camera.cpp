@@ -5,7 +5,7 @@
 #include "CameraPlayer.h"
 #include "CameraSelect.h"
 
-// 静的変数初期化
+// 静的変数の初期化
 CameraKind CCamera::m_eCameraKind = CameraKind::CAM_DEBUG;
 
 CCamera::CCamera()

@@ -1,8 +1,7 @@
-/// @file RendererComponent.cpp
-/// @brief レンダラー用の仲介コンポーネントクラス
-
+// インクルード部
 #include "RendererComponent.h"
 
+// 静的変数の初期化
 std::map<std::string, RendererObject> CRendererComponent::m_RendererObjectMap = {};
 
 CRendererComponent::~CRendererComponent()
@@ -78,12 +77,15 @@ RendererParam CRendererComponent::GetRendererParam()
 
 void CRendererComponent::SetKey(std::string inKey)
 {
+	// Map内から引数のキーが存在しているかチェック
 	if (m_RendererObjectMap.find(inKey.c_str()) != m_RendererObjectMap.end())
 	{
+		// 存在していたらそのキーを設定する
 		m_sKey = inKey;
 	}
 	else
 	{
+		// 存在していなかったらエラーメッセージを送信する
 		inKey = "NotFind:" + inKey;
 		MessageBox(NULL, inKey.c_str(), "Error", MB_OK);
 	}
@@ -91,29 +93,36 @@ void CRendererComponent::SetKey(std::string inKey)
 
 void CRendererComponent::Load(RendererKind inKind, const char* inPath, std::string inKey, float scale, Model::Flip flip)
 {
-    auto itr = m_RendererObjectMap.find(inKey.c_str());
-    if (itr != m_RendererObjectMap.end())
-    {
-        return;
-    }
+	// そのキー位置に既にオブジェクトがロード済みかをチェックする
+	auto itr = m_RendererObjectMap.find(inKey.c_str());
+	if (itr != m_RendererObjectMap.end())
+	{
+		// ロード済みなら処理を飛ばす
+		return;
+	}
 
-    RendererObject tObject{};
-    tObject.m_eKind = inKind;
-    Texture* pTexture = nullptr;
-    Model* pModel = nullptr;
+	RendererObject tObject{};   // マップに登録するオブジェクトのデータ
+	tObject.m_eKind = inKind;   // オブジェクトの種類をセット
+
+	Texture* pTexture = nullptr;    // 読み込み用テクスチャクラスポインタ
+	Model* pModel = nullptr;        // 読み込み用モデルクラスポインタ
 
 	switch (tObject.m_eKind)
 	{
 	case RendererKind::Texture:
-        pTexture = new Texture();
+        // テクスチャの読み込み
+		pTexture = new Texture();
 		pTexture->Create(inPath);
 
-        tObject.m_Data = pTexture;
+        // 読み込んだらデータをセットする
+		tObject.m_Data = pTexture;
 		break;
 	case RendererKind::Model:
+        // モデルの読み込み
 		pModel = new Model();
 		if (!pModel->Load(inPath, scale, flip)) MessageBox(NULL, inPath, "Error", MB_OK);
 
+        // Mesh情報の取得
 		std::vector<Model::Mesh> meshVec;
 		for (unsigned int i = 0; i < pModel->GetMeshNum(); i++)
 		{
@@ -121,26 +130,33 @@ void CRendererComponent::Load(RendererKind inKind, const char* inPath, std::stri
 			meshVec.push_back(Mesh);
 		}
 
-        ModelParam tModel;
-        tModel.m_pModel = pModel;
-        tModel.m_tMeshVec = meshVec;
+        // モデル用パラメータに一旦移す
+		ModelParam tModel;
+		tModel.m_pModel = pModel;
+		tModel.m_tMeshVec = meshVec;
 
-        tObject.m_Data = tModel;
+        // 移したらそのデータをセットする
+		tObject.m_Data = tModel;
 		break;
 	}
-    m_RendererObjectMap.emplace(inKey, tObject);
+
+    // セットされたデータをキーと共に登録する
+	m_RendererObjectMap.emplace(inKey, tObject);
 }
 
 void CRendererComponent::UnLoad()
 {
+    // マップから全てのオブジェクト情報を取得
 	for (auto& itr : m_RendererObjectMap)
 	{
 		switch (itr.second.m_eKind)
 		{
 		case RendererKind::Texture:
+            // テクスチャならばテクスチャのdeleteをする
 			SAFE_DELETE(std::get<Texture*>(itr.second.m_Data));
 			break;
 		case RendererKind::Model:
+            // モデルならばモデルのdeleteをする
 			SAFE_DELETE(std::get<ModelParam>(itr.second.m_Data).m_pModel);
 			break;
 		}
