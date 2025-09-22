@@ -23,6 +23,7 @@
 #include "SpriteRenderer.h"
 #include "Sprite3DRenderer.h"
 #include "ModelRenderer.h"
+#include "ObjectLoad.h"
 
 CScene* g_pScene;
 CScene* g_pNextScene;
@@ -41,6 +42,7 @@ HRESULT Init(HWND hWnd, UINT width, UINT height)
 
 	CDebugSystem::GetInstance()->Init();
 	CAudio::InitMaster();
+    CObjectLoad::LoadAll();
 	Geometory::Init();
 	Sprite::Init();
 	ShaderList::Init();
@@ -66,13 +68,12 @@ void Uninit()
 
 	CEnemyGenerater::GetInstance()->ReleaseInstance();
 
-
 	UninitInput();
 	ShaderList::Uninit();
 	Sprite::Uninit();
 	Geometory::Uninit();
+    CObjectLoad::UnLoadAll();
 	CAudio::UninitMaster();
-	CRendererComponent::UnLoad();
 	CDebugSystem::GetInstance()->Uninit();
 	CDebugSystem::GetInstance()->ReleaseInstance();
 

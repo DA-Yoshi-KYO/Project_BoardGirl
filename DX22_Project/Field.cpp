@@ -13,7 +13,7 @@ CField::~CField()
 void CField::Init()
 {
     CModelRenderer* pRenderer = AddComponent<CModelRenderer>();
-    pRenderer->Load(MODEL_PATH("Ground.obj"), 1.0f, Model::Flip::XFlip);
+    pRenderer->SetKey("Field");
     pRenderer->SetDepth(false);
     m_Mesh = pRenderer->GetMesh();
     m_tParam.m_f3Pos = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);

@@ -7,11 +7,6 @@ CBillboardRenderer::~CBillboardRenderer()
 
 }
 
-void CBillboardRenderer::Init()
-{
-
-}
-
 void CBillboardRenderer::Draw()
 {
     if (m_sKey.empty()) return;
@@ -20,6 +15,6 @@ void CBillboardRenderer::Draw()
 	SetRenderTargets(1, &pRTV, nullptr);
     SetCullingMode(m_tParam.m_eCulling);
 	Sprite::SetParam(m_tParam, SpriteKind::Billboard);
-	Sprite::SetTexture(m_pTextureMap.find(m_sKey.c_str())->second);
+	Sprite::SetTexture(std::get<Texture*>(m_RendererObjectMap.find(m_sKey.c_str())->second.m_Data));
 	Sprite::Draw();
 }

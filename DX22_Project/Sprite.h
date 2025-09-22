@@ -6,7 +6,7 @@
 #include "MeshBuffer.h"
 #include "Shader.h"
 #include "Texture.h"
-#include "Defines.h"
+#include "RendererComponent.h"
 
 enum class SpriteKind
 {

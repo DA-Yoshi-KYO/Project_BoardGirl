@@ -6,10 +6,7 @@
 
 void CSceneJobSelect::Init()
 {
-    CBillboardRenderer::Load(TEXTURE_PATH("Jobs.png"), "Player");
-    CBillboardRenderer::Load(TEXTURE_PATH("SelectBackGround.jpeg"), "SelectBG");
-    CBillboardRenderer::Load(TEXTURE_PATH("Stageselect_Left01.png"), "ArrowLeft");
-    CBillboardRenderer::Load(TEXTURE_PATH("Stageselect_Right01.png"), "ArrowRight");
+
 
     CCamera::SetCameraKind(CAM_SELECT);
 

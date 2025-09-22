@@ -11,8 +11,7 @@ CSceneTitle::~CSceneTitle()
 
 void CSceneTitle::Init()
 {
-    CSpriteRenderer::Load(TEXTURE_PATH("Title.jpg"), "TitleBG");
-    CSpriteRenderer::Load(TEXTURE_PATH("Alphabet.png"), "Alphabet");
+
     
     AddGameObject<CTitleBackGround>("BackGround",Tag::UI);
     for (int i = 0; i < 10; i++)

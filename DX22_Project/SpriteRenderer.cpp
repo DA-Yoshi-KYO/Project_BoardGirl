@@ -9,7 +9,6 @@ CSpriteRenderer::~CSpriteRenderer()
 
 void CSpriteRenderer::Init()
 {
-
 }
 
 void CSpriteRenderer::Draw()
@@ -19,6 +18,6 @@ void CSpriteRenderer::Draw()
 	SetRenderTargets(1, &pRTV, nullptr);
     SetCullingMode(m_tParam.m_eCulling);
 	Sprite::SetParam(m_tParam,SpriteKind::Screen);
-	Sprite::SetTexture(m_pTextureMap.find(m_sKey.c_str())->second);
+	Sprite::SetTexture(std::get<Texture*>(m_RendererObjectMap.find(m_sKey.c_str())->second.m_Data));
 	Sprite::Draw();
 }

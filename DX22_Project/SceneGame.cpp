@@ -15,42 +15,7 @@
 
 void CSceneGame::Init()
 {
-    // シーンで使用するテクスチャの読み込み
-    CBillboardRenderer::Load(TEXTURE_PATH("Jobs.png"), "Player");
-    CBillboardRenderer::Load(TEXTURE_PATH("Slime.png"), "Slime");
-    CBillboardRenderer::Load(TEXTURE_PATH("HPBar.jpg"), "HPBar");
-    CBillboardRenderer::Load(TEXTURE_PATH("Number.png"), "Number");
-    CBillboardRenderer::Load(TEXTURE_PATH("Ghost.png"), "Ghost");
-    CBillboardRenderer::Load(TEXTURE_PATH("Dragon.png"), "Dragon");
 
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordNormalSkill.png"), "SwordNormalAttack");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordQSkill.png"), "SwordQSkill");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordESkill.png"), "SwordESkill");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SwordRSkill.png"), "SwordRSkill");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/WizardNormalSkill.png"), "WizardNormalAttack");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/WizardQSkill.png"), "WizardQSkill");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/WizardESkill.png"), "WizardESkill");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/WizardESkill2.png"), "WizardESkill2");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/WizardRSkill.png"), "WizardRSkill");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/FighterNormalSkill.png"), "FighterNormalAttack");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/FighterQSkill.png"), "FighterQSkill");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/FighterQSkillCharge1.png"), "FighterQSkillCharge1");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/FighterQSkillCharge2.png"), "FighterQSkillCharge2");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/FighterQSkillCharge3.png"), "FighterQSkillCharge3");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/FighterQSkillCharge4.png"), "FighterQSkillCharge4");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/FighterQSkillCharge5.png"), "FighterQSkillCharge5");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/FighterESkill.png"), "FighterESkill");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/FighterRSkill.png"), "FighterRSkill");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/PlayerAttackHit.png"), "PlayerAttackHit");
-
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/SlimeAttack.png"), "SlimeAttack");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/GhostAttack.png"), "GhostAttack");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/DragonNormalAttack.png"), "DragonNormalAttack");
-    CBillboardRenderer::Load(TEXTURE_PATH("Effect/DragonBreathAttack.png"), "DragonBreathAttack");
-
-    CSpriteRenderer::Load(TEXTURE_PATH("Circle.png"), "Circle");
-    CSpriteRenderer::Load(TEXTURE_PATH("Frame.png"), "Frame");
-    CSpriteRenderer::Load(TEXTURE_PATH("Mouse.png"), "MouseUI");
 
     // カメラの設定をインゲームモードに変更
     CCamera::SetCameraKind(CAM_PLAYER);

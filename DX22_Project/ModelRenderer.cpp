@@ -4,24 +4,7 @@
 
 CModelRenderer::~CModelRenderer()
 {
-}
 
-void CModelRenderer::Init()
-{
-    m_pModel = nullptr;
-}
-
-void CModelRenderer::Load(const char* inPath, float scale, Model::Flip flip)
-{
-    m_pModel = std::make_shared<Model>();
-    if (!m_pModel->Load(inPath, scale, flip)) MessageBox(NULL, inPath, "Error", MB_OK);
-
-
-    for (unsigned int i = 0; i < m_pModel->GetMeshNum(); i++)
-    {
-        Model::Mesh Mesh = *m_pModel->GetMesh(i);
-        m_MeshVec.push_back(Mesh);
-    }
 }
 
 void CModelRenderer::Draw()
@@ -45,21 +28,22 @@ void CModelRenderer::Draw()
 
     ShaderList::SetWVP(wvp);
 
-    m_pModel->SetVertexShader(ShaderList::GetVS(ShaderList::VS_WORLD));
-    m_pModel->SetPixelShader(ShaderList::GetPS(ShaderList::PS_SPECULAR));
+    Model* pModel = std::get<ModelParam>(m_RendererObjectMap.find(m_sKey.c_str())->second.m_Data).m_pModel;
+    pModel->SetVertexShader(ShaderList::GetVS(ShaderList::VS_WORLD));
+    pModel->SetPixelShader(ShaderList::GetPS(ShaderList::PS_SPECULAR));
 
-    for (unsigned int i = 0; i < m_pModel->GetMeshNum(); i++)
+    for (unsigned int i = 0; i < pModel->GetMeshNum(); i++)
     {
-        Model::Mesh Mesh = *m_pModel->GetMesh(i);
-        Model::Material material = *m_pModel->GetMaterial(Mesh.materialID);
+        Model::Mesh Mesh = *pModel->GetMesh(i);
+        Model::Material material = *pModel->GetMaterial(Mesh.materialID);
 
         ShaderList::SetMaterial(material);
 
-        if (m_pModel) m_pModel->Draw(i);
+        if (pModel) pModel->Draw(i);
     }
 }
 
 std::vector<Model::Mesh> CModelRenderer::GetMesh()
 {
-    return m_MeshVec;
+    return std::get<ModelParam>(m_RendererObjectMap.find(m_sKey)->second.m_Data).m_tMeshVec;
 }

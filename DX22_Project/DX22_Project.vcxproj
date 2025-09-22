@@ -194,6 +194,7 @@
     <ClCompile Include="Model_morph.cpp" />
     <ClCompile Include="CollisionObb.cpp" />
     <ClCompile Include="MouseUI.cpp" />
+    <ClCompile Include="ObjectLoad.cpp" />
     <ClCompile Include="Player.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -270,6 +271,7 @@
     <ClInclude Include="ModelRenderer.h" />
     <ClInclude Include="CollisionObb.h" />
     <ClInclude Include="MouseUI.h" />
+    <ClInclude Include="ObjectLoad.h" />
     <ClInclude Include="Oparation.h" />
     <ClInclude Include="OperatorAccessor.h" />
     <ClInclude Include="Player.h" />

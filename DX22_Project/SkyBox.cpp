@@ -9,7 +9,7 @@ CSkyBox::~CSkyBox()
 void CSkyBox::Init()
 {
     CModelRenderer* pRenderer = AddComponent<CModelRenderer>();
-    pRenderer->Load(MODEL_PATH("SkyBox.obj"),100000);
+    pRenderer->SetKey("SkyBox");
     pRenderer->SetDepth(false);
     m_tParam.m_eCulling = D3D11_CULL_FRONT;
 }

@@ -1,26 +1,38 @@
 #pragma once
+
+// インクルード部
 #include "Defines.h"
 
+// 前方宣言
 class CGameObject;
 
+/// <summary>
+/// コンポーネントを取りまとめるベースクラス
+/// </summary>
 class CComponent
 {
 public:
+    // コンポーネントはGameObjectに依存しているので
+    // デフォルトのコンストラクタを無効にし、GameObjectに持たせる
 	CComponent() = delete;
-	CComponent(CGameObject* inGameObject)
-		: m_pGameObject(nullptr)
-	{
-		m_pGameObject = inGameObject;
-	}
+    CComponent(CGameObject* inGameObject);
 	virtual ~CComponent();
+
 	virtual void Init();
 	virtual void Uninit();	
 	virtual void Update();
 	virtual void Draw();
-    CGameObject* GetGameObject() { return m_pGameObject; }
+
+	/// <summary>
+	/// コンポーネントに紐付けられているGameObjectを取得する
+	/// </summary>
+	/// <returns>
+    /// (CGameObject*)コンポーネントに紐付けられているGameObjectクラスポインタ
+    /// </returns>
+	CGameObject* GetGameObject() { return m_pGameObject; }
 	
 protected:
-	CGameObject* m_pGameObject;
+	CGameObject* m_pGameObject; // コンポーネントに紐付けるGameObject
 
 };
 

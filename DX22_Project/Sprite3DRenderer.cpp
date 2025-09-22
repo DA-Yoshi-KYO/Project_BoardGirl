@@ -7,6 +7,11 @@ CSprite3DRenderer::~CSprite3DRenderer()
 
 }
 
+void CSprite3DRenderer::Init()
+{
+
+}
+
 void CSprite3DRenderer::Draw()
 {
 	RenderTarget* pRTV = GetDefaultRTV();
@@ -17,6 +22,6 @@ void CSprite3DRenderer::Draw()
     SetCullingMode(m_tParam.m_eCulling);
 
 	Sprite::SetParam(m_tParam, SpriteKind::World);
-	Sprite::SetTexture(m_pTextureMap.find(m_sKey.c_str())->second);
+	Sprite::SetTexture(std::get<Texture*>(m_RendererObjectMap.find(m_sKey.c_str())->second.m_Data));
 	Sprite::Draw();
 }

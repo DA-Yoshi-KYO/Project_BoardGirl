@@ -6,6 +6,7 @@
 #include "CollisionBase.h"
 #include "Audio.h"
 #include "imgui.h"
+#include "RendererComponent.h"
 
 // オブジェクトタグ
 enum class Tag

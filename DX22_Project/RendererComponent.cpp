@@ -3,7 +3,7 @@
 
 #include "RendererComponent.h"
 
-std::map<std::string, Texture*> CRendererComponent::m_pTextureMap{};
+std::map<std::string, RendererObject> CRendererComponent::m_RendererObjectMap = {};
 
 CRendererComponent::~CRendererComponent()
 {
@@ -68,56 +68,81 @@ void CRendererComponent::SetUVSize(DirectX::XMFLOAT2 inUVSize)
 
 void CRendererComponent::SetCullingMode(D3D11_CULL_MODE inCulling)
 {
-    m_tParam.m_eCulling = inCulling;
+	m_tParam.m_eCulling = inCulling;
 }
 
 RendererParam CRendererComponent::GetRendererParam()
 {
-    return m_tParam;
+	return m_tParam;
 }
-
 
 void CRendererComponent::SetKey(std::string inKey)
 {
-    if (m_pTextureMap.find(inKey.c_str()) != m_pTextureMap.end())
-    {
-        m_sKey = inKey;
-    }
-    else
-    {
-        inKey = "NotFind:" + inKey;
-        MessageBox(NULL, inKey.c_str(), "Error", MB_OK);
-    }
-
-
+	if (m_RendererObjectMap.find(inKey.c_str()) != m_RendererObjectMap.end())
+	{
+		m_sKey = inKey;
+	}
+	else
+	{
+		inKey = "NotFind:" + inKey;
+		MessageBox(NULL, inKey.c_str(), "Error", MB_OK);
+	}
 }
 
-void CRendererComponent::Load(const char* inPath, std::string inKey)
+void CRendererComponent::Load(RendererKind inKind, const char* inPath, std::string inKey, float scale, Model::Flip flip)
 {
-    std::string keyStr(inKey);
-
-    auto itr = m_pTextureMap.find(keyStr.c_str());
-    if (itr != m_pTextureMap.end())
+    auto itr = m_RendererObjectMap.find(inKey.c_str());
+    if (itr != m_RendererObjectMap.end())
     {
         return;
     }
 
-    Texture* tex = new Texture();
-    if (FAILED(tex->Create(inPath)))
-    {
-        assert(false); // Create失敗
-        delete tex;
-        return;
-    }
+    RendererObject tObject{};
+    tObject.m_eKind = inKind;
+    Texture* pTexture = nullptr;
+    Model* pModel = nullptr;
 
-    m_pTextureMap.emplace(keyStr, tex);
+	switch (tObject.m_eKind)
+	{
+	case RendererKind::Texture:
+        pTexture = new Texture();
+		pTexture->Create(inPath);
+
+        tObject.m_Data = pTexture;
+		break;
+	case RendererKind::Model:
+		pModel = new Model();
+		if (!pModel->Load(inPath, scale, flip)) MessageBox(NULL, inPath, "Error", MB_OK);
+
+		std::vector<Model::Mesh> meshVec;
+		for (unsigned int i = 0; i < pModel->GetMeshNum(); i++)
+		{
+			Model::Mesh Mesh = *pModel->GetMesh(i);
+			meshVec.push_back(Mesh);
+		}
+
+        ModelParam tModel;
+        tModel.m_pModel = pModel;
+        tModel.m_tMeshVec = meshVec;
+
+        tObject.m_Data = tModel;
+		break;
+	}
+    m_RendererObjectMap.emplace(inKey, tObject);
 }
 
 void CRendererComponent::UnLoad()
 {
-    for (auto& itr : m_pTextureMap)
-    {
-        SAFE_DELETE(itr.second);
-    }
-    m_pTextureMap.clear();
+	for (auto& itr : m_RendererObjectMap)
+	{
+		switch (itr.second.m_eKind)
+		{
+		case RendererKind::Texture:
+			SAFE_DELETE(std::get<Texture*>(itr.second.m_Data));
+			break;
+		case RendererKind::Model:
+			SAFE_DELETE(std::get<ModelParam>(itr.second.m_Data).m_pModel);
+			break;
+		}
+	}
 }

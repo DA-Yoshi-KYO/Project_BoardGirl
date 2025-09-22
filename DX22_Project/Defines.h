@@ -52,16 +52,4 @@ static const int SCREEN_HEIGHT = 720;
 static const int	DEBUG_GRID_NUM = 10;			// グリッド中心から端までの線の本数
 static const float	DEBUG_GRID_MARGIN = METER(1.0f);	// グリッド配置幅
 
-// オブジェクト汎用パラメータ
-struct RendererParam
-{
-	DirectX::XMFLOAT3 m_f3Pos = { 0.0f,0.0f,0.0f };
-	DirectX::XMFLOAT3 m_f3Size = { 1.0f,1.0f,1.0f };
-	DirectX::XMFLOAT3 m_f3Rotate = { 0.0f,0.0f,0.0f };
-	DirectX::XMFLOAT4 m_f4Color = { 1.0f,1.0f,1.0f,1.0f };
-	DirectX::XMFLOAT2 m_f2UVPos = { 0.0f,0.0f };
-	DirectX::XMFLOAT2 m_f2UVSize = {1.0f,1.0f};
-    D3D11_CULL_MODE m_eCulling = D3D11_CULL_BACK;
-};
-
 #endif // __DEFINES_H__

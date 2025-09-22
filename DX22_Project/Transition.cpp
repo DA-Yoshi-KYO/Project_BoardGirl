@@ -6,8 +6,6 @@ CTransition::~CTransition()
 
 void CTransition::Init()
 {
-    CSpriteRenderer::Load(TEXTURE_PATH("Fade.png"), "Fade");
-
     m_pSprite = AddComponent<CSpriteRenderer>();
     m_pSprite->SetKey("Fade");
 

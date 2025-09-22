@@ -12,8 +12,7 @@ CSceneResult::~CSceneResult()
 
 void CSceneResult::Init()
 {
-    CSpriteRenderer::Load(TEXTURE_PATH("Result.jpg"), "ResultBG");
-    CSpriteRenderer::Load(TEXTURE_PATH("Number.png"), "Number");
+
     AddGameObject<CResultBackGround>("BackGround", Tag::UI);
     AddGameObject<CResultScore>("ResultScore", Tag::UI);
     AddGameObject<CResultTime>("ResultTime", Tag::UI);
