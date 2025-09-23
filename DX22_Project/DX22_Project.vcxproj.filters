@@ -67,9 +67,6 @@
     <Filter Include="Code\GameObject\Billboard\Enemy">
       <UniqueIdentifier>{123967e1-2d64-4528-94f3-0754f27740e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code\Composite">
-      <UniqueIdentifier>{60449e22-20e5-486d-8a1f-f415104a41e3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Code\Component\Audio">
       <UniqueIdentifier>{4d0c0eb8-9a43-46ee-acb2-6e1d7548cba9}</UniqueIdentifier>
     </Filter>
