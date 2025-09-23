@@ -19,12 +19,6 @@
     <Filter Include="Code\GameObject">
       <UniqueIdentifier>{0018c80b-c101-49ef-8e43-299e06192208}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code\GameObject\Effect">
-      <UniqueIdentifier>{c81d3371-75fd-437d-9f3c-ccbd331ad379}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code\GameObject\UI">
-      <UniqueIdentifier>{d974f407-5bd6-47b7-adb4-edf5d0e38e4e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Code\GameObject\Sprite">
       <UniqueIdentifier>{8dd4b73f-ce92-4dd2-a3e9-62d9a3f1a33b}</UniqueIdentifier>
     </Filter>
@@ -42,9 +36,6 @@
     </Filter>
     <Filter Include="Code\Component\Renderer">
       <UniqueIdentifier>{9c2d56b2-b040-4b20-9783-846c5984c61e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code\GameObject\UI\BackGround">
-      <UniqueIdentifier>{7427bc54-e45f-45d2-ab9c-10544df5a77f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Code\Work\Model">
       <UniqueIdentifier>{d63b44a6-acf4-4217-9982-bf08790f7d18}</UniqueIdentifier>
@@ -73,20 +64,11 @@
     <Filter Include="Code\GameSystem">
       <UniqueIdentifier>{4544807a-c420-4917-a376-c58dbf43b0d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code\GameObject\UI\Select">
-      <UniqueIdentifier>{ccf784a7-2817-45be-951b-36c97c62a1c8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Code\GameObject\Billboard\Enemy">
       <UniqueIdentifier>{123967e1-2d64-4528-94f3-0754f27740e7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Code\Composite">
       <UniqueIdentifier>{60449e22-20e5-486d-8a1f-f415104a41e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code\GameObject\UI\InGame">
-      <UniqueIdentifier>{22c467ce-0432-4c08-8085-432ad1251650}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Code\HLSL">
-      <UniqueIdentifier>{17b73385-eb83-4250-bf41-e0a4370fc45b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Code\Component\Audio">
       <UniqueIdentifier>{4d0c0eb8-9a43-46ee-acb2-6e1d7548cba9}</UniqueIdentifier>
@@ -94,8 +76,23 @@
     <Filter Include="Code\GameObject\Speaker">
       <UniqueIdentifier>{3243774b-9597-44e6-b73c-1694bc855fb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Code\GameObject\UI\Result">
-      <UniqueIdentifier>{5df2a975-41de-48b5-86aa-26c0a84542a2}</UniqueIdentifier>
+    <Filter Include="Code\GameObject\Billboard\Player">
+      <UniqueIdentifier>{b38b395a-40ad-476d-9736-05f9c58667a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\Sprite\InGame">
+      <UniqueIdentifier>{1d5fdfc4-e85a-4ab0-a3b1-e2a1186cf202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\Sprite\Result">
+      <UniqueIdentifier>{6166add0-6e40-4788-a9fb-81aba2d097f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\GameObject\Sprite\Title">
+      <UniqueIdentifier>{0e824742-7c45-4ec6-8ddc-07f9e37b9099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Scene\Scenes">
+      <UniqueIdentifier>{0116ad5f-c873-4eed-b945-dd9a8bac7b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Code\Scene\Transition">
+      <UniqueIdentifier>{7d276bbc-80d1-4dd0-8f0b-d61708789c91}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,9 +147,6 @@
     <ClCompile Include="RendererComponent.cpp">
       <Filter>Code\Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="TitleBackGround.cpp">
-      <Filter>Code\GameObject\UI\BackGround</Filter>
-    </ClCompile>
     <ClCompile Include="_geometory.cpp">
       <Filter>Code\Work\Model</Filter>
     </ClCompile>
@@ -195,12 +189,6 @@
     <ClCompile Include="Input.cpp">
       <Filter>Code\Work\Input</Filter>
     </ClCompile>
-    <ClCompile Include="SceneGame.cpp">
-      <Filter>Code\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Code\GameObject\Billboard</Filter>
-    </ClCompile>
     <ClCompile Include="BillboardRenderer.cpp">
       <Filter>Code\Component\Renderer</Filter>
     </ClCompile>
@@ -231,18 +219,6 @@
     <ClCompile Include="Wizard.cpp">
       <Filter>Code\GameSystem</Filter>
     </ClCompile>
-    <ClCompile Include="SceneTitle.cpp">
-      <Filter>Code\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneJobSelect.cpp">
-      <Filter>Code\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectBackGround.cpp">
-      <Filter>Code\GameObject\UI\BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectJobs.cpp">
-      <Filter>Code\GameObject\UI\Select</Filter>
-    </ClCompile>
     <ClCompile Include="CameraPlayer.cpp">
       <Filter>Code\Camera</Filter>
     </ClCompile>
@@ -257,12 +233,6 @@
     </ClCompile>
     <ClCompile Include="Slime.cpp">
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="HPBar.cpp">
-      <Filter>Code\Composite</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Code\GameObject\UI\InGame</Filter>
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Code\GameObject\Billboard</Filter>
@@ -288,44 +258,71 @@
     <ClCompile Include="SkyBox.cpp">
       <Filter>Code\GameObject\Model</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerAttack.cpp">
-      <Filter>Code\GameObject\Billboard</Filter>
-    </ClCompile>
     <ClCompile Include="AttackObject.cpp">
       <Filter>Code\GameObject\Billboard</Filter>
     </ClCompile>
-    <ClCompile Include="Alphabet.cpp">
-      <Filter>Code\GameObject\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectArrow.cpp">
-      <Filter>Code\GameObject\UI\Select</Filter>
-    </ClCompile>
-    <ClCompile Include="Transition.cpp">
-      <Filter>Code\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SkillUI.cpp">
-      <Filter>Code\GameObject\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneResult.cpp">
-      <Filter>Code\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="ResultBackGround.cpp">
-      <Filter>Code\GameObject\UI\BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="ResultTime.cpp">
-      <Filter>Code\GameObject\UI\Result</Filter>
-    </ClCompile>
-    <ClCompile Include="ResultScore.cpp">
-      <Filter>Code\GameObject\UI\Result</Filter>
-    </ClCompile>
-    <ClCompile Include="Score.cpp">
-      <Filter>Code\GameObject\UI\InGame</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseUI.cpp">
-      <Filter>Code\GameObject\UI</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectLoad.cpp">
       <Filter>Code\Work</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectJobs.cpp">
+      <Filter>Code\GameObject\Billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectArrow.cpp">
+      <Filter>Code\GameObject\3DSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Alphabet.cpp">
+      <Filter>Code\GameObject\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="HPBar.cpp">
+      <Filter>Code\GameObject\Billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Code\GameObject\Billboard\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttack.cpp">
+      <Filter>Code\GameObject\Billboard\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillUI.cpp">
+      <Filter>Code\GameObject\Sprite\InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Code\GameObject\Sprite\InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseUI.cpp">
+      <Filter>Code\GameObject\Sprite\InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Code\GameObject\Sprite\InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultBackGround.cpp">
+      <Filter>Code\GameObject\Sprite\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultScore.cpp">
+      <Filter>Code\GameObject\Sprite\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultTime.cpp">
+      <Filter>Code\GameObject\Sprite\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectBackGround.cpp">
+      <Filter>Code\GameObject\3DSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBackGround.cpp">
+      <Filter>Code\GameObject\Sprite\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGame.cpp">
+      <Filter>Code\Scene\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneJobSelect.cpp">
+      <Filter>Code\Scene\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneResult.cpp">
+      <Filter>Code\Scene\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
+      <Filter>Code\Scene\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Transition.cpp">
+      <Filter>Code\Scene\Transition</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -365,12 +362,6 @@
     <ClInclude Include="RendererComponent.h">
       <Filter>Code\Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="TitleBackGround.h">
-      <Filter>Code\GameObject\UI\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneTitle.h">
-      <Filter>Code\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>Code\Work\Model</Filter>
     </ClInclude>
@@ -386,9 +377,6 @@
     <ClInclude Include="Main.h">
       <Filter>Code\Application</Filter>
     </ClInclude>
-    <ClInclude Include="SceneGame.h">
-      <Filter>Code\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Code\Camera</Filter>
     </ClInclude>
@@ -403,9 +391,6 @@
     </ClInclude>
     <ClInclude Include="CameraPlayer.h">
       <Filter>Code\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Code\GameObject\Billboard</Filter>
     </ClInclude>
     <ClInclude Include="CollisionBase.h">
       <Filter>Code\Component\Collider</Filter>
@@ -434,15 +419,6 @@
     <ClInclude Include="Easing.h">
       <Filter>Code\Work</Filter>
     </ClInclude>
-    <ClInclude Include="SceneJobSelect.h">
-      <Filter>Code\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectBackGround.h">
-      <Filter>Code\GameObject\UI\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectJobs.h">
-      <Filter>Code\GameObject\UI\Select</Filter>
-    </ClInclude>
     <ClInclude Include="CameraSelect.h">
       <Filter>Code\Camera</Filter>
     </ClInclude>
@@ -457,12 +433,6 @@
     </ClInclude>
     <ClInclude Include="Slime.h">
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="HPBar.h">
-      <Filter>Code\Composite</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Code\GameObject\UI\InGame</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Code\GameObject\Billboard</Filter>
@@ -488,63 +458,82 @@
     <ClInclude Include="DebugSystem.h">
       <Filter>Code\Work\External\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="OperatorAccessor.h">
-      <Filter>Code\Work</Filter>
-    </ClInclude>
     <ClInclude Include="SkyBox.h">
       <Filter>Code\GameObject\Model</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Code\Work\Input</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerAttack.h">
-      <Filter>Code\GameObject\Billboard</Filter>
-    </ClInclude>
     <ClInclude Include="AttackObject.h">
       <Filter>Code\GameObject\Billboard</Filter>
     </ClInclude>
-    <ClInclude Include="Alphabet.h">
-      <Filter>Code\GameObject\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectArrow.h">
-      <Filter>Code\GameObject\UI\Select</Filter>
-    </ClInclude>
-    <ClInclude Include="Transition.h">
-      <Filter>Code\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SkillUI.h">
-      <Filter>Code\GameObject\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneResult.h">
-      <Filter>Code\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultBackGround.h">
-      <Filter>Code\GameObject\UI\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultTime.h">
-      <Filter>Code\GameObject\UI\Result</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultScore.h">
-      <Filter>Code\GameObject\UI\Result</Filter>
-    </ClInclude>
-    <ClInclude Include="Score.h">
-      <Filter>Code\GameObject\UI\InGame</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseUI.h">
-      <Filter>Code\GameObject\UI</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectLoad.h">
       <Filter>Code\Work</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectJobs.h">
+      <Filter>Code\GameObject\Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectArrow.h">
+      <Filter>Code\GameObject\3DSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Alphabet.h">
+      <Filter>Code\GameObject\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="HPBar.h">
+      <Filter>Code\GameObject\Billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Code\GameObject\Billboard\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttack.h">
+      <Filter>Code\GameObject\Billboard\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Code\GameObject\Sprite\InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillUI.h">
+      <Filter>Code\GameObject\Sprite\InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseUI.h">
+      <Filter>Code\GameObject\Sprite\InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Code\GameObject\Sprite\InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultBackGround.h">
+      <Filter>Code\GameObject\Sprite\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScore.h">
+      <Filter>Code\GameObject\Sprite\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultTime.h">
+      <Filter>Code\GameObject\Sprite\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectBackGround.h">
+      <Filter>Code\GameObject\3DSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleBackGround.h">
+      <Filter>Code\GameObject\Sprite\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
+      <Filter>Code\Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneJobSelect.h">
+      <Filter>Code\Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneResult.h">
+      <Filter>Code\Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTitle.h">
+      <Filter>Code\Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Transition.h">
+      <Filter>Code\Scene\Transition</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Terrain.txt">
       <Filter>Code\Work\External\memo</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="PS_MotionBlur.hlsl">
-      <Filter>Code\HLSL</Filter>
-    </FxCompile>
   </ItemGroup>
 </Project>
