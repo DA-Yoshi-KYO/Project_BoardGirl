@@ -1,34 +1,58 @@
+// インクルード部
 #include "SelectArrow.h"
 #include "DebugSystem.h"
 #include "Oparation.h"
+#include "Sprite3DRenderer.h"
+
+CSelectArrow::CSelectArrow()
+    : m_pArrowSprite{}
+    , m_f3ArrowPos{}, m_f3ArrowSize{}, m_f3ArrowRotate{}
+{
+
+}
 
 CSelectArrow::~CSelectArrow()
 {
+
 }
 
 void CSelectArrow::Init()
 {
-    m_pArrowSprite[0] = AddComponent<CSprite3DRenderer>();
-    m_pArrowSprite[0]->SetKey("ArrowLeft");
-    m_f3ArrowPos[0] = DirectX::XMFLOAT3(-4.0f,0.0f,-5.0f);
-    m_f3ArrowSize[0] = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-    m_f3ArrowRotate[0] = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-    m_pArrowSprite[1] = AddComponent<CSprite3DRenderer>();
-    m_pArrowSprite[1]->SetKey("ArrowRight");
-    m_f3ArrowPos[1] = DirectX::XMFLOAT3(4.0f, 0.0f, -5.0f);
-    m_f3ArrowSize[1] = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-    m_f3ArrowRotate[1] = DirectX::XMFLOAT3(0.0f, 0.0f, DirectX::XMConvertToRadians(180.0f));
+    // 使用するテクスチャのキー配列
+    const char* chKey[] =
+    {
+        "ArrowLeft",
+        "ArrowRight"
+    };
+
+    for (int i = 0; i < 2; i++)
+    {
+        // コンポーネントの追加
+        m_pArrowSprite[i] = AddComponent<CSprite3DRenderer>();
+
+        // 描画に使用するテクスチャのキーを設定
+        m_pArrowSprite[i]->SetKey(chKey[i]);
+
+        // 描画用パラメータの設定
+        m_f3ArrowPos[i] = DirectX::XMFLOAT3(-4.0f + 8.0f * i, 0.0f, -5.0f);
+        m_f3ArrowSize[i] = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+        m_f3ArrowRotate[i] = DirectX::XMFLOAT3(0.0f, 0.0f, DirectX::XMConvertToRadians(180.0f) * i);
+    }
 }
 
 void CSelectArrow::Update()
 {
-    static float fTime = 0.0f;
+    static float fTime = 0.0f;  // タイマー
+
     for (int i = 0; i < 2; i++)
     {
+        // 時間に応じて矢印UIを拡縮させる
         m_f3ArrowSize[i] = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f) * (1 - fabsf(sinf(DirectX::XMConvertToRadians(fTime * 90.0f)) * 0.5f));
     }
-    CGameObject::Update();
+
     fTime += fDeltaTime;
+
+    CGameObject::Update();
 }
 
 void CSelectArrow::Draw()
