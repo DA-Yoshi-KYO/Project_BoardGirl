@@ -84,10 +84,10 @@ void CSceneGame::Draw()
                 DirectX::XMFLOAT3 objPos = obj->AccessorPos();
                 DirectX::XMFLOAT3 camPos = pCamera->GetPos();
                 DirectX::XMVECTOR vecCamPos = DirectX::XMLoadFloat3(&camPos);
-                DirectX::XMVECTOR chanckSize = DirectX::XMLoadFloat3(&ChunkSize);
-                chanckSize = DirectX::XMVectorScale(chanckSize, 0.5f);
-                DirectX::XMVECTOR vMaxB = DirectX::XMVectorAdd(vecCamPos, chanckSize);
-                DirectX::XMVECTOR vMinB = DirectX::XMVectorSubtract(vecCamPos, chanckSize);
+                DirectX::XMVECTOR vecChunkSize = DirectX::XMLoadFloat3(&ChunkSize);
+                vecChunkSize = DirectX::XMVectorScale(vecChunkSize, 0.5f);
+                DirectX::XMVECTOR vMaxB = DirectX::XMVectorAdd(vecCamPos, vecChunkSize);
+                DirectX::XMVECTOR vMinB = DirectX::XMVectorSubtract(vecCamPos, vecChunkSize);
                 DirectX::XMFLOAT3 maxB, minB;
                 DirectX::XMStoreFloat3(&maxB, vMaxB);
                 DirectX::XMStoreFloat3(&minB, vMinB);
