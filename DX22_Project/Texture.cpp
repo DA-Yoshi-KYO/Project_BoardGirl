@@ -32,19 +32,7 @@ HRESULT Texture::Create(const char* fileName)
 		hr = DirectX::LoadFromTGAFile(wPath, &mdata, image);
 	else
 		hr = DirectX::LoadFromWICFile(wPath, DirectX::WIC_FLAGS::WIC_FLAGS_NONE, &mdata, image);
-	if (FAILED(hr)) 
-	{
-		std::string err("NotFind:");
-		err += fileName;
-		err += "  AppEnd?";
-		if (MessageBox(NULL, err.c_str(), "LoadError", MB_YESNO))
-		{
-			AppEnd();
-		}
-
-		return E_FAIL;
-	}
-
+	
 	// シェーダリソース生成
 	hr = CreateShaderResourceView(GetDevice(), image.GetImages(), image.GetImageCount(), mdata, &m_pSRV);
 	if (SUCCEEDED(hr))

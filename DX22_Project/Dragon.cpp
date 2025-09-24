@@ -1,14 +1,20 @@
 #include "Dragon.h"
 #include "Oparation.h"
 #include "Player.h"
+#include "BillboardRenderer.h"
 
 CDragon::CDragon()
+    : CEnemyBase()
 {
+    // ドラゴンのステータスを決定
     m_tEnemyStatus.m_nHP = 30;
     m_tEnemyStatus.m_nAttack = 20;
-    m_tEnemyStatus.m_nDefense = 1;
+    m_tEnemyStatus.m_fSpeed = 0.05f;
     m_tEnemyStatus.m_nScore = 50;
+    m_tEnemyStatus.m_bMove = false;
+    m_tEnemyStatus.m_bDamage = false;
 
+    // 描画用パラメータの設定
     m_tParam.m_f3Size = DirectX::XMFLOAT3(3.0f,3.0f,3.0f);
 }
 
@@ -19,9 +25,13 @@ CDragon::~CDragon()
 
 void CDragon::Init()
 {
+    // 敵共通の初期化処理
     CEnemyBase::Init();
+
+    // 描画に使用するテクスチャのキーをセット
     AddComponent<CBillboardRenderer>()->SetKey("Dragon");
 
+    // コリジョンのハーフサイズを種類別に設定
     m_pCollision[(int)eEnemyCollision::Body]->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
     m_pCollision[(int)eEnemyCollision::Search]->AccessorHalfSize(DirectX::XMFLOAT3(5.0f, 5.0f, 5.0f));
     m_pCollision[(int)eEnemyCollision::Attack]->AccessorHalfSize(DirectX::XMFLOAT3(3.0f, 3.0f, 3.0f));

@@ -8,7 +8,6 @@ CSlime::CSlime()
 {
     m_tEnemyStatus.m_nHP = 10;
     m_tEnemyStatus.m_nAttack = 10;
-    m_tEnemyStatus.m_nDefense = 1;
 }
 
 CSlime::~CSlime()

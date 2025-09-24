@@ -23,7 +23,6 @@ struct PlayerStatus
 {
     int m_nHP;
     int m_nAttack;
-    int m_nDefense;
     float m_fSkillTime[(int)eSkill::Max];
     float m_fSkillCooltime[(int)eSkill::Max];
     float m_fDurationTime[(int)eSkill::Max];

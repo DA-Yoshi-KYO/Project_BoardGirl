@@ -21,7 +21,7 @@ void CSpriteRenderer::Draw()
     SetCullingMode(m_tParam.m_eCulling);
 
     // 描画用パラメータのセット
-    Sprite::SetParam(m_tParam, SpriteKind::Billboard);
+    Sprite::SetParam(m_tParam, SpriteKind::Screen);
 
     // テクスチャのセット
     Sprite::SetTexture(std::get<Texture*>(m_RendererObjectMap.find(m_sKey.c_str())->second.m_Data));

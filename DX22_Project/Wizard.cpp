@@ -12,7 +12,6 @@ CWizard::CWizard()
 {
     m_tStatus.m_nHP = 80;
     m_tStatus.m_nAttack = 2;
-    m_tStatus.m_nDefense = 1;
     m_nOldAttack = m_tStatus.m_nAttack;
 
     m_tStatus.m_fSkillCooltime[(int)eSkill::NormalAttack] = 0.5f;
