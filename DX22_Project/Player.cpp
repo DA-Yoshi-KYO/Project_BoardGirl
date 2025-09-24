@@ -11,6 +11,7 @@
 #include "Oparation.h"
 #include "DebugSystem.h"
 #include "Field.h"
+#include "HPBar.h"
 
 // 定数定義
 constexpr float ce_fRotatePow = 0.01f;   // 回転速度
