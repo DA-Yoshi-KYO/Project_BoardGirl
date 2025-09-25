@@ -12,12 +12,15 @@
 #include "DebugSystem.h"
 #include "Field.h"
 #include "HPBar.h"
+#include "Job.h"
+#include "CollisionObb.h"
 
-// 定数定義
+// 定数・マクロ定義
 constexpr float ce_fRotatePow = 0.01f;   // 回転速度
 constexpr float ce_fMovePow = 0.15f;    // 移動速度
-constexpr DirectX::XMINT2 ce_n2Split = { 6, 6 };
+constexpr DirectX::XMINT2 ce_n2Split = { 6, 6 };    // プレイヤーのスプライトシート分割数
 
+// SEの種類
 enum class SEKind
 {
     Walk,
@@ -30,33 +33,43 @@ enum class SEKind
     Max
 };
 
+CPlayer::CPlayer()
+    : CGameObject()
+    , m_f3Velocity{}, m_eJobKind(CSelectJobs::GetSelectedJob())
+    , m_pCollision(nullptr), m_pHPBar(nullptr), m_pJob(nullptr)
+    , m_bDamage(false), m_bJump(false)
+{
+    // 汎用パラメータの初期化
+    m_tParam.m_f3Pos = DirectX::XMFLOAT3(0.0f, 2.0f, -10.0f);
+    m_tParam.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+    m_tParam.m_f2UVSize = DirectX::XMFLOAT2(1.0f / (float)ce_n2Split.x, 1.0f / (float)ce_n2Split.y);
+    m_f3OldPos = m_tParam.m_f3Pos;
+}
+
 void CPlayer::Init()
 {
     // コンポーネントの追加
-	AddComponent<CBillboardRenderer>()->SetKey("Player");
     m_pCollision = AddComponent<CCollisionObb>();
-
-    // 汎用パラメータの初期化
-	m_tParam.m_f3Pos = { 0.0f,2.0f,-10.0f };
-    m_f3OldPos = m_tParam.m_f3Pos;
-	m_tParam.m_f3Size = { 1.0f,1.0f,1.0f };
-    m_pCollision->AccessorCenter(m_tParam.m_f3Pos);
-    m_pCollision->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
-    m_pCollision->AccessorTag("PlayerBody");
-
-    // 特有パラメータの初期化
-	m_f3Velocity = {};
-	m_bJump = false;
-
+    CBillboardRenderer* pRenderer = AddComponent<CBillboardRenderer>();
     for (int i = 0; i < (int)SEKind::Max; i++)
     {
         m_pSE.push_back(AddComponent<CAudio>());
     }
-    m_pSE[(int)SEKind::Jump]->Load(AUDIO_PATH("SE/Jump.wav"));
-    m_pSE[(int)SEKind::Walk]->Load(AUDIO_PATH("SE/Walk.wav"));
 
+    // 描画に使うテクスチャのキーをセット
+    pRenderer->SetKey("Player");
 
-    m_eJobKind = CSelectJobs::GetSelectedJob();
+    // コリジョン情報のセット
+    m_pCollision->AccessorCenter(m_tParam.m_f3Pos);
+    m_pCollision->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
+    m_pCollision->AccessorTag("PlayerBody");
+
+    // SEのロード
+    m_pSE[(int)SEKind::Jump]->Load(AUDIO_PATH("SE/Jump.wav"));  // ジャンプ音
+    m_pSE[(int)SEKind::Walk]->Load(AUDIO_PATH("SE/Walk.wav"));  // 歩行音
+
+    // ジョブ情報の作成
+    // ジョブによってUV座標、ロードするSEを変える
     switch (m_eJobKind)
     {
     case JobKind::Soldier:
@@ -88,52 +101,51 @@ void CPlayer::Init()
     default:
         break;
     }
-
     m_pJob->Init();
 
+    // ボリュームの調整
     for (int i = 0; i < (int)SEKind::Max; i++)
     {
         m_pSE[i]->SetVolume(0.1f);
     }
 
-    m_tParam.m_f2UVSize = { 1.0f / (float)ce_n2Split.x, 1.0f / (float)ce_n2Split.y };
-
+    // HPバーを作成し、パラメータをセットする
     m_pHPBar = GetScene()->AddGameObject<CHPBar>("HPBar", Tag::GameObject);
     m_pHPBar->SetRenderState(DirectX::XMFLOAT3(2.0f, 0.25f, 1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
     m_pHPBar->SetMaxHP(m_pJob->GetHP());
     m_pHPBar->SetCurrentHP(m_pJob->GetHP());
 
+    // 親としてプレイヤーを紐付ける
     m_pHPBar->SetParentID(m_tID);
-    m_bDamage = false;
-
 }
 
 void CPlayer::Update()
 {
+    // 座標の保存
     m_f3OldPos = m_tParam.m_f3Pos;
 
-    // 移動処理
-	PlayerMove();
-    PlayerSkill();
+	PlayerMove();   // 移動処理
+    PlayerSkill();  // スキル発動処理
 
+    // コリジョン情報の更新
     m_pCollision->AccessorCenter(m_tParam.m_f3Pos);
     m_pCollision->AccessorHalfSize(m_tParam.m_f3Size / 2.0f);
 
+    // 現在HPをHPバーに渡す
     m_pHPBar->SetCurrentHP(m_pJob->GetHP());
-
-
 
     CGameObject::Update();
 }
 
 void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
 {
-    if (other->AccessorTag() == "EnemyBody")
+    // 自身の身体に当たった際の処理
+    if (thisTag == "PlayerBody")
     {
-        CEnemyBase* pEnemy = dynamic_cast<CEnemyBase*>(other->GetGameObject());
-
-        if (thisTag == "PlayerBody")
+        // 当たった相手が敵の身体だった場合
+        if (other->AccessorTag() == "EnemyBody")
         {
+            // 位置を留める
             m_tParam.m_f3Pos = m_f3OldPos;
         }
     }
@@ -141,25 +153,33 @@ void CPlayer::OnColliderHit(CCollisionBase* other, std::string thisTag)
 
 void CPlayer::Damage(int inDamage)
 {
+    // ジョブのステータスであるHPを減らす
     m_pJob->Damage(inDamage);
 }
 
 int CPlayer::Inspecter(bool isEnd)
 {
+    // 親のインスペクターの描画処理から子要素の個数を受け取る
     int nChildCnt = CGameObject::Inspecter(false);
 
+    // ステータスの表示
     if (ImGui::CollapsingHeader(std::string("[Status]").c_str()))
     {
+        // 子要素の初期化
         ImGui::BeginChild(ImGui::GetID((void*)nChildCnt), ImVec2(ce_f2InspecterSize.x,ce_f2InspecterSize.y * 4));
 
+        // ステータスの描画
         PlayerStatus tStatus = m_pJob->GetStatus();
         ImGui::Text(std::string("HP:" + std::to_string(tStatus.m_nHP)).c_str());
         ImGui::Text(std::string("ATK:" + std::to_string(tStatus.m_nAttack)).c_str());
         
+        // 子要素の終了
         ImGui::EndChild();
+        // 子要素の数をインクリメント
         nChildCnt++;
     }
 
+    // IMGUIウィンドウの終了
     ImGui::End();
 
     return nChildCnt;
@@ -175,15 +195,26 @@ void CPlayer::PlayerMove()
 	m_f3Velocity.x = 0.0f;
 	m_f3Velocity.z = 0.0f;
 
+    // デバッグモードでない場合
     if (!IsDebugMode())
     {
+        // カーソルを非表示にする
+        // ※ShowCursor関数は内部カウンタがあり、trueでインクリメント、falseでデクリメントを行う
+        // 非表示が-1以下、表示が0以上の為、内部カウンタの結果が必ず非表示-1となるように制御する
         if (ShowCursor(false) < -1)
         {
             ShowCursor(true);
         }
+
+        // マウスの座標を取得する
         POINT mousePos = *GetMousePosition();
+
+        // 取得したマウス座標は中心(0,0)の為、取得した座標をそのまま中心からの移動量として扱う
+        // 移動量に応じて回転を加算する
 	    m_tParam.m_f3Rotate.y += DirectX::XMConvertToRadians(mousePos.x * ce_fRotatePow);
 	    m_tParam.m_f3Rotate.x += DirectX::XMConvertToRadians(mousePos.y * ce_fRotatePow);
+
+        // マウスの座標を中央に戻す
         POINT center;
         center.x = 0;
         center.y = 0;
@@ -191,12 +222,14 @@ void CPlayer::PlayerMove()
     }
     else
     {
+        // カーソルを表示する
         if (ShowCursor(true) > 0)
         {
             ShowCursor(false);
         }
     }
-    // 回転の速度は-45度から45度の範囲に制限する
+        
+    // 回転の速度は1フレーム当たり-45度から45度の範囲に制限する
 	constexpr float ce_fMinRotateX = DirectX::XMConvertToRadians(-45.0f);
 	constexpr float ce_fMaxRotateX = DirectX::XMConvertToRadians(45.0f);
 	m_tParam.m_f3Rotate.x = std::clamp(m_tParam.m_f3Rotate.x, ce_fMinRotateX, ce_fMaxRotateX);
@@ -223,16 +256,18 @@ void CPlayer::PlayerMove()
 		m_f3Velocity.z += f3Right.z * ce_fMovePow;
 	}
 
+    // 移動している時にSEを鳴らす
     if ((m_f3Velocity.x != 0.0f || m_f3Velocity.z != 0.0f) && !m_pSE[(int)SEKind::Walk]->IsPlay())
     {
         m_pSE[(int)SEKind::Walk]->Play();
     }
 
+    // ジャンプ処理
 	if (IsKeyTrigger(VK_SPACE) && !m_bJump)
 	{
-        m_pSE[(int)SEKind::Jump]->Play();
-		m_f3Velocity.y += 0.35f;
-		m_bJump = true;
+        m_pSE[(int)SEKind::Jump]->Play();   // SE
+		m_f3Velocity.y += 0.35f;    // Velocity加算
+		m_bJump = true; // ジャンプフラグオン
 	}
 
     // 移動量を使用してプレイヤーの位置を更新
@@ -240,24 +275,32 @@ void CPlayer::PlayerMove()
 	m_tParam.m_f3Pos.y += m_f3Velocity.y;
 	m_tParam.m_f3Pos.z += m_f3Velocity.z;
 
+    // 地形モデルとの当たり判定を取る為にレイキャストを行う
+    // レイの原点を足元にする
     DirectX::XMFLOAT3 origin = DirectX::XMFLOAT3(m_tParam.m_f3Pos.x, m_tParam.m_f3Pos.y - m_tParam.m_f3Size.y * 0.5f, m_tParam.m_f3Pos.z);
+    // 地形モデルとの当たり判定を取得
     HitResult result = CField::RayIntersectsTriangle(m_tParam.m_f3Pos, DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f));
-
+    // キャストした結果原点とヒット位置の距離がサイズの半分だったら
     if (result.Distance <= m_tParam.m_f3Size.y * 0.5f)
     {
+        // その位置に留める
         m_tParam.m_f3Pos.y = result.Position.y + m_tParam.m_f3Size.y * 0.5f;
+        // Y方向のVelocityを無効にする
         m_f3Velocity.y = 0.0f;
+        // ジャンプフラグオフ
         m_bJump = false;
     }
     else
     {
-        // 重力
+        // 地形と衝突していない時は重力を加算する
         m_f3Velocity.y -= 0.015f;
-    } 
+    }
 }
 
 void CPlayer::PlayerSkill()
 {
+    // キー入力に応じて出すスキルを変える
+    // スキル発動が成功したらSEを鳴らす
     if (IsMouseButtonTrigger(MOUSEBUTTON_L))
     {
         if(m_pJob->Skill(eSkill::NormalAttack)) m_pSE[(int)SEKind::NormalSkill]->Play();
@@ -275,5 +318,6 @@ void CPlayer::PlayerSkill()
         if (m_pJob->Skill(eSkill::RSkill)) m_pSE[(int)SEKind::RSkill]->Play();
     }
 
+    // ジョブの更新処理
     m_pJob->Update();
 }
