@@ -6,10 +6,12 @@
 CPlayerAttack::CPlayerAttack()
     : CAttackObject()
 {
+
 }
 
 CPlayerAttack::~CPlayerAttack()
 {
+
 }
 
 void CPlayerAttack::Init()

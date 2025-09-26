@@ -12,6 +12,7 @@ class CBillboardRenderer;
 class CHPBar : public CGameObject 
 {
 public:
+    CHPBar();
     virtual ~CHPBar();
     void Init() override;
     void Update() override;

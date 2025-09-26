@@ -7,8 +7,17 @@
 #include "DebugSystem.h"
 #include "BillboardRenderer.h"
 
+CHPBar::CHPBar()
+    : CGameObject()
+    , m_pHPBar{}
+    , m_tRendererParam{}, m_tParentID{}, m_tValue{}
+{
+
+}
+
 CHPBar::~CHPBar()
 {
+
 }
 
 void CHPBar::Init()

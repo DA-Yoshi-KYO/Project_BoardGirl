@@ -5,7 +5,8 @@
 #include "Sprite3DRenderer.h"
 
 CSelectArrow::CSelectArrow()
-    : m_pArrowSprite{}
+    : CGameObject()
+    , m_pArrowSprite{}
     , m_f3ArrowPos{}, m_f3ArrowSize{}, m_f3ArrowRotate{}
 {
 

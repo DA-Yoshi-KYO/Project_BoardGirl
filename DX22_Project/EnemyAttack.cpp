@@ -11,6 +11,7 @@ CEnemyAttack::CEnemyAttack()
 
 CEnemyAttack::~CEnemyAttack()
 {
+
 }
 
 void CEnemyAttack::Init()
