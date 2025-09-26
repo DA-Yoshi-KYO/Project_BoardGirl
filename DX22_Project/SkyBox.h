@@ -1,18 +1,17 @@
 #pragma once
 
+// インクルード部
 #include "GameObject.h"
 #include "ModelRenderer.h"
-#include "Player.h"
 
+/// <summary>
+/// スカイボックスの描画を行うクラス
+/// </summary>
 class CSkyBox : public CGameObject
 {
 public:
     ~CSkyBox();
     void Init() override;
     void Update() override;
-    void Draw() override;
-
-private:
-    CPlayer* m_pPlayer;
-
+    
 };

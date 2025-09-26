@@ -279,10 +279,10 @@ void CPlayer::PlayerMove()
     // 地形モデルとの当たり判定を取得
     HitResult result = CField::RayIntersectsTriangle(m_tParam.m_f3Pos, DirectX::XMFLOAT3(0.0f, -1.0f, 0.0f));
     // キャストした結果原点とヒット位置の距離がサイズの半分だったら
-    if (result.Distance <= m_tParam.m_f3Size.y * 0.5f)
+    if (result.m_fDistance <= m_tParam.m_f3Size.y * 0.5f)
     {
         // その位置に留める
-        m_tParam.m_f3Pos.y = result.Position.y + m_tParam.m_f3Size.y * 0.5f;
+        m_tParam.m_f3Pos.y = result.m_f3Position.y + m_tParam.m_f3Size.y * 0.5f;
         // Y方向のVelocityを無効にする
         m_f3Velocity.y = 0.0f;
         // ジャンプフラグオフ
