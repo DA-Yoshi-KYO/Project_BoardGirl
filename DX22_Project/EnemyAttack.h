@@ -1,7 +1,11 @@
 #pragma once
 
+// インクルード部
 #include "AttackObject.h"
 
+/// <summary>
+/// 敵の攻撃オブジェクトを扱うクラス
+/// </summary>
 class CEnemyAttack : public CAttackObject
 {
 public:

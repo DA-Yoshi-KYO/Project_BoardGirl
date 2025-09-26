@@ -4,7 +4,6 @@
 #include "CollisionObb.h"
 #include "Defines.h"
 #include "EnemyBase.h"
-#include "Effect.h"
 #include "PlayerAttack.h"
 #include "SkillUI.h"
 
@@ -56,7 +55,6 @@ protected:
     CEnemyBase* m_pTargetEnemy;
     bool isEnd;
     PlayerStatus m_tStatus;
-    AttackState m_tAttackState[(int)eSkill::Max];
 
 public:
     PlayerStatus GetStatus() { return m_tStatus; };

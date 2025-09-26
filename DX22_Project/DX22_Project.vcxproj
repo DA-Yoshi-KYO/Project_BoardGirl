@@ -165,7 +165,6 @@
     <ClCompile Include="DebugSystem.cpp" />
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="Dragon.cpp" />
-    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EnemyAttack.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyGenerater.cpp" />
@@ -248,7 +247,6 @@
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="Dragon.h" />
     <ClInclude Include="Easing.h" />
-    <ClInclude Include="Effect.h" />
     <ClInclude Include="EnemyAttack.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyGenerater.h" />

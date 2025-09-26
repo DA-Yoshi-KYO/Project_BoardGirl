@@ -357,3 +357,11 @@ inline float HelmiteValue(float t, float x0, float x1, float v0, float v1, float
 
     return out;
 }
+
+inline DirectX::XMFLOAT3 HelmiteValue(float t, DirectX::XMFLOAT3 x0, DirectX::XMFLOAT3 x1, DirectX::XMFLOAT3 v0, DirectX::XMFLOAT3 v1, float maxT = 1.0f)
+{
+    t = t / maxT;
+    DirectX::XMFLOAT3 out = powf(t - 1, 2) * (2 * t + 1) * x0 + powf(t, 2) * (3 - 2 * t) * x1 + powf(1 - t, 2) * t * v0 + (t - 1) * powf(t, 2) * v1;
+
+    return out;
+}

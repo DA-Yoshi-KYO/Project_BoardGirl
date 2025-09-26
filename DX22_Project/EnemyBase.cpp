@@ -1,3 +1,4 @@
+// インクルード部
 #include "EnemyBase.h"
 #include "Main.h"
 #include "Oparation.h"

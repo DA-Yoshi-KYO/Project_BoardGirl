@@ -7,12 +7,10 @@
 #include "Wizard.h"
 #include "Fighter.h"
 #include "Main.h"
-#include "Effect.h"
 #include "Oparation.h"
 #include "DebugSystem.h"
 #include "Field.h"
 #include "HPBar.h"
-#include "Job.h"
 #include "CollisionObb.h"
 
 // 定数・マクロ定義

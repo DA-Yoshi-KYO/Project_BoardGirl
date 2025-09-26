@@ -2,11 +2,11 @@
 
 // インクルード部
 #include "GameObject.h"
+#include "Job.h"
 
 // 前方宣言
 class CHPBar;
 class CCollisionObb;
-class CJob;
 
 /// <summary>
 /// プレイヤーを扱うクラス

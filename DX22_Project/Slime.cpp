@@ -1,3 +1,4 @@
+// インクルード部
 #include "Slime.h"
 #include "BillboardRenderer.h"
 #include "Oparation.h"

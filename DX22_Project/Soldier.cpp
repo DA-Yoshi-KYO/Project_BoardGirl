@@ -65,38 +65,51 @@ void CSoldier::AllSkill(eSkill inKind)
     DirectX::XMFLOAT3 f3AttackPos;
     DirectX::XMStoreFloat3(&f3AttackPos, vPos);
     f3AttackPos.y = f3Pos.y;
-    
-    CEffect* pEffect = GetScene()->AddGameObject<CEffect>("SoldierSkill", Tag::GameObject);
+
+
+    AttackState tState;
+    tState.m_f3Center = f3AttackPos;
+    tState.m_tDirectionState.m_eKind = DirectionKind::Stay;
+    tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
     switch (inKind)
     {
     case eSkill::NormalAttack:
-        pEffect->SetParam(eEffectKind::PlayerSwordNormalSkill, m_tStatus.m_fAttackDuration[(int)inKind]);
-        m_tAttackState[(int)inKind].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+        tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
+        tState.m_fAttackDuration = 0.5f;
+        tState.m_n2Split = DirectX::XMINT2(9, 1);
+        tState.m_nDamage = m_tStatus.m_nAttack;
+        tState.m_nSpeed = 1;
+        tState.m_sTexKey = "SwordNormalAttack";
         break;
     case eSkill::QSkill:
-        pEffect->SetParam(eEffectKind::PlayerSwordQSkill, m_tStatus.m_fAttackDuration[(int)inKind]);
-        m_tAttackState[(int)inKind].m_f3Size = DirectX::XMFLOAT3(3.0f, 1.0f, 1.0f);
+        tState.m_f3Size = DirectX::XMFLOAT3(3.0f, 1.0f, 1.0f);
+        tState.m_fAttackDuration = 1.0f;
+        tState.m_n2Split = DirectX::XMINT2(5, 3);
+        tState.m_nDamage = m_tStatus.m_nAttack * 2;
+        tState.m_nSpeed = 1;
+        tState.m_sTexKey = "SwordQSkill";
         break;
     case eSkill::ESkill:
-        pEffect->SetParam(eEffectKind::PlayerSwordESkill, m_tStatus.m_fAttackDuration[(int)inKind]);
-        m_tAttackState[(int)inKind].m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 3.0f);
+        tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 3.0f);
+        tState.m_fAttackDuration = 1.0f;
+        tState.m_n2Split = DirectX::XMINT2(5, 2);
+        tState.m_nDamage = m_tStatus.m_nAttack * 2;
+        tState.m_nSpeed = 1;
+        tState.m_sTexKey = "SwordESkill";
         break;
     case eSkill::RSkill:
-        pEffect->SetParam(eEffectKind::PlayerSwordRSkill, m_tStatus.m_fAttackDuration[(int)inKind], 3);
-        m_tAttackState[(int)inKind].m_f3Size = DirectX::XMFLOAT3(3.0f, 3.0f, 3.0f);
+        tState.m_f3Size = DirectX::XMFLOAT3(3.0f, 3.0f, 3.0f);
+        tState.m_fAttackDuration = 2.0f;
+        tState.m_n2Split = DirectX::XMINT2(2, 12);
+        tState.m_nDamage = m_tStatus.m_nAttack * 2;
+        tState.m_nSpeed = 1;
+        tState.m_sTexKey = "SwordRSkill";
         break;
     case eSkill::Max:
         break;
     default:
         break;
     }
-    pEffect->AccessorPos(f3AttackPos);
-    pEffect->AccessorSize(m_tAttackState[(int)inKind].m_f3Size);
 
-    m_tAttackState[(int)inKind].m_f3Center = f3AttackPos;
-    m_tAttackState[(int)inKind].m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)inKind];
-    m_tAttackState[(int)inKind].m_nDamage = m_tStatus.m_nAttack;
-    m_tAttackState[(int)inKind].m_tDirectionState.m_eKind = DirectionKind::Stay;
-    m_tAttackState[(int)inKind].m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
-    CJob::Attack(m_tAttackState[(int)inKind]);
+    CJob::Attack(tState);
 }

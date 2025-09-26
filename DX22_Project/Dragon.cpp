@@ -3,6 +3,7 @@
 #include "Oparation.h"
 #include "Player.h"
 #include "BillboardRenderer.h"
+#include "CollisionObb.h"
 
 CDragon::CDragon()
     : CEnemyBase()

@@ -5,6 +5,7 @@
 #include "EnemyAttack.h"
 #include "Main.h"
 #include "BillboardRenderer.h"
+#include "CollisionObb.h"
 
 // 定数・マクロ定義
 constexpr float ce_fShotSpeed = 0.2f;

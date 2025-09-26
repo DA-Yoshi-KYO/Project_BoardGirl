@@ -80,11 +80,10 @@ void CFighter::Update()
             tState.m_fAttackDuration = 1.0f;
             tState.m_nDamage = 0.0f;
             tState.m_tDirectionState.m_eKind = DirectionKind::FollowUp;
-            DirectX::XMFLOAT3 temp = DirectX::XMFLOAT3();
-            tState.m_tDirectionState.m_tFollowUp.m_f3Offset = &temp;
             tState.m_tDirectionState.m_tFollowUp.pTarget = pPlayer;
             tState.m_sTexKey = sKey;
             tState.m_n2Split = DirectX::XMINT2(10, 1);
+            tState.m_nSpeed = 1;
             CJob::Attack(tState);
         }
 
@@ -110,6 +109,7 @@ void CFighter::Update()
             tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
             tState.m_sTexKey = "FighterQSkill";
             tState.m_n2Split = DirectX::XMINT2(5, 2);
+            tState.m_nSpeed = 1;
             CJob::Attack(tState);
             m_bQSkill = false;
             fQSkillTime = 0.0f;
@@ -155,6 +155,7 @@ void CFighter::Update()
             tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
             tState.m_sTexKey = "FighterRSkill";
             tState.m_n2Split = DirectX::XMINT2(5, 1);
+            tState.m_nSpeed = 1;
             CJob::Attack(tState);
         }
 
@@ -189,6 +190,7 @@ void CFighter::NormalAttack()
     tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
     tState.m_sTexKey = "FighterNormalAttack";
     tState.m_n2Split = DirectX::XMINT2(10,1);
+    tState.m_nSpeed = 1;
     CJob::Attack(tState);
 }
 
@@ -203,11 +205,10 @@ void CFighter::QSkill()
     tState.m_fAttackDuration = 1.0f;
     tState.m_nDamage = 0;
     tState.m_tDirectionState.m_eKind = DirectionKind::FollowUp;
-    DirectX::XMFLOAT3 temp = DirectX::XMFLOAT3();
-    tState.m_tDirectionState.m_tFollowUp.m_f3Offset = &temp;
     tState.m_tDirectionState.m_tFollowUp.pTarget = pPlayer;
     tState.m_sTexKey = "FighterQSkillCharge1";
     tState.m_n2Split = DirectX::XMINT2(10, 1);
+    tState.m_nSpeed = 1;
     CJob::Attack(tState);
 }
 
@@ -221,13 +222,12 @@ void CFighter::ESkill()
     tState.m_f3Center = pPlayer->AccessorPos();
     tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
     tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::ESkill];
-    DirectX::XMFLOAT3 temp = DirectX::XMFLOAT3();
-    tState.m_tDirectionState.m_tFollowUp.m_f3Offset = &temp;
     tState.m_nDamage = 0;
     tState.m_tDirectionState.m_eKind = DirectionKind::FollowUp;
     tState.m_tDirectionState.m_tFollowUp.pTarget = pPlayer;
     tState.m_sTexKey = "FighterESkill";
     tState.m_n2Split = DirectX::XMINT2(8,1);
+    tState.m_nSpeed = 1;
     CJob::Attack(tState);
 }
 

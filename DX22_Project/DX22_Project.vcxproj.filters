@@ -231,9 +231,6 @@
     <ClCompile Include="Slime.cpp">
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>Code\GameObject\Billboard</Filter>
-    </ClCompile>
     <ClCompile Include="Audio.cpp">
       <Filter>Code\Component\Audio</Filter>
     </ClCompile>
@@ -430,9 +427,6 @@
     </ClInclude>
     <ClInclude Include="Slime.h">
       <Filter>Code\GameObject\Billboard\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>Code\GameObject\Billboard</Filter>
     </ClInclude>
     <ClInclude Include="Audio.h">
       <Filter>Code\Component\Audio</Filter>
