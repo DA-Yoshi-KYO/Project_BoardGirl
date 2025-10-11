@@ -88,11 +88,6 @@ void CJob::Update()
             GetScene()->GetGameObject(id)->AccessorColor(DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
         }
 
-        m_tStatus.m_fDurationTime[i] += fDeltaTime;
-        if (m_tStatus.m_fDurationTime[i] >= m_tStatus.m_fAttackDuration[i])
-        {
-            m_tStatus.m_fDurationTime[i] = 0.0f;
-        }
         if (i != 0)
         {
             m_pSkillUI[i - 1]->SetCurrentValue(m_tStatus.m_fSkillTime[i]);
