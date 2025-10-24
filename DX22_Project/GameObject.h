@@ -16,7 +16,8 @@ enum class Tag
     Field,     
     Sound,     
 	GameObject,
-	UI,        
+	PostEffect,
+	UI,
 
     Max
 };

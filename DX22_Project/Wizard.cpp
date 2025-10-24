@@ -19,14 +19,8 @@ CWizard::CWizard()
     m_tStatus.m_fSkillCooltime[(int)eSkill::ESkill] = 8.0f;
     m_tStatus.m_fSkillCooltime[(int)eSkill::RSkill] = 20.0f;
 
-    m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack] = 0.5f;
-    m_tStatus.m_fAttackDuration[(int)eSkill::QSkill] = 1.0f;
-    m_tStatus.m_fAttackDuration[(int)eSkill::ESkill] = 4.0f;
-    m_tStatus.m_fAttackDuration[(int)eSkill::RSkill] = 5.0f;
-
     for (int i = 0; i < (int)eSkill::Max; i++)
     {
-        m_tStatus.m_fDurationTime[i] = 0.0f;
         m_tStatus.m_fSkillTime[i] = 0.0f;
     }
 }
@@ -56,7 +50,7 @@ void CWizard::NormalAttack()
     AttackState tState;
     tState.m_f3Center = pPlayer->AccessorPos();
     tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-    tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack];
+    tState.m_fAttackDuration = 0.5f;
     tState.m_n2Split = DirectX::XMINT2(1, 4);
     tState.m_nDamage = m_tStatus.m_nAttack;
     tState.m_sTexKey = "WizardNormalAttack";
@@ -82,7 +76,7 @@ void CWizard::QSkill()
     AttackState tState;
     tState.m_f3Center = pPlayer->AccessorPos();
     tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-    tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::QSkill];
+    tState.m_fAttackDuration = 1.0f;
     tState.m_n2Split = DirectX::XMINT2(10, 1);
     tState.m_nDamage = m_tStatus.m_nAttack;
     tState.m_sTexKey = "WizardQSkill";
@@ -107,7 +101,7 @@ void CWizard::ESkill()
     AttackState tState;
     tState.m_f3Center = pPlayer->AccessorPos();
     tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-    tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::QSkill];
+    tState.m_fAttackDuration = 4.0f;
     tState.m_n2Split = DirectX::XMINT2(5, 4);
     tState.m_nDamage = 0;
     tState.m_sTexKey = "WizardESkill";
@@ -133,7 +127,7 @@ void CWizard::RSkill()
     AttackState tState;
     tState.m_f3Center = pPlayer->AccessorPos();
     tState.m_f3Size = DirectX::XMFLOAT3(5.0f, 5.0f, 5.0f);
-    tState.m_fAttackDuration = m_tStatus.m_fAttackDuration[(int)eSkill::RSkill];
+    tState.m_fAttackDuration = 5.0f;
     tState.m_n2Split = DirectX::XMINT2(5, 2);
     tState.m_nDamage = m_tStatus.m_nAttack;
     tState.m_sTexKey = "WizardRSkill";

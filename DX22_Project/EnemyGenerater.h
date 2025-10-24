@@ -1,5 +1,8 @@
 #pragma once
 
+// インクルード部
+#include <DirectXMath.h>
+
 // 敵のID
 enum class EnemyID
 {
@@ -44,7 +47,7 @@ public:
     /// <param name="position">
     /// 生成位置
     /// </param>
-    void GenerateEnemy(EnemyID enemyID, const DirectX::XMFLOAT3& position);
+    void GenerateEnemy(EnemyID enemyID, DirectX::XMFLOAT3 position);
 
 private:
     static CEnemyGenerater* m_pInstance;    // インスタンス

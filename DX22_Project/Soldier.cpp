@@ -14,14 +14,8 @@ CSoldier::CSoldier()
     m_tStatus.m_fSkillCooltime[(int)eSkill::ESkill] = 5.0f;
     m_tStatus.m_fSkillCooltime[(int)eSkill::RSkill] = 15.0f;
 
-    m_tStatus.m_fAttackDuration[(int)eSkill::NormalAttack] = 0.5f;
-    m_tStatus.m_fAttackDuration[(int)eSkill::QSkill] = 1.0f;
-    m_tStatus.m_fAttackDuration[(int)eSkill::ESkill] = 1.0f;
-    m_tStatus.m_fAttackDuration[(int)eSkill::RSkill] = 2.0f;
-
     for (int i = 0; i < (int)eSkill::Max; i++)
     {
-        m_tStatus.m_fDurationTime[i] = 0.0f;
         m_tStatus.m_fSkillTime[i] = 0.0f;
     }
 }

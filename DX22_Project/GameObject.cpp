@@ -1,6 +1,7 @@
 // インクルード部
 #include "GameObject.h"
 #include "DebugSystem.h"
+#include "Main.h"
 
 CGameObject::CGameObject()
     : m_bDestroy(false)

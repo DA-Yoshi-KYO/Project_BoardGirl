@@ -3,6 +3,7 @@
 #include "Defines.h"
 #include "CollisionBase.h"
 #include "GameObject.h"
+#include "Texture.h"
 
 class CScene
 {
@@ -106,9 +107,11 @@ public:
     std::array<std::list<CGameObject*>, (int)Tag::Max> GetGameObjectList();
 
     std::vector<CCollisionBase*> GetCollisionVec() { return m_pCollisionVec; };
+    std::vector<RenderTarget*> GetRenderTargetVec() { return m_pRTVVec; };
 protected:
     std::array<std::list<CGameObject*>,(int)Tag::Max> m_pGameObject_List; // シーン内のゲームオブジェクトリスト
     std::vector<CCollisionBase*> m_pCollisionVec; // 衝突判定用のコンポーネントリスト
+    std::vector<RenderTarget*> m_pRTVVec; // シーン内で使用するレンダーターゲットリスト
 
 private:
     std::vector<ObjectID> m_tIDVec;

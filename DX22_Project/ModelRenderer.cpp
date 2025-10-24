@@ -49,8 +49,10 @@ void CModelRenderer::Draw()
 
     // モデルにシェーダーをセット
     Model* pModel = std::get<ModelParam>(m_RendererObjectMap.find(m_sKey.c_str())->second.m_Data).m_pModel;
+
     pModel->SetVertexShader(ShaderList::GetVS(ShaderList::VS_WORLD));
-    pModel->SetPixelShader(ShaderList::GetPS(ShaderList::PS_SPECULAR));
+    if (m_pPixelShader)pModel->SetPixelShader(m_pPixelShader);
+    else pModel->SetPixelShader(ShaderList::GetPS(ShaderList::PS_SPECULAR));
 
     // モデルの描画
     for (unsigned int i = 0; i < pModel->GetMeshNum(); i++)

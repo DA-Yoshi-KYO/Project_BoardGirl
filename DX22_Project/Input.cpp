@@ -10,7 +10,7 @@ const int g_nMouseBtn[] = { VK_LBUTTON, VK_RBUTTON, VK_MBUTTON, VK_XBUTTON1, VK_
 HRESULT InitInput()
 {
 	// 一番最初の入力
-	GetKeyboardState(g_keyTable);
+	BOOL result = GetKeyboardState(g_keyTable);
 	return S_OK;
 }
 

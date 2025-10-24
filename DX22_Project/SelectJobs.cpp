@@ -53,7 +53,7 @@ void CSelectJobs::Init()
 
     // 戦士の位置を初期値(手前)として、円状にキャラを配置する
     // 円の中心をXZ(0,0)とした時、各キャラの位置は
-    // XZ = (0 + r * cos(θ) , 0 + r * sin(θ))となる
+    // XZ = (0 + r * cos(θ) , 0 - r * sin(θ))となる
     for (int i = 0; i < (int)JobKind::Max; i++)
     {
         m_tJobsParam[i].m_f2UVSize = { 1.0f / (float)ce_n2Split.x, 1.0f / (float)ce_n2Split.y };

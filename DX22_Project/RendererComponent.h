@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "Texture.h"
 #include "Model.h"
+#include "Shader.h"
 #include <variant>
 
 // 描画するオブジェクトの種類
@@ -187,9 +188,12 @@ public:
 	/// </param>
 	void SetKey(std::string inKey);
 
+
+    void SetPixelShader(PixelShader* inPixelShader);
+
 protected:
 	RendererParam m_tParam;	// レンダラーの統合パラメータ
 	static std::map<std::string, RendererObject> m_RendererObjectMap;   // 読み込んだオブジェクトをキー位置に保存するマップ
 	std::string m_sKey; // 呼び出し用のキー
-
+    PixelShader* m_pPixelShader = nullptr;
 };
