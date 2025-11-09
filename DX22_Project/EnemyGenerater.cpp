@@ -48,7 +48,7 @@ void CEnemyGenerater::GenerateEnemy(EnemyID inEnemyID, DirectX::XMFLOAT3 positio
         pEnemy = pScene->AddGameObject<CGhost>("Ghost", Tag::GameObject);
         break;
     case EnemyID::Dragon:
-        pScene->AddGameObject<CDragon>("Dragon", Tag::GameObject);
+        pEnemy = pScene->AddGameObject<CDragon>("Dragon", Tag::GameObject);
         break;
     default:
         MessageBox(NULL, "NotFindEnemy", "Error", MB_OK);
