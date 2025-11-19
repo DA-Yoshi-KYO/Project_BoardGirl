@@ -293,6 +293,7 @@ public:
 
 protected:
     RendererParam m_tParam;         // 描画パラメータ
+
     DirectX::XMFLOAT3 m_f3OldPos;   // 前フレームの位置
     bool m_bDestroy;                // オブジェクトが破棄されているかのフラグ
     Tag m_eTag;                     // オブジェクトのタグ

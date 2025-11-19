@@ -7,7 +7,7 @@
 #include "MouseUI.h"
 
 CJob::CJob()
-    : m_tStatus{}, m_pTargetEnemy(nullptr), isEnd(false), m_pSkillUI{}
+    : m_tStatus{}, isEnd(false), m_pSkillUI{}
 {
     CScene* pScene = GetScene();
     CPlayer* pPlayer = pScene->GetGameObject<CPlayer>();

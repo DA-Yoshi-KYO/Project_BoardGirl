@@ -26,7 +26,7 @@ void CSceneGame::Init()
     AddGameObject<CField>("Field", Tag::Field);
     AddGameObject<CSkyBox>("SkyBox", Tag::SkyBox);
 
-    CEnemyGenerater::GetInstance()->GenerateEnemy("Dragon", DirectX::XMFLOAT3(0.0f, 2.0f, 0.0f));
+    CEnemyGenerater::GetInstance()->GenerateEnemy(EnemyID::Dragon, DirectX::XMFLOAT3(0.0f, 2.0f, 0.0f));
     CBGMPlayer* pPlayer = AddGameObject<CBGMPlayer>("BGM", Tag::Sound);
     pPlayer->Load(AUDIO_PATH("BGM/GameBGM.wav"));
     pPlayer->SetVolume(0.1f);
@@ -116,7 +116,7 @@ void CSceneGame::GenerateSystem()
     {
         if ((int)m_fTime % 60 == 0)
         {
-            CEnemyGenerater::GetInstance()->GenerateEnemy("Dragon", DirectX::XMFLOAT3(0.0f, 2.0f, 0.0f));
+            CEnemyGenerater::GetInstance()->GenerateEnemy(EnemyID::Dragon, DirectX::XMFLOAT3(0.0f, 2.0f, 0.0f));
         }
         for (int i = 0; i < 5 * ((int)m_fTime / 60 + 1); i++)
         {
@@ -124,10 +124,10 @@ void CSceneGame::GenerateSystem()
             switch (rundom)
             {
             case 0:
-                CEnemyGenerater::GetInstance()->GenerateEnemy("Slime", DirectX::XMFLOAT3(GetRandOfRange(-20,20), 2.0f, GetRandOfRange(-20, 20)));
+                CEnemyGenerater::GetInstance()->GenerateEnemy(EnemyID::Slime, DirectX::XMFLOAT3(GetRandOfRange(-20,20), 2.0f, GetRandOfRange(-20, 20)));
                 break;
             case 1:
-                CEnemyGenerater::GetInstance()->GenerateEnemy("Ghost", DirectX::XMFLOAT3(GetRandOfRange(-20, 20), 2.0f, GetRandOfRange(-20, 20)));
+                CEnemyGenerater::GetInstance()->GenerateEnemy(EnemyID::Ghost, DirectX::XMFLOAT3(GetRandOfRange(-20, 20), 2.0f, GetRandOfRange(-20, 20)));
                 break;
             default:
                 break;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <DirectXMath.h>
+
 // 敵のID
 enum class EnemyID
 {
