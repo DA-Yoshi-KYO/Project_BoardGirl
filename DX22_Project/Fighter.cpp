@@ -143,7 +143,7 @@ void CFighter::Update()
             AttackState tState;
             tState.m_f3Center = f3AttackPos;
             tState.m_f3Size = DirectX::XMFLOAT3({ 1.0f, 1.0f, 1.0f });
-            tState.m_fAttackDuration = 1.0f;
+            tState.m_fAttackDuration = 0.5f;
             tState.m_nDamage = m_tStatus.m_nAttack;
             tState.m_tDirectionState.m_eKind = DirectionKind::Stay;
             tState.m_tDirectionState.m_tStayPos.m_f3StayPos = f3AttackPos;
@@ -215,7 +215,7 @@ void CFighter::ESkill()
     AttackState tState;
     tState.m_f3Center = pPlayer->AccessorPos();
     tState.m_f3Size = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
-    tState.m_fAttackDuration = 0.5f;
+    tState.m_fAttackDuration = 1.0f;
     tState.m_nDamage = 0;
     tState.m_tDirectionState.m_eKind = DirectionKind::FollowUp;
     tState.m_tDirectionState.m_tFollowUp.pTarget = pPlayer;

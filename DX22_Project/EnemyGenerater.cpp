@@ -32,12 +32,13 @@ void CEnemyGenerater::ReleaseInstance()
     }
 }
 
-void CEnemyGenerater::GenerateEnemy(EnemyID inEnemyID, const DirectX::XMFLOAT3& position)
+void CEnemyGenerater::GenerateEnemy(EnemyID inEnemyID, DirectX::XMFLOAT3 position)
 {
+    // 現在シーンを取得
     CScene* pScene = GetScene();
-    CEnemyBase* pEnemy = nullptr;
 
     // IDによって生成する敵を決める
+    CEnemyBase* pEnemy = nullptr;
     switch (inEnemyID)
     {
     case EnemyID::Slime:
@@ -47,7 +48,7 @@ void CEnemyGenerater::GenerateEnemy(EnemyID inEnemyID, const DirectX::XMFLOAT3& 
         pEnemy = pScene->AddGameObject<CGhost>("Ghost", Tag::GameObject);
         break;
     case EnemyID::Dragon:
-        pScene->AddGameObject<CDragon>("Dragon", Tag::GameObject);
+        pEnemy = pScene->AddGameObject<CDragon>("Dragon", Tag::GameObject);
         break;
     default:
         MessageBox(NULL, "NotFindEnemy", "Error", MB_OK);

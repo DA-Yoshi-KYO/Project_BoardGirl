@@ -15,8 +15,6 @@
 
 void CSceneGame::Init()
 {
-
-
     // カメラの設定をインゲームモードに変更
     CCamera::SetCameraKind(CAM_PLAYER);
 
@@ -34,6 +32,9 @@ void CSceneGame::Init()
 
     m_fTime = 0.0f;
     m_nLastSpawnTime = 0;
+
+    m_pRTVVec.push_back(new RenderTarget());
+    (*m_pRTVVec.rbegin())->Create(DXGI_FORMAT_R8G8B8A8_UNORM, SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 void CSceneGame::Update()

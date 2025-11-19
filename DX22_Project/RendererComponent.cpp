@@ -91,6 +91,11 @@ void CRendererComponent::SetKey(std::string inKey)
 	}
 }
 
+void CRendererComponent::SetPixelShader(PixelShader* inPixelShader)
+{
+    m_pPixelShader = inPixelShader;
+}
+
 void CRendererComponent::Load(RendererKind inKind, const char* inPath, std::string inKey, float scale, Model::Flip flip)
 {
 	// そのキー位置に既にオブジェクトがロード済みかをチェックする

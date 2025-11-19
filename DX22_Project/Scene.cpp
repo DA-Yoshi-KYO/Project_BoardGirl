@@ -25,6 +25,12 @@ void CScene::Uninit()
         list.clear();
 	}
 
+    for (auto itr : m_pRTVVec)
+    {
+        delete itr;
+        itr = nullptr;
+    }
+
     m_tIDVec.clear();
     m_pCollisionVec.clear();
 }
@@ -110,7 +116,7 @@ void CScene::Draw()
 
     for (auto& list : m_pGameObject_List)
     {
-        for (auto obj : list)
+        for (auto& obj : list)
         {
             obj->Draw();
         }

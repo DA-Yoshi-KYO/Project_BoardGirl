@@ -51,6 +51,7 @@ void CHPBar::Init()
 
 void CHPBar::Update()
 {
+    // 所持者の頭上にHPバーを設置
     CScene* pScene = GetScene();
     DirectX::XMFLOAT3 f3ObjectPos = pScene->GetGameObject(m_tParentID)->AccessorPos();
     float fOffsetY = pScene->GetGameObject(m_tParentID)->AccessorSize().y * 0.5f;
@@ -59,15 +60,25 @@ void CHPBar::Update()
     {
         m_tRendererParam[i].m_f3Pos = f3ObjectPos;
     }
+
+    // 残りHPの割合を算出
     float fStep = (float)m_tValue.m_nCurrentHP / (float)m_tValue.m_nMaxHP;
+
+    // HPバーのサイズをHP割合のサイズにする(最大HP * 残りHP割合)
     m_tRendererParam[(int)TextureKind::Flont].m_f3Size.x = m_tValue.m_fMaxSize * fStep;
-    float fOffSetRatio = 1.0f - fStep;
+
+    // 削れたHPバーのサイズの半分を座標から引くことで全体の座標を維持する
+    // 通常のHPバーは横にずらせばよいが3Dでの描画の為、
+    // カメラ視点にとっての右方向ベクトル(今回の場合プレイヤー)を使用する
     DirectX::XMFLOAT3 f3MovePos = pScene->GetGameObject<CPlayer>()->GetRight();
     f3MovePos.x *= m_tValue.m_fMaxSize * 0.5f;
+    float fOffSetRatio = 1.0f - fStep;
     DirectX::XMFLOAT3 f3OffSetRight = f3MovePos * fOffSetRatio;
-
     m_tRendererParam[(int)TextureKind::Flont].m_f3Pos -= f3OffSetRight;
+
+    // HPバー全体の座標として、背景部分の座標を使用する
     m_tParam.m_f3Pos = m_tRendererParam[(int)TextureKind::Back].m_f3Pos;
+
     CGameObject::Update();
 }
 

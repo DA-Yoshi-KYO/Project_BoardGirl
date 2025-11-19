@@ -31,6 +31,9 @@ void CSprite3DRenderer::Draw()
     // 描画用パラメータのセット
     Sprite::SetParam(m_tParam, SpriteKind::World);
 
+    // ピクセルシェーダーのセット
+    Sprite::SetPixelShader(m_pPixelShader);
+
     // テクスチャのセット
     Sprite::SetTexture(std::get<Texture*>(m_RendererObjectMap.find(m_sKey.c_str())->second.m_Data));
 
